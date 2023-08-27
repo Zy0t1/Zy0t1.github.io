@@ -1,8 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>test</title>
-    <url>/2023/08/25/hello-world/</url>
-    <content><![CDATA[<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><h6 id="test-1"><a href="#test-1" class="headerlink" title="test"></a>test</h6>]]></content>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
+<ul>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
+</li>
+<li><p>小端存储：高字节放高地址；</p>
+</li>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
+</li>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
+</li>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
+</li>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
+<blockquote>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
+</blockquote>
+</li>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
+<ul>
+<li>保护模式：所有指令可用，程序被分配的段以外的空间不允许访问。其下的虚拟8086模式，会防止一个崩溃的程序影响其他人</li>
+<li>实地址模式：直接访问内存和硬件</li>
+<li>系统管理模式：专门为OS提供的模式</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
+</li>
+<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
+</li>
+</ul>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>二进制</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+        <tag>x86</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Misc</title>
+    <url>/2023/08/27/Misc/</url>
+    <content><![CDATA[<p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+<span id="more"></span>
+
+<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<ul>
+<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+</li>
+<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+</li>
+<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+</blockquote>
+</li>
+<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+</li>
+<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+</li>
+<li><p>Base编码</p>
+<ul>
+<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
+<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
+<li>base58、85、91、92、36、62</li>
+</ul>
+</li>
+</ul>
+<p><strong>古典密码</strong>：</p>
+<ul>
+<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
+<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
+<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
+<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
+<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
+<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
+<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
+<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+</ul>
+<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考[CTF wiki]<a href="https://quipqiup.com/">quipqiup - cryptoquip and cryptogram solver</a></p>
+<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
+<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
+<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
+<pre><code>图片
+JPEG/jpg:头FF-D8-FF;尾FF-D9
+PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
+GIF:头47-49-46-38-39/37-61;尾00-3B
+BMP:头42-4D
+压缩包
+ZIP:头50-4B-03-04;尾50-4B
+RAR:头52-61-72-21
+音频
+WAV:头57-41-56-45
+视频
+AVI:头41-56-49-20
+</code></pre>
+<ul>
+<li><p>文件拼接</p>
+<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<ul>
+<li>工具：binwalk（kali）、foremost</li>
+<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
+</ul>
+</li>
+<li><p>LSB隐写</p>
+<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
+<ul>
+<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
+</ul>
+</li>
+<li><p>基于文件属性</p>
+<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
+<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
+<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
+<p>工具：pngcheck</p>
+</li>
+<li><p>一些杂的</p>
+<ul>
+<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
+<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
+<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
+</ul>
+</li>
+<li><p>压缩包</p>
+<ul>
+<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
+</li>
+<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
+</li>
+<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
+</li>
+<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+</li>
+</ul>
+</li>
+<li><p>音频</p>
+<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
+<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+</li>
+</ul>
+<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>Misc</tag>
+      </tags>
   </entry>
 </search>

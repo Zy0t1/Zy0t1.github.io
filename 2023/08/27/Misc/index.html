@@ -21,23 +21,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Zy0t1&#39;s blog">
-<meta property="og:url" content="https://zy0t1.github.io/index.html">
+    <meta name="description" content="​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Misc">
+<meta property="og:url" content="https://zy0t1.github.io/2023/08/27/Misc/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-27T07:57:02.000Z">
+<meta property="article:modified_time" content="2023-08-27T08:05:52.537Z">
 <meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="Misc">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://zy0t1.github.io/">
+<link rel="canonical" href="https://zy0t1.github.io/2023/08/27/Misc/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/08/27/Misc/","path":"2023/08/27/Misc/","title":"Misc"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Zy0t1's blog</title>
+<title>Misc | Zy0t1's blog</title>
   
 
 
@@ -70,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Zy0t1's blog</h1>
+      <p class="site-title">Zy0t1's blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
@@ -124,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -137,6 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">0x01编码与古典密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02%E9%9A%90%E5%86%99%E6%9C%AF"><span class="nav-number">2.</span> <span class="nav-text">0x02隐写术</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -183,16 +190,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/08/27/Misc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,13 +214,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Zy0t1's blog">
+      <meta itemprop="name" content="Misc | Zy0t1's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/27/Misc/" class="post-title-link" itemprop="url">Misc</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Misc
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -236,6 +244,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
@@ -259,17 +274,126 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/27/Misc/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+    <div class="post-body" itemprop="articleBody"><p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+<span id="more"></span>
+
+<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<ul>
+<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+</li>
+<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+</li>
+<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+</blockquote>
+</li>
+<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+</li>
+<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+</li>
+<li><p>Base编码</p>
+<ul>
+<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
+<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
+<li>base58、85、91、92、36、62</li>
+</ul>
+</li>
+</ul>
+<p><strong>古典密码</strong>：</p>
+<ul>
+<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
+<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
+<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
+<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
+<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
+<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
+<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
+<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+</ul>
+<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考[CTF wiki]<a target="_blank" rel="noopener" href="https://quipqiup.com/">quipqiup - cryptoquip and cryptogram solver</a></p>
+<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
+<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
+<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
+<pre><code>图片
+JPEG/jpg:头FF-D8-FF;尾FF-D9
+PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
+GIF:头47-49-46-38-39/37-61;尾00-3B
+BMP:头42-4D
+压缩包
+ZIP:头50-4B-03-04;尾50-4B
+RAR:头52-61-72-21
+音频
+WAV:头57-41-56-45
+视频
+AVI:头41-56-49-20
+</code></pre>
+<ul>
+<li><p>文件拼接</p>
+<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<ul>
+<li>工具：binwalk（kali）、foremost</li>
+<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
+</ul>
+</li>
+<li><p>LSB隐写</p>
+<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
+<ul>
+<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
+</ul>
+</li>
+<li><p>基于文件属性</p>
+<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
+<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
+<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
+<p>工具：pngcheck</p>
+</li>
+<li><p>一些杂的</p>
+<ul>
+<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
+<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
+<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
+</ul>
+</li>
+<li><p>压缩包</p>
+<ul>
+<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
+</li>
+<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
+</li>
+<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
+</li>
+<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+</li>
+</ul>
+</li>
+<li><p>音频</p>
+<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
+<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+</li>
+</ul>
+<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+
     </div>
 
     
@@ -277,112 +401,26 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/Misc/" rel="tag"># Misc</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/08/27/x86%E6%B1%87%E7%BC%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head_picture.jpg">
-      <meta itemprop="name" content="Zy0t1">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zy0t1's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Zy0t1's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/27/x86%E6%B1%87%E7%BC%96/" class="post-title-link" itemprop="url">x86汇编</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-08-27 15:47:26 / 修改时间：16:01:38" itemprop="dateCreated datePublished" datetime="2023-08-27T15:47:26+08:00">2023-08-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%BA%8C%E8%BF%9B%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">二进制</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/27/x86%E6%B1%87%E7%BC%96/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/27/x86%E6%B1%87%E7%BC%96/" rel="prev" title="x86汇编">
+                  <i class="fa fa-angle-left"></i> x86汇编
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
+
 
 
 
