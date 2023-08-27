@@ -1084,7 +1084,7 @@ pre code {
 }
 .sidebar-inner {
   color: #999;
-  padding: 18px 10px;
+  padding: 16px 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1378,7 +1378,7 @@ pre code {
 }
 .site-state-item-count {
   display: block;
-  font-size: 1em;
+  font-size: 0.9em;
   font-weight: 600;
 }
 .site-state-item-name {
@@ -1571,7 +1571,7 @@ pre code {
   width: 10px;
 }
 .posts-collapse .post-content .collection-year {
-  font-size: 1.5em;
+  font-size: 1.35em;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1792,7 +1792,7 @@ pre code {
   text-align: center;
 }
 .posts-expand .post-title {
-  font-size: 1.5em;
+  font-size: 1.35em;
   font-weight: normal;
   margin: initial;
   overflow-wrap: break-word;
@@ -2605,4 +2605,19 @@ header.header {
   .comments {
     padding: 10px 12px;
   }
+}
+/* 侧边栏图标格式设置 */
+.wy {
+  background-image: url("/images/wy.svg");
+  background-size: 1.2em 1.2em;
+  opacity: 0.5;
+  background-position: 0.05rem 0.21rem;
+  background-repeat: no-repeat;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 0rem;
+/*鼠标停留在图标上时，图标呈现发光效果*/
+}
+.wy:hover {
+  opacity: 1;
 }
