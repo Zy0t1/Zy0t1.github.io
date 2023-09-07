@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这里将会讲解一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络基础">
+<meta property="og:url" content="https://zy0t1.github.io/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="这里将会讲解一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-30T10:04:23.000Z">
+<meta property="article:modified_time" content="2023-08-30T10:04:23.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="基础知识">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/","path":"2023/08/30/网络基础/","title":"网络基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>网络基础 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-URL"><span class="nav-number">1.</span> <span class="nav-text">0x01.URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-DNS"><span class="nav-number">2.</span> <span class="nav-text">0x02.DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-IP"><span class="nav-number">3.</span> <span class="nav-text">0x03.IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-HTTP"><span class="nav-number">4.</span> <span class="nav-text">0x04.HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-Cookie"><span class="nav-number">5.</span> <span class="nav-text">0x05.Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-HTTPS"><span class="nav-number">6.</span> <span class="nav-text">0x06.HTTPS</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="网络基础 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-30 18:04:23" itemprop="dateModified" datetime="2023-08-30T18:04:23+08:00">2023-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这里将会讲解一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。</p>
+<span id="more"></span>
+
+<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
+</code></pre>
+<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
+<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
+<blockquote>
+<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
+</blockquote>
+<ul>
+<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
+</li>
+<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
+</li>
+<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
+<blockquote>
+<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20、21</td>
+<td>FTP（20连接、21传输）</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>80&#x2F;443</td>
+<td>HTTP&#x2F;S</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
+<blockquote>
+<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
+<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
+</blockquote>
+</li>
+<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
+</li>
+<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
+</li>
+</ul>
+<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
+<ul>
+<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
+</li>
+<li><p>应用层协议，运行在UDP上，53号端口。</p>
+</li>
+<li><p>DNS域名解析过程如下:</p>
+<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
+</li>
+</ul>
+<blockquote>
+<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
+</blockquote>
+<ul>
+<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>顶级域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.com &#x2F; .net  &#x2F;.org</td>
+<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
+</tr>
+<tr>
+<td>.gov</td>
+<td>政府机构</td>
+</tr>
+<tr>
+<td>.edu</td>
+<td>教育机构</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>军事机构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AAAA</td>
+<td>主机名</td>
+<td>IPv4&#x2F;6地址</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>域</td>
+<td>具体主机名</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>别名</td>
+<td>规范主机名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮件服务器别名</td>
+<td>规范主机名</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DNS报文：查询回答报文格式相同；</p>
+<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题区</td>
+<td>正在查询的主机名字+问题类型</td>
+</tr>
+<tr>
+<td>回答区</td>
+<td>存RR</td>
+</tr>
+<tr>
+<td>权威区</td>
+<td>TLD</td>
+</tr>
+<tr>
+<td>附加信息区</td>
+<td>else</td>
+</tr>
+</tbody></table>
+<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
+<ul>
+<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
+<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
+<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围（左闭右开）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0.0.0.0~128.0.0.0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>128.0.0.0~192.0.0.0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.0.0.0~224.0.0.0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224.0.0.0~240.0.0.0</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240.0.0.0~248.0.0.0</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
+<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
+</li>
+<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
+</li>
+<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
+</li>
+<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
+<p><strong>报头格式</strong>：</p>
+<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
+<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
+<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
+</li>
+<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
+<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
+</li>
+</ul>
+<blockquote>
+<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
+</blockquote>
+<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
+<ul>
+<li><p>特点：</p>
+<ol>
+<li>无连接：每次一个请求。</li>
+<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
+<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
+</ol>
+</li>
+<li><p>发展：</p>
+<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
+<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
+<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
+<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
+<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
+</li>
+<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
+</li>
+</ul>
+<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
+头部字段名：值--------------------------------请求头部/消息报头
+空行
+（请求正文）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>方法（共8种）</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get</td>
+<td>向特定资源发送请求</td>
+</tr>
+<tr>
+<td>post</td>
+<td>请求处理数据，此时含有请求正文</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>消息报头（可由服务端自定义其他的）</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>客户端能够接收的文件类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>支持的字符集编码</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>浏览器可支持的内容压缩编码类型</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>浏览器可接受的语言</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Http授权的证书类型</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>请求响应过程遵循的缓存机制</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>表明是否需要持久连接的</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>包含在请求URL域名下的所有有关cookie值</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>MIME</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
+</blockquote>
+<ul>
+<li><strong>响应报文</strong>：</li>
+</ul>
+<pre><code>http版本+状态码+英文（not found？）-------------------状态行
+响应首部------------------------消息报头
+空行
+主体------------------响应正文
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>栗子</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx(正在处理)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2xx(成功)</td>
+<td>200(ok)、204(no content)</td>
+<td>请求成功；服务器正常处理，但就是没返回内容</td>
+</tr>
+<tr>
+<td>3xx(重定向，即需要附加操作)</td>
+<td>301、302</td>
+<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
+</tr>
+<tr>
+<td>4xx(客户端错误)</td>
+<td>400、401、403、404</td>
+<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
+</tr>
+<tr>
+<td>5xx(服务端错误)</td>
+<td>500、501、503</td>
+<td>服务器内部错误；不支持请求功能；超载</td>
+</tr>
+</tbody></table>
+<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
+<ul>
+<li><p>过程如下：</p>
+<p>客户端发送一个请求到服务器——服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——服务器返回响应数据</p>
+</li>
+</ul>
+<ul>
+<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
+<ol>
+<li><p>NAME：cookie的名字；</p>
+</li>
+<li><p>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；</p>
+</li>
+<li><p>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</p>
+</li>
+<li><p>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</p>
+</li>
+</ol>
+<blockquote>
+<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
+<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
+</blockquote>
+<ol start="5">
+<li><p>Size：Cookie文件大小；</p>
+</li>
+<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
+</li>
+<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
+</li>
+</ol>
+</li>
+<li><p>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端；自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。</p>
+</li>
+</ul>
+<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
+<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
+<ul>
+<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
+<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
+<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
+</ul>
+<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
+<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
+<ul>
+<li><p><strong>TLS具体过程</strong>：</p>
+<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
+<ol>
+<li>Bob打招呼并发送第一随机数</li>
+<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
+<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
+<li>Server接收到后，用私钥解密，得到预主密钥</li>
+<li>双方用三个随机数共同加密生成最终会话密钥</li>
+<li>之后进行对称加密进行交流</li>
+</ol>
+</li>
+<li><p><strong>CT</strong>（证书透明度）框架：</p>
+<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 网络</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 基础知识</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/" rel="prev" title="区块链介绍">
+                  <i class="fa fa-angle-left"></i> 区块链介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" rel="next" title="后端基础知识">
+                  后端基础知识 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:05</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"42b4fb2607bfbeb45c8863272e68b188"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在介篇文章中，我们会对后端，也就是服务器做一个大概了解，同时也会对必须的数据库做一些理论知识说明。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后端基础知识">
+<meta property="og:url" content="https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="在介篇文章中，我们会对后端，也就是服务器做一个大概了解，同时也会对必须的数据库做一些理论知识说明。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-01T10:49:06.000Z">
+<meta property="article:modified_time" content="2023-09-01T10:49:06.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="基础知识">
+<meta property="article:tag" content="后端">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/","path":"2023/09/01/数据库理论/","title":"后端基础知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>后端基础知识 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">0x01.什么是服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">服务器介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">服务器分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">0x02.数据库理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">（1）介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89DataBase"><span class="nav-number">2.2.</span> <span class="nav-text">（2）DataBase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">（3）数据库系统结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89DBMS"><span class="nav-number">2.4.</span> <span class="nav-text">（4）DBMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.</span> <span class="nav-text">（5）关系模型</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="后端基础知识 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          后端基础知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-01 18:49:06" itemprop="dateModified" datetime="2023-09-01T18:49:06+08:00">2023-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在介篇文章中，我们会对后端，也就是服务器做一个大概了解，同时也会对必须的数据库做一些理论知识说明。</p>
+<span id="more"></span>
+
+<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
+<ul>
+<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
+</li>
+<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
+</li>
+<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
+</li>
+<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
+</li>
+<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
+</li>
+<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
+</li>
+<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
+</li>
+<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
+</li>
+</ul>
+<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
+<table>
+<thead>
+<tr>
+<th>体系结构分类</th>
+<th>规模&#x2F;应用层次分类</th>
+<th>结构分类</th>
+<th>用途分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86服务器(RISC)</td>
+<td>入门级</td>
+<td>塔式服务器</td>
+<td>通用型</td>
+</tr>
+<tr>
+<td>非x86服务器(CISC)</td>
+<td>工作组级</td>
+<td>机架式服务器</td>
+<td>专用型</td>
+</tr>
+<tr>
+<td></td>
+<td>部门级</td>
+<td>刀片式服务器</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>企业级</td>
+<td>机柜式服务器</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Web服务器</strong>：</p>
+<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
+<p><strong>DB服务器</strong>：</p>
+<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
+<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>SQL server</th>
+<th>Oracle</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源、简单、小；字符客户端mysql</td>
+<td>微软、可免费；图形化客户端ADS</td>
+<td>顶级；字符客户端sqlplus</td>
+<td>开源；字符客户端pesql</td>
+</tr>
+<tr>
+<td>数据量大时不太行</td>
+<td>windows专属</td>
+<td>收费</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非关系型数据库：</p>
+<ul>
+<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
+<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
+<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
+<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
+<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
+</ul>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<p>发展阶段：人工管理—文件系统—数据库系统。</p>
+<blockquote>
+<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>人工管理</th>
+<th>文件系统</th>
+<th>数据库系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不保存数据</td>
+<td>可以长期保存</td>
+<td>结构化</td>
+</tr>
+<tr>
+<td>没有相应软件</td>
+<td>有专门软件</td>
+<td>数据由DBMS统一管理</td>
+</tr>
+<tr>
+<td>不共享</td>
+<td>共享性差</td>
+<td>共享性好，冗余度低</td>
+</tr>
+<tr>
+<td>数据之间不独立</td>
+<td>独立性差</td>
+<td>高度物理独立性，一定逻辑独立性</td>
+</tr>
+</tbody></table>
+<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据结构</th>
+<th>查询效率</th>
+<th>数据独立性</th>
+<th>DML操作方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>层次、网状</td>
+<td>链表</td>
+<td>低</td>
+<td>差</td>
+<td>过程性</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>二维表</td>
+<td>高</td>
+<td>高</td>
+<td>非过程性</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
+</li>
+<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
+</li>
+<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
+</li>
+</ul>
+<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
+<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
+<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
+<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
+<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
+</ul>
+<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<ol>
+<li><p><strong>关系数据结构</strong></p>
+<ul>
+<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
+<p>关系的6条性质：</p>
+<ul>
+<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
+</li>
+<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
+</li>
+<li><p>每个分量都是原子值，不能进一步拆分；</p>
+</li>
+</ul>
+</li>
+<li><p>关系模式:表的名字；</p>
+<ul>
+<li>形式化:R(U，D，DOM，F)</li>
+<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+</ul>
+</li>
+<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
+</li>
+<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
+</li>
+<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
+</li>
+<li><p>分量:交叉点；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关系的完整性</strong></p>
+<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<ul>
+<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
+</li>
+<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
+<blockquote>
+<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>关系操作</strong></p>
+<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+<ul>
+<li><p>并union：A+B（可用差表示）</p>
+<blockquote>
+<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
+</blockquote>
+</li>
+<li><p>差difference：A-B</p>
+</li>
+<li><p>交intersection：A·B</p>
+</li>
+<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
+</li>
+<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
+</li>
+<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
+</li>
+<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
+<blockquote>
+<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
+</blockquote>
+</li>
+<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
+<blockquote>
+<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
+</blockquote>
+</li>
+<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
+<blockquote>
+<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 基础知识</a>
+              <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 后端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="prev" title="网络基础">
+                  <i class="fa fa-angle-left"></i> 网络基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:05</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"ebc45a491c1b27de6a07571d0cb0e57c"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>

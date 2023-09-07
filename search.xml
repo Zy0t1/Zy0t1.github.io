@@ -1,9 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Misc</title>
+    <url>/2023/08/27/Misc/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+<span id="more"></span>
+
+<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<ul>
+<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+</li>
+<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+</li>
+<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+</blockquote>
+</li>
+<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+</li>
+<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+</li>
+<li><p>Base编码</p>
+<ul>
+<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
+<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
+<li>base58、85、91、92、36、62</li>
+</ul>
+</li>
+</ul>
+<p><strong>古典密码</strong>：</p>
+<ul>
+<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
+<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
+<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
+<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
+<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
+<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
+<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
+<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+</ul>
+<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<span class="exturl" data-url="aHR0cHM6Ly9xdWlwcWl1cC5jb20v">CTF wiki<i class="fa fa-external-link-alt"></i></span></p>
+<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
+<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
+<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
+<pre><code>图片
+JPEG/jpg:头FF-D8-FF;尾FF-D9
+PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
+GIF:头47-49-46-38-39/37-61;尾00-3B
+BMP:头42-4D
+压缩包
+ZIP:头50-4B-03-04;尾50-4B
+RAR:头52-61-72-21
+音频
+WAV:头57-41-56-45
+视频
+AVI:头41-56-49-20
+</code></pre>
+<ul>
+<li><p>文件拼接</p>
+<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<ul>
+<li>工具：binwalk（kali）、foremost</li>
+<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
+</ul>
+</li>
+<li><p>LSB隐写</p>
+<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
+<ul>
+<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
+</ul>
+</li>
+<li><p>基于文件属性</p>
+<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
+<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
+<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
+<p>工具：pngcheck</p>
+</li>
+<li><p>一些杂的</p>
+<ul>
+<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
+<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
+<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
+</ul>
+</li>
+<li><p>压缩包</p>
+<ul>
+<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
+</li>
+<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
+</li>
+<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
+</li>
+<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+</li>
+</ul>
+</li>
+<li><p>音频</p>
+<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
+<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+</li>
+</ul>
+<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>x86汇编</title>
     <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
 <span id="more"></span>
 
 <h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
@@ -184,134 +315,734 @@ EXITM:退出宏，且后面的宏语句都不能展开
       </tags>
   </entry>
   <entry>
-    <title>Misc</title>
-    <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+    <title>区块链介绍</title>
+    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>密码学应用中的区块链技术的去中心化非常引人，而这篇文章将会对其做一些入门讲解</p>
 <span id="more"></span>
 
-<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
 <ul>
-<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
 </li>
-<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
 </li>
-<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+<blockquote>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
+</blockquote>
+</li>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
+</li>
+</ul>
+<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<ul>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>其他计算机技术</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络基础</title>
+    <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这里将会讲解一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。</p>
+<span id="more"></span>
+
+<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
+</code></pre>
+<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
+<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
+<blockquote>
+<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
+</blockquote>
+<ul>
+<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
+</li>
+<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
+</li>
+<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
+<blockquote>
+<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>字节数</th>
-<th>二进制编码格式</th>
+<th>端口号</th>
+<th>服务</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>单字节</td>
-<td>0xxxxxxx</td>
+<td>20、21</td>
+<td>FTP（20连接、21传输）</td>
 </tr>
 <tr>
-<td>双字节</td>
-<td>110xxxxx 10xxxxxx</td>
+<td>25</td>
+<td>SMTP</td>
 </tr>
 <tr>
-<td>四字节</td>
-<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+<td>53</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>80&#x2F;443</td>
+<td>HTTP&#x2F;S</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
+<blockquote>
+<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
+<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
+</blockquote>
+</li>
+<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
+</li>
+<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
+</li>
+</ul>
+<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
+<ul>
+<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
+</li>
+<li><p>应用层协议，运行在UDP上，53号端口。</p>
+</li>
+<li><p>DNS域名解析过程如下:</p>
+<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
+</li>
+</ul>
+<blockquote>
+<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
+</blockquote>
+<ul>
+<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>顶级域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.com &#x2F; .net  &#x2F;.org</td>
+<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
+</tr>
+<tr>
+<td>.gov</td>
+<td>政府机构</td>
+</tr>
+<tr>
+<td>.edu</td>
+<td>教育机构</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>军事机构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AAAA</td>
+<td>主机名</td>
+<td>IPv4&#x2F;6地址</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>域</td>
+<td>具体主机名</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>别名</td>
+<td>规范主机名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮件服务器别名</td>
+<td>规范主机名</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DNS报文：查询回答报文格式相同；</p>
+<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题区</td>
+<td>正在查询的主机名字+问题类型</td>
+</tr>
+<tr>
+<td>回答区</td>
+<td>存RR</td>
+</tr>
+<tr>
+<td>权威区</td>
+<td>TLD</td>
+</tr>
+<tr>
+<td>附加信息区</td>
+<td>else</td>
+</tr>
+</tbody></table>
+<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
+<ul>
+<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
+<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
+<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围（左闭右开）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0.0.0.0~128.0.0.0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>128.0.0.0~192.0.0.0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.0.0.0~224.0.0.0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224.0.0.0~240.0.0.0</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240.0.0.0~248.0.0.0</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
+<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
+</li>
+<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
+</li>
+<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
+</li>
+<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
+<p><strong>报头格式</strong>：</p>
+<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
+<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
+<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
+</li>
+<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
+<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
+</li>
+</ul>
+<blockquote>
+<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
+</blockquote>
+<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
+<ul>
+<li><p>特点：</p>
+<ol>
+<li>无连接：每次一个请求。</li>
+<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
+<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
+</ol>
+</li>
+<li><p>发展：</p>
+<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
+<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
+<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
+<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
+<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
+</li>
+<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
+</li>
+</ul>
+<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
+头部字段名：值--------------------------------请求头部/消息报头
+空行
+（请求正文）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>方法（共8种）</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get</td>
+<td>向特定资源发送请求</td>
+</tr>
+<tr>
+<td>post</td>
+<td>请求处理数据，此时含有请求正文</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>消息报头（可由服务端自定义其他的）</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>客户端能够接收的文件类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>支持的字符集编码</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>浏览器可支持的内容压缩编码类型</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>浏览器可接受的语言</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Http授权的证书类型</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>请求响应过程遵循的缓存机制</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>表明是否需要持久连接的</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>包含在请求URL域名下的所有有关cookie值</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>MIME</td>
 </tr>
 </tbody></table>
 <blockquote>
-<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
 </blockquote>
-</li>
-<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
-</li>
-<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
-</li>
-<li><p>Base编码</p>
 <ul>
-<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
-<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
-<li>base58、85、91、92、36、62</li>
+<li><strong>响应报文</strong>：</li>
 </ul>
-</li>
-</ul>
-<p><strong>古典密码</strong>：</p>
-<ul>
-<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
-<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
-<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
-<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
-<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
-<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
-<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
-<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
-</ul>
-<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<a href="https://quipqiup.com/">CTF wiki</a></p>
-<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
-<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
-<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
-<pre><code>图片
-JPEG/jpg:头FF-D8-FF;尾FF-D9
-PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
-GIF:头47-49-46-38-39/37-61;尾00-3B
-BMP:头42-4D
-压缩包
-ZIP:头50-4B-03-04;尾50-4B
-RAR:头52-61-72-21
-音频
-WAV:头57-41-56-45
-视频
-AVI:头41-56-49-20
+<pre><code>http版本+状态码+英文（not found？）-------------------状态行
+响应首部------------------------消息报头
+空行
+主体------------------响应正文
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>栗子</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx(正在处理)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2xx(成功)</td>
+<td>200(ok)、204(no content)</td>
+<td>请求成功；服务器正常处理，但就是没返回内容</td>
+</tr>
+<tr>
+<td>3xx(重定向，即需要附加操作)</td>
+<td>301、302</td>
+<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
+</tr>
+<tr>
+<td>4xx(客户端错误)</td>
+<td>400、401、403、404</td>
+<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
+</tr>
+<tr>
+<td>5xx(服务端错误)</td>
+<td>500、501、503</td>
+<td>服务器内部错误；不支持请求功能；超载</td>
+</tr>
+</tbody></table>
+<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
 <ul>
-<li><p>文件拼接</p>
-<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
-<ul>
-<li>工具：binwalk（kali）、foremost</li>
-<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
-</ul>
-</li>
-<li><p>LSB隐写</p>
-<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
-<ul>
-<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
-</ul>
-</li>
-<li><p>基于文件属性</p>
-<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
-<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
-<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
-<p>工具：pngcheck</p>
-</li>
-<li><p>一些杂的</p>
-<ul>
-<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
-<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
-<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
-</ul>
-</li>
-<li><p>压缩包</p>
-<ul>
-<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
-</li>
-<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
-</li>
-<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
-</li>
-<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
-</li>
-</ul>
-</li>
-<li><p>音频</p>
-<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
-<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+<li><p>过程如下：</p>
+<p>客户端发送一个请求到服务器——服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——服务器返回响应数据</p>
 </li>
 </ul>
-<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+<ul>
+<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
+<ol>
+<li><p>NAME：cookie的名字；</p>
+</li>
+<li><p>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；</p>
+</li>
+<li><p>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</p>
+</li>
+<li><p>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</p>
+</li>
+</ol>
+<blockquote>
+<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
+<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
+</blockquote>
+<ol start="5">
+<li><p>Size：Cookie文件大小；</p>
+</li>
+<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
+</li>
+<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
+</li>
+</ol>
+</li>
+<li><p>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端；自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。</p>
+</li>
+</ul>
+<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
+<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
+<ul>
+<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
+<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
+<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
+</ul>
+<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
+<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
+<ul>
+<li><p><strong>TLS具体过程</strong>：</p>
+<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
+<ol>
+<li>Bob打招呼并发送第一随机数</li>
+<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
+<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
+<li>Server接收到后，用私钥解密，得到预主密钥</li>
+<li>双方用三个随机数共同加密生成最终会话密钥</li>
+<li>之后进行对称加密进行交流</li>
+</ol>
+</li>
+<li><p><strong>CT</strong>（证书透明度）框架：</p>
+<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
+</li>
+</ul>
 ]]></content>
       <categories>
-        <category>CTF</category>
+        <category>计算机基础</category>
       </categories>
       <tags>
-        <tag>CTF</tag>
-        <tag>Misc</tag>
+        <tag>网络</tag>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>后端基础知识</title>
+    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>在介篇文章中，我们会对后端，也就是服务器做一个大概了解，同时也会对必须的数据库做一些理论知识说明。</p>
+<span id="more"></span>
+
+<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
+<ul>
+<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
+</li>
+<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
+</li>
+<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
+</li>
+<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
+</li>
+<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
+</li>
+<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
+</li>
+<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
+</li>
+<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
+</li>
+</ul>
+<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
+<table>
+<thead>
+<tr>
+<th>体系结构分类</th>
+<th>规模&#x2F;应用层次分类</th>
+<th>结构分类</th>
+<th>用途分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86服务器(RISC)</td>
+<td>入门级</td>
+<td>塔式服务器</td>
+<td>通用型</td>
+</tr>
+<tr>
+<td>非x86服务器(CISC)</td>
+<td>工作组级</td>
+<td>机架式服务器</td>
+<td>专用型</td>
+</tr>
+<tr>
+<td></td>
+<td>部门级</td>
+<td>刀片式服务器</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>企业级</td>
+<td>机柜式服务器</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Web服务器</strong>：</p>
+<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
+<p><strong>DB服务器</strong>：</p>
+<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
+<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>SQL server</th>
+<th>Oracle</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源、简单、小；字符客户端mysql</td>
+<td>微软、可免费；图形化客户端ADS</td>
+<td>顶级；字符客户端sqlplus</td>
+<td>开源；字符客户端pesql</td>
+</tr>
+<tr>
+<td>数据量大时不太行</td>
+<td>windows专属</td>
+<td>收费</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非关系型数据库：</p>
+<ul>
+<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
+<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
+<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
+<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
+<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
+</ul>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<p>发展阶段：人工管理—文件系统—数据库系统。</p>
+<blockquote>
+<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>人工管理</th>
+<th>文件系统</th>
+<th>数据库系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不保存数据</td>
+<td>可以长期保存</td>
+<td>结构化</td>
+</tr>
+<tr>
+<td>没有相应软件</td>
+<td>有专门软件</td>
+<td>数据由DBMS统一管理</td>
+</tr>
+<tr>
+<td>不共享</td>
+<td>共享性差</td>
+<td>共享性好，冗余度低</td>
+</tr>
+<tr>
+<td>数据之间不独立</td>
+<td>独立性差</td>
+<td>高度物理独立性，一定逻辑独立性</td>
+</tr>
+</tbody></table>
+<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据结构</th>
+<th>查询效率</th>
+<th>数据独立性</th>
+<th>DML操作方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>层次、网状</td>
+<td>链表</td>
+<td>低</td>
+<td>差</td>
+<td>过程性</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>二维表</td>
+<td>高</td>
+<td>高</td>
+<td>非过程性</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
+</li>
+<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
+</li>
+<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
+</li>
+</ul>
+<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
+<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
+<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
+<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
+<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
+</ul>
+<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<ol>
+<li><p><strong>关系数据结构</strong></p>
+<ul>
+<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
+<p>关系的6条性质：</p>
+<ul>
+<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
+</li>
+<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
+</li>
+<li><p>每个分量都是原子值，不能进一步拆分；</p>
+</li>
+</ul>
+</li>
+<li><p>关系模式:表的名字；</p>
+<ul>
+<li>形式化:R(U，D，DOM，F)</li>
+<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+</ul>
+</li>
+<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
+</li>
+<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
+</li>
+<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
+</li>
+<li><p>分量:交叉点；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关系的完整性</strong></p>
+<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<ul>
+<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
+</li>
+<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
+<blockquote>
+<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>关系操作</strong></p>
+<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+<ul>
+<li><p>并union：A+B（可用差表示）</p>
+<blockquote>
+<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
+</blockquote>
+</li>
+<li><p>差difference：A-B</p>
+</li>
+<li><p>交intersection：A·B</p>
+</li>
+<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
+</li>
+<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
+</li>
+<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
+</li>
+<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
+<blockquote>
+<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
+</blockquote>
+</li>
+<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
+<blockquote>
+<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
+</blockquote>
+</li>
+<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
+<blockquote>
+<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>后端</tag>
       </tags>
   </entry>
   <entry>
@@ -618,6 +1349,23 @@ select TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA=(select DATA
 #查询当前数据库
 select CLOUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME=&#39;Student&#39; limit 0,1;
 #查询指定表所有字段
+</code></pre>
+<pre><code class="mysql">判断字符还是数字注入
+?id=1&#39;or&#39;1&#39;=&#39;1
+?id=1 or 1=1
+判断列数：
+?id=1 order by 1/2/3/...
+判断注入点：
+?id=-1 union select 1
+?id=-1 union select 1,2 limit 1
+查看数据库：
+?id=-1 union select 1,datebase()
+查看表名字：
+?id=-1 union select 1,group_contact(table_name) from information_schema_tables where table_schema=&#39;news&#39;
+查看列名：
+?id=-1 union select 1,group_contact(column_name) from information_schema,columns where table_name=&#39;admin&#39;
+查看字段：
+?id=-1 union select 1,group_contact(username) from admin
 </code></pre>
 <p>函数利用：</p>
 <table>
@@ -1861,58 +2609,9 @@ net localgroup administrators temp /add
       </categories>
       <tags>
         <tag>CTF</tag>
+        <tag>网络</tag>
         <tag>渗透</tag>
         <tag>Web</tag>
-        <tag>红队</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>区块链介绍</title>
-    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>密码学应用中的区块链技术的去中心化非常引人，而这篇文章将会对其做一些入门讲解</p>
-<span id="more"></span>
-
-<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
-</blockquote>
-<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
-<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
-<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
-<ul>
-<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
-</li>
-<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
-</li>
-<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
-</li>
-<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
-</li>
-<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
-</li>
-<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
-<blockquote>
-<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
-<ul>
-<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
-<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；但是由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
-<li><strong>智能合约</strong>：DAPP的后端，和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
-<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。Gas费用以ETH支付，Gwei作为油费的单位，1Gwei&#x3D;$10^{-9}$ETH。</li>
-<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
-<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
-<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
-<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>其他计算机技术</category>
-      </categories>
-      <tags>
-        <tag>密码学</tag>
-        <tag>区块链</tag>
       </tags>
   </entry>
 </search>
