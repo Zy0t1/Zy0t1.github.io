@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对恶意代码做理论介绍，并不涉及具体实例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="恶意代码">
+<meta property="og:url" content="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="对恶意代码做理论介绍，并不涉及具体实例">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-14T09:18:20.000Z">
+<meta property="article:modified_time" content="2023-09-14T09:18:20.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="win">
+<meta property="article:tag" content="恶意代码">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/","path":"2023/09/14/恶意代码/","title":"恶意代码"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>恶意代码 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">恶意代码介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B"><span class="nav-number">2.</span> <span class="nav-text">病毒检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E5%AF%B9%E6%8A%97%E4%B8%8E%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4"><span class="nav-number">3.</span> <span class="nav-text">病毒检测对抗与自我保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">恶意代码分析</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="恶意代码 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          恶意代码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-14 17:18:20" itemprop="dateModified" datetime="2023-09-14T17:18:20+08:00">2023-09-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">系统安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>对恶意代码做理论介绍，并不涉及具体实例</p>
+<span id="more"></span>
+
+<h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
+<ul>
+<li><p>分类</p>
+<ul>
+<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
+</li>
+<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
+</li>
+<li><p>木马：不能传播复制的计算机病毒</p>
+</li>
+<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
+</li>
+<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
+</li>
+<li><p>流氓软件：</p>
+<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
+</li>
+<li><p>僵尸：实现恶意控制的代码</p>
+<p>基于IRC协议、HTTP、P2P</p>
+</li>
+<li><p>Exploit：漏洞利用程序</p>
+<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
+</li>
+<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
+</li>
+</ul>
+</li>
+<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
+</li>
+<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
+</li>
+<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
+</li>
+</ul>
+<p><strong>计算机病毒</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
+</li>
+<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
+</li>
+<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
+</li>
+<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
+<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
+</li>
+<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
+</li>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒</p>
+</li>
+</ul>
+<p><strong>网络蠕虫-Worm</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
+</li>
+<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
+</li>
+<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
+</li>
+<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
+</li>
+<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
+<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
+</li>
+</ul>
+<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
+<ul>
+<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
+</li>
+<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
+</li>
+<li><p><strong>检测与防治</strong>：</p>
+<ol>
+<li><p>主机角度：及时修补补丁、防火墙、安软</p>
+</li>
+<li><p>网络角度：</p>
+<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
+<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>木马-Trojan</strong>：</p>
+<ul>
+<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
+</li>
+<li><p>按功能分：</p>
+<p>远程控制木马：上兴、灰鸽子</p>
+<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
+<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
+</li>
+<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
+</li>
+<li><p>客户端与受害者<strong>连接方式</strong>：</p>
+<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
+</li>
+<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
+</li>
+<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
+<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
+</li>
+</ul>
+<p><strong>Rootkit</strong>：</p>
+<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
+<ul>
+<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
+<ol>
+<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
+<li>内联钩子</li>
+</ol>
+</li>
+<li><p>内核态HOOK</p>
+<ol>
+<li><p>IDT（中断描述符表）钩子</p>
+</li>
+<li><p>SSDT（系统服务调度表）钩子</p>
+<blockquote>
+<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
+</blockquote>
+</li>
+<li><p>过滤驱动程序</p>
+</li>
+<li><p>驱动程序钩子</p>
+</li>
+</ol>
+</li>
+<li><p>直接内核对象操作（DKOM）</p>
+</li>
+<li><p>检测工具：IceSword、XueTr</p>
+</li>
+</ul>
+<p><strong>手机恶意软件</strong>：</p>
+<ul>
+<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
+</li>
+<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
+</li>
+<li><p>隐私窃取：</p>
+<ol>
+<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
+<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
+<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
+<li><strong>病毒特征值检测技术</strong>：</li>
+</ul>
+<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
+<p>关键组件：病毒检测引擎、病毒特征库</p>
+<p>实现步骤：</p>
+<ol>
+<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
+<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
+<li>将特征值纳入特征数据库</li>
+</ol>
+<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
+<ul>
+<li><strong>校验和检测技术</strong>：</li>
+</ul>
+<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
+<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
+<p>常校验对象：</p>
+<ol>
+<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
+<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
+<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
+<li>文件校验和：文件内容的全部字节</li>
+</ol>
+<ul>
+<li><strong>虚拟机检测技术</strong>：</li>
+</ul>
+<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
+<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
+<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
+<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
+<p>虚拟机设计方案：</p>
+<ol>
+<li>自含代码虚拟机SCCE：like a full CPU</li>
+<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
+<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
+</ol>
+<ul>
+<li><strong>启发式扫描技术</strong>：</li>
+</ul>
+<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
+<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
+<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
+<p>注意需要进行加权，以降低误报</p>
+<ul>
+<li><strong>主动防御技术</strong>：</li>
+</ul>
+<p>又叫做行为实时监控技术</p>
+<p>常见病毒行为（不排除安全软件）：</p>
+<ol>
+<li>对可执行文件进行写操作</li>
+<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
+<li>加载驱动：Rootkit</li>
+<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
+</ol>
+<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
+<hr>
+<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
+<li><p>特征值检测对抗：</p>
+<ol>
+<li>代码加密混淆：加密，增加花指令等</li>
+<li>加壳：压缩壳、保护壳</li>
+<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
+</ol>
+</li>
+<li><p>虚拟机检测对抗：</p>
+<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
+<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
+</li>
+<li><p>启发式扫描对抗：</p>
+<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
+</li>
+<li><p>主动防御对抗：</p>
+<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
+</li>
+<li><p>对抗云查杀：</p>
+<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
+</li>
+<li><p>恶意程序的主动保护机制：</p>
+<ol>
+<li>消灭反病毒程序、防火墙等</li>
+<li>阻断并独占文件来防止检查</li>
+<li>修改hosts文件防止杀软升级</li>
+<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
+</ol>
+</li>
+<li><p>人工分析对抗：</p>
+<ol>
+<li>加入反调试代码</li>
+<li>加壳增强分析难度</li>
+</ol>
+</li>
+</ul>
+<p><strong>壳技术</strong></p>
+<p>在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体过程如下：</p>
+<ol>
+<li>保存入口参数</li>
+<li>获取壳自己需要的API地址</li>
+<li>解密原程序的各个区块</li>
+<li>重定位</li>
+<li>修复引入函数地址表</li>
+<li>跳转到程序入口点OEP</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>壳</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Upx、Neolite</td>
+<td>高效压缩，内置压缩和解压缩</td>
+</tr>
+<tr>
+<td>ASpack、Petite、PECompact、Shrinker</td>
+<td>有保护性的压缩，不内置解压缩</td>
+</tr>
+<tr>
+<td>幻影、PC_Guard、Krypton、Armadillo</td>
+<td>有保护性的加密壳</td>
+</tr>
+<tr>
+<td>ASProtect、tElock</td>
+<td>有高效保护性的加密压缩壳</td>
+</tr>
+</tbody></table>
+<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
+<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
+<p>分析过程：</p>
+<ol>
+<li><p>虚拟机环境准备</p>
+</li>
+<li><p>系统监控：</p>
+<ul>
+<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
+<p>工具-Process Explorer、PrcView等</p>
+</li>
+<li><p>文件监控：读写行为；工具FileMon</p>
+</li>
+<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
+</li>
+<li><p>网络连接分析：工具FPort、TcpView</p>
+</li>
+<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
+</li>
+<li><p>内核监控：工具PC_Hunter、IceSword</p>
+</li>
+<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
+</li>
+</ul>
+</li>
+<li><p>文件类型侦测：工具PEiD、FileInfo</p>
+</li>
+<li><p>PE文件格式分析：工具PEView、Study_PE</p>
+</li>
+<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
+</li>
+<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
+</li>
+<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/win/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> win</a>
+              <a href="/tags/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 恶意代码</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" rel="prev" title="网络技术">
+                  <i class="fa fa-angle-left"></i> 网络技术
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">46k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:23</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a553fb197bf2c1300e4e9035f87ba36a"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>

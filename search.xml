@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>区块链介绍</title>
+    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>仅作概念介绍、入门食用</p>
+<span id="more"></span>
+
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
+<ul>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
+</li>
+<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+</li>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+<blockquote>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
+</blockquote>
+</li>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
+</li>
+</ul>
+<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<ul>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>其他计算机技术</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Misc</title>
     <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>​		介篇文章基于本人所见到过的CTF-MISC中的题目，并结合其他大佬的博客所写，涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
 <span id="more"></span>
 
 <h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
@@ -120,676 +174,22 @@ AVI:头41-56-49-20
 <p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
 <p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
 </li>
+<li><p>字符串</p>
+<p>零宽度字符，一种字节宽度为0的不可打印的Unicode字符，占位置但是不可见，使用winhex&#x2F;vim&#x2F;01editor打开能看到<code>&lt;200a&gt;</code>之类的内容；</p>
+<p>不可见字符隐写，利用空格和制表符写的东西，可以是摩斯、培根、SNOW隐写、white_space（一种编程语言，由空格回车tab组成）</p>
+</li>
 </ul>
 <p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
 ]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
       <tags>
         <tag>CTF</tag>
         <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
-    <title>x86汇编</title>
-    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>​		在这篇文章中，我们会对x86汇编及其平台有一个基础的认识，如果之前没有接触过汇编，可以参考王爽老师的《汇编语言（第四版）》</p>
-<span id="more"></span>
-
-<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
-<li><p><b>Base</b></p>
-<ul>
-<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
-</li>
-<li><p>小端存储：高字节放高地址；</p>
-</li>
-<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
-</li>
-<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
-</li>
-<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
-</li>
-</ul>
-</li>
-<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
-<blockquote>
-<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
-</blockquote>
-</li>
-<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
-<ul>
-<li>保护模式：所有指令可用，程序被分配的段以外的空间不允许访问。其下的虚拟8086模式，会防止一个崩溃的程序影响其他人</li>
-<li>实地址模式：直接访问内存和硬件</li>
-<li>系统管理模式：专门为OS提供的模式</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
-<ul>
-<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
-<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
-</ul>
-<p>（2）<b>数据传送指令</b>：</p>
-<ul>
-<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
-<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
-<li><code>XCHG</code>交换两个操作数内容；</li>
-</ul>
-<p>（3）<b>运算指令</b>：</p>
-<ul>
-<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
-<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
-<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
-<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
-<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
-</ul>
-<p>（4）<b>位操作指令</b>：</p>
-<ul>
-<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
-<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
-<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
-</ul>
-<p>（5）<b>堆栈操作指令</b>：</p>
-<ul>
-<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
-<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
-</ul>
-<p>（6）<b>跳转指令</b>：</p>
-<ul>
-<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
-<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
-<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
-<li><code>beginWhile......endWhile</code>,while循环</li>
-</ul>
-<p>（7）<b>串串操作指令</b>：</p>
-<ul>
-<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
-<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
-<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
-<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
-<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
-</ul>
-<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
-<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
-</ul>
-<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
-     ...
-main endp  ;结束main过程
-</code></pre>
-<ul>
-<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
-</ul>
-<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
-EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
-ALIGN + 定义类型	;设定对齐方式
-INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
-ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
-</code></pre>
-<ul>
-<li>若需要使用过程，则注意过程帧的使用</li>
-</ul>
-<pre><code>ENTER		;自动补齐相应的寄存器等	  
-...
-LEAVE
-</code></pre>
-<ul>
-<li>结构体</li>
-</ul>
-<pre><code>name struct/union		;定义结构体，与C一样
-    ...			
-name ENDS		;还支持嵌套使用，此时内层不需要该行的name
-</code></pre>
-<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
-    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
-    ...					
-ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
-
-ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
-</code></pre>
-<ul>
-<li>循环宏</li>
-</ul>
-<pre><code>WHILE(表达式):为真时执行
-REPEAT N:重复N次
-FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
-FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
-</code></pre>
-<ul>
-<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
-</ul>
-<pre><code>IFB/IFNB:空/非空，则允许汇编
-IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
-IFIDNI/IFDIFI a b:上面类似但不区分大小写
-IFDIF/IFNDIF name:如果name已/未定义 则汇编
-IF,ENDIF,ELSE,ELSEIF:自己看
-EXITM:退出宏，且后面的宏语句都不能展开
-</code></pre>
-<ul>
-<li>特殊运算符</li>
-</ul>
-<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
-&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
-&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
-&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
-</code></pre>
-<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
-<ul>
-<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
-</li>
-<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
-<blockquote>
-<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
-</blockquote>
-</li>
-</ul>
-<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
-<ul>
-<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
-</li>
-<li><p>附加段寄存器—ES、FS、GS</p>
-</li>
-</ul>
-<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
-<blockquote>
-<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
-</blockquote>
-<ul>
-<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
-</li>
-<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
-</li>
-</ul>
-<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
-<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
-<blockquote>
-<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>二进制</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>x86</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>区块链介绍</title>
-    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>密码学应用中的区块链技术的去中心化非常引人，而这篇文章将会对其做一些入门讲解</p>
-<span id="more"></span>
-
-<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
-</blockquote>
-<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
-<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
-<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
-<ul>
-<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
-</li>
-<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
-</li>
-<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
-</li>
-<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
-</li>
-<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
-</li>
-<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
-<blockquote>
-<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
-</blockquote>
-</li>
-<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
-</li>
-<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
-</li>
-</ul>
-<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
-<ul>
-<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
-<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
-<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
-<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
-<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
-<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
-<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
-<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
-<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>其他计算机技术</category>
-      </categories>
-      <tags>
-        <tag>密码学</tag>
-        <tag>区块链</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络基础</title>
-    <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这里将会讲解一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。</p>
-<span id="more"></span>
-
-<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
-</code></pre>
-<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
-<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
-<blockquote>
-<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
-</blockquote>
-<ul>
-<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
-</li>
-<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
-</li>
-<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
-<blockquote>
-<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>端口号</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>20、21</td>
-<td>FTP（20连接、21传输）</td>
-</tr>
-<tr>
-<td>25</td>
-<td>SMTP</td>
-</tr>
-<tr>
-<td>53</td>
-<td>DNS</td>
-</tr>
-<tr>
-<td>22</td>
-<td>SSH</td>
-</tr>
-<tr>
-<td>80&#x2F;443</td>
-<td>HTTP&#x2F;S</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
-<blockquote>
-<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
-<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
-</blockquote>
-</li>
-<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
-</li>
-<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
-</li>
-</ul>
-<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
-<ul>
-<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
-</li>
-<li><p>应用层协议，运行在UDP上，53号端口。</p>
-</li>
-<li><p>DNS域名解析过程如下:</p>
-<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
-</li>
-</ul>
-<blockquote>
-<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
-</blockquote>
-<ul>
-<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>顶级域名</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.com &#x2F; .net  &#x2F;.org</td>
-<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
-</tr>
-<tr>
-<td>.gov</td>
-<td>政府机构</td>
-</tr>
-<tr>
-<td>.edu</td>
-<td>教育机构</td>
-</tr>
-<tr>
-<td>.mil</td>
-<td>军事机构</td>
-</tr>
-</tbody></table>
-<ul>
-<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A&#x2F;AAAA</td>
-<td>主机名</td>
-<td>IPv4&#x2F;6地址</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>域</td>
-<td>具体主机名</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>别名</td>
-<td>规范主机名</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>邮件服务器别名</td>
-<td>规范主机名</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>DNS报文：查询回答报文格式相同；</p>
-<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>区域</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>问题区</td>
-<td>正在查询的主机名字+问题类型</td>
-</tr>
-<tr>
-<td>回答区</td>
-<td>存RR</td>
-</tr>
-<tr>
-<td>权威区</td>
-<td>TLD</td>
-</tr>
-<tr>
-<td>附加信息区</td>
-<td>else</td>
-</tr>
-</tbody></table>
-<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
-<ul>
-<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
-<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
-<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>范围（左闭右开）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-<td>0.0.0.0~128.0.0.0</td>
-</tr>
-<tr>
-<td>B</td>
-<td>128.0.0.0~192.0.0.0</td>
-</tr>
-<tr>
-<td>C</td>
-<td>192.0.0.0~224.0.0.0</td>
-</tr>
-<tr>
-<td>D</td>
-<td>224.0.0.0~240.0.0.0</td>
-</tr>
-<tr>
-<td>E</td>
-<td>240.0.0.0~248.0.0.0</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
-<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
-</li>
-<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
-</li>
-<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
-</li>
-<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
-<p><strong>报头格式</strong>：</p>
-<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
-<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
-<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
-</li>
-<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
-<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
-</li>
-</ul>
-<blockquote>
-<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
-</blockquote>
-<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
-<ul>
-<li><p>特点：</p>
-<ol>
-<li>无连接：每次一个请求。</li>
-<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
-<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
-</ol>
-</li>
-<li><p>发展：</p>
-<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
-<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
-<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
-<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
-<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
-</li>
-<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
-</li>
-</ul>
-<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
-头部字段名：值--------------------------------请求头部/消息报头
-空行
-（请求正文）
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>方法（共8种）</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>get</td>
-<td>向特定资源发送请求</td>
-</tr>
-<tr>
-<td>post</td>
-<td>请求处理数据，此时含有请求正文</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>消息报头（可由服务端自定义其他的）</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Accept</td>
-<td>客户端能够接收的文件类型</td>
-</tr>
-<tr>
-<td>Accept-Charset</td>
-<td>支持的字符集编码</td>
-</tr>
-<tr>
-<td>Accept-Encoding</td>
-<td>浏览器可支持的内容压缩编码类型</td>
-</tr>
-<tr>
-<td>Accept-Language</td>
-<td>浏览器可接受的语言</td>
-</tr>
-<tr>
-<td>Authorization</td>
-<td>Http授权的证书类型</td>
-</tr>
-<tr>
-<td>Cache-Control</td>
-<td>请求响应过程遵循的缓存机制</td>
-</tr>
-<tr>
-<td>Connection</td>
-<td>表明是否需要持久连接的</td>
-</tr>
-<tr>
-<td>Cookie</td>
-<td>包含在请求URL域名下的所有有关cookie值</td>
-</tr>
-<tr>
-<td>Content-Length</td>
-<td>请求的内容长度</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>MIME</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
-</blockquote>
-<ul>
-<li><strong>响应报文</strong>：</li>
-</ul>
-<pre><code>http版本+状态码+英文（not found？）-------------------状态行
-响应首部------------------------消息报头
-空行
-主体------------------响应正文
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>栗子</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1xx(正在处理)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2xx(成功)</td>
-<td>200(ok)、204(no content)</td>
-<td>请求成功；服务器正常处理，但就是没返回内容</td>
-</tr>
-<tr>
-<td>3xx(重定向，即需要附加操作)</td>
-<td>301、302</td>
-<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
-</tr>
-<tr>
-<td>4xx(客户端错误)</td>
-<td>400、401、403、404</td>
-<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
-</tr>
-<tr>
-<td>5xx(服务端错误)</td>
-<td>500、501、503</td>
-<td>服务器内部错误；不支持请求功能；超载</td>
-</tr>
-</tbody></table>
-<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
-<ul>
-<li><p>过程如下：</p>
-<p>客户端发送一个请求到服务器——服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——服务器返回响应数据</p>
-</li>
-</ul>
-<ul>
-<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
-<ol>
-<li><p>NAME：cookie的名字；</p>
-</li>
-<li><p>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；</p>
-</li>
-<li><p>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</p>
-</li>
-<li><p>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</p>
-</li>
-</ol>
-<blockquote>
-<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
-<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
-</blockquote>
-<ol start="5">
-<li><p>Size：Cookie文件大小；</p>
-</li>
-<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
-</li>
-<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
-</li>
-</ol>
-</li>
-<li><p>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端；自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。</p>
-</li>
-</ul>
-<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
-<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
-<ul>
-<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
-<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
-<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
-</ul>
-<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
-<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
-<ul>
-<li><p><strong>TLS具体过程</strong>：</p>
-<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
-<ol>
-<li>Bob打招呼并发送第一随机数</li>
-<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
-<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
-<li>Server接收到后，用私钥解密，得到预主密钥</li>
-<li>双方用三个随机数共同加密生成最终会话密钥</li>
-<li>之后进行对称加密进行交流</li>
-</ol>
-</li>
-<li><p><strong>CT</strong>（证书透明度）框架：</p>
-<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>计算机基础</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>基础知识</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>后端基础知识</title>
     <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>在介篇文章中，我们会对后端，也就是服务器做一个大概了解，同时也会对必须的数据库做一些理论知识说明。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
 <span id="more"></span>
 
 <h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
@@ -1041,8 +441,515 @@ EXITM:退出宏，且后面的宏语句都不能展开
         <category>计算机基础</category>
       </categories>
       <tags>
-        <tag>基础知识</tag>
         <tag>后端</tag>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>恶意代码</title>
+    <url>/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>对恶意代码做理论介绍，并不涉及具体实例</p>
+<span id="more"></span>
+
+<h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
+<ul>
+<li><p>分类</p>
+<ul>
+<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
+</li>
+<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
+</li>
+<li><p>木马：不能传播复制的计算机病毒</p>
+</li>
+<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
+</li>
+<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
+</li>
+<li><p>流氓软件：</p>
+<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
+</li>
+<li><p>僵尸：实现恶意控制的代码</p>
+<p>基于IRC协议、HTTP、P2P</p>
+</li>
+<li><p>Exploit：漏洞利用程序</p>
+<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
+</li>
+<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
+</li>
+</ul>
+</li>
+<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
+</li>
+<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
+</li>
+<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
+</li>
+</ul>
+<p><strong>计算机病毒</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
+</li>
+<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
+</li>
+<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
+</li>
+<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
+<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
+</li>
+<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
+</li>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒</p>
+</li>
+</ul>
+<p><strong>网络蠕虫-Worm</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
+</li>
+<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
+</li>
+<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
+</li>
+<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
+</li>
+<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
+<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
+</li>
+</ul>
+<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
+<ul>
+<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
+</li>
+<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
+</li>
+<li><p><strong>检测与防治</strong>：</p>
+<ol>
+<li><p>主机角度：及时修补补丁、防火墙、安软</p>
+</li>
+<li><p>网络角度：</p>
+<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
+<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>木马-Trojan</strong>：</p>
+<ul>
+<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
+</li>
+<li><p>按功能分：</p>
+<p>远程控制木马：上兴、灰鸽子</p>
+<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
+<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
+</li>
+<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
+</li>
+<li><p>客户端与受害者<strong>连接方式</strong>：</p>
+<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
+</li>
+<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
+</li>
+<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
+<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
+</li>
+</ul>
+<p><strong>Rootkit</strong>：</p>
+<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
+<ul>
+<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
+<ol>
+<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
+<li>内联钩子</li>
+</ol>
+</li>
+<li><p>内核态HOOK</p>
+<ol>
+<li><p>IDT（中断描述符表）钩子</p>
+</li>
+<li><p>SSDT（系统服务调度表）钩子</p>
+<blockquote>
+<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
+</blockquote>
+</li>
+<li><p>过滤驱动程序</p>
+</li>
+<li><p>驱动程序钩子</p>
+</li>
+</ol>
+</li>
+<li><p>直接内核对象操作（DKOM）</p>
+</li>
+<li><p>检测工具：IceSword、XueTr</p>
+</li>
+</ul>
+<p><strong>手机恶意软件</strong>：</p>
+<ul>
+<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
+</li>
+<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
+</li>
+<li><p>隐私窃取：</p>
+<ol>
+<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
+<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
+<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
+<li><strong>病毒特征值检测技术</strong>：</li>
+</ul>
+<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
+<p>关键组件：病毒检测引擎、病毒特征库</p>
+<p>实现步骤：</p>
+<ol>
+<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
+<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
+<li>将特征值纳入特征数据库</li>
+</ol>
+<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
+<ul>
+<li><strong>校验和检测技术</strong>：</li>
+</ul>
+<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
+<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
+<p>常校验对象：</p>
+<ol>
+<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
+<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
+<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
+<li>文件校验和：文件内容的全部字节</li>
+</ol>
+<ul>
+<li><strong>虚拟机检测技术</strong>：</li>
+</ul>
+<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
+<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
+<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
+<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
+<p>虚拟机设计方案：</p>
+<ol>
+<li>自含代码虚拟机SCCE：like a full CPU</li>
+<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
+<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
+</ol>
+<ul>
+<li><strong>启发式扫描技术</strong>：</li>
+</ul>
+<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
+<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
+<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
+<p>注意需要进行加权，以降低误报</p>
+<ul>
+<li><strong>主动防御技术</strong>：</li>
+</ul>
+<p>又叫做行为实时监控技术</p>
+<p>常见病毒行为（不排除安全软件）：</p>
+<ol>
+<li>对可执行文件进行写操作</li>
+<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
+<li>加载驱动：Rootkit</li>
+<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
+</ol>
+<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
+<hr>
+<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
+<li><p>特征值检测对抗：</p>
+<ol>
+<li>代码加密混淆：加密，增加花指令等</li>
+<li>加壳：压缩壳、保护壳</li>
+<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
+</ol>
+</li>
+<li><p>虚拟机检测对抗：</p>
+<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
+<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
+</li>
+<li><p>启发式扫描对抗：</p>
+<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
+</li>
+<li><p>主动防御对抗：</p>
+<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
+</li>
+<li><p>对抗云查杀：</p>
+<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
+</li>
+<li><p>恶意程序的主动保护机制：</p>
+<ol>
+<li>消灭反病毒程序、防火墙等</li>
+<li>阻断并独占文件来防止检查</li>
+<li>修改hosts文件防止杀软升级</li>
+<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
+</ol>
+</li>
+<li><p>人工分析对抗：</p>
+<ol>
+<li>加入反调试代码</li>
+<li>加壳增强分析难度</li>
+</ol>
+</li>
+</ul>
+<p><strong>壳技术</strong></p>
+<p>在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体过程如下：</p>
+<ol>
+<li>保存入口参数</li>
+<li>获取壳自己需要的API地址</li>
+<li>解密原程序的各个区块</li>
+<li>重定位</li>
+<li>修复引入函数地址表</li>
+<li>跳转到程序入口点OEP</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>壳</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Upx、Neolite</td>
+<td>高效压缩，内置压缩和解压缩</td>
+</tr>
+<tr>
+<td>ASpack、Petite、PECompact、Shrinker</td>
+<td>有保护性的压缩，不内置解压缩</td>
+</tr>
+<tr>
+<td>幻影、PC_Guard、Krypton、Armadillo</td>
+<td>有保护性的加密壳</td>
+</tr>
+<tr>
+<td>ASProtect、tElock</td>
+<td>有高效保护性的加密压缩壳</td>
+</tr>
+</tbody></table>
+<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
+<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
+<p>分析过程：</p>
+<ol>
+<li><p>虚拟机环境准备</p>
+</li>
+<li><p>系统监控：</p>
+<ul>
+<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
+<p>工具-Process Explorer、PrcView等</p>
+</li>
+<li><p>文件监控：读写行为；工具FileMon</p>
+</li>
+<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
+</li>
+<li><p>网络连接分析：工具FPort、TcpView</p>
+</li>
+<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
+</li>
+<li><p>内核监控：工具PC_Hunter、IceSword</p>
+</li>
+<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
+</li>
+</ul>
+</li>
+<li><p>文件类型侦测：工具PEiD、FileInfo</p>
+</li>
+<li><p>PE文件格式分析：工具PEView、Study_PE</p>
+</li>
+<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
+</li>
+<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
+</li>
+<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>win</tag>
+        <tag>恶意代码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最好从32位ARM、MIPS汇编过来</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
+<ul>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
+</li>
+<li><p>小端存储：高字节放高地址；</p>
+</li>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
+</li>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
+</li>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
+</li>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
+<blockquote>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
+</blockquote>
+</li>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
+<ul>
+<li>保护模式：所有指令可用，程序被分配的段以外的空间不允许访问。其下的虚拟8086模式，会防止一个崩溃的程序影响其他人</li>
+<li>实地址模式：直接访问内存和硬件</li>
+<li>系统管理模式：专门为OS提供的模式</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
+</li>
+<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
+</li>
+</ul>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+        <tag>x86</tag>
       </tags>
   </entry>
   <entry>
@@ -1051,7 +958,7 @@ EXITM:退出宏，且后面的宏语句都不能展开
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>本文大致分为外网渗透&#x2F;Web安全与内网渗透，仅提供参考，由于时间原因文中或多或少会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。</p>
 <span id="more"></span>
 
-<p>外网渗透：信息搜集-&gt;漏洞检测-&gt;漏洞利用（Web安全）-&gt;Webshell链接（破解门）</p>
+<p>外网渗透：信息搜集（使用的服务）-&gt;漏洞检测（历史漏洞）-&gt;漏洞利用（Exp）-&gt;Webshell链接（破解门）</p>
 <p>内网渗透：信息搜集-&gt;提权（有能力去自己装门）—&gt; 文件上传 + 反弹shell编写（种马） —&gt; 横向移动（传播）与隧道搭建 —&gt; 权限维持（方便后续进入）-&gt;痕迹清理</p>
 <p>常用工具：</p>
 <ul>
@@ -1075,6 +982,7 @@ EXITM:退出宏，且后面的宏语句都不能展开
 <li>WAF：web application firewall</li>
 <li>Webshell：以脚本语言编写的文件，能够给攻击者返回后门</li>
 <li>0day：漏洞周期：未知漏洞—0day—补丁发布后成为1day—历史漏洞</li>
+<li>Fuzz：模糊测试，自动化黑盒漏洞检测</li>
 </ul>
 <h2 id="0x00、信息搜集！！！"><a href="#0x00、信息搜集！！！" class="headerlink" title="0x00、信息搜集！！！"></a><em>0x00</em>、信息搜集！！！</h2><p>Java三大开发框架：Spring（boot、cloud、security）、struct2、hibernate</p>
 <p>Python开发框架：Flask、Django、fastapi</p>
@@ -1101,7 +1009,11 @@ intext:阿里巴巴------------指定搜索内容中必有“阿里巴巴”
 </li>
 </ul>
 <ul>
-<li>搜索信息目标：服务器&#x2F;网站&#x2F;域名&#x2F;管理员等；C段扫描：nmap&#x2F;Cwebscan；ping-windows-TTL-128、ping-Linux-TTL-64；wappanalyzer分析网站框架；CMS内容管理系统识别；敏感文件与目录【githack—.git、.svn、御剑后台扫描&#x2F;dirsearch&#x2F;7kbstrom、目录爆破】！！；</li>
+<li><p>搜索信息目标：服务器&#x2F;网站&#x2F;域名&#x2F;管理员等；C段扫描：nmap&#x2F;Cwebscan；ping-windows-TTL-128、ping-Linux-TTL-64；wappanalyzer分析网站框架；CMS内容管理系统识别；敏感文件与目录【githack—.git、.svn、御剑后台扫描&#x2F;dirsearch&#x2F;7kbstrom、目录爆破】！！；</p>
+<blockquote>
+<p>在网站中最下方寻找Powered by，有备案的经过一定的等保测试</p>
+</blockquote>
+</li>
 </ul>
 <table>
 <thead>
@@ -1202,8 +1114,8 @@ intext:阿里巴巴------------指定搜索内容中必有“阿里巴巴”
 <li><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25udmQub3JnLmNuLw==">CNNVD<i class="fa fa-external-link-alt"></i></span>：国家信息安全漏洞库</p>
 </li>
 </ul>
-<h2 id="0x01、外网渗透"><a href="#0x01、外网渗透" class="headerlink" title="0x01、外网渗透"></a><em>0x01</em>、外网渗透</h2><p>在此处我们直接介绍如今使用范围最广的框架技术，后面所讲述的为漏洞原理，通过与相关框架缺陷组合，拿到Webshell；</p>
-<ul>
+<h2 id="0x01、中间件与Web漏洞"><a href="#0x01、中间件与Web漏洞" class="headerlink" title="0x01、中间件与Web漏洞"></a><em>0x01</em>、中间件与Web漏洞</h2><p>在此处我们直接介绍如今使用范围最广的框架技术，后面所讲述的为漏洞原理，通过与相关框架缺陷组合，拿到Webshell；</p>
+<h3 id="0-中间件"><a href="#0-中间件" class="headerlink" title="0.中间件"></a>0.中间件</h3><ul>
 <li><p>Weblogic：Java应用服务器，JavaEE开发，默认7001端口，区别于Nginx等Web部署服务器，类似于tomcat；URL后输入console进入管理员界面，然后可以同样部署WAR包；相关漏洞扫描工具：Weblogic Scan；</p>
 <p>控制台路径泄露（SSRF）：CVE-2014-4210；任意文件上传漏洞：CVE-2018-2894；XMLDecoder反序列化：CVE-2017-10271、CVE-2020-14859、CVE-2017-3506；Java反序列化：CVE-2016-0638、CVE-2019-2729、CVE-2019-2890</p>
 </li>
@@ -2057,6 +1969,12 @@ medusa -h ~ -u sa -P ~ -t 5 -e ns -M mysql -O /ap.txt	//成功信息记录到日
 </li>
 </ol>
 <p>防治措施：使用强密码、图片、邮箱、手机验证码（一定要设置时间）、登录次数限制</p>
+<h4 id="9-6-DOS拒绝服务攻击"><a href="#9-6-DOS拒绝服务攻击" class="headerlink" title="9.6.DOS拒绝服务攻击"></a>9.6.DOS拒绝服务攻击</h4><p>多基于物联网设备loT，形成DDOS（分布式Dos）</p>
+<ul>
+<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
+<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
+<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接</li>
+</ul>
 <h2 id="0x02、内网渗透"><a href="#0x02、内网渗透" class="headerlink" title="0x02、内网渗透"></a><em>0x02</em>、内网渗透</h2><h3 id="1-内网信息搜集"><a href="#1-内网信息搜集" class="headerlink" title="1.内网信息搜集"></a>1.内网信息搜集</h3><ol>
 <li>服务器支持的脚本语言</li>
 <li>服务器端口探测</li>
@@ -2605,13 +2523,671 @@ net localgroup administrators temp /add
 </tbody></table>
 ]]></content>
       <categories>
-        <category>渗透</category>
+        <category>网络安全</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>网络</tag>
         <tag>渗透</tag>
         <tag>Web</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络技术</title>
+    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>介绍一些网络上的重要技术与设备</p>
+<span id="more"></span>
+
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<ul>
+<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
+</li>
+<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
+</li>
+<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+</li>
+</ul>
+<p>根据CDN服务器的所属分为：专用CDN、第三方CDN；</p>
+<p>CDN服务器安置原则：</p>
+<ol>
+<li>在ISP（互联网服务提供商）处架设CDN集群</li>
+<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
+<li>根据地理位置和地区流量检测选择布置</li>
+</ol>
+<hr>
+<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
+<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
+<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
+</li>
+<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
+</li>
+<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+</li>
+<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+</li>
+<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+</li>
+</ul>
+<hr>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式；</p>
+<p>从两端类型来说分为：</p>
+<ul>
+<li><p>站点对站点VPN：两端的地点相对固定；</p>
+</li>
+<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
+</li>
+</ul>
+<p>加密方式：AES+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：IPsec VPN和SSL&#x2F;TLS VPN</p>
+<ul>
+<li><p><strong>IPsec VPN</strong>：</p>
+<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
+<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
+</li>
+<li><p><strong>SSL VPN</strong>：</p>
+<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
+<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
+</li>
+</ul>
+<hr>
+<h3 id="Tor"><a href="#Tor" class="headerlink" title="Tor"></a>Tor</h3><p>洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<ul>
+<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
+</li>
+<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
+<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
+</li>
+</ul>
+<hr>
+<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
+<p><strong>NAT</strong>：</p>
+<p>网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
+<ol>
+<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
+<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
+<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
+<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+</ol>
+<p><strong>NAT穿透&#x2F;打洞</strong>：</p>
+<p>有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<ul>
+<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
+<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
+<li>3-4、4-4常规方法无法打洞</li>
+</ul>
+<blockquote>
+<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p><strong>BitTorrent</strong>：</p>
+<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<ul>
+<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+</li>
+<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+</li>
+<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
+<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
+</li>
+<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
+</li>
+<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
+</li>
+<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+</li>
+</ul>
+<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<hr>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<ul>
+<li><p>两种分段模型：</p>
+<ul>
+<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
+</li>
+<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
+</li>
+</ul>
+</li>
+<li><p>过滤标准：源IP、目标IP、内容、协议</p>
+</li>
+<li><p><strong>工作模式</strong>：</p>
+<ul>
+<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
+<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
+<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
+</ul>
+</li>
+<li><p><strong>FireWall类型</strong>：</p>
+<ul>
+<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
+<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
+<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
+<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
+<li>混合型：不多bb</li>
+</ul>
+</li>
+</ul>
+<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
+<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
+<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<hr>
+<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
+<ul>
+<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<ol>
+<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
+</li>
+<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
+</li>
+<li><p>事件数据库：存储各种事件</p>
+</li>
+<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
+</li>
+</ol>
+</li>
+<li><p><strong>根据数据源的分类</strong>：</p>
+<ol>
+<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
+<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
+<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
+</ol>
+</li>
+<li><p><strong>根据检测方法的分类</strong>：</p>
+<ol>
+<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
+<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
+<li>混合检测系统：不多bb</li>
+</ol>
+</li>
+<li><p>根据响应方式分类：实时监测、非实时检测</p>
+</li>
+<li><p><strong>误用检测分析方法</strong>：</p>
+<ol>
+<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
+<li>专辑系统：专家知识库，形成IF-THEN规则</li>
+<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
+<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
+</ol>
+</li>
+<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+</li>
+</ul>
+<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
+<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<ul>
+<li>核心组件如下：<ul>
+<li>签名库：存放已知攻击特征</li>
+<li>异常检测引擎：检测未知攻击和异常行为</li>
+<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
+<li>管理控制台：配置管理IPS</li>
+<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+<ul>
+<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
+</li>
+<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+</li>
+<li><p><strong>模块</strong>：</p>
+<ol>
+<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
+<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
+<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
+<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
+<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+</ol>
+</li>
+<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+</li>
+<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
+</li>
+<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络基础</title>
+    <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。</p>
+<span id="more"></span>
+
+<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
+</code></pre>
+<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
+<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
+<blockquote>
+<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
+</blockquote>
+<ul>
+<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
+</li>
+<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
+</li>
+<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
+<blockquote>
+<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20、21</td>
+<td>FTP（20连接、21传输）</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>80&#x2F;443</td>
+<td>HTTP&#x2F;S</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
+<blockquote>
+<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
+<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
+</blockquote>
+</li>
+<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
+</li>
+<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
+</li>
+</ul>
+<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
+<ul>
+<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
+</li>
+<li><p>应用层协议，运行在UDP上，53号端口。</p>
+</li>
+<li><p>DNS域名解析过程如下:</p>
+<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
+</li>
+</ul>
+<blockquote>
+<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
+</blockquote>
+<ul>
+<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>顶级域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.com &#x2F; .net  &#x2F;.org</td>
+<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
+</tr>
+<tr>
+<td>.gov</td>
+<td>政府机构</td>
+</tr>
+<tr>
+<td>.edu</td>
+<td>教育机构</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>军事机构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AAAA</td>
+<td>主机名</td>
+<td>IPv4&#x2F;6地址</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>域</td>
+<td>具体主机名</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>别名</td>
+<td>规范主机名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮件服务器别名</td>
+<td>规范主机名</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DNS报文：查询回答报文格式相同；</p>
+<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题区</td>
+<td>正在查询的主机名字+问题类型</td>
+</tr>
+<tr>
+<td>回答区</td>
+<td>存RR</td>
+</tr>
+<tr>
+<td>权威区</td>
+<td>TLD</td>
+</tr>
+<tr>
+<td>附加信息区</td>
+<td>else</td>
+</tr>
+</tbody></table>
+<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
+<ul>
+<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
+<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
+<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围（左闭右开）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0.0.0.0~128.0.0.0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>128.0.0.0~192.0.0.0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.0.0.0~224.0.0.0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224.0.0.0~240.0.0.0</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240.0.0.0~248.0.0.0</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
+<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
+</li>
+<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
+</li>
+<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
+</li>
+<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
+<p><strong>报头格式</strong>：</p>
+<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
+<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
+<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
+</li>
+<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
+<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
+</li>
+</ul>
+<blockquote>
+<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
+</blockquote>
+<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
+<ul>
+<li><p>特点：</p>
+<ol>
+<li>无连接：每次一个请求。</li>
+<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
+<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
+</ol>
+</li>
+<li><p>发展：</p>
+<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
+<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
+<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
+<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
+<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
+</li>
+<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
+</li>
+</ul>
+<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
+头部字段名：值--------------------------------请求头部/消息报头
+空行
+（请求正文）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>方法（共8种）</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get</td>
+<td>向特定资源发送请求</td>
+</tr>
+<tr>
+<td>post</td>
+<td>请求处理数据，此时含有请求正文</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>消息报头（可由服务端自定义其他的）</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>客户端能够接收的文件类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>支持的字符集编码</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>浏览器可支持的内容压缩编码类型</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>浏览器可接受的语言</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Http授权的证书类型</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>请求响应过程遵循的缓存机制</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>表明是否需要持久连接的</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>包含在请求URL域名下的所有有关cookie值</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>MIME</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
+</blockquote>
+<ul>
+<li><strong>响应报文</strong>：</li>
+</ul>
+<pre><code>http版本+状态码+英文（not found？）-------------------状态行
+响应首部------------------------消息报头
+空行
+主体------------------响应正文
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>栗子</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx(正在处理)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2xx(成功)</td>
+<td>200(ok)、204(no content)</td>
+<td>请求成功；服务器正常处理，但就是没返回内容</td>
+</tr>
+<tr>
+<td>3xx(重定向，即需要附加操作)</td>
+<td>301、302</td>
+<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
+</tr>
+<tr>
+<td>4xx(客户端错误)</td>
+<td>400、401、403、404</td>
+<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
+</tr>
+<tr>
+<td>5xx(服务端错误)</td>
+<td>500、501、503</td>
+<td>服务器内部错误；不支持请求功能；超载</td>
+</tr>
+</tbody></table>
+<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
+<ul>
+<li><p>过程如下：</p>
+<p>客户端发送一个请求到服务器——服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——服务器返回响应数据</p>
+</li>
+</ul>
+<ul>
+<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
+<ol>
+<li><p>NAME：cookie的名字；</p>
+</li>
+<li><p>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；</p>
+</li>
+<li><p>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</p>
+</li>
+<li><p>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</p>
+</li>
+</ol>
+<blockquote>
+<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
+<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
+</blockquote>
+<ol start="5">
+<li><p>Size：Cookie文件大小；</p>
+</li>
+<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
+</li>
+<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
+</li>
+</ol>
+</li>
+<li><p>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端；自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。</p>
+</li>
+</ul>
+<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
+<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
+<ul>
+<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
+<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
+<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
+</ul>
+<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
+<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
+<ul>
+<li><p><strong>TLS具体过程</strong>：</p>
+<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
+<ol>
+<li>Bob打招呼并发送第一随机数</li>
+<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
+<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
+<li>Server接收到后，用私钥解密，得到预主密钥</li>
+<li>双方用三个随机数共同加密生成最终会话密钥</li>
+<li>之后进行对称加密进行交流</li>
+</ol>
+</li>
+<li><p><strong>CT</strong>（证书透明度）框架：</p>
+<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
+</li>
+</ul>
+<h3 id="0x07-UDP"><a href="#0x07-UDP" class="headerlink" title="0x07.UDP"></a>0x07.UDP</h3><p>用户数据报协议，位于传输层；多用于应用层的DNS、SNMP等</p>
+<ul>
+<li>无连接：客户端只需将数据包送走即可，不用提前与目标机器商量</li>
+<li>无拥塞控制：不会探测路是否堵车</li>
+<li>不保证可靠交付：不一定送达</li>
+<li>面向报文：不拆分不合并，仅加头</li>
+<li>首部开销小</li>
+</ul>
+<p>数据报格式如下：</p>
+<pre><code>16bit源端口号 + 16bit目的端口号
+16位知指明本UDP包长度 + 16bit校验和
+数据~~~~
+</code></pre>
+<p>在计算校验和时，先将其全部置0，之后添加一个12Byte的伪首部（伪首部与TCP包的相同，但是协议号为17-UDP），之后按照16bit的倍数进行0填充，再2B一组对其反码进行求和，将和再求反码填入校验和；（伪首部和填充0并不发送）</p>
+<blockquote>
+<p>原码-常规表示；正数反码&#x3D;原码、负数反码&#x3D;原码除符号位外取反；补码&#x3D;反码+1</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
 </search>
