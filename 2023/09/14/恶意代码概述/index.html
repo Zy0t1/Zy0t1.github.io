@@ -24,7 +24,7 @@
     <meta name="description" content="对恶意代码做理论介绍，并不涉及具体实例">
 <meta property="og:type" content="article">
 <meta property="og:title" content="恶意代码">
-<meta property="og:url" content="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:url" content="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="对恶意代码做理论介绍，并不涉及具体实例">
 <meta property="og:locale" content="zh_CN">
@@ -36,11 +36,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/">
+<link rel="canonical" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/","path":"2023/09/14/恶意代码/","title":"恶意代码"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/","path":"2023/09/14/恶意代码概述/","title":"恶意代码"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>恶意代码 | Zy0t1's blog</title>
@@ -56,7 +56,11 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -157,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -208,7 +212,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head_picture.jpg">
@@ -262,14 +266,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
+      <span>5.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -329,7 +333,7 @@
 </li>
 <li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
 </li>
-<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒</p>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
 </li>
 </ul>
 <p><strong>网络蠕虫-Worm</strong>：</p>
@@ -515,13 +519,33 @@
 </li>
 <li><p>人工分析对抗：</p>
 <ol>
-<li>加入反调试代码</li>
-<li>加壳增强分析难度</li>
+<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
+<blockquote>
+<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
+</blockquote>
+</li>
+<li><p>动态分析对抗—检测是否处于调试状态</p>
+<ul>
+<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
+<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
+<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
+<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
+<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
+</ul>
+</li>
+<li><p>动态对抗—检测调试器软件是否存在</p>
+<ul>
+<li>查找进程或文件特征码、特定服务</li>
+<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
+<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
+</ul>
+</li>
+<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
+</li>
 </ol>
 </li>
 </ul>
-<p><strong>壳技术</strong></p>
-<p>在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体过程如下：</p>
+<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
 <ol>
 <li>保存入口参数</li>
 <li>获取壳自己需要的API地址</li>
@@ -556,6 +580,7 @@
 </tbody></table>
 <p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
 <p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<hr>
 <h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
 <p>分析过程：</p>
 <ol>
@@ -613,6 +638,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/09/16/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81/" rel="next" title="对称密码">
+                  对称密码 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -644,13 +672,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">46k</span>
+    <span title="站点总字数">98k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">2:58</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -704,9 +732,15 @@
 
 
 
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a553fb197bf2c1300e4e9035f87ba36a"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"01aed23e40a39db0060e570d9215ce14"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">

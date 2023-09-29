@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows讲解">
+<meta property="og:url" content="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-07T03:47:17.000Z">
+<meta property="article:modified_time" content="2023-09-07T03:47:17.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/","path":"2023/09/07/Windows不讲内核/","title":"Windows讲解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows讲解 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">0x00.基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">0x01.命令与批处理脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cwin-R%E9%94%AE"><span class="nav-number">2.1.</span> <span class="nav-text">运行win+R键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cmd%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">cmd基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.3.</span> <span class="nav-text">批处理脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">0x02.系统文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-PE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">0x03.PE文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-Win%E5%BC%95%E5%AF%BC"><span class="nav-number">5.</span> <span class="nav-text">0x04.Win引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">6.</span> <span class="nav-text">0x05.文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT32"><span class="nav-number">6.1.</span> <span class="nav-text">FAT32</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NTFS"><span class="nav-number">6.2.</span> <span class="nav-text">NTFS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-Windows%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">0x06. Windows内存结构与管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Windows%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">0x07.Windows安全机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%89%A7%E8%A1%8C%E4%BF%9D%E6%8A%A4DEP"><span class="nav-number">8.1.</span> <span class="nav-text">数据执行保护DEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E6%A3%80%E6%9F%A5GS"><span class="nav-number">8.2.</span> <span class="nav-text">栈溢出检查GS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E9%9A%8F%E6%9C%BA%E5%88%86%E9%85%8DASLR"><span class="nav-number">8.3.</span> <span class="nav-text">地址空间随机分配ASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SafeSEH"><span class="nav-number">8.4.</span> <span class="nav-text">SafeSEH</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Windows讲解 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows讲解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-07 11:47:17" itemprop="dateModified" datetime="2023-09-07T11:47:17+08:00">2023-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">系统安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>20k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>37 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00.基础"></a>0x00.基础</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WIN+E、I、M、R、V、+&#x2F;-</td>
+<td>文件管理、设置、最小化(多个shift还原)、运行、剪切板、放大缩小</td>
+</tr>
+<tr>
+<td>CTRL+Z、Y、shift+Esc、Shift+N</td>
+<td>撤销、恢复、任务管理器、新建文件夹</td>
+</tr>
+<tr>
+<td>alt+F4、Enter</td>
+<td>关闭当前程序、查看文件属性</td>
+</tr>
+<tr>
+<td>Shift+delete</td>
+<td>永久删除，不在回收站</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>全屏</td>
+</tr>
+</tbody></table>
+<p><strong>文件扩展</strong>：仅仅用来告诉程序如何打开该文件，并不会对文件内容有啥破坏。</p>
+<ol>
+<li><p>.inf文件即驱动的说明文件；驱动，即硬件驱动程序，是使硬件正常工作的一种软件；.inf文件里存放着关于驱动的适配厂商，版本号等信息</p>
+</li>
+<li><p>.sys文件，系统级驱动程序文件的可执行代码</p>
+</li>
+<li><p>.dll，动态链接库；.lib静态链接库</p>
+</li>
+<li><p>.bin，二进制文件</p>
+</li>
+<li><p>.ini文件即初始化文件；是windows系统配置文件采用的存储格式；类似功能还有.cfg、.conf、.tx*</p>
+<blockquote>
+<p>.ini文件由若干节（[xxxx]中括号包围）构成，每节都由若干键-值构成（abb&#x3D;xxxx），分号用于表示注释，直到行末；目前还存有少数.ini文件，大多都用注册表代替</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>环境变量</strong>：简单来说就是告诉计算机，你这个程序在哪里，可以方便操作系统打开这个程序；包括用户变量和系统变量，用户变量指的就是操作系统对于当前用户（多用户）所能够快速操作的程序，系统变量就是该操作系统（多系统）可以快速打开的程序；</p>
+<p><strong>注册表</strong>：用来管理计算机的各个软硬件，包括控制面板、任务管理器、时间的改写、系统开机显示等偏向系统方向的内容，记录了用户安装在计算机上的软件和每个程序的相互关联信息，可以说是一种数据库；结构为：根键——项——值；</p>
+<ul>
+<li><p>根键：最大的文件夹，以HKEY为前缀，全大写</p>
+<table>
+<thead>
+<tr>
+<th>根键名称</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HKEY_LOCAL_MACHINE</td>
+<td>与机器硬件有关部分</td>
+</tr>
+<tr>
+<td>HKEY_USERS</td>
+<td>包含了所有的用户（xxx1&amp;xxx2）的设置信息</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_USER</td>
+<td>当前用户的信息，从第二项中单独分离出来的</td>
+</tr>
+<tr>
+<td>HKEY_CLASSES_ROOT</td>
+<td>定义文件扩展名、类型、图标等;从H1\software\classes分离</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_CONFIG</td>
+<td>相关配置的驱动的加载；从H1\config中分离</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>项：小文件夹，除了大的文件夹都是项</p>
+</li>
+<li><p>值：包括三部分：值的名称—值的类型—值的数据</p>
+<table>
+<thead>
+<tr>
+<th>值类型</th>
+<th>具体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>REG_SZ&#x2F;字符串值</td>
+<td>固定长度字符串</td>
+</tr>
+<tr>
+<td>REG_BINARY二进制值</td>
+<td>多数硬件组成信息存储</td>
+</tr>
+<tr>
+<td>DWORD&#x2F;QWORD</td>
+<td>数据的表示是4字节长&#x2F;8字节长，大多驱动参数为DWORD</td>
+</tr>
+<tr>
+<td>REG_MULTI_SZ多字符串值</td>
+<td>含有多个文本值的字符串</td>
+</tr>
+<tr>
+<td>REG_DWORD可扩充字符串值</td>
+<td>解析的变量？</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="0x01-命令与批处理脚本"><a href="#0x01-命令与批处理脚本" class="headerlink" title="0x01.命令与批处理脚本"></a>0x01.命令与批处理脚本</h3><p>cmd是windows下模仿DOS操作系统（之前的磁盘操作系统）的程序，但受到windows的限制，即不可能删除windows文件，但在DOS系统下可以；cmd也可以叫做bat，用cmd编写的脚本类似于Linux下的shell脚本，dos或win下的这样批处理脚本后缀.bat或.cmd</p>
+<blockquote>
+<p>这里再另外介绍以下powrshell，部分命令与cmd相同，大部分命令进行更新，更换为更容易理解的动名词短语形式，此外cmd类似于解释器，而powrshell的相当于一门面向对象的语言，借助.net平台（和win集成）可以运行其他许多在.net平台上编写的程序，也可向下兼容cmd的批处理脚本</p>
+</blockquote>
+<h4 id="运行win-R键"><a href="#运行win-R键" class="headerlink" title="运行win+R键"></a>运行win+R键</h4><p>.cpl : 即Control Panel extension控制面板扩展程序</p>
+<p>.msc ：即Micosoft management Console微软管理控制台</p>
+<pre><code class="powershell">winver-------------------查看windows版本
+regedit------------------打开注册表编辑器
+firewall.cpl-------------防火墙
+mstsc--------------------远程桌面连接
+compmgmt.msc-------------计算机管理
+services.msc-------------服务管理
+optionalfeatures---------可选功能(如Hyper-V)
+appwiz.cpl---------------卸载更改程序
+shutdown-----------------关机
+certmgr.msc--------------证书管理
+control------------------打开控制面板
+appwiz.cpl---------------卸载部分软件
+</code></pre>
+<h4 id="cmd基本命令"><a href="#cmd基本命令" class="headerlink" title="cmd基本命令"></a>cmd基本命令</h4><pre><code class="powershell">help balabala(查询balabala命令的详细用法)
+---------------目录----------------------------
+cd..(返回上一级)
+cd \(返回根目录)
+cd /d d:/test(切换到d盘的test文件夹，/d为参数)
+------------文件相关----------------------------
+dir(显示当前目录下文件夹)
+tree d:/test(树状列出)
+md test6(建立test6文件夹)
+rd test6(删除test6文件夹,需确认)  /s(非空时需要确认) /s/q(非空时不需要确认)
+copy/move  d:\test1  e:\test2(把test1文件夹复制/移动到test2文件夹下)
+del test5.pdf(专门删除文件，不是文件夹，不经常回收站)
+ren d:\test1  test4(重命名文件/文件夹)
+attrib--------------(设置文件属性)
+------------网络-------------------------------
+ping ip/域名(测试连通)   -n 5(测试五次)
+tracert ip/域名(路由追踪)
+ipconfig(查看本机ip)
+arp(用于显示连接在同一网段下的其他IP)
+------------进程-------------------------------
+tasklist(显示当前正在运行的进程)
+start xx.exe(开启某程序)
+taskkill /im xxx.exe(按照名称关闭进程)
+taskkill /pid 123456(按PID关闭进程)
+------------其他-------------------------------
+shutdown /s(关机) /r(重启) /h|f(休眠) /a(取消关机) /s /t 100(100s后关机)
+cls(清屏)
+F7(查看所有执行过的命令，左边会有编号)
+F9(搭配F7，按照编号选择命令)
+</code></pre>
+<h4 id="批处理脚本"><a href="#批处理脚本" class="headerlink" title="批处理脚本"></a>批处理脚本</h4><p>后缀文件保存为.bat，双击即可食用；至于脚本，是因为同样类似于解释型语言，一条条翻译运行；</p>
+<p>cmd窗口与python的交互窗口类似；当然下面所列的也可以在cmd窗口中直接运行；可以与正则表达式配合使用</p>
+<pre><code class="powershell">-------------条件循环-------
+if %a% equ %b% (echo yes) else (echo no)	#如果a=b..
+#exit(存在哪个文件)equ(相等);neq(不等);lss(小于);leq(小或等);gtr(大于);geq(大或等);
+for  %%I in (ABC) do echo %%I	#输出ABC
+#for %I in(内容1，内容2...) do command (在bat文件中用%%I)
+
+------------显示与变量设置---
+echo (显示当前回显状态)
+@echo off (从本行开始关闭回显，去掉@则从下行开始，on则打开，@负责单行的回显，一般作为文件开始)
+set a=aaa (设置变量a值为“aaa”，不要用%0~9)
+echo %a% (输出变量a的值)
+rem (注释)
+%0 %1.....%9 (第0-9个参数，%0表示自身，指的是在命令行中运行脚本时带的参数)
+-------------其他----------
+title xxx (变更窗口标题)
+pause (暂停)
+&amp;(顺序执行多条命令，不管结果)
+&amp;&amp;(顺序执行，碰到错误命令后不再执行)
+||(顺序执行命令，碰到正确后不再执行)
+|  (管道符，后面的做前面的输入)
+&gt;(清除原本内容后再写入)
+&gt;&gt;(接着写)
+</code></pre>
+<h3 id="0x02-系统文件"><a href="#0x02-系统文件" class="headerlink" title="0x02.系统文件"></a>0x02.系统文件</h3><p>ps: $开头的一般均为临时文件；</p>
+<ol>
+<li>Windows：win系统文件</li>
+</ol>
+<ul>
+<li>addins：存放系统附加功能</li>
+<li>appcompat：应用兼容性相关</li>
+<li>apppath：保存程序的修补备份文件</li>
+<li>assembly：由.Net Framwork自动创建，包含多个托管模块以及一些资源文件的逻辑组合；</li>
+<li>boot：主要功能为一键备份所需，可删；另一个boot.ini为系统启动时的引导文件；</li>
+<li>Debug：系统层面的调试文件夹，存放调试日志.log</li>
+<li>Downloaded Program Files：存放过去的IE浏览器扩展，目前已空；可删；</li>
+<li>Help：Windows帮助文件；可扔；</li>
+<li>INF：存放 为硬件提供服务的.inf文件和.pnf文件；</li>
+<li>Microsoft.NET：.net根据官方文档，电脑的驱动以及系统更新需要此支持；</li>
+<li>Offline web pages：脱机浏览文件，即没网的时候仍可浏览的网页；</li>
+<li><strong>PLA</strong>：性能日志和警报，依据性能计数器阈值生成警报等；</li>
+<li>Prefetch：存放系统预读取过的信息，加快访问速率；可删内容；</li>
+<li><strong>security</strong>：系统重要的数据文件；</li>
+<li><strong>System32</strong>：存放64位的windows系统；<ul>
+<li>drivers：里面存放驱动程序文件的可执行代码.sys文件</li>
+</ul>
+</li>
+<li><strong>SysWOW64</strong>：是64位的windows用来存放32位windows的地方；</li>
+<li>TAPI：win升级时备份的旧版本文件；可删；</li>
+<li>TEMP：系统运行过程中的的临时文件夹；需清理；</li>
+<li>Templnst：存储部分应用的离线模板文件夹；</li>
+<li>Tracing：WindowsLiveMassage会创建的文件；现在没啥用；</li>
+<li>twain_32：实现扫描功能，需外接设备；没啥用；</li>
+<li><strong>WinSxS</strong>：存放不同版本的windows组件，减少dll引起的不同版本引用的问题</li>
+</ul>
+<ol start="2">
+<li><p>Program File：系统中64位软件的安装目录</p>
+</li>
+<li><p>Program File(x86)：系统中32位软件安装目录</p>
+</li>
+<li><p>Program Data：放置程序使用数据等</p>
+</li>
+<li><p>Users：存储系统所有用户的软件及数据等；包括桌面和开始菜单</p>
+<ul>
+<li>Default：存放创建新账户时的配置文件</li>
+<li>Lenovo：Lenovo用户的存储的数据内容（这里主要介绍其中AppDate里的内容）<ul>
+<li>Local：与安装的程序相关的文件夹，其中的数据不会因为用户的切换而无法显示</li>
+<li>LocalLow：低级别访问数据</li>
+<li>Roaming：可随着用户的配置而转移的数据</li>
+</ul>
+</li>
+<li>公用：所有用户可用文件夹</li>
+</ul>
+</li>
+<li><p>Intel：安装驱动时的文件夹，安装过后可扔</p>
+</li>
+</ol>
+<blockquote>
+<p> 下面是Windows文件夹下一些主题配置相关文件</p>
+<p>Cursors：鼠标指针，以.cur格式存放。en-US、zh-CN：语言文件夹。</p>
+<p>Fonts：字体文件。IME：存放系统默认的输入法。</p>
+<p>Media：系统提示音等。Resources：系统主题文件。Web：系统自带的图片壁纸</p>
+</blockquote>
+<h3 id="0x03-PE文件"><a href="#0x03-PE文件" class="headerlink" title="0x03.PE文件"></a>0x03.PE文件</h3><p>PE（Portable Executable），可移植的可执行文件。由COFF（UNIX下的通用对象文件格式）发展过来，对应Linux下的ELF文件；PE指的32位的可执行文件也叫PE32，对于64位的叫PE+或PE32+是一种扩展形式</p>
+<p>二进制下打开4D 5A开头对应ASCII码中的MZ，其后面不远就有PE，这些标志着PE文件的叫做PE指纹；整体结构：DOS首部—NT映像头—块表&#x2F;节表—块&#x2F;节</p>
+<blockquote>
+<p>详细概述见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvZGVidWcvcGUtZm9ybWF0">PE 格式 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>种类</th>
+<th>后缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可执行系列</td>
+<td>.exe  &amp;&amp; .scr</td>
+</tr>
+<tr>
+<td>库系列</td>
+<td>.dll &amp;&amp; .ocx &amp;&amp; .cpl &amp;&amp; .drv</td>
+</tr>
+<tr>
+<td>驱动程序系列</td>
+<td>.sys  &amp;&amp; .vxd</td>
+</tr>
+<tr>
+<td>对象文件系列</td>
+<td>.obj</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DOS部首：DOS MZ(4D 5A)文件头，DOS块共64字节，最低四字节，存放着PE的地址，在DOS MZ和PE头之间剩下的是DOS插桩程序。是一个在DOS环境下显示”This program can not be run in DOS mode”或”This program must be run under Win32”的小程序</p>
+</li>
+<li><p><strong>PE文件头&#x2F;NT映像头</strong>：4B+20B+224B；这里以32位做实例，存在于&lt;winnt.h&gt;头文件中，详情参考<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbm50L25zLXdpbm50LWltYWdlX250X2hlYWRlcnMzMg==">Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+<pre><code class="c++">typedef struct _IMAGE_NT_HEADERS &#123;
+    DWORD Signature;		//字串，4B
+    IMAGE_FILE_HEADER FileHeader;		//映像文件头，20B
+    IMAGE_OPTIONAL_HEADER32 OptionalHeader;	//可选映像头，224B，64位下240B
+&#125;IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;
+</code></pre>
+<ol>
+<li><p>字串：”50\45\00\00”&#x3D;”PE\0\0”标志着NT头的开始；在DOS程序头的3CH位置的四个字节，是前面字符串的偏移地址。</p>
+</li>
+<li><p>映像文件头（main）：</p>
+<pre><code class="c++">typedef struct _IMAGE_FILE_HEADER&#123;
+    WORD Machine		//机器类型,x86=14CH
+    WORD NumberOfSection		//文件中节的个数,important,每个节固定40字节
+    DWORD TimeDateStamp		//文件生成的时间戳
+    DWORD PointerToSymbolTable		//COFF符号表的偏移（用于调试）
+    DWORD NumberOfSymbols		//符号表中的符号数目（用于调试）
+    WORD SizeOfOptionalHeader		//可选头大小,important,用于寻找节表的开始位置
+    WORD Characteristics		//文件属性
+&#125;IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+</code></pre>
+</li>
+<li><p>可选映像头：</p>
+<pre><code class="c++">typedef struct _IMAGE_OPTIONAL_HEADER &#123;
+  WORD Magic;		//幻数，一般是010BH
+  BYTE MajorLinkerVersion;		//连接程序的主版本号
+  BYTE MinorLinkerVersion;		//连接程序次版本号
+  DWORD SizeOfCode;		//代码段总尺寸-important-对齐后的值
+  DWORD SizeOfInitializedData;		//已初始化数据总尺寸
+  DWORD SizeOfUninitializedData;	//未初始化数据总尺寸
+  DWORD AddressOfEntryPoint;	//开始执行位置-important!!!
+  DWORD BaseOfCode;		//代码节开始位置-important
+  DWORD BaseOfData;		//数据节开始位置
+  DWORD ImageBase;		//可执行文件默认装入的基地址-如果装入时用该值做基地址则无需再重定位,EXE默认400000H，DLL默认10000000H
+  DWORD SectionAlignment;	//装入内存时节的对齐数字
+  DWORD FileAlignment;		//节的对齐数字，一般是扇区长（512B）
+  WORD MajorOperatingSystemVersion;		//要求最低的OS主版本号
+  WORD MinorOperatingSystemVersion;		//最低OS的次版本号
+  WORD MajorImageVersion;		//可执行文件主版本号
+  WORD MinorImageVersion;		//次版本号
+  WORD MajorSubsystemVersion;	//最小子系统主版本号
+  WORD MinorSubsystemVersion;	//最小子系统次版本号
+  DWORD Win32VersionValue;	//保留，一般0
+  DWORD SizeOfImage;		//装入内存后映像的总尺寸-SectionAlignment的整数倍
+  DWORD SizeOfHeaders;		//NT映像头+节表大小
+  DWORD CheckSum;		//CRC检验和，一般EXE为0，
+  WORD Subsystem;		//可执行文件的子系统
+  WORD DllCharacteristics;		//何时被DllMain调用
+  DWORD SizeOfStackReserve;		//初始化线程时保留的栈大小
+  DWORD SizeOfStackCommit;		//提交的栈大小
+  DWORD SizeOfHeapReserve;		//保留堆大小
+  DWORD SizeOfHeapCommit;		//提交堆大小
+  DWORD LoaderFlags;		//与调试有关
+  DWORD NumberOfRvaAndSizes;	//数据目录的项数，一般16
+  IMAGE_DATA_DIRECTORY 	DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];	//数据目录，存放该可执行文件上一些重要部分的起始RVA和尺寸
+&#125;IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p>节表&#x2F;块表：用来说明节的具体信息，每个节都有一个节表，节表数量由映像文件头决定；一个节表40B；通俗版参考：<span class="exturl" data-url="aHR0cHM6Ly93d3cuNTJwb2ppZS5jbi90aHJlYWQtMTQwNzk5Ni0xLTEuaHRtbA==">PE文件笔记六 节表和节<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>VA：内存中虚拟地址；RVA：相对虚拟地址的偏移；FA：文件的地址；FOA：在文件中的偏移地址，没有被载入内存；VA &#x3D; RVA + ImageBase</p>
+</blockquote>
+<pre><code class="c++">typedef struct _IMAGE_SECTION_HEADER &#123;
+  BYTE  Name[IMAGE_SIZEOF_SHORT_NAME];		//8字节的节名，数组表示
+  union &#123;
+    DWORD PhysicalAddress;
+    DWORD VirtualSize;
+  &#125; Misc;		//obj文件用来表示本节物理地址，EXE文件中表示节的实际字节数
+  DWORD VirtualAddress;		//加载进内存后，本节的偏移地址地址
+  DWORD SizeOfRawData;		//未加载的文件在对齐后的节的尺寸
+  DWORD PointerToRawData;		//本节在原始文件中的偏移地址
+  DWORD PointerToRelocations;	//obj文件中表示该节重定位信息的偏移，EXE中无意义
+  DWORD PointerToLinenumbers;	//行号表位置
+  WORD  NumberOfRelocations;		//需要重定位的数目
+  WORD  NumberOfLinenumbers;		//在行号表中的行号数目
+  DWORD Characteristics;		//节属性-代码节=60000020h即可执行、可读、节中包含代码-数据节=C0000040h即可读、可写、包含已初始化数据
+&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+</code></pre>
+<p>根据可执行文件获取每一节在内存中位置：</p>
+<ol>
+<li>读取<code>IMAGE_FILE_HEADER.NumberOfSection</code>，获取<strong>节</strong>数目</li>
+<li>读取<code>IMAGE_OPTIONAL_HEADER.SizeOfHeaders</code>来定位<strong>节表</strong>的位置</li>
+<li>对于每一节，首先读取<code>IMAGE_SECTION_HEADER.PointerToRawData</code>来得到该<strong>节</strong>在原始文件中的偏移地址—FOA，读取<code>IMAGE_SECTION_HEADER.SizeOfRawData</code>得到<strong>节</strong>在原始文件中的总字节数</li>
+<li>读取<code>IMAGE_OPTIONAL_HEADER.ImageBase</code>得到<strong>文件</strong>在内存中的基地址—ImageBase，之后读取<code>IMAGE_SECTION_HEADER.VirtualAddress</code>获得本<strong>节</strong>相对于文件的偏移地址—RVA，两者再相加获得本节的虚拟地址—VA，同时根据<code>IMAGE_SECTION_HEADER.Characteristics</code>获取节的具体属性</li>
+</ol>
+</li>
+<li><p>节数据：</p>
+<ol>
+<li><p>代码节.text或.code：PE文件均有，含有程序可执行代码</p>
+</li>
+<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表</p>
+<pre><code class="c++">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;
+    DWORD   Characteristics;	//属性，一般为0
+    DWORD   TimeDateStamp;		//文件生成时间戳
+    WORD    MajorVersion;		//主版本号
+    WORD    MinorVersion;		//次版本号
+    DWORD   Name;		//指向的DLL名字
+    DWORD   Base;		//导出函数的起始序列号，与下面的序号y相加得到对应函数的导出序号
+    DWORD   NumberOfFunctions;		//所有导出函数的总数
+    DWORD   NumberOfNames;		//有名称的导出函数总数，都有序号
+    DWORD   AddressOfFunctions;     //指向函数地址数组，每个成员占4B，表示相应函数的RVA
+    DWORD   AddressOfNames;         //指向一个数组，里面装的是4B的地址，该地址下存放的是函数名字字符串，借此数组与我们需要的函数名称进行对比，我们可以找到目标的序号x
+    DWORD   AddressOfNameOrdinals;  //指向一个序号对应数组，由上面的序号x，查找得到需要的函数地址在AddressOfFunction中的序号y
+&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;
+</code></pre>
+</li>
+<li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项</p>
+<pre><code class="c++">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;
+    union &#123;
+        DWORD   Characteristics;
+        DWORD   OriginalFirstThunk;
+    &#125; DUMMYUNIONNAME;		//IMAGE_THUNK_DATA数组的指针，在文件中与FirstThunk指向一样，内存中不同
+    DWORD   TimeDateStamp;		//文件建立时间戳
+    DWORD   ForwarderChain;		//引用的DLL的API，又引用了其他DLL的API，现在一般为0
+    DWORD   Name;		//指向的DLL名字
+    DWORD   FirstThunk;		//通常是一个RVA，指向IMAGE_THUNK_DATA结构（该结构说明函数的导入方式）
+&#125; IMAGE_IMPORT_DESCRIPTOR;
+typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
+</code></pre>
+<pre><code class="c++">typedef struct _IMAGE_THUNK_DATA32 &#123;
+    union &#123;
+        DWORD ForwarderString;      // PBYTE 
+        DWORD Function;             // PDWORD
+        DWORD Ordinal;
+        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
+    &#125; u1;//双字最高位是1时，函数是以序号形式导入的，此时的低位就是函数序号
+    //最高位是0时，函数以字符串形式导入，此时双字=RVA地址，指向一个IMAGE_IMPORT_BY_NAME
+&#125; IMAGE_THUNK_DATA32;
+typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;
+
+typedef struct _IMAGE_IMPORT_BY_NAME &#123;
+    WORD    Hint;		//表示函数的序号
+    CHAR   Name[1];		//导入函数的名称字符串
+&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;
+</code></pre>
+</li>
+<li><p>已初始化数据节.data：编译时已经固定值的数据</p>
+</li>
+<li><p>未初始化数据节.bss：未初始化的全局变量和静态变量</p>
+</li>
+<li><p>资源节.rsrc或.rdata：程序要用到的资源，树形结构</p>
+</li>
+<li><p>重定位信息段.reloc：存放重定位信息</p>
+<pre><code class="c++">typedef struct _IMAGE_BASE_RELOCATION &#123;
+    DWORD   VirtualAddress;		//重定位数据开始的RVA地址
+    DWORD   SizeOfBlock;		//重定位块大小
+//  WORD    TypeOffset[1];		//重定向位数组，即地址偏移，大小不定
+&#125; IMAGE_BASE_RELOCATION;
+typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="0x04-Win引导"><a href="#0x04-Win引导" class="headerlink" title="0x04.Win引导"></a>0x04.Win引导</h3><p>首先了解各大致过程：电源开启—&gt;分区引导（MBR）—&gt;操作系统引导（NTLDR&#x2F;Bootmgr）—&gt;文件系统引导（DBR）；下面的介绍均以windows为例子</p>
+<p><strong>硬盘结构</strong>：</p>
+<ul>
+<li><p>CHS寻址：借助3D参数，磁头0-255、柱面0-1023、扇区1-63</p>
+<blockquote>
+<p>3D参数：磁头数head（8位）、柱面数&#x2F;磁道号cylinders（10位）、扇区数sectors（6位，每个扇区512字节）</p>
+</blockquote>
+</li>
+<li><p>Int 13H调用：BIOS提供的基本功能，用于磁盘的复位、读写、校验、定位、诊断、格式化等，使用上述CHS寻址；</p>
+</li>
+<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破</p>
+<blockquote>
+<p>LBA地址&#x3D;当前柱面号×255×63+当前磁头号×63+（当前扇区数-1）；因为不存在C&#x2F;H&#x2F;S&#x3D;0&#x2F;0&#x2F;0，所以最后减一</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>Legacy BIOS引导模式</strong>：</p>
+<p>使用MBR磁盘格式，系统只能在MBR格式磁盘上；这里以win的启动为例；过程如下：</p>
+<ol>
+<li><p>通电电压不稳，主板发送RESET信号给CPU，稳定后不在发送。CPU执行0xFFFF0h处指令，此处为BIOS程序</p>
+</li>
+<li><p>BIOS执行，进行POST（加电自检）木有问题后加载第一个扇区（MBR）到内存0x7c00h处</p>
+</li>
+<li><p>执行MBR，查找第一个活动分区，并将其第一个扇区（PBR）加载到内存</p>
+</li>
+<li><p>执行PBR，跳过BPB到可执行代码处NTLDR</p>
+<blockquote>
+<p>BPB:即BIOS参数记录块，描述能够使可执行引导代码找到相关参数的信息。记录着本分区的起始扇区、结束扇区、文件存储格式、硬盘介质描述符、根目录大小、FAT 个数,分配单元的大小等重要参数。</p>
+</blockquote>
+</li>
+<li><p>PBR读取VBR（卷引导记录，用于告诉计算机OS在分区里的位置）；CPU跳转执行bootmgr代码</p>
+</li>
+<li><p>寻找BootMGR，木有则寻找ntldr（在win 8之后默认bootmgr）</p>
+</li>
+<li><p>执行bootmgr，读取BCD文件，如果有多个系统则列举供选择</p>
+</li>
+<li><p>选择win则加载winload.exe到内存，CPU执行，并读取\windows\bootstat.dat；接着加载内核程序Ntoskrnl.exe，将CPU执行权交给内核</p>
+</li>
+<li><p>内核程序初始化完成</p>
+</li>
+</ol>
+<p><strong>MBR分区模式</strong>：</p>
+<p>包括：主引导记录MBR（开机必读）、硬盘主分区表DPT、引导扇区标记boot record ID；</p>
+<ul>
+<li><p>MBR：占前446字节，存放着系统主引导程序，位于磁盘0柱面、0磁头、1扇区</p>
+</li>
+<li><p>DPT：占64字节，记录磁盘基本分区，一共包含4个分区项，每项16字节；</p>
+<blockquote>
+<p>1B分区状态—3B起始磁头号+起始扇区+柱面号—1B分区类型（识别主分区还是扩展分区）—3B分区结束磁头号+扇区+柱面号—1D本分区之前已经占用的扇区数—1D本分区占用总扇区数</p>
+</blockquote>
+</li>
+<li><p>Boot record ID：占2字节，合法的话就&#x3D;0xAA55</p>
+</li>
+<li><p>扩展分区：正常情况下按照DPT项数只有4个分区，为了更多分区扩展，在每个逻辑盘前都有上述结构，其中的第一项存放当前逻辑盘的地址，第二项存放的是下一个逻辑盘前的引导记录等，最后两项为空。</p>
+</li>
+<li><p>最多只能识别2TB、最多4个主分区或3主分区+1扩展分区；</p>
+</li>
+</ul>
+<hr>
+<p><strong>UEFI BIOS引导模式</strong>：</p>
+<p>win7支持，win8默认，使用GPT磁盘格式，没有自检过程；</p>
+<p>阶段 &#x3D; SEC（安全验证）—PEI（EFI前期初始化）—DXE（驱动执行环境）—BDS（启动设备选择）—TSL（操作系统加载前期）—RT（系统运行阶段）—AL（关机或系统恢复）</p>
+<ol>
+<li>同上进行通电，但CPU执行UEFI指令，并进行相关设备的初始化</li>
+<li>查找EFI分区（FAT32格式，不一定是第一个分区，其中包含系统引导的关键数据程序）</li>
+<li>加载<code>\Boot\EFI\bootmgfw.efi</code>（专用于引导windows的引导文件）</li>
+<li>读取BCD文件，其中包含多个系统的信息，可供用户选择</li>
+<li>后面同上</li>
+</ol>
+<p><strong>GPT分区模式</strong>：</p>
+<p>全局唯一标识分区表，是可扩展固件接口EFI标准的一部分，用于代替MBR</p>
+<p>包括&#x3D;保护MBR+GPT头+分区表+分区区域+分区表备份+GPT头备份</p>
+<ul>
+<li><p>保护MBR：存放了一份传统MBR（1扇区），防止不支持GPT的管理工具破坏硬盘。在这个MBR中只有一个标识为0xEE的分区（也没有引导程序等，只有一个DPT、结束标志和磁盘签名），来表明该硬盘使用GPT分区表</p>
+<blockquote>
+<p>0x07普通分区、0x27恢复分区、0xEE该扇区为PMBR</p>
+</blockquote>
+</li>
+<li><p>GPT头：用于记录分区表的信息，下面仅列出部分重要信息</p>
+<blockquote>
+<p>0x0C-4B-GPT头字节总数、0x18-8B-GPT头所在扇区号、0x48-8B-分区表起始扇区号、0x50-4B-分区表项数、0x54-4B-每个分区表项数字节数</p>
+</blockquote>
+</li>
+<li><p>分区表：2-33号扇区，共可容纳128个分区表项，每个表项128B</p>
+<blockquote>
+<p>0x20-8B-分区起始地址、0x28-8B-分区结束地址</p>
+</blockquote>
+</li>
+<li><p>每个分区最多1EB&#x3D;1048576TB空间、支持128个主分区、分区表大小不固定</p>
+</li>
+</ul>
+<h3 id="0x05-文件系统"><a href="#0x05-文件系统" class="headerlink" title="0x05.文件系统"></a>0x05.文件系统</h3><p>文件系统是让OS可以管理的一种文件集合。</p>
+<ul>
+<li>分类包括：扩展文件系统（Ext）、新技术文件系统（NTFS）、文件分配表（FAT）、光盘文件系统（CDFS）、高性能文件系统（HPFS）等。</li>
+<li>内容包括：文件系统数据、内容（具体文件）、元数据（文件信息）、文件名、应用程序等</li>
+</ul>
+<p>在win下常用簇作为单位，扇区sector &lt; 簇Cluster：4KB，为单位分配空间，即占用空间，其内部的未使用叫内部碎片，外部碎片是介于两个簇之间但 &lt; 4KB的未使用的空间。</p>
+<blockquote>
+<p>松弛&#x2F;文件残留空间：指的是文件最后一个数据单元中未使用的字节；<br>卷松弛：文件系统末端和其占用的分区末端之间有空</p>
+</blockquote>
+<p>分配簇&#x2F;文件空间的算法主要有：</p>
+<ul>
+<li>连续分配：文件连续存储</li>
+<li>链式分配：指针指向下一簇，必须连着读</li>
+<li>索引分配：所有位置的指针都写入一个索引块中</li>
+</ul>
+<p>Windows支持的文件系统有：FAT12、FAT16、<strong>FAT32</strong>、<strong>NTFS</strong>、WINFS等。Linux支持Ext2、Ext3、Minix、NTFS等。</p>
+<h4 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h4><p>FAT32即文件分配表FAT表项大小为32位，exFAT的表项大小64位；采用链式分配法管理已经分配或未分配的簇；</p>
+<p>所有版本的FAT布局相同：物理盘划分为&#x3D;引导区—文件分配表区（FAT区）—数据区（DATA区），前两者合称为系统区</p>
+<ul>
+<li><p>引导区：从头开始占用三个扇区，其中保存了物理盘每扇区的字节数、每一簇对应的扇区数以及引导记录等；其后面还有部分留白扇区（0x24以后的内容会根据版本号有区别，这里以FAT32为例子）；FAT16只占用1个扇区，而且后面没有留白</p>
+<p>在FAT32中，引导区&#x3D;分区引导区+FS信息扇区（DBR）+保留分区；下面是分区引导区的内容</p>
+<blockquote>
+<p>DBR：Dos Boot Record即分区引导扇区，用于引导操作系统引导程序的一部分，用于加载文件系统元数据</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字节位置</th>
+<th>内容</th>
+<th>字节位置</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00-0x02</td>
+<td>汇编指令跳转引导代码</td>
+<td>0x03-0x0a</td>
+<td>文件系统版本</td>
+</tr>
+<tr>
+<td>0x0b-0x0c</td>
+<td>每扇区的字节数</td>
+<td>0x0d</td>
+<td>每簇的扇区数</td>
+</tr>
+<tr>
+<td>0xe-0xf</td>
+<td>FAT表起始扇区号</td>
+<td>0x10</td>
+<td>FAT表个数（一般是2，用于备份）</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>介质描述符，0xf8表示固定磁盘，0xf0表示可移动磁盘</td>
+<td>0x18-0x19</td>
+<td>每磁道扇区数</td>
+</tr>
+<tr>
+<td>0x1a-0x1b</td>
+<td>磁头数</td>
+<td>0x24-0x27</td>
+<td>FAT表的扇区数</td>
+</tr>
+<tr>
+<td>0x30-0x31</td>
+<td>DBR大小</td>
+<td>0x32-0x33</td>
+<td>引导扇区的备份扇区号</td>
+</tr>
+<tr>
+<td>0x52-0x59</td>
+<td>FAT文件系统类型</td>
+<td>0x5a-0x1fd</td>
+<td>未使用，但可以包含OS启动代码</td>
+</tr>
+<tr>
+<td>0x1fe-0x1ff</td>
+<td>0xAA55结束标志</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>FAT区：由两个相同的FAT表构成，用于备份，其中包含了文件占用的簇链、空闲空间等；FAT中每个簇都有一个表项，例如三号表项就对应的3号簇；表项记录如下（注意虽然是32位，但高4位保留，FAT16&#x3D;0002H-FEFFH个可用簇号）：</p>
+<ul>
+<li>未使用&#x2F;空闲的簇：0x0000</li>
+<li>损坏的簇：-9或0xffffff7</li>
+<li>文件下一个簇的地址</li>
+<li>文件最后一个簇或文件结束标志：-1或0x0fffffff</li>
+</ul>
+</li>
+<li><p>根目录区（ROOT区）：属于数据区的一部分；在FAT32中区域、大小都不固定，而在FAT12&#x2F;16中，固定在FAT区之后的32个扇区，最多可以存放512（32*16）个目录项；根目录下的任何文件或者子目录都会有一个根目录表项</p>
+</li>
+<li><p>目录区：属于数据区，一个目录项占32字节。以表的形式存在，又叫做目录表—DIR（Directory_Table）或文件目录表—FDT（File_Directory_Table）每个表项对应一个文件或者子目录相关信息（在FAT中文件和文件夹处理方式相同）</p>
+<blockquote>
+<p> 子目录项的最后一项为0；长文件名的需要用长文件名（LFN）目录项来存储；文件属性一项最高两位不用：0x01只读、0x02隐藏文件、0x04系统文件、0x08包含磁盘卷标签的表项、0x10子目录表项、0x20归档文件</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>说明</th>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00-07</td>
+<td>文件正名</td>
+<td>08-0A</td>
+<td>扩展名</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>文件属性(按二进制分)</td>
+<td>0C</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>0D-0F</td>
+<td>文件创建时间，24位</td>
+<td>10-11</td>
+<td>16位创建时间，相对于1980年</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>16位最近访问时间</td>
+<td>14-15</td>
+<td>起始簇号的高16位</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>16位最新修改时间</td>
+<td>18-19</td>
+<td>16位最新修改时间，相对1980</td>
+</tr>
+<tr>
+<td>1A-1B</td>
+<td>起始簇号低16位</td>
+<td>1C-1F</td>
+<td>文件字节长度</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>下面是LFN表项的具体内容，同样32字节，一个长文件名文件可能有多个该表项；文件名以Unicode格式保存，且占2字节</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>内容</th>
+<th>位置</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0</td>
+<td>序列号</td>
+<td>0x1-0xa</td>
+<td>长文件名的5个文件名字符</td>
+</tr>
+<tr>
+<td>0xb</td>
+<td>长文件名属性，LFN&#x3D;0x0F</td>
+<td>0xc</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>0xd</td>
+<td>校验和，根据短文件名算出</td>
+<td>0xe-0x19</td>
+<td>长文件名的6个文件名字符</td>
+</tr>
+<tr>
+<td>0x1a-0x1b</td>
+<td>保留</td>
+<td>0x1c-0x1f</td>
+<td>长文件名的2个文件名字符</td>
+</tr>
+</tbody></table>
+<p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
+</blockquote>
+<h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
+<blockquote>
+<p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
+</blockquote>
+<p>NTFS使用NTFS Log记录详细的事务日志，跟踪卷的文件系统的元数据变化（人话：有相关文件记录元数据）。</p>
+<p>格式：1个引导扇区+15个扇区的NTLDR区域+MFT分配空间+文件存储区+MFT前几个数据文件的备份+文件存储区</p>
+<ul>
+<li><p>引导扇区：包含引导程序和BPB参数（用于定位后面的NTLDR区），格式与FAT的分区引导区相似</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00</td>
+<td>JMP指令</td>
+<td>0x03</td>
+<td>OEM标识‘NTFS’</td>
+</tr>
+<tr>
+<td>0x0B</td>
+<td>每扇区字节数</td>
+<td>0x0D</td>
+<td>每簇扇区数</td>
+</tr>
+<tr>
+<td>0x0E</td>
+<td>保留扇区数</td>
+<td>0x10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>介质描述符</td>
+<td>0x16</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>每磁道扇区数</td>
+<td>0x1A</td>
+<td>磁头数</td>
+</tr>
+<tr>
+<td>0x1C</td>
+<td>隐藏扇区数</td>
+<td>0x20</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x28</td>
+<td>总扇区数</td>
+<td>0x30</td>
+<td><code>$MFT</code>簇号</td>
+</tr>
+<tr>
+<td>0x38</td>
+<td><code>$MFTMirr</code>簇号</td>
+<td>0x40</td>
+<td>文件记录段字节数</td>
+</tr>
+<tr>
+<td>0x41</td>
+<td>0</td>
+<td>0x44</td>
+<td>索引缓冲簇数</td>
+</tr>
+<tr>
+<td>0x45</td>
+<td>0</td>
+<td>0x48</td>
+<td>卷序列数</td>
+</tr>
+<tr>
+<td>0x50</td>
+<td>校验和</td>
+<td>0x54</td>
+<td>启动指令码</td>
+</tr>
+<tr>
+<td>0x01FE</td>
+<td>0xAA55结束标志</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>NTLDR区：引导程序的一部分（与NTFS没有必要联系，以前多用该程序来启动加载windows）</p>
+</li>
+<li><p><strong>主控文件表MFT</strong>：包含卷中所有的信息，以数组实现，每个文件记录项大小1KB，一个文件至少一项。</p>
+<p>在这个表中的前16项位置固定，且有备份，后面才存放每个文件或目录对应的MFT项；以<code>$</code>符开头，0-11如下，12-15保留。</p>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>描述</th>
+<th>文件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$MFT</code></td>
+<td>主文件表</td>
+<td><code>$MFTMirr</code></td>
+<td>主文件表前几项的备份</td>
+</tr>
+<tr>
+<td><code>$LogFile</code></td>
+<td>日志文件，记录元数据变化</td>
+<td><code>$Volumn</code></td>
+<td>卷文件</td>
+</tr>
+<tr>
+<td><code>$AttrDef</code></td>
+<td>属性定义列表</td>
+<td><code>$Root</code></td>
+<td>根目录文件</td>
+</tr>
+<tr>
+<td><code>$Bitmap</code></td>
+<td>位图文件，每位对应1簇，1有0未</td>
+<td><code>$Boot</code></td>
+<td>引导文件，包含DBR扇区</td>
+</tr>
+<tr>
+<td><code>$BadClus</code></td>
+<td>坏簇记录文件</td>
+<td><code>$Secure</code></td>
+<td>文件安全属性与访问控制</td>
+</tr>
+<tr>
+<td><code>$UpCase</code></td>
+<td>大小写字符转换表文件</td>
+<td><code>$Extend</code></td>
+<td>扩展属性</td>
+</tr>
+</tbody></table>
+<p>对于每一个表项，大多以’FILE‘（4B）开头，以0xFF FF FF FF结束；表项&#x3D;MFT头+属性</p>
+<p>每一个文件&#x2F;MFT表项有对应的64位文件引用地址&#x3D;16位序列号（见下表，放高位）+ 48位文件地址（也可以说是表项序号，从0递增，放低位），对于较大文件的属性除了MFT外，还有一个扩展区域来存放多余的内容。</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3</td>
+<td>MFT标志(好的‘FILE’，坏的‘BAAD’)</td>
+<td>4-5</td>
+<td>更新序列号</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>更新序列号的大小与数组</td>
+<td>8-15</td>
+<td>日志文件序列号</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>序列号</td>
+<td>18-19</td>
+<td>硬连接数</td>
+</tr>
+<tr>
+<td>20-21</td>
+<td>第一个属性的偏移地址</td>
+<td>22-23</td>
+<td>标志00表删除-01正在使用-02目录被删-03目录正在使用</td>
+</tr>
+<tr>
+<td>24-27</td>
+<td>文件记录的实际长度</td>
+<td>28-31</td>
+<td>文件记录的分配长度</td>
+</tr>
+<tr>
+<td>32-39</td>
+<td>基本文件记录中的文件索引号</td>
+<td>40-41</td>
+<td>下一个属性ID</td>
+</tr>
+<tr>
+<td>42-43</td>
+<td>边界</td>
+<td>44-47</td>
+<td>文件记录参考号</td>
+</tr>
+<tr>
+<td>48-1023</td>
+<td>属性和固定值</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>属性分为两部分，属性头+属性体（属性内容）。属性头描述了是常驻属性（属性内容存在MFT中）还是非常驻属性（存在文件区），其属性体数据结构不同。非常驻属性的内容叫做数据流，流的大小不一，其第一个字节的低4位表示流大小的字节数，高4位表示包含流的起始簇地址的字节数。属性头格式如下：</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3</td>
+<td>属性类型</td>
+<td>4-7</td>
+<td>属性长度</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0常驻，1非常驻</td>
+<td>9</td>
+<td>属性名长度</td>
+</tr>
+<tr>
+<td>10-11</td>
+<td>属性名的开始偏移</td>
+<td>12-13</td>
+<td>标志</td>
+</tr>
+<tr>
+<td>14-15</td>
+<td>属性ID</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>对于常驻属性：16-19为属性体大小，20-21为属性体的偏移。非常驻属性这里不再过多叙述</p>
+</li>
+</ul>
+<h3 id="0x06-Windows内存结构与管理"><a href="#0x06-Windows内存结构与管理" class="headerlink" title="0x06. Windows内存结构与管理"></a>0x06. Windows内存结构与管理</h3><p><strong>DOS内存布局</strong>：运行于实模式中，寻址范围只有1MB。</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F0000-FFFFF</td>
+<td>ROM BIOS</td>
+</tr>
+<tr>
+<td>A0000-F0000</td>
+<td>设备保留区</td>
+</tr>
+<tr>
+<td>400-4F0、4F0-500、500-700</td>
+<td>BIOS、用户、DOS通信区</td>
+</tr>
+<tr>
+<td>0-400</td>
+<td>中断向量表</td>
+</tr>
+</tbody></table>
+<p><strong>Windows内存布局</strong>：</p>
+<p>开机后一般运行于保护模式下，这就使得每个32位进程都拥有4GB的虚拟内存寻址空间，且会根据OS版本对虚拟内存空间进行划分，下面是x86下32win的虚拟内存大致分布情况</p>
+<ul>
+<li><p>FFFFFFFF-80000000&#x3D;2GB（内核模式分区）：操作系统使用，不可读写；其中的数据所有进程共享，但被保护</p>
+<blockquote>
+<p>Ring0（用户模式）-Ring3（内核模式）；Ring0仅限于用户模式区，后者可访问所有内存、硬件、使用所有处理器指令，但是对其代码空间不提供保护</p>
+</blockquote>
+</li>
+<li><p>7FFFFFFF-7FFF0000&#x3D;64KB（禁入分区）：防止跨系统或跨用户边界的传输数据，不可读写</p>
+</li>
+<li><p>7FFEFFFF-00010000（用户模式区）：进程私有空间</p>
+</li>
+<li><p>0-0000FFFF&#x3D;64KB（空指针赋值区）：用户捕捉NULL指针，不可读写；用来帮助程序员捕获对空指针的赋值</p>
+</li>
+</ul>
+<p><strong>虚拟地址转译</strong>：默认情况下x86上的windows使用二级页表，来将虚拟地址转换为物理地址，页表大小默认4KB；</p>
+<p>32位虚拟地址&#x3D;页目录索引+页表索引+字节索引（12bit）</p>
+<blockquote>
+<p>CR3寄存器页目录——页目录索引找到具体页目录项(PDE)——页表——根据页表索引找到页表项(PTE)——得到具体物理地址</p>
+</blockquote>
+<p><strong>内存分配与管理函数</strong>：内存API大致分三类有以下三类</p>
+<ul>
+<li><p>虚拟内存管理：适用于占用内存较大，但不一定立即用到的程序；能够提前分配一小部分内存，需要时就会从保留的内存块中再利用</p>
+<ol>
+<li>分配&#x2F;保留虚拟内存；参数：内存地址—大小—类型—保护标志</li>
+</ol>
+<pre><code class="c++">VirtualAlloc(IpMem,Size,Type,Access)
+//Ipmem可NULL,Size单位字节
+//Type类型MEM_COMMINT提交内存、MEM_RESERVE保留内存、MEM_TOP_DOWN尽可能在高地址分配内存
+//Access,PAGE_READONLY内存可读、PAGE_READWRITE可读可写
+</code></pre>
+<ol start="2">
+<li>释放虚拟内存；参数：地址—大小—类型</li>
+</ol>
+<pre><code class="c++">VirtualFREE(IpMem,Size,Type)
+//Type为释放的类型,MEM_DECOMMIT取消内存提交、MEM_RELEASE释放
+</code></pre>
+<ol start="3">
+<li>改变页保护属性；参数：地址—大小—类型—旧属性地址</li>
+</ol>
+<pre><code class="c++">VirtualProtect(IpMem,Size,Access,IpOldAccess)
+//前三者同上，最后是一个地址用来存放旧的保护属性
+</code></pre>
+<ol start="4">
+<li>内存锁定与解锁；</li>
+</ol>
+<pre><code class="c++">VirtualLock(IpMem,Size)		//确保进程运行时，指定内存总在内存中
+VirtualUnlock(IpMem,Size)	//
+</code></pre>
+</li>
+<li><p>堆管理：适用于经常需要分配小块内存的程序</p>
+<blockquote>
+<p>缺省堆：默认1MB，进程在编译时个已更改该值，在程序运行时如果需要使用临时内存则会从其中分配内存。Win32确保在任意时刻都只能有一个线程可以在缺省堆上分配释放内存</p>
+</blockquote>
+<ol>
+<li>创建新堆</li>
+</ol>
+<pre><code class="c++">HeapCreate(flOption,dWINitalSize,cbMaximumSize)
+//flOption可选：0、HEAP_NO_SERIALIZE、HEAP_GENERATE_EXCEPTIONS
+//后两者指出堆的初始化大小和最大容量，单位Byte，会自动对齐为页大小的整数倍
+</code></pre>
+<ol start="2">
+<li>分配堆内存&#x2F;重新分配堆内存</li>
+</ol>
+<pre><code class="c++">HeapAlloc(hHeap,dwFlags,dwBytes)
+//堆句柄，可由HeapCreate、GetProcessHeap取得
+//可选HEAP_ZERO_MEMORY(内存清0)、HEAP_GENERATE_EXCEPTIONS、HEAP_NO_SERIALIZE
+//要分配的堆内存大小
+HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
+//第三个参数指明内存堆地址
+</code></pre>
+<ol start="3">
+<li>释放堆内存</li>
+</ol>
+<pre><code class="c++">HeapFree(hHeap,dwFlags,lpMem)
+</code></pre>
+</li>
+<li><p>内存映射文件管理：简单说就是无需打开文件等操作，可以通过映射快速操纵文件内容</p>
+<p>相关API<code>CreateFileMapping()</code>、<code>MapViewOfFile()</code>、<code>UnmapViewOfFile()</code>、<code>FlushViewOfFile()</code></p>
+</li>
+</ul>
+<h3 id="0x07-Windows安全机制"><a href="#0x07-Windows安全机制" class="headerlink" title="0x07.Windows安全机制"></a>0x07.Windows安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
+<h4 id="数据执行保护DEP"><a href="#数据执行保护DEP" class="headerlink" title="数据执行保护DEP"></a>数据执行保护DEP</h4><p>通过使可写内存的不能执行，或者来让可执行内存不可写来消除威胁。常用于防范缓冲区溢出，其他叫法：NX&#x2F;XD&#x2F;WX；</p>
+<p>具体见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvbWVtb3J5L2RhdGEtZXhlY3V0aW9uLXByZXZlbnRpb24=">数据执行保护 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>；</p>
+<p>在Win中DEP相关设置如下：</p>
+<ul>
+<li>OptOut：除了手动添加到排除列表中的进程外，均开起了DEP保护；多用在Server中</li>
+<li>OptIn：仅应用于核心的系统可执行文件；多用于普通win</li>
+<li>AlwaysOn：对所有进程启用DEP保护，没有例外，不可关闭</li>
+<li>AlwaysOff：所有禁用，也不能被动态开启</li>
+</ul>
+<p>具体实现有两种模式：硬件实现和软件实现</p>
+<ul>
+<li>如果CPU支持内存页NX属性，则支持硬件实现，可通过Windows DEP tabsheet查看（桌面环境下高级系统设置-高级性能设置-数据执行保护）</li>
+<li>软件支持的DEP不能直接阻止在数据页上执行代码</li>
+</ul>
+<p><strong>对抗措施</strong>：通过执行已经加载的模块中的指令，或者是调用系统函数不受DEP的影响，但是使用的栈上的参数则是攻击者构造的。</p>
+<ul>
+<li><p>利用ret-to-libc执行命令或进行API调用，如WinExec等</p>
+<blockquote>
+<p>在库中找到一段执行系统命令的代码或函数，用这段代码的地址覆盖返回地址；参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vemhhbmcyOTMvcC85MDI2NTg3Lmh0bWw=">内存保护机制及绕过方法——利用Ret2Libc绕过DEP之ZwSetInformationProcess函数 - zhang293 - 博客园 (cnblogs.com)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+<li><p>将包含ShellCode的内存页面标记为可执行，在跳过去执行</p>
+</li>
+<li><p>分配可执行内存，再将ShellCode复制到其中，再跳进去执行</p>
+<blockquote>
+<p>需要使用ROP技术（能够连续调用已存在的程序代码，来创建一连串指令码序列）调用API函数WriteProcessMemory、HeapCreate、VirtualAlloc、memcopy实现</p>
+</blockquote>
+</li>
+<li><p>尝试关闭DEP再运行ShellCode</p>
+<blockquote>
+<p>一个进程的DEP开启标志保存在内核结构中（_KPROCESS），当DEP置用时ExecuteDisable被置位，禁用时ExecuteEnable被置位，当Permanent置位时表明这些设置不可更改。需要借助NtQueryInformationProcess()和NtSetInformationProcess()函数来设置ProcessExecuteFlags类。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="栈溢出检查GS"><a href="#栈溢出检查GS" class="headerlink" title="栈溢出检查GS"></a>栈溢出检查GS</h4><p>在VS中默认设置该选项</p>
+<p>原理：当程序启动时，会首先计算出该程序的cookie值（动态、4B），然后将其保存在加载模块的.data节中，如果函数被调用，那么该值就会被复制到栈中（retAd、EBP之后，局部变量之前），用于在函数结束时进行检查。此外他对栈中变量进行重新排序：对函数栈帧进行重排，将字符串缓冲区分配在栈帧的最高地址上、将函数参数复制到寄存器或栈缓冲区上，防止参数被溢出</p>
+<p>条件：当函数有字符串缓冲区（且&gt;&#x3D;5字节时）或使用_alloca函数在栈上分配空间时，编译器才在栈中保存该cookie值。</p>
+<p><strong>缺陷</strong>：</p>
+<ul>
+<li>一个函数中含有多个缓冲区时，都放在同一个栈里面，可以从一个缓冲区溢出到另一个缓冲区</li>
+<li>对于参数数量不确定的函数来说，预先不知道函数参数的个数，因此无法进行保护</li>
+<li>alloca()函数动态分配的缓冲区不可避免地放在栈顶</li>
+<li>结构成员当中如果有缓冲区时，这个缓冲区将位于struct或class声明的固定位置</li>
+</ul>
+<p><strong>绕过</strong>：</p>
+<ul>
+<li>利用异常处理器绕过cookie检查</li>
+<li>替换栈和.data节中的cookie来绕过</li>
+<li>覆盖父函数的栈数据来绕过GS检查</li>
+</ul>
+<h4 id="地址空间随机分配ASLR"><a href="#地址空间随机分配ASLR" class="headerlink" title="地址空间随机分配ASLR"></a>地址空间随机分配ASLR</h4><p>进行随机化的对象有：映像（可执行文件和DLL的加载地址）、栈（每个线程起始栈的地址）、堆（改变已分配堆的基地址）</p>
+<p>实现方式：VS编辑器—DYNAMICBASE、映像加载基址随机化</p>
+<p><strong>缺陷及绕过</strong>：一个被多个进程同时使用的DLL，由于一直有人使用，因此其地址是固定的</p>
+<ul>
+<li>返回地址部分覆盖：随机化一般发生在地址的高16位，找到对应高地址空间下可以利用的跳转指令进行覆盖</li>
+<li>大多程序在编译时没有使用随机化，因此这些程序中没有启用ASLR的模块的相关跳转指令便可以作为跳板，用来引导至恶意代码</li>
+</ul>
+<h4 id="SafeSEH"><a href="#SafeSEH" class="headerlink" title="SafeSEH"></a>SafeSEH</h4><p>SafeSHE用来检测和保护和防止堆栈中的SEH函数指针被覆盖的技术</p>
+<p>原理：编译器在链接生成二进制映像文件时，会将所有合法的异常处理函数的地址解析出来制作成一张安全的SEH表，并保存在程序映像文件中的数据块里，每当这些函数被调用时，就会与SEH表中的地址进行匹配（如果映像文件不支持，则该表的地址为0）</p>
+<p>加载过程：程序影响加载到内存时，系统定位该表，并使用Shareuser内存中的一个随机数进行加密，将加密后的表地址、映像文件开始地址、长度、合法SEH函数数目作为一条记录放入到ntdll加载模块数据内存中</p>
+<p>异常处理过程：首先检查该异常处理程序是否在栈中，不在的话则不执行；并再次被检查是否位于映像文件的地址空间；在的话，则执行，否则：</p>
+<p>如果该地址位于不可执行页上，则检查DEP开启状态（开了就报错，否则执行）；若位于可执行页上，则判断系统是否允许跳转到加载模块的内存空间外执行，可以则执行否则抛错</p>
+<p><strong>绕过</strong>：必须要使用.Net编译器且开启SafeSEH连接选项</p>
+<ul>
+<li>利用未启用SafeSEH的模块作为跳板</li>
+<li>利用加载模块之外的地址进行绕过（比如堆区一般会直接跳转执行）</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Windows/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> Windows</a>
+              <a href="/tags/OS/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> OS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" rel="prev" title="后端基础知识">
+                  <i class="fa fa-angle-left"></i> 后端基础知识
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" rel="next" title="网络技术">
+                  网络技术 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">98k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:58</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"222d52a6b7e2932187a1f9601e26fd57"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>
