@@ -28,12 +28,15 @@
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/07/v7gijBNO.png">
 <meta property="article:published_time" content="2023-09-07T03:47:17.000Z">
 <meta property="article:modified_time" content="2023-09-07T03:47:17.000Z">
 <meta property="article:author" content="Zy0t1">
 <meta property="article:tag" content="Windows">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png">
 
 
 <link rel="canonical" href="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/">
@@ -161,13 +164,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -266,14 +269,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>20k</span>
+      <span>21k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>37 分钟</span>
+      <span>39 分钟</span>
     </span>
 </div>
 
@@ -330,7 +333,12 @@
 </blockquote>
 </li>
 </ol>
-<p><strong>环境变量</strong>：简单来说就是告诉计算机，你这个程序在哪里，可以方便操作系统打开这个程序；包括用户变量和系统变量，用户变量指的就是操作系统对于当前用户（多用户）所能够快速操作的程序，系统变量就是该操作系统（多系统）可以快速打开的程序；</p>
+<p><strong>环境变量</strong>：简单来说就是告诉计算机，你这个程序在哪里，可以方便操作系统打开这个程序。格式<code>%xxx%</code>包括用户变量和系统变量：</p>
+<ul>
+<li>用户变量指的就是操作系统对于当前用户（多用户）所能够快速操作的程序</li>
+<li>系统变量就是该操作系统（多系统）可以快速打开的程序</li>
+</ul>
+<p><code>dir env:</code>显示所有环境变量；<code>$env:Path</code>显示Path环境变量；<code>$env:Path +=&quot;;C:\xx&quot;</code>添加环境变量（在CLI中仅限当前，关闭后消失）</p>
 <p><strong>注册表</strong>：用来管理计算机的各个软硬件，包括控制面板、任务管理器、时间的改写、系统开机显示等偏向系统方向的内容，记录了用户安装在计算机上的软件和每个程序的相互关联信息，可以说是一种数据库；结构为：根键——项——值；</p>
 <ul>
 <li><p>根键：最大的文件夹，以HKEY为前缀，全大写</p>
@@ -396,9 +404,28 @@
 </tbody></table>
 </li>
 </ul>
+<p><strong>用户账户管理UAC</strong>：</p>
+<p>目前win10以后有如下账户，管理员用户（Ad）、Guest、Default（防止系统引导出错的账户）、WDAGUtility（Defender账户）、自己的账户；</p>
+<blockquote>
+<p>（在专业版中能GUI查看，家庭版命令net user可以进行管理）</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png" alt="image-20231001155146815"></p>
+<p>用户组则是用于将相同类型的账号进行分类，每组权限不一，且不同组的共享资源是可以相互访问的。默认包括：Administrator组、Users组、Guest组。</p>
+<p>自己的账户，默认处于用户组和管理员组，只有相关操作时才会暂时升到管理员权限</p>
+<p><strong>常见进程</strong>：</p>
+<ul>
+<li>System进程：用于实现页面内存管理的进程，最高优先级。</li>
+<li>csrss：客户端服务子系统(Client&#x2F;Server Runtime Subsystem)；控制 Windows图形相关子系统</li>
+<li>Lsass：本地安全权限服务；本地安全权限服务控制Windows安全机制。</li>
+<li>Explorer：资源管理器；管理Windows图形Shell,包括开始菜单，任务栏，桌面和文件管理</li>
+<li>Taskmgr：Windows任务管理器；执行Windows的任务。</li>
+<li>Winlogon：Windows登陆进程；Windows用户的登陆程序。  </li>
+<li>Svchost：主机服务程序；标准的动态链接库主机处理服务。</li>
+<li>Services：Windows服务控制；管理Windows服务。</li>
+</ul>
 <h3 id="0x01-命令与批处理脚本"><a href="#0x01-命令与批处理脚本" class="headerlink" title="0x01.命令与批处理脚本"></a>0x01.命令与批处理脚本</h3><p>cmd是windows下模仿DOS操作系统（之前的磁盘操作系统）的程序，但受到windows的限制，即不可能删除windows文件，但在DOS系统下可以；cmd也可以叫做bat，用cmd编写的脚本类似于Linux下的shell脚本，dos或win下的这样批处理脚本后缀.bat或.cmd</p>
 <blockquote>
-<p>这里再另外介绍以下powrshell，部分命令与cmd相同，大部分命令进行更新，更换为更容易理解的动名词短语形式，此外cmd类似于解释器，而powrshell的相当于一门面向对象的语言，借助.net平台（和win集成）可以运行其他许多在.net平台上编写的程序，也可向下兼容cmd的批处理脚本</p>
+<p>这里再另外介绍以下powrshell，部分命令与cmd相同，大部分命令进行更新，更换为更容易理解的动名词短语形式。此外cmd类似于解释器，而powrshell的相当于一门面向对象的语言，借助.net平台（和win集成）可以运行其他许多在.net平台上编写的程序，也可向下兼容cmd的批处理脚本，对应脚本.ps1（使用的语法叫做cmdlet）</p>
 </blockquote>
 <h4 id="运行win-R键"><a href="#运行win-R键" class="headerlink" title="运行win+R键"></a>运行win+R键</h4><p>.cpl : 即Control Panel extension控制面板扩展程序</p>
 <p>.msc ：即Micosoft management Console微软管理控制台</p>
@@ -447,7 +474,7 @@ F9(搭配F7，按照编号选择命令)
 </code></pre>
 <h4 id="批处理脚本"><a href="#批处理脚本" class="headerlink" title="批处理脚本"></a>批处理脚本</h4><p>后缀文件保存为.bat，双击即可食用；至于脚本，是因为同样类似于解释型语言，一条条翻译运行；</p>
 <p>cmd窗口与python的交互窗口类似；当然下面所列的也可以在cmd窗口中直接运行；可以与正则表达式配合使用</p>
-<pre><code class="powershell">-------------条件循环-------
+<pre><code class="cmd">-------------条件循环-------
 if %a% equ %b% (echo yes) else (echo no)	#如果a=b..
 #exit(存在哪个文件)equ(相等);neq(不等);lss(小于);leq(小或等);gtr(大于);geq(大或等);
 for  %%I in (ABC) do echo %%I	#输出ABC
@@ -470,6 +497,9 @@ pause (暂停)
 &gt;(清除原本内容后再写入)
 &gt;&gt;(接着写)
 </code></pre>
+<blockquote>
+<p>在PS中默认不支持脚本，需要用管理员权限开启，并输入<code>Set-ExecutionPolicy RemoteSigned</code>更改执行策略</p>
+</blockquote>
 <h3 id="0x02-系统文件"><a href="#0x02-系统文件" class="headerlink" title="0x02.系统文件"></a>0x02.系统文件</h3><p>ps: $开头的一般均为临时文件；</p>
 <ol>
 <li>Windows：win系统文件</li>
@@ -717,7 +747,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </ol>
 </li>
 </ul>
-<h3 id="0x04-Win引导"><a href="#0x04-Win引导" class="headerlink" title="0x04.Win引导"></a>0x04.Win引导</h3><p>首先了解各大致过程：电源开启—&gt;分区引导（MBR）—&gt;操作系统引导（NTLDR&#x2F;Bootmgr）—&gt;文件系统引导（DBR）；下面的介绍均以windows为例子</p>
+<h3 id="0x04-Win引导"><a href="#0x04-Win引导" class="headerlink" title="0x04.Win引导"></a>0x04.Win引导</h3><p>首先了解各大致过程：电源开启—&gt;分区引导（MBR）—&gt;操作系统引导（NTLDR&#x2F;Bootmgr）—&gt;文件系统引导（DBR，每个卷&#x2F;盘&#x2F;区可以有不同的文件系统）；下面的介绍均以windows为例子</p>
 <p><strong>硬盘结构</strong>：</p>
 <ul>
 <li><p>CHS寻址：借助3D参数，磁头0-255、柱面0-1023、扇区1-63</p>
@@ -829,7 +859,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <p>所有版本的FAT布局相同：物理盘划分为&#x3D;引导区—文件分配表区（FAT区）—数据区（DATA区），前两者合称为系统区</p>
 <ul>
 <li><p>引导区：从头开始占用三个扇区，其中保存了物理盘每扇区的字节数、每一簇对应的扇区数以及引导记录等；其后面还有部分留白扇区（0x24以后的内容会根据版本号有区别，这里以FAT32为例子）；FAT16只占用1个扇区，而且后面没有留白</p>
-<p>在FAT32中，引导区&#x3D;分区引导区+FS信息扇区（DBR）+保留分区；下面是分区引导区的内容</p>
+<p>在FAT32中，引导区&#x3D;DBR+保留分区；下面是分区引导区的内容（只有部分较为重要内容）</p>
 <blockquote>
 <p>DBR：Dos Boot Record即分区引导扇区，用于引导操作系统引导程序的一部分，用于加载文件系统元数据</p>
 </blockquote>
@@ -844,7 +874,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </thead>
 <tbody><tr>
 <td>0x00-0x02</td>
-<td>汇编指令跳转引导代码</td>
+<td>汇编指令跳转引导代码EB 58 90</td>
 <td>0x03-0x0a</td>
 <td>文件系统版本</td>
 </tr>
@@ -856,7 +886,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </tr>
 <tr>
 <td>0xe-0xf</td>
-<td>FAT表起始扇区号</td>
+<td>FAT表相对起始扇区号</td>
 <td>0x10</td>
 <td>FAT表个数（一般是2，用于备份）</td>
 </tr>
@@ -900,7 +930,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <li>文件最后一个簇或文件结束标志：-1或0x0fffffff</li>
 </ul>
 </li>
-<li><p>根目录区（ROOT区）：属于数据区的一部分；在FAT32中区域、大小都不固定，而在FAT12&#x2F;16中，固定在FAT区之后的32个扇区，最多可以存放512（32*16）个目录项；根目录下的任何文件或者子目录都会有一个根目录表项</p>
+<li><p>根目录区（ROOT区）：属于数据区的一部分；在FAT32中区域、大小都不固定，而在FAT12&#x2F;16中，固定在FAT区之后的32个扇区，最多可以存放512（32*16）个目录项；根目录下的任何文件或者子目录都会有一个根目录表项，一般位于第二簇（数据区才开始有簇！）</p>
 </li>
 <li><p>目录区：属于数据区，一个目录项占32字节。以表的形式存在，又叫做目录表—DIR（Directory_Table）或文件目录表—FDT（File_Directory_Table）每个表项对应一个文件或者子目录相关信息（在FAT中文件和文件夹处理方式相同）</p>
 <blockquote>
@@ -992,6 +1022,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </tbody></table>
 <p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
 </blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/07/v7gijBNO.png" alt="image-20231007161407234"></p>
 <h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
 <blockquote>
 <p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
@@ -1461,13 +1492,13 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">98k</span>
+    <span title="站点总字数">113k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:58</span>
+    <span title="站点阅读时长">3:26</span>
   </span>
 </div>
 <div class="busuanzi-count">

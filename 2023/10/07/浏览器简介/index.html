@@ -21,29 +21,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）">
+    <meta name="description" content="摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Misc">
-<meta property="og:url" content="https://zy0t1.github.io/2023/08/27/Misc/index.html">
+<meta property="og:title" content="浏览器简介">
+<meta property="og:url" content="https://zy0t1.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
-<meta property="og:description" content="摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）">
+<meta property="og:description" content="摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-27T07:57:02.000Z">
-<meta property="article:modified_time" content="2023-08-27T07:57:02.000Z">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/06/XERZIozg.png">
+<meta property="article:published_time" content="2023-10-07T07:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-07T07:00:00.000Z">
 <meta property="article:author" content="Zy0t1">
-<meta property="article:tag" content="CTF">
-<meta property="article:tag" content="Misc">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/06/XERZIozg.png">
 
 
-<link rel="canonical" href="https://zy0t1.github.io/2023/08/27/Misc/">
+<link rel="canonical" href="https://zy0t1.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/08/27/Misc/","path":"2023/08/27/Misc/","title":"Misc"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/","path":"2023/10/07/浏览器简介/","title":"浏览器简介"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Misc | Zy0t1's blog</title>
+<title>浏览器简介 | Zy0t1's blog</title>
   
 
 
@@ -134,7 +136,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -147,7 +149,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">0x01编码与古典密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02%E9%9A%90%E5%86%99%E6%9C%AF"><span class="nav-number">2.</span> <span class="nav-text">0x02隐写术</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -212,7 +213,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/08/27/Misc/">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head_picture.jpg">
@@ -225,12 +226,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Misc | Zy0t1's blog">
+      <meta itemprop="name" content="浏览器简介 | Zy0t1's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Misc
+          浏览器简介
         </h1>
 
         <div class="post-meta-container">
@@ -240,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-08-27 15:57:02" itemprop="dateModified" datetime="2023-08-27T15:57:02+08:00">2023-08-27</time>
+      <time title="修改时间：2023-10-07 15:00:00" itemprop="dateModified" datetime="2023-10-07T15:00:00+08:00">2023-10-07</time>
     </span>
 
   
@@ -257,14 +258,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -274,129 +275,92 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+    <div class="post-body" itemprop="articleBody"><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
 <span id="more"></span>
 
-<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
-<ul>
-<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p><strong>导航过程</strong>：</p>
+<ol>
+<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
 </li>
-<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
-</li>
-<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
-<table>
-<thead>
-<tr>
-<th>字节数</th>
-<th>二进制编码格式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单字节</td>
-<td>0xxxxxxx</td>
-</tr>
-<tr>
-<td>双字节</td>
-<td>110xxxxx 10xxxxxx</td>
-</tr>
-<tr>
-<td>四字节</td>
-<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
-</tr>
-</tbody></table>
+<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
 <blockquote>
-<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
 </blockquote>
 </li>
-<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
 </li>
-<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
 </li>
-<li><p>Base编码</p>
+<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
+</li>
+</ol>
+<p><strong>搜索引擎</strong>：</p>
 <ul>
-<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
-<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
-<li>base58、85、91、92、36、62</li>
-</ul>
+<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
+<blockquote>
+<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
+</blockquote>
+</li>
+<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
+</li>
+<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
 </li>
 </ul>
-<p><strong>古典密码</strong>：</p>
+<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
 <ul>
-<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
-<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
-<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
-<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
-<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
-<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
-<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
-<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+<li>Geocko：火狐浏览器；开源；</li>
+<li>Trident：IE浏览器、世界之窗；</li>
+<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
+<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
 </ul>
-<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<span class="exturl" data-url="aHR0cHM6Ly9xdWlwcWl1cC5jb20v">CTF wiki<i class="fa fa-external-link-alt"></i></span></p>
-<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
-<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
-<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
-<pre><code>图片
-JPEG/jpg:头FF-D8-FF;尾FF-D9
-PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
-GIF:头47-49-46-38-39/37-61;尾00-3B
-BMP:头42-4D
-压缩包
-ZIP:头50-4B-03-04;尾50-4B
-RAR:头52-61-72-21
-音频
-WAV:头57-41-56-45
-视频
-AVI:头41-56-49-20
-</code></pre>
+<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
+<ol>
+<li><p>解析HTML，生成HTML DOM树：</p>
+<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
+</li>
+<li><p>碰到CSS，生成CSSOM树：同上</p>
+<blockquote>
+<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
+</blockquote>
+</li>
+<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
+</li>
+<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
+<blockquote>
+<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
+<img src="https://img1.imgtp.com/2023/10/06/XERZIozg.png" alt="box" style="zoom: 80%;" />
+</blockquote>
+</li>
+<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
+</li>
+</ol>
+<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
+<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
 <ul>
-<li><p>文件拼接</p>
-<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
+<li>Chakra：微软开发，用于IE；</li>
+<li>JavaScriptCore：用于webkit，Apple开发；</li>
+<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
+<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
+</ul>
+<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
 <ul>
-<li>工具：binwalk（kali）、foremost</li>
-<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
-</ul>
+<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
+<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
+<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
 </li>
-<li><p>LSB隐写</p>
-<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
-<ul>
-<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
-</ul>
+<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
 </li>
-<li><p>基于文件属性</p>
-<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
-<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
-<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
-<p>工具：pngcheck</p>
+<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
 </li>
-<li><p>一些杂的</p>
-<ul>
-<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
-<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
-<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
-</ul>
-</li>
-<li><p>压缩包</p>
-<ul>
-<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
-</li>
-<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
-</li>
-<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
-</li>
-<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
+</blockquote>
 </li>
 </ul>
-</li>
-<li><p>音频</p>
-<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
-<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
-</li>
-<li><p>字符串</p>
-<p>零宽度字符，一种字节宽度为0的不可打印的Unicode字符，占位置但是不可见，使用winhex&#x2F;vim&#x2F;01editor打开能看到<code>&lt;200a&gt;</code>之类的内容；</p>
-<p>不可见字符隐写，利用空格和制表符写的东西，可以是摩斯、培根、SNOW隐写、white_space（一种编程语言，由空格回车tab组成）</p>
-</li>
-</ul>
-<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
 
     </div>
 
@@ -406,21 +370,21 @@ AVI:头41-56-49-20
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CTF/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> CTF</a>
-              <a href="/tags/Misc/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> Misc</a>
+              <a href="/tags/Web/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> Web</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 前端</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/08/27/x86%E6%B1%87%E7%BC%96/" rel="prev" title="x86汇编">
-                  <i class="fa fa-angle-left"></i> x86汇编
+                <a href="/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" rel="prev" title="计网第一章_概述">
+                  <i class="fa fa-angle-left"></i> 计网第一章_概述
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/" rel="next" title="区块链介绍">
-                  区块链介绍 <i class="fa fa-angle-right"></i>
+                <a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" rel="next" title="密码学简介">
+                  密码学简介 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -521,7 +485,7 @@ AVI:头41-56-49-20
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"2acf5a2407062257fa85b18248253c85"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"99b9f91c348aa56684f1a8d3553896d9"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">

