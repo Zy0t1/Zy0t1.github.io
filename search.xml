@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图床配置</title>
+    <url>/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：感觉blog有时还是有图片才能说清楚。配置采用ImgTP+PicGo+Typora</p>
+<span id="more"></span>
+
+<h3 id="PicGo-Typora"><a href="#PicGo-Typora" class="headerlink" title="PicGo+Typora"></a>PicGo+Typora</h3><h4 id="安装PicGo"><a href="#安装PicGo" class="headerlink" title="安装PicGo"></a>安装PicGo</h4><p>首先需要保证有安装node.js<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMuY24vZG93bmxvYWQv">下载 | Node.js 中文网 (nodejs.cn)<i class="fa fa-external-link-alt"></i></span>，且版本&gt;&#x3D;16。官网<span class="exturl" data-url="aHR0cHM6Ly9waWNnby5naXRodWIuaW8vUGljR28tRG9jL3poLw==">PicGo<i class="fa fa-external-link-alt"></i></span></p>
+<p><img src="https://img1.imgtp.com/2023/09/28/DQauhJgK.png" alt="image-20230928114412259"></p>
+<p>进入下载安装界面，最新的测试版版（2.4）的能够在github中找到，其余的都是正式发行版（2.3.1）</p>
+<p>安装正式版的即可，没有多大的区别</p>
+<p>这里以山东大学镜像站为例子，进入其右侧链接</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/rrEcNADX.png" alt="image-20230928114745451"></p>
+<p>之后点击v2.3.1即可下载，安装。具体安装过程不再演示</p>
+<h4 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h4><p>PicGo的作用仅相当于快速帮助我们将图片上传到图床中，所以我们还需要配置图床。下面是其默认支持的图床</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/jV90Xtvq.png" alt="image-20230928115100677"></p>
+<p>本人选择的是imgtp（穷啊）<span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1ndHAuY29tLw==">ImgTP - 免费公共图床<i class="fa fa-external-link-alt"></i></span></p>
+<p>当然还有其他许多图床以插件的形式支持，具体请见<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BpY0dvL0F3ZXNvbWUtUGljR28=">GitHub - PicGo&#x2F;Awesome-PicGo: A collection of awesome projects using PicGo.<i class="fa fa-external-link-alt"></i></span></p>
+<p><img src="https://img1.imgtp.com/2023/09/28/QASEnLlP.png" alt="image-20230928120129720"></p>
+<p>如果选择的图床并非上述默认支持，可以在PicGo的 “插件设置” 中进行搜索，之后安装。上述网站中的插件大部分可以用这种方式，少部分需要手动安装，这里不过多叙述</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/DiKzrZcX.png" alt="image-20230928130909949"></p>
+<p>在图床注册号帐号之后，在设置里找到Token项，copy一下</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/hdgfMkRs.png" alt="image-20230928115831774"></p>
+<p>之后进入到PicGo中，插件选项，配置uploader-imgtp</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/J84T068l.png" alt="image-20230928120022812"></p>
+<p>按照框子进行输入（该图床插件并不需要Token，但是大多都是必须的）</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/pgMta4TP.png" alt="image-20230928120243184"></p>
+<p>确认之后，记得到PicGO的图床设置中，将你的图床设置为默认图床</p>
+<h4 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h4><p>在Typora中找到 “文件” ——&gt; “偏好设置” ——&gt; “图像”，进行如下配置：</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/yMn2nLmS.png" alt="image-20230928120852234"></p>
+<p>之后点击 “验证图片上传选项”，成功的话会有如下显示</p>
+<p><img src="https://img1.imgtp.com/2023/09/28/PXUrcHIG.png" alt="image-20230928121022365"></p>
+<p>到这里，就配置完成了，每次在Typora中粘贴图像时，都会自动上传到图床中，上传的图片可以在PicGo的相册看到</p>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ol>
+<li>端口设置，一般默认就好，配置端口36677（位置在”PicGo设置”——&gt;”设置Server”）</li>
+</ol>
+<img src="https://img1.imgtp.com/2023/09/28/tiTBNHVq.png" alt="image-20230928131205132" style="zoom:80%;" />
+
+<p>​	需要与Typora的端口设置对应，也就是上面验证时的命令：</p>
+<p>​	<code>using http://127.0.0.1:36677/upload</code></p>
+<ol start="2">
+<li>后端Token获取失败，需要在配置时，将”上传模式”更改为<code>Front-End</code></li>
+</ol>
+<p><img src="https://img1.imgtp.com/2023/09/28/q5TwMjjL.png" alt="image-20230928131525676"></p>
+<ol start="3">
+<li>有时显示该图片被阻塞，大概率是墙的问题。就比如SM.MS图床，就需要设置它的备用域名</li>
+</ol>
+<p><img src="https://img1.imgtp.com/2023/09/28/V60z4Ic6.png" alt="image-20230928131830217"></p>
+<p>注意：大多图床都会检测VPN，如果是开着梯子上传的，则会上传失败</p>
+]]></content>
+      <tags>
+        <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Misc</title>
     <url>/2023/08/27/Misc/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
@@ -130,59 +183,6 @@ AVI:头41-56-49-20
       <tags>
         <tag>CTF</tag>
         <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图床配置</title>
-    <url>/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：感觉blog有时还是有图片才能说清楚。配置采用ImgTP+PicGo+Typora</p>
-<span id="more"></span>
-
-<h3 id="PicGo-Typora"><a href="#PicGo-Typora" class="headerlink" title="PicGo+Typora"></a>PicGo+Typora</h3><h4 id="安装PicGo"><a href="#安装PicGo" class="headerlink" title="安装PicGo"></a>安装PicGo</h4><p>首先需要保证有安装node.js<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMuY24vZG93bmxvYWQv">下载 | Node.js 中文网 (nodejs.cn)<i class="fa fa-external-link-alt"></i></span>，且版本&gt;&#x3D;16。官网<span class="exturl" data-url="aHR0cHM6Ly9waWNnby5naXRodWIuaW8vUGljR28tRG9jL3poLw==">PicGo<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DQauhJgK.png" alt="image-20230928114412259"></p>
-<p>进入下载安装界面，最新的测试版版（2.4）的能够在github中找到，其余的都是正式发行版（2.3.1）</p>
-<p>安装正式版的即可，没有多大的区别</p>
-<p>这里以山东大学镜像站为例子，进入其右侧链接</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/rrEcNADX.png" alt="image-20230928114745451"></p>
-<p>之后点击v2.3.1即可下载，安装。具体安装过程不再演示</p>
-<h4 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h4><p>PicGo的作用仅相当于快速帮助我们将图片上传到图床中，所以我们还需要配置图床。下面是其默认支持的图床</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/jV90Xtvq.png" alt="image-20230928115100677"></p>
-<p>本人选择的是imgtp（穷啊）<span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1ndHAuY29tLw==">ImgTP - 免费公共图床<i class="fa fa-external-link-alt"></i></span></p>
-<p>当然还有其他许多图床以插件的形式支持，具体请见<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BpY0dvL0F3ZXNvbWUtUGljR28=">GitHub - PicGo&#x2F;Awesome-PicGo: A collection of awesome projects using PicGo.<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/QASEnLlP.png" alt="image-20230928120129720"></p>
-<p>如果选择的图床并非上述默认支持，可以在PicGo的 “插件设置” 中进行搜索，之后安装。上述网站中的插件大部分可以用这种方式，少部分需要手动安装，这里不过多叙述</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DiKzrZcX.png" alt="image-20230928130909949"></p>
-<p>在图床注册号帐号之后，在设置里找到Token项，copy一下</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/hdgfMkRs.png" alt="image-20230928115831774"></p>
-<p>之后进入到PicGo中，插件选项，配置uploader-imgtp</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/J84T068l.png" alt="image-20230928120022812"></p>
-<p>按照框子进行输入（该图床插件并不需要Token，但是大多都是必须的）</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/pgMta4TP.png" alt="image-20230928120243184"></p>
-<p>确认之后，记得到PicGO的图床设置中，将你的图床设置为默认图床</p>
-<h4 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h4><p>在Typora中找到 “文件” ——&gt; “偏好设置” ——&gt; “图像”，进行如下配置：</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/yMn2nLmS.png" alt="image-20230928120852234"></p>
-<p>之后点击 “验证图片上传选项”，成功的话会有如下显示</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/PXUrcHIG.png" alt="image-20230928121022365"></p>
-<p>到这里，就配置完成了，每次在Typora中粘贴图像时，都会自动上传到图床中，上传的图片可以在PicGo的相册看到</p>
-<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ol>
-<li>端口设置，一般默认就好，配置端口36677（位置在”PicGo设置”——&gt;”设置Server”）</li>
-</ol>
-<img src="https://img1.imgtp.com/2023/09/28/tiTBNHVq.png" alt="image-20230928131205132" style="zoom:80%;" />
-
-<p>​	需要与Typora的端口设置对应，也就是上面验证时的命令：</p>
-<p>​	<code>using http://127.0.0.1:36677/upload</code></p>
-<ol start="2">
-<li>后端Token获取失败，需要在配置时，将”上传模式”更改为<code>Front-End</code></li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/q5TwMjjL.png" alt="image-20230928131525676"></p>
-<ol start="3">
-<li>有时显示该图片被阻塞，大概率是墙的问题。就比如SM.MS图床，就需要设置它的备用域名</li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/V60z4Ic6.png" alt="image-20230928131830217"></p>
-<p>注意：大多图床都会检测VPN，如果是开着梯子上传的，则会上传失败</p>
-]]></content>
-      <tags>
-        <tag>环境配置</tag>
       </tags>
   </entry>
   <entry>
@@ -1348,193 +1348,6 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       </tags>
   </entry>
   <entry>
-    <title>x86汇编</title>
-    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
-<span id="more"></span>
-
-<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
-<li><p><b>Base</b></p>
-<ul>
-<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
-</li>
-<li><p>小端存储：高字节放高地址；</p>
-</li>
-<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
-</li>
-<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
-</li>
-<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
-</li>
-</ul>
-</li>
-<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
-<blockquote>
-<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
-</blockquote>
-</li>
-<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
-<ul>
-<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
-<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
-</li>
-<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
-</li>
-<li><p>系统管理模式：专门为32位OS提供的模式</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
-<ul>
-<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
-<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
-</ul>
-<p>（2）<b>数据传送指令</b>：</p>
-<ul>
-<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
-<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
-<li><code>XCHG</code>交换两个操作数内容；</li>
-</ul>
-<p>（3）<b>运算指令</b>：</p>
-<ul>
-<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
-<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
-<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
-<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
-<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
-</ul>
-<p>（4）<b>位操作指令</b>：</p>
-<ul>
-<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
-<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
-<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
-</ul>
-<p>（5）<b>堆栈操作指令</b>：</p>
-<ul>
-<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
-<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
-</ul>
-<p>（6）<b>跳转指令</b>：</p>
-<ul>
-<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
-<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
-<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
-<li><code>beginWhile......endWhile</code>,while循环</li>
-</ul>
-<p>（7）<b>串串操作指令</b>：</p>
-<ul>
-<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
-<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
-<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
-<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
-<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
-</ul>
-<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
-<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
-</ul>
-<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
-     ...
-main endp  ;结束main过程
-</code></pre>
-<ul>
-<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
-</ul>
-<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
-EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
-ALIGN + 定义类型	;设定对齐方式
-INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
-ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
-</code></pre>
-<ul>
-<li>若需要使用过程，则注意过程帧的使用</li>
-</ul>
-<pre><code>ENTER		;自动补齐相应的寄存器等	  
-...
-LEAVE
-</code></pre>
-<ul>
-<li>结构体</li>
-</ul>
-<pre><code>name struct/union		;定义结构体，与C一样
-    ...			
-name ENDS		;还支持嵌套使用，此时内层不需要该行的name
-</code></pre>
-<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
-    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
-    ...					
-ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
-
-ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
-</code></pre>
-<ul>
-<li>循环宏</li>
-</ul>
-<pre><code>WHILE(表达式):为真时执行
-REPEAT N:重复N次
-FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
-FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
-</code></pre>
-<ul>
-<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
-</ul>
-<pre><code>IFB/IFNB:空/非空，则允许汇编
-IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
-IFIDNI/IFDIFI a b:上面类似但不区分大小写
-IFDIF/IFNDIF name:如果name已/未定义 则汇编
-IF,ENDIF,ELSE,ELSEIF:自己看
-EXITM:退出宏，且后面的宏语句都不能展开
-</code></pre>
-<ul>
-<li>特殊运算符</li>
-</ul>
-<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
-&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
-&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
-&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
-</code></pre>
-<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
-<ul>
-<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
-</li>
-<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
-<blockquote>
-<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
-</blockquote>
-</li>
-</ul>
-<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
-<ul>
-<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
-</li>
-<li><p>附加段寄存器—ES、FS、GS</p>
-</li>
-</ul>
-<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
-<blockquote>
-<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
-</blockquote>
-<ul>
-<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
-</li>
-<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
-</li>
-</ul>
-<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
-<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
-<blockquote>
-<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>x86</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Web安全</title>
     <url>/2023/09/18/Web%E5%AE%89%E5%85%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：主要讲解Web应用相关漏洞原理</p>
@@ -2295,57 +2108,424 @@ evil.dtd如下
       </tags>
   </entry>
   <entry>
-    <title>区块链介绍</title>
-    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：仅作区块链部分概念介绍，入门食用</p>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
 <span id="more"></span>
 
-<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
-</blockquote>
-<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
-<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
-<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
 <ul>
-<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
 </li>
-<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+<li><p>小端存储：高字节放高地址；</p>
 </li>
-<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
 </li>
-<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
 </li>
-<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
 </li>
-<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
 <blockquote>
-<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
 </blockquote>
 </li>
-<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
-</li>
-<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
-</li>
-</ul>
-<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
 <ul>
-<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
-<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
-<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
-<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
-<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
-<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
-<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
-<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
-<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
+<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
+</li>
+<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
+</li>
+<li><p>系统管理模式：专门为32位OS提供的模式</p>
+</li>
 </ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
+</li>
+<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
+</li>
+</ul>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>区块链</category>
+        <category>系统安全</category>
       </categories>
       <tags>
-        <tag>密码学</tag>
-        <tag>区块链</tag>
+        <tag>汇编</tag>
+        <tag>x86</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>密码学简介</title>
+    <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学一些概念做阐释，不会涉及具体算法，就是单纯的概念</p>
+<span id="more"></span>
+
+<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
+<li><p>密码学&#x3D;密码编制学（设计密码）+密码分析学（破译密码）</p>
+</li>
+<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
+</li>
+<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S&#x3D;{P,C,K,E,D}</p>
+</li>
+<li><p><strong>密码分析攻击方式</strong>：</p>
+<ul>
+<li><p>穷举攻击：暴力破解，所有可能尝试</p>
+</li>
+<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
+<blockquote>
+<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
+</blockquote>
+</li>
+<li><p>物理攻击：从设备下手</p>
+<blockquote>
+<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
+</blockquote>
+</li>
+</ul>
+<p>依据可利用资源来进行分类：</p>
+<ul>
+<li>仅知密文攻击：顾名思义，香菇无需多言</li>
+<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
+<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
+<li>选择密文攻击：能够直接获取密文对应的明文</li>
+</ul>
+</li>
+<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
+</li>
+<li><p><strong>密码学分类</strong>：</p>
+<p>按照发展时间：</p>
+<ul>
+<li>古典密码：以字符为基本加密单元</li>
+<li>现代密码：多以信息块为基本加密单元</li>
+</ul>
+<p>依据密码体制分类：</p>
+<ul>
+<li>对称密码体制：加密解密密钥相同</li>
+<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
+</ul>
+<p>明文处理方式分类：</p>
+<ul>
+<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
+<li>序列密码&#x2F;流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><h4 id="1-电码本模式ECB"><a href="#1-电码本模式ECB" class="headerlink" title="1.电码本模式ECB"></a>1.电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}&#x3D;E(M_{i},K);i&#x3D;1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
+<blockquote>
+<p>E()为加密函数，C为密文，K为明文</p>
+</blockquote>
+<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
+<ol>
+<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
+<li>序列密码加密法：对短块用序列密码加密$C_{n}&#x3D;M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
+<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
+</ol>
+<h4 id="2-密文链接模式CBC"><a href="#2-密文链接模式CBC" class="headerlink" title="2.密文链接模式CBC"></a>2.密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>Z为初始化向量，对应解密：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>解密如下，但是错误传播无界：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<h4 id="3-X-CBC模式"><a href="#3-X-CBC模式" class="headerlink" title="3.X CBC模式"></a>3.X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K_{1}),i&#x3D;2…n-1 \<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
+<p>Pad（）为填充函数，如下：</p>
+<p>$Pad(X)&#x3D;\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
+<h4 id="4-输出反馈模式OFB"><a href="#4-输出反馈模式OFB" class="headerlink" title="4.输出反馈模式OFB"></a>4.输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
+<ol>
+<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
+<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
+<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
+<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
+</ol>
+<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
+<h4 id="5-密文反馈模式CFB"><a href="#5-密文反馈模式CFB" class="headerlink" title="5.密文反馈模式CFB"></a>5.密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
+<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
+<h4 id="6-CTR模式"><a href="#6-CTR模式" class="headerlink" title="6.CTR模式"></a>6.CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>C_{i}&#x3D;M_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>C_{n}&#x3D;M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>解密过程如下：</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>M_{i}&#x3D;C_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>M_{n}&#x3D;C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
+<hr>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
+<ul>
+<li>签名者事后不能抵赖自己的签名</li>
+<li>任何其他人并不能伪造签名</li>
+<li>签名能够被验证真伪</li>
+</ul>
+<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
+<p>函数必须满足的条件：</p>
+<ul>
+<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
+<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
+<li>收信者可以验证真伪</li>
+<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
+</ul>
+<p>可选成立：</p>
+<ul>
+<li>$VER(S,K_{e})&#x3D;VER(SIG(M,K_{d}),K_{e})&#x3D;M$</li>
+<li>$VER(SIG(M,K_{d}),K_{e})&#x3D;SIG(VER(M,K_{e}),K_{d})&#x3D;M$</li>
+</ul>
+<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
+<hr>
+<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
+<ul>
+<li>密钥建立协议：用于确定会话密钥</li>
+<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
+<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
+<li>电子商务协议：还注重公平性</li>
+</ul>
+<p>设计原则：</p>
+<ul>
+<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
+<li>消息前提准确原则：消息相关的先决条件需要确立</li>
+<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
+<li>加密目的原则：明确加密的目的，减少冗余</li>
+<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
+<li>随机数使用原则：随机性应符合要求</li>
+<li>时间戳的使用原则：不同系统的时钟同步</li>
+<li>编码原则：需要明确协议中消息的具体数据格式</li>
+<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
+</ul>
+<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
+<hr>
+<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证&#x2F;鉴别"></a>认证&#x2F;鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
+<ul>
+<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
+<li>认证仅允许双方验证，数字签名还可以有第三方</li>
+<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
+</ul>
+<p><strong>身份认证</strong>：</p>
+<ul>
+<li><p>口令：传统的用户输入密码，系统查表对照</p>
+<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
+<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
+<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
+</li>
+<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
+<blockquote>
+<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
+</blockquote>
+</li>
+<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
+</li>
+<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
+<blockquote>
+<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>站点认证</strong>：</p>
+<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
+<ol>
+<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
+<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
+<li>A对$f(R_{A})$进行验证</li>
+</ol>
+<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}&amp; K_{eB}K_{dB}$</p>
+<ol>
+<li>A产生随机数$R_{A}$发给B</li>
+<li>B用私钥签名发给A，A再拿B的公钥验证</li>
+</ol>
+<p>双向认证：符号如上不再多说，下面是传统密码</p>
+<ol>
+<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
+<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
+<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
+</ol>
+<p>公钥密码体制：</p>
+<ol>
+<li>A产生随机数$R_{A}$直接给B</li>
+<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
+<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
+<li>B用A的公钥$K_{eA}$进行验证</li>
+</ol>
+<p><strong>报文认证</strong>：</p>
+<ul>
+<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
+<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
+</li>
+<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
+<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
+</li>
+<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC&#x3D;C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
+<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
+</li>
+<li><p>报文时间性认证：序列号、时间戳、随机数</p>
+</li>
+</ul>
+<hr>
+<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
+<li>管理策略着重指导，机制侧重具体实现</li>
+<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
+<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
+<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
+<li>密钥分级原则：分为高低级密钥进行管理</li>
+<li>密钥更换原则、必须满足满足安全性指标</li>
+</ul>
+<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
+<p><strong>密钥的组织</strong>：</p>
+<ul>
+<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
+<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
+<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
+</ul>
+<p><strong>密钥产生</strong>：</p>
+<ul>
+<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
+<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
+<li>低级：高级密钥或中级密钥加密过的数</li>
+</ul>
+<blockquote>
+<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
+</blockquote>
+<p>存储形态：明文、密文、分量</p>
+<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
+]]></content>
+      <tags>
+        <tag>密码</tag>
       </tags>
   </entry>
   <entry>
@@ -2694,237 +2874,57 @@ evil.dtd如下
       </tags>
   </entry>
   <entry>
-    <title>密码学简介</title>
-    <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学一些概念做阐释，不会涉及具体算法，就是单纯的概念</p>
+    <title>区块链介绍</title>
+    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：仅作区块链部分概念介绍，入门食用</p>
 <span id="more"></span>
 
-<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
-<li><p>密码学&#x3D;密码编制学（设计密码）+密码分析学（破译密码）</p>
-</li>
-<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
-</li>
-<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S&#x3D;{P,C,K,E,D}</p>
-</li>
-<li><p><strong>密码分析攻击方式</strong>：</p>
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
 <ul>
-<li><p>穷举攻击：暴力破解，所有可能尝试</p>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
 </li>
-<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
+<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+</li>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
 <blockquote>
-<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
 </blockquote>
 </li>
-<li><p>物理攻击：从设备下手</p>
-<blockquote>
-<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
-</blockquote>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
 </li>
 </ul>
-<p>依据可利用资源来进行分类：</p>
+<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
 <ul>
-<li>仅知密文攻击：顾名思义，香菇无需多言</li>
-<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
-<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
-<li>选择密文攻击：能够直接获取密文对应的明文</li>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
 </ul>
-</li>
-<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
-</li>
-<li><p><strong>密码学分类</strong>：</p>
-<p>按照发展时间：</p>
-<ul>
-<li>古典密码：以字符为基本加密单元</li>
-<li>现代密码：多以信息块为基本加密单元</li>
-</ul>
-<p>依据密码体制分类：</p>
-<ul>
-<li>对称密码体制：加密解密密钥相同</li>
-<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
-</ul>
-<p>明文处理方式分类：</p>
-<ul>
-<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
-<li>序列密码&#x2F;流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><h4 id="1-电码本模式ECB"><a href="#1-电码本模式ECB" class="headerlink" title="1.电码本模式ECB"></a>1.电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}&#x3D;E(M_{i},K);i&#x3D;1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
-<blockquote>
-<p>E()为加密函数，C为密文，K为明文</p>
-</blockquote>
-<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
-<ol>
-<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
-<li>序列密码加密法：对短块用序列密码加密$C_{n}&#x3D;M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
-<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
-</ol>
-<h4 id="2-密文链接模式CBC"><a href="#2-密文链接模式CBC" class="headerlink" title="2.密文链接模式CBC"></a>2.密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
-<p>Z为初始化向量，对应解密：</p>
-<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
-<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
-<p>解密如下，但是错误传播无界：</p>
-<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
-<h4 id="3-X-CBC模式"><a href="#3-X-CBC模式" class="headerlink" title="3.X CBC模式"></a>3.X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K_{1}),i&#x3D;2…n-1 \<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
-<p>Pad（）为填充函数，如下：</p>
-<p>$Pad(X)&#x3D;\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
-<h4 id="4-输出反馈模式OFB"><a href="#4-输出反馈模式OFB" class="headerlink" title="4.输出反馈模式OFB"></a>4.输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
-<ol>
-<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
-<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
-<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
-<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
-</ol>
-<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
-<h4 id="5-密文反馈模式CFB"><a href="#5-密文反馈模式CFB" class="headerlink" title="5.密文反馈模式CFB"></a>5.密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
-<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
-<h4 id="6-CTR模式"><a href="#6-CTR模式" class="headerlink" title="6.CTR模式"></a>6.CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
-<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>C_{i}&#x3D;M_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>C_{n}&#x3D;M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
-<p>解密过程如下：</p>
-<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>M_{i}&#x3D;C_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>M_{n}&#x3D;C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
-<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
-<hr>
-<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
-<ul>
-<li>签名者事后不能抵赖自己的签名</li>
-<li>任何其他人并不能伪造签名</li>
-<li>签名能够被验证真伪</li>
-</ul>
-<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
-<p>函数必须满足的条件：</p>
-<ul>
-<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
-<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
-<li>收信者可以验证真伪</li>
-<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
-</ul>
-<p>可选成立：</p>
-<ul>
-<li>$VER(S,K_{e})&#x3D;VER(SIG(M,K_{d}),K_{e})&#x3D;M$</li>
-<li>$VER(SIG(M,K_{d}),K_{e})&#x3D;SIG(VER(M,K_{e}),K_{d})&#x3D;M$</li>
-</ul>
-<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
-<hr>
-<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
-<ul>
-<li>密钥建立协议：用于确定会话密钥</li>
-<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
-<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
-<li>电子商务协议：还注重公平性</li>
-</ul>
-<p>设计原则：</p>
-<ul>
-<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
-<li>消息前提准确原则：消息相关的先决条件需要确立</li>
-<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
-<li>加密目的原则：明确加密的目的，减少冗余</li>
-<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
-<li>随机数使用原则：随机性应符合要求</li>
-<li>时间戳的使用原则：不同系统的时钟同步</li>
-<li>编码原则：需要明确协议中消息的具体数据格式</li>
-<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
-</ul>
-<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
-<hr>
-<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证&#x2F;鉴别"></a>认证&#x2F;鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
-<ul>
-<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
-<li>认证仅允许双方验证，数字签名还可以有第三方</li>
-<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
-</ul>
-<p><strong>身份认证</strong>：</p>
-<ul>
-<li><p>口令：传统的用户输入密码，系统查表对照</p>
-<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
-<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
-<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
-</li>
-<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
-<blockquote>
-<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
-</blockquote>
-</li>
-<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
-</li>
-<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
-<blockquote>
-<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>站点认证</strong>：</p>
-<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
-<ol>
-<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
-<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
-<li>A对$f(R_{A})$进行验证</li>
-</ol>
-<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}&amp; K_{eB}K_{dB}$</p>
-<ol>
-<li>A产生随机数$R_{A}$发给B</li>
-<li>B用私钥签名发给A，A再拿B的公钥验证</li>
-</ol>
-<p>双向认证：符号如上不再多说，下面是传统密码</p>
-<ol>
-<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
-<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
-<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
-</ol>
-<p>公钥密码体制：</p>
-<ol>
-<li>A产生随机数$R_{A}$直接给B</li>
-<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
-<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
-<li>B用A的公钥$K_{eA}$进行验证</li>
-</ol>
-<p><strong>报文认证</strong>：</p>
-<ul>
-<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
-<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
-</li>
-<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
-<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
-</li>
-<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC&#x3D;C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
-<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
-</li>
-<li><p>报文时间性认证：序列号、时间戳、随机数</p>
-</li>
-</ul>
-<hr>
-<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
-<li>管理策略着重指导，机制侧重具体实现</li>
-<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
-<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
-<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
-<li>密钥分级原则：分为高低级密钥进行管理</li>
-<li>密钥更换原则、必须满足满足安全性指标</li>
-</ul>
-<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
-<p><strong>密钥的组织</strong>：</p>
-<ul>
-<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
-<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
-<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
-</ul>
-<p><strong>密钥产生</strong>：</p>
-<ul>
-<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
-<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
-<li>低级：高级密钥或中级密钥加密过的数</li>
-</ul>
-<blockquote>
-<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
-</blockquote>
-<p>存储形态：明文、密文、分量</p>
-<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
 ]]></content>
+      <categories>
+        <category>区块链</category>
+      </categories>
       <tags>
-        <tag>密码</tag>
+        <tag>密码学</tag>
+        <tag>区块链</tag>
       </tags>
   </entry>
   <entry>
@@ -4702,6 +4702,101 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
+    <title>浏览器简介</title>
+    <url>/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
+<span id="more"></span>
+
+<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p><strong>导航过程</strong>：</p>
+<ol>
+<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
+</li>
+<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
+<blockquote>
+<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
+</blockquote>
+</li>
+<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
+</li>
+<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
+</li>
+<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
+</li>
+</ol>
+<p><strong>搜索引擎</strong>：</p>
+<ul>
+<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
+<blockquote>
+<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
+</blockquote>
+</li>
+<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
+</li>
+<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
+</li>
+</ul>
+<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
+<ul>
+<li>Geocko：火狐浏览器；开源；</li>
+<li>Trident：IE浏览器、世界之窗；</li>
+<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
+<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
+</ul>
+<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
+<ol>
+<li><p>解析HTML，生成HTML DOM树：</p>
+<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
+</li>
+<li><p>碰到CSS，生成CSSOM树：同上</p>
+<blockquote>
+<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
+</blockquote>
+</li>
+<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
+</li>
+<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
+<blockquote>
+<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
+<img src="https://img1.imgtp.com/2023/10/06/XERZIozg.png" alt="box" style="zoom: 80%;" />
+</blockquote>
+</li>
+<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
+</li>
+</ol>
+<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
+<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
+<ul>
+<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
+<li>Chakra：微软开发，用于IE；</li>
+<li>JavaScriptCore：用于webkit，Apple开发；</li>
+<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
+<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
+</ul>
+<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
+<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
+<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
+</li>
+<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
+</li>
+<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
+</li>
+<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Web</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>后端基础知识</title>
     <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
@@ -5359,101 +5454,6 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
-    <title>浏览器简介</title>
-    <url>/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
-<span id="more"></span>
-
-<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p><strong>导航过程</strong>：</p>
-<ol>
-<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
-</li>
-<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
-<blockquote>
-<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
-</blockquote>
-</li>
-<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
-</li>
-<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
-</li>
-<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
-</li>
-</ol>
-<p><strong>搜索引擎</strong>：</p>
-<ul>
-<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
-<blockquote>
-<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
-</blockquote>
-</li>
-<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
-</li>
-<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
-</li>
-</ul>
-<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
-<ul>
-<li>Geocko：火狐浏览器；开源；</li>
-<li>Trident：IE浏览器、世界之窗；</li>
-<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
-<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
-</ul>
-<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
-<ol>
-<li><p>解析HTML，生成HTML DOM树：</p>
-<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
-</li>
-<li><p>碰到CSS，生成CSSOM树：同上</p>
-<blockquote>
-<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
-</blockquote>
-</li>
-<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
-</li>
-<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
-<blockquote>
-<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
-<img src="https://img1.imgtp.com/2023/10/06/XERZIozg.png" alt="box" style="zoom: 80%;" />
-</blockquote>
-</li>
-<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
-</li>
-</ol>
-<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
-<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
-<ul>
-<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
-<li>Chakra：微软开发，用于IE；</li>
-<li>JavaScriptCore：用于webkit，Apple开发；</li>
-<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
-<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
-</ul>
-<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
-<ul>
-<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
-<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
-<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
-</li>
-<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
-</li>
-<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
-</li>
-<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
-<blockquote>
-<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Web</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网络基础</title>
     <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一些关于网络的基础知识，尽量不向网络中的底层涉及，侧重于实际用到的</p>
@@ -5948,6 +5948,178 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
+    <title>计网第二章_物理层</title>
+    <url>/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E7%89%A9%E7%90%86%E5%B1%82/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：计网物理层，与通信原理关系很大</p>
+<span id="more"></span>
+
+<h3 id="数据通信基本知识"><a href="#数据通信基本知识" class="headerlink" title="数据通信基本知识"></a>数据通信基本知识</h3><p>数据通信系统：源系统&#x3D;原点+发送器——传输系统——目的系统&#x3D;接收器+终点</p>
+<blockquote>
+<p>目的是传送消息，数据是运送消息的实体，信号则是数据的电器表现</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>码元</td>
+<td>即一个固定时长的数字信号波形，其宽度为时间</td>
+</tr>
+<tr>
+<td>频谱</td>
+<td>信号中各频率成分的集合</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>信号带宽即信号占据的频率范围；信道带宽就是允许通过的信号频率范围</td>
+</tr>
+<tr>
+<td>域</td>
+<td>时域：信号与时间的函数；频域：信号与频率的函数</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>数字数据:在某区间残生离散值的数据；数字信号:离散变化的序列；数字传输:传输数字信号的方法（可以是调制后为数字信号）；中继方式增大传输距离</td>
+</tr>
+<tr>
+<td>模拟</td>
+<td>某区间产生连续的数据；连续变化的电磁波；传输模拟信号的方法；放大方式增加距离</td>
+</tr>
+<tr>
+<td>信道</td>
+<td>能传送信号的一条道路，由线路及附属设备构成</td>
+</tr>
+</tbody></table>
+<p>通信交互模式：</p>
+<ul>
+<li>单向通信&#x2F;单工通信：只能A到B</li>
+<li>双向交替通信&#x2F;半双工通信：同一时间只能一个方向，换方向时换线</li>
+<li>双向同时通信&#x2F;全双工：四线制</li>
+</ul>
+<p>基带信号（信号源的信号，需要进行调制）调制方法：</p>
+<ul>
+<li><p>基带调制&#x2F;编码：仅进行波形变换—得到的仍是基带信号</p>
+</li>
+<li><p>带通调制：即使用载波将其频率提高并转换为模拟信号—带通调制后得到带通信号</p>
+<blockquote>
+<p>带通调制方法：调幅AM、调频FM、调相PM——正交振幅调制QAM</p>
+</blockquote>
+</li>
+</ul>
+<p>常用信道编码：</p>
+<ul>
+<li>不归零制：正电平&#x3D;1，负电平&#x3D;0，不用0电压</li>
+<li>归零制：无事归0，正电平&#x3D;1，负电平&#x3D;0</li>
+<li>曼彻斯特编码：周期中心，高到低&#x3D;1，低到高&#x3D;0</li>
+<li>差分曼彻斯特编码：位开始处，有跳变&#x3D;0，无跳变&#x3D;1</li>
+</ul>
+<p>信道相关概念：</p>
+<ul>
+<li><p>信道容量：无差错传输的最大速率，是信道的最大数据率</p>
+</li>
+<li><p>抖动：有效瞬时相对于理想位置的偏移</p>
+</li>
+<li><p>误码率：二进制位传错的概率</p>
+</li>
+<li><p>信噪比：信号的平均功率S和噪声的平均功率N之比&#x3D;$10\times \log_{10}(S&#x2F;N)(dB)$</p>
+</li>
+<li><p>奈氏准则：在带宽为W Hz的低通信道中，若不考虑噪声，假定每个信号取M个离散电平均值，则码元传输最高速率2W（码元&#x2F;秒），信道极限数据率为$C&#x3D;2W\log_{2}{M}$，否则接收端不可能识别码元</p>
+</li>
+<li><p>香农公式：信道的极限信息传输速率：$C&#x3D;W\log_{2}(1+S&#x2F;N)(bps)$，相比奈奎斯特，考虑了噪音。</p>
+</li>
+<li><p>延迟失真：较高频率传输速度的较低</p>
+</li>
+<li><p>噪声：热噪声、脉冲噪声（持续短、不规则、振幅高）、串扰（电气耦合）</p>
+</li>
+<li><p>调制解调器：大于9600b&#x2F;s为高速，小于600b&#x2F;s为低速</p>
+</li>
+</ul>
+<p>传输损害：</p>
+<ul>
+<li>衰减&#x2F;幅度衰变：衰减量是距离的函数，对模拟信号来说频率越高，衰减越严重</li>
+<li>延迟失真：有线专有，针对数字信号不同频率信号走的快慢不同</li>
+<li>热&#x2F;白&#x2F;高斯噪声：温度变化结果</li>
+<li>串扰：两条线路间的电气耦合</li>
+<li>脉冲噪声：由持续时间短和幅度大的不规则脉冲或草绳尖峰组成</li>
+</ul>
+<p>同步方式：数据从发送端到接收端的步调一致</p>
+<ul>
+<li>异步：每次传送一个字符，前+起始位编码0，后+停止位编码1</li>
+<li>同步：比特块以固定的位流形式，前后需要有一组比特信息来标志该信息块</li>
+</ul>
+<h3 id="物理层下的传输媒体"><a href="#物理层下的传输媒体" class="headerlink" title="物理层下的传输媒体"></a>物理层下的传输媒体</h3><h4 id="有线传输介质"><a href="#有线传输介质" class="headerlink" title="有线传输介质"></a>有线传输介质</h4><p><strong>双绞线&#x2F;双扭线</strong>：</p>
+<p>包含屏蔽双绞线STP、非屏蔽双绞线UTP。</p>
+<ul>
+<li><p>非屏蔽双绞线：四对纽线：白-橙+橙；白-绿+绿；白-蓝+蓝；白-棕+棕；连接配件RJ-45接头</p>
+</li>
+<li><p>连接配件的两种连接标准：EIA&#x2F;TIA 568A和B（直通方式-标准相同-主机与交换机相连；交叉方式-不同-两主机与交换机直连）</p>
+</li>
+</ul>
+<p><strong>同轴电缆</strong>：已被双绞线替代</p>
+<ul>
+<li><p>50Ω即细缆，采用BNC接口</p>
+</li>
+<li><p>75Ω同轴电缆即粗缆，采用AUI接口</p>
+</li>
+<li><p>结构：内导体铜质芯线—绝缘层—外导体屏蔽层—绝缘保护层</p>
+</li>
+</ul>
+<p><strong>光缆</strong>：包括光源+光纤+光检测器；任何时候只能单向传输；</p>
+<ul>
+<li><p>多模光缆：多条不同角度入射的光线在一条光纤中传输，距离2km</p>
+</li>
+<li><p>单模光缆：直线传输，直线传输，距离10km</p>
+</li>
+<li><p>光纤由玻璃塑料制成，传输速度依赖于介质密度，密度越大速度越高，真空中300000Km&#x2F;s</p>
+</li>
+<li><p>光纤包括多模与单模光纤，前者是用发光二极管LEG产生光源，后者使用半导体激光器产生光源</p>
+</li>
+</ul>
+<p><strong>非引导型传输媒体</strong>：微波、无线电、红外线</p>
+<ul>
+<li>无线电微波通信，主要使用2-40GHz，主要直线传播</li>
+<li>多径效应：基站信号经过多个障碍物反射同时到达接收方，叠加后有很大失真</li>
+<li>微波接力：中继站放大信号后再发送；频率高，信道容量大，但相邻站间必须直视</li>
+<li>卫星通信：通信距离远，稳定，但传播时延大</li>
+</ul>
+<h3 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h3><p>复用：用户使用一个共享信道进行通信，降低成本（因为介质传输能力超过单一信号带宽）</p>
+<ul>
+<li><p>频分FDM：所有用户同样时间不同带宽，即大水管切为小水管</p>
+</li>
+<li><p>时分TDM：不同时间占同样的频带宽度；适合数字信号；切为每段等长的时分复用帧即TDM帧，也叫做等时信息；在各个设备间轮转的过程叫做“交织”</p>
+<p>异步&#x2F;统计时分多路复用：不分配固定时间片，比较灵活</p>
+<blockquote>
+<p>30路PCM-E1标准：32个时间片，0号用做同步，16号传递信令<br>24路PCM-T1：193bit，分为24路8bit时间片+1个附加同步bit</p>
+</blockquote>
+</li>
+<li><p>波分WDM：光的频分复用</p>
+</li>
+<li><p>码分CDM：码分多址CDMA，各用户使用经过挑选的不同码型</p>
+</li>
+</ul>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><ul>
+<li><p>目的：屏蔽掉物理设备和传输介质不同带来的差异</p>
+</li>
+<li><p>特性：是DTE（数据终端设备）和DCE（数据端接设备）之间的一组约定，需要规定接口标准</p>
+</li>
+<li><p>接口标准的四个特性：机械（接口外观）、电气（信号状态）、功能（物理接口上各条信号线的功能分配和定义）、规程（具体步骤）</p>
+</li>
+<li><p>标准：EIA RS-232-E、EIA RS-449、X.21</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>渗透测试</title>
     <url>/2023/08/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：侧重于渗透过程的内网渗透，仅提供参考，必定会有讲解不清的内容，如有任何错误，欢迎批评指正。</p>
@@ -6423,7 +6595,7 @@ exec 2&gt;test	//将所有的错误显示到test文件中.....................
 </tbody></table>
 <p>拿到相关信息之后，在Exp-db中用Search sploit进行搜集</p>
 <ul>
-<li><p>内核提权：脏牛漏洞CVE-2016-5195（适用所有Linux内核2.6.22-3.9之间，32、64位OS）；CVE-2019-13272（适用于内核4.10-5.1.17）；CVE-2022-0874脏管漏洞（匿名管道限制不严格）</p>
+<li><p>内核提权：脏牛漏洞CVE-2016-5195（COW竞争条件，适用所有Linux内核2.6.22-3.9之间，32、64位OS）；CVE-2019-13272（适用于内核4.10-5.1.17）；CVE-2022-0874脏管漏洞（匿名管道限制不严格）</p>
 </li>
 <li><p>服务漏洞：dirty_sock（脏袜）漏洞CVE-2019-7304，snap（包管理工具）本地提权（适用于snap版本2.28-2.37，ubuntu18.10&#x2F;18.04LTS&#x2F;16.04LTS&#x2F;14.04LTS）</p>
 </li>
