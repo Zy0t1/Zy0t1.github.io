@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等">
+    <meta name="description" content="摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络技术">
 <meta property="og:url" content="https://zy0t1.github.io/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
-<meta property="og:description" content="摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等">
+<meta property="og:description" content="摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-10T05:51:06.000Z">
 <meta property="article:modified_time" content="2023-09-10T05:51:06.000Z">
@@ -146,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN"><span class="nav-number">1.</span> <span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">虚拟机网络配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">3.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tor"><span class="nav-number">4.</span> <span class="nav-text">Tor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P"><span class="nav-number">5.</span> <span class="nav-text">P2P</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">6.</span> <span class="nav-text">防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDS"><span class="nav-number">7.</span> <span class="nav-text">IDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%A1%E5%9E%92%E6%9C%BA"><span class="nav-number">8.</span> <span class="nav-text">堡垒机</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN"><span class="nav-number">1.</span> <span class="nav-text">CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">虚拟机网络配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">3.</span> <span class="nav-text">VPN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P"><span class="nav-number">4.</span> <span class="nav-text">P2P</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">5.</span> <span class="nav-text">防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDS"><span class="nav-number">6.</span> <span class="nav-text">IDS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%A1%E5%9E%92%E6%9C%BA"><span class="nav-number">7.</span> <span class="nav-text">堡垒机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E9%98%B2%E5%BE%A1%E6%A6%82%E8%BF%B0"><span class="nav-number">8.</span> <span class="nav-text">网络攻击防御概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%EF%BC%81"><span class="nav-number">9.</span> <span class="nav-text">缓冲区溢出攻击！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MIMT%E6%94%BB%E5%87%BB"><span class="nav-number">10.</span> <span class="nav-text">MIMT攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB"><span class="nav-number">11.</span> <span class="nav-text">拒绝服务攻击</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -265,14 +265,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.1k</span>
+      <span>7.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>14 分钟</span>
     </span>
 </div>
 
@@ -282,7 +282,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等</p>
+    <div class="post-body" itemprop="articleBody"><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介</p>
 <span id="more"></span>
 
 <h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
@@ -294,7 +294,6 @@
 <li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
 </li>
 </ul>
-<p>根据CDN服务器的所属分为：专用CDN、第三方CDN；</p>
 <p>CDN服务器安置原则：</p>
 <ol>
 <li>在ISP（互联网服务提供商）处架设CDN集群</li>
@@ -316,7 +315,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式；</p>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
 <p>从两端类型来说分为：</p>
 <ul>
 <li><p>站点对站点VPN：两端的地点相对固定；</p>
@@ -324,8 +323,8 @@
 <li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
 </li>
 </ul>
-<p>加密方式：AES+3DES；保护完整性：Hash；认证：PSK+RSA</p>
-<p>根据使用的协议：IPsec VPN和SSL&#x2F;TLS VPN</p>
+<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
 <ul>
 <li><p><strong>IPsec VPN</strong>：</p>
 <p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
@@ -336,8 +335,7 @@
 <p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
 </li>
 </ul>
-<hr>
-<h3 id="Tor"><a href="#Tor" class="headerlink" title="Tor"></a>Tor</h3><p>洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
 <ul>
 <li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
 </li>
@@ -347,8 +345,7 @@
 </ul>
 <hr>
 <h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
-<p><strong>NAT</strong>：</p>
-<p>网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
 <p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
 <ol>
 <li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
@@ -356,8 +353,7 @@
 <li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
 <li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
 </ol>
-<p><strong>NAT穿透&#x2F;打洞</strong>：</p>
-<p>有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
 <ul>
 <li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
 <li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
@@ -459,6 +455,9 @@
 <li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
 </li>
 </ul>
+<blockquote>
+<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
+</blockquote>
 <p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
 <p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
 <ul>
@@ -471,6 +470,13 @@
 </ul>
 </li>
 </ul>
+<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
+<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
+<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
+<blockquote>
+<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
+</blockquote>
+<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
 <hr>
 <h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
 <ul>
@@ -494,6 +500,70 @@
 <li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
 </li>
 </ul>
+<hr>
+<h3 id="网络攻击防御概述"><a href="#网络攻击防御概述" class="headerlink" title="网络攻击防御概述"></a>网络攻击防御概述</h3><p>根据攻击目的可以分为：破坏型攻击（破坏）、利用型攻击（控制）、信息搜集型攻击（窃取）、网络欺骗型攻击（诈骗）、垃圾信息攻击（干扰）。请自行分类</p>
+<ul>
+<li>攻击准备：确定目标——准备工具——收集信息</li>
+<li>攻击实施：隐蔽位置——登录到目标主机——夺取控制权</li>
+<li>善后阶段：禁止日志审计——清楚事件日志——清楚有关中间件、应用的服务日志</li>
+</ul>
+<p>ATT&amp;CK：<span class="exturl" data-url="aHR0cHM6Ly9hdHRhY2subWl0cmUub3JnLw==">MITRE ATT&amp;CK®<i class="fa fa-external-link-alt"></i></span></p>
+<p>网络杀伤链：<span class="exturl" data-url="aHR0cHM6Ly93d3cubG9ja2hlZWRtYXJ0aW4uY29tL2VuLXVzL2NhcGFiaWxpdGllcy9jeWJlci9jeWJlci1raWxsLWNoYWluLmh0bWw=">Cyber Kill Chain® | Lockheed Martin<i class="fa fa-external-link-alt"></i></span></p>
+<p>入侵分析钻石模型：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1FBWC1BLVRlYW0vUGFwZXJzL2Jsb2IvbWFzdGVyL3BhcGVycy8yMDE5LyVFNSU4NSVBNSVFNCVCRSVCNSVFNSU4OCU4NiVFNiU5RSU5MCVFOSU5MiVCQiVFNyU5RiVCMyVFNiVBOCVBMSVFNSU5RSU4Qi5wZGY=">Papers&#x2F;papers&#x2F;2019&#x2F;入侵分析钻石模型.pdf at master · QAX-A-Team&#x2F;Papers (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<hr>
+<h3 id="缓冲区溢出攻击！"><a href="#缓冲区溢出攻击！" class="headerlink" title="缓冲区溢出攻击！"></a>缓冲区溢出攻击！</h3><p>用户输出的数据长度超出了程序为其分配的空间，这些数据就会覆盖为其他程序分配的内存空间，攻击者通过构造shellcode作为输入使得程序最终执行这些代码，从而危害系统。实现难度高但效果好，本质相当于改变程序的执行流程</p>
+<p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出（也可以归因于写程序的人水平不够）</p>
+<p>类型包括：栈溢出、堆溢出、整型溢出、格式化字符溢出等</p>
+<p>栈溢出：缓冲区在栈中，由于拷贝进来的数据过长导致覆盖了函数返回地址或其他数据指针等</p>
+<p>堆溢出（动态分配的空间）：同上，但是发生在堆分配的结构中</p>
+<p>整型溢出：宽度溢出（超过变量表示范围）、运算溢出、符号溢出（无符号变量的被看作有符号）</p>
+<p>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</p>
+<hr>
+<h3 id="MIMT攻击"><a href="#MIMT攻击" class="headerlink" title="MIMT攻击"></a>MIMT攻击</h3><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
+<ul>
+<li>ARP污染&#x2F;欺骗：</li>
+</ul>
+<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
+<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
+<pre><code>arp -a	//查看缓存表
+    -s + IP MAC	//改为静态
+    -d (+ IP)	//删除全部或某一条
+</code></pre>
+<p>防御措施：进行静态绑定、使用ARP防火墙</p>
+<ul>
+<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
+<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
+<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
+<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
+</ul>
+<hr>
+<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>又叫DOS攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
+<p>主要手段有如下：</p>
+<ul>
+<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
+<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
+<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
+<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
+</ul>
+<p>根据攻击方式有以下分类</p>
+<ul>
+<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
+<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
+<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
+<li>针对中间件或者系统的攻击</li>
+</ul>
+<p>也可以根据网络层次进行分类：</p>
+<ul>
+<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
+</li>
+<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
+</li>
+<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
+<blockquote>
+<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
+</blockquote>
+</li>
+</ul>
 
     </div>
 
@@ -510,8 +580,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/07/Windows%E4%B8%8D%E8%AE%B2%E5%86%85%E6%A0%B8/" rel="prev" title="Windows讲解">
-                  <i class="fa fa-angle-left"></i> Windows讲解
+                <a href="/2023/09/07/Windows%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B2%E8%A7%A3/" rel="prev" title="Windows不完全讲解">
+                  <i class="fa fa-angle-left"></i> Windows不完全讲解
                 </a>
             </div>
             <div class="post-nav-item">
@@ -549,13 +619,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">115k</span>
+    <span title="站点总字数">133k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:30</span>
+    <span title="站点阅读时长">4:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
