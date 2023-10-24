@@ -3,7 +3,8 @@
   <entry>
     <title>Linux不完全说明</title>
     <url>/2023/09/07/Linux%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><span id="more"></span>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》</p>
+<span id="more"></span>
 
 <h3 id="1-基本命令"><a href="#1-基本命令" class="headerlink" title="1.基本命令"></a>1.基本命令</h3><p>ctrl+alt+t(快速打开终端)</p>
 <pre><code class="bash">apt list(列举)
@@ -685,6 +686,138 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 ]]></content>
       <tags>
         <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Misc</title>
+    <url>/2023/08/27/Misc/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+<span id="more"></span>
+
+<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
+<ul>
+<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
+</li>
+<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
+</li>
+<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
+<table>
+<thead>
+<tr>
+<th>字节数</th>
+<th>二进制编码格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单字节</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>双字节</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>四字节</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
+</blockquote>
+</li>
+<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
+</li>
+<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
+</li>
+<li><p>Base编码</p>
+<ul>
+<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
+<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
+<li>base58、85、91、92、36、62</li>
+</ul>
+</li>
+</ul>
+<p><strong>古典密码</strong>：</p>
+<ul>
+<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
+<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
+<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
+<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
+<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
+<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
+<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
+<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
+</ul>
+<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<span class="exturl" data-url="aHR0cHM6Ly9xdWlwcWl1cC5jb20v">CTF wiki<i class="fa fa-external-link-alt"></i></span></p>
+<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
+<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
+<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
+<pre><code>图片
+JPEG/jpg:头FF-D8-FF;尾FF-D9
+PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
+GIF:头47-49-46-38-39/37-61;尾00-3B
+BMP:头42-4D
+压缩包
+ZIP:头50-4B-03-04;尾50-4B
+RAR:头52-61-72-21
+音频
+WAV:头57-41-56-45
+视频
+AVI:头41-56-49-20
+</code></pre>
+<ul>
+<li><p>文件拼接</p>
+<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
+<ul>
+<li>工具：binwalk（kali）、foremost</li>
+<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
+</ul>
+</li>
+<li><p>LSB隐写</p>
+<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
+<ul>
+<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
+</ul>
+</li>
+<li><p>基于文件属性</p>
+<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
+<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
+<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
+<p>工具：pngcheck</p>
+</li>
+<li><p>一些杂的</p>
+<ul>
+<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
+<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
+<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
+</ul>
+</li>
+<li><p>压缩包</p>
+<ul>
+<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
+</li>
+<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
+</li>
+<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
+</li>
+<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
+</li>
+</ul>
+</li>
+<li><p>音频</p>
+<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
+<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
+</li>
+<li><p>字符串</p>
+<p>零宽度字符，一种字节宽度为0的不可打印的Unicode字符，占位置但是不可见，使用winhex&#x2F;vim&#x2F;01editor打开能看到<code>&lt;200a&gt;</code>之类的内容；</p>
+<p>不可见字符隐写，利用空格和制表符写的东西，可以是摩斯、培根、SNOW隐写、white_space（一种编程语言，由空格回车tab组成）</p>
+</li>
+</ul>
+<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
+]]></content>
+      <tags>
+        <tag>CTF</tag>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -1443,194 +1576,8 @@ evil.dtd如下
         <category>网络安全</category>
       </categories>
       <tags>
+        <tag>CTF</tag>
         <tag>Web</tag>
-        <tag>CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Misc</title>
-    <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
-<span id="more"></span>
-
-<h3 id="0x01编码与古典密码"><a href="#0x01编码与古典密码" class="headerlink" title="0x01编码与古典密码"></a>0x01编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
-<ul>
-<li><p>标准ASCII编码：8bits，最高位为0，支持128个字符；后面128个有用的为扩展的版本，各地区情况不同；除UTF16和32不兼容外，其他上面说到的均兼容；</p>
-</li>
-<li><p>GBK：国标；GBK2312，简体中文字符集6700+汉字&amp;&amp;拉丁字母等；GBK在2312基础上收录20000+汉字，其中还包括繁体；18030，收录70000+汉字&amp;&amp;少数民族</p>
-</li>
-<li><p>UTF：包括UTF-8&#x2F;-16&#x2F;-32，表示的是用的多少bit来表示字符；在UTF-8中，与ASCII码表示一致；但在16与32中与ASCII码不同方式</p>
-<table>
-<thead>
-<tr>
-<th>字节数</th>
-<th>二进制编码格式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单字节</td>
-<td>0xxxxxxx</td>
-</tr>
-<tr>
-<td>双字节</td>
-<td>110xxxxx 10xxxxxx</td>
-</tr>
-<tr>
-<td>四字节</td>
-<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>Unicode：万国码、单一码，包含世界上几乎所有的符号；是一个字符集，并未赋予意义</p>
-</blockquote>
-</li>
-<li><p>ANSI：根据系统中设置的地区不同，会自动地更换为相应的编码，是Windows的编码机制；可以通过修改—语言与地区—来更改；美国就是ASCII，中国就是GBK；</p>
-</li>
-<li><p>摩斯电码：在通信领域常用，点横构成（基本都是一长一短）；该领域其他编码有敲击码（26字母放在5x5的格子中，CK共用）、曼彻斯特编码（与高低电平不同，一般使用高低转换表示）、格雷编码（从0-9每位的二进制表示仅与上一位只有一个位的差别，有多种表示）</p>
-</li>
-<li><p>Base编码</p>
-<ul>
-<li>base64：将ASCII对应二进制写出来，每个字符一个字节有8bit，2^6^&#x3D;64（起码有大小写的A-Z，0-9），因此对二进制串每6个为一组，在每组前加上00（能将3个字符&#x2F;字节变成4个字符），再将每组二进制串对照更新；如果原文并没有3的倍数以上的字符，则会在base64编码后加上一个或两个“&#x3D;”；</li>
-<li>base32是5个一组，共有32个字符；base16是4个一组，共16个字符0-9、A-F</li>
-<li>base58、85、91、92、36、62</li>
-</ul>
-</li>
-</ul>
-<p><strong>古典密码</strong>：</p>
-<ul>
-<li>栅栏密码：传统：N位一组，依次链接每组的1，2….得到密文；变体W型栅栏；</li>
-<li>移位密码：1.传统的凯撒密码，从AB…YZ进行后移固定长度，若移3，得DE…BC；2.维吉尼亚密码：由密文密钥构成，在表中按照密钥长度向后依次替换（用完从头再来），直到明文变完</li>
-<li>棋盘密码：将26个字母放到5x5的格子中，其中j和i共用一个</li>
-<li>BrainFuck：由 <code>&lt; &gt; + . [ - ] ,</code>等八种符号构成；类似的：1.jsFuck：<code>( ! + ) [ ] </code>符号构成，在浏览器控制台中即可解密；2.Ook：如名，由<code>O o . ? k </code>构成；3.URL编码：由<code>%</code>与十六进制数构成；4.jother：由<code>![]+</code>构成；5.jjencode：有<code>$$ = ~ sojson等</code>内容构成；5.Quoted-printable：在基于MIME下的表示任何8位的串<code>=FF</code>只有&#x3D;与十六进制字符</li>
-<li>当铺密码：有简单中文构成，<code>羊大王中王</code>即63444</li>
-<li>键盘密码：1.QWE替换：字母区左到右、上到下，用ABCD….替换；2.QWE包围：六个或者几个字母围住的；3.九键：手机九键</li>
-<li>猪圈密码：奇怪的图形（方的半包围与点构成），找表对照；类似的有：埃及文字、宝可梦图腾、跳舞的小人、精灵语？、盲文、夏多密码（有线条在内的圈）、圣堂武士（箭头&amp;点&amp;三角）、外星人密码、音乐密码、银河字母、摩斯密码、天干地支表、培根密码（26个字母用<code>a</code>和<code>b</code>表示）</li>
-<li>佛曰密码：以<code>佛曰</code>开头，或者<code>新佛曰</code>等；同理的有“熊曰”，“呜嗷啊~”构成的兽言，核心价值观编码？：富强民主文明和谐，自由平等公正法治，爱国敬业诚信友善</li>
-</ul>
-<p>此外有的题目会进行字母替换，而且给的题目又特别长，此时可以根据英文词频分析，来进行替换，参考<span class="exturl" data-url="aHR0cHM6Ly9xdWlwcWl1cC5jb20v">CTF wiki<i class="fa fa-external-link-alt"></i></span></p>
-<p>黑科技—ciphey一个使用人工智能的密码破解工具，当然只是有可能是对的</p>
-<h3 id="0x02隐写术"><a href="#0x02隐写术" class="headerlink" title="0x02隐写术"></a>0x02隐写术</h3><p>最基本的莫过于注意搜索文件属性、文件二进制打开搜索字符串（strings搜索文件）</p>
-<p>其他手段需要通过二进制打开，根据文件头来判断文件类型</p>
-<pre><code>图片
-JPEG/jpg:头FF-D8-FF;尾FF-D9
-PNG:头89-50-4E-47-0D-0A-1A-0A;尾AE-42-60-82 
-GIF:头47-49-46-38-39/37-61;尾00-3B
-BMP:头42-4D
-压缩包
-ZIP:头50-4B-03-04;尾50-4B
-RAR:头52-61-72-21
-音频
-WAV:头57-41-56-45
-视频
-AVI:头41-56-49-20
-</code></pre>
-<ul>
-<li><p>文件拼接</p>
-<p>将两种文件直接拼接在一起，常见的就是图片后面跟一个压缩包；最直接的就是用二进制编辑器打开之后，找出对应两个文件的头和尾，之后将其另存为其他类型的文件即可。</p>
-<ul>
-<li>工具：binwalk（kali）、foremost</li>
-<li>用途：在实际攻击中可以将一句话木马拼接在图片后，图片软件只识别到图片文件头就结束</li>
-</ul>
-</li>
-<li><p>LSB隐写</p>
-<p>LSB指的是最低有效位，原理跟RGB有关，常出现于png中：一个颜色占据8bit，从低到高位，一个像素三种颜色（红绿蓝），每一个像素的低位颜色稍加更改，对于人的肉眼来说不明显。常常在其中某一层会隐藏信息，有时候直接就是flag，有时候会再来个二维码之类；简单点的相关RGB利用就是将字符串的ASCII码进行RGB转换为图片</p>
-<ul>
-<li>工具：stegsolve、zsteg（kali）、Cloacked-Pixel（有密钥）</li>
-</ul>
-</li>
-<li><p>基于文件属性</p>
-<p>IHDR隐写：指的是更改png图片中的宽高等来隐藏信息，一般来说题目实际的高度会长一点，对宽度下手容易导致图片没法看</p>
-<p>在png的二进制中49-48-44-52&#x3D;IHDR，从开头算起17-20字节为宽、21-24字节为高。有些图片还会加有CRC校验报错，会根据图片内容进行验算，不对照则不能正常打开。</p>
-<p>IDAT数据块连续：png图片是由一个个的IDAT数据块构成的，除了最后一个其他的都有固定的相同长度，不一样的一般都是多出来的，可以分离出来进一步查看</p>
-<p>工具：pngcheck</p>
-</li>
-<li><p>一些杂的</p>
-<ul>
-<li>gif：一些图片的拼接，目标&#x2F;信息常位于其中的某一帧，可以将特殊帧都给提取出来再进一步挖掘；工具：steghide、stegseek、PhotoShop</li>
-<li>二维码：左上-右上-左下为大方块叫做位置探测图形；九宫格中其他位置都属于校正图形；一般形式由拼接、修复二维码等，当然二维码作为图形出现时也可以与前面的技术结合。工具：QR Research、QRazyBox（修复二维码）</li>
-<li>水印：原图经傅里叶变换—&gt;频谱图+水印经编码—&gt;再次傅里叶逆变换得到含水印的图像，一般题目中会给两张一毛一样的图，一般使用脚本破解</li>
-</ul>
-</li>
-<li><p>压缩包</p>
-<ul>
-<li><p>伪加密：常见于zip，少部分会有rar，这里仅对zip进行介绍。ZIP文件格式如下：压缩源文件数据区【文件头+文件数据+数据描述符】+压缩文件目录区+压缩源文件目录结束标志。在ZIP（小端从左向右看时）中涉及504b0304向后第2个字（1400后）和504b0102向后第2个字（14001400后），只有当一个偶数一个奇数是伪加密，两个偶数不加密，两个奇数加密；</p>
-</li>
-<li><p>密码破解：有时候压缩包的密码会藏在其他文件中，如果有提示弱密码或者已知部分密码的话，可以用ARCHPR、ZIPerello、AZPR进行爆破；</p>
-</li>
-<li><p>明文攻击：会给我们一个带密码的压缩包和其中的一个文件。判断该压缩包里面的文件是否和所给文件一样，可以将所给文件进行压缩然后查看生成压缩包内部显示的CRC，之后进行对比（注意使用相同的压缩算法）；确定后就可以使用上述软件或bkcrack进行解密</p>
-</li>
-<li><p>CRC爆破：长密码+多个相同大小的小文件，工具CRC32.py爆破</p>
-</li>
-</ul>
-</li>
-<li><p>音频</p>
-<p>一般题目格式为.wav，经常与摩斯电码进行结合，使用Audacity进行音频分析，要么会多出来一段小杂音，要么就是听不懂，但是只有高低的波形；此外还可以借助频谱图来隐藏信息，在上述软件中打开频谱图也许能看到flag；</p>
-<p>对于mp3格式的题目，一般就是使用MP3stego；其余的大多就是silentEye进行加解密；在视频中还有的工具用来隐藏音频mkvtool</p>
-</li>
-<li><p>字符串</p>
-<p>零宽度字符，一种字节宽度为0的不可打印的Unicode字符，占位置但是不可见，使用winhex&#x2F;vim&#x2F;01editor打开能看到<code>&lt;200a&gt;</code>之类的内容；</p>
-<p>不可见字符隐写，利用空格和制表符写的东西，可以是摩斯、培根、SNOW隐写、white_space（一种编程语言，由空格回车tab组成）</p>
-</li>
-</ul>
-<p>除了上述所说外，还有其他各种隐写术，例如根据DCT域的JPG的隐写（stegdetect、JPHS）、文本隐写术、像素点合成、大拼图等，除此之外根据目前的AI技术也会有许多此类隐写应用，这里不再过多叙述</p>
-]]></content>
-      <tags>
-        <tag>CTF</tag>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>区块链介绍</title>
-    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：仅作区块链部分概念介绍，入门食用</p>
-<span id="more"></span>
-
-<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
-</blockquote>
-<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
-<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
-<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
-<ul>
-<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
-</li>
-<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
-</li>
-<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
-</li>
-<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
-</li>
-<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
-</li>
-<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
-<blockquote>
-<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
-</blockquote>
-</li>
-<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
-</li>
-<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
-</li>
-</ul>
-<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
-<ul>
-<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
-<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
-<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
-<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
-<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
-<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
-<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
-<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
-<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>区块链</category>
-      </categories>
-      <tags>
-        <tag>密码学</tag>
-        <tag>区块链</tag>
       </tags>
   </entry>
   <entry>
@@ -2983,6 +2930,60 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       </tags>
   </entry>
   <entry>
+    <title>区块链介绍</title>
+    <url>/2023/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：仅作区块链部分概念介绍，入门食用</p>
+<span id="more"></span>
+
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h3 id="1-比特币"><a href="#1-比特币" class="headerlink" title="1.比特币"></a>1.比特币</h3><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
+<ul>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
+</li>
+<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+</li>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+<blockquote>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
+</blockquote>
+</li>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
+</li>
+</ul>
+<h3 id="2-以太坊"><a href="#2-以太坊" class="headerlink" title="2.以太坊"></a>2.以太坊</h3><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<ul>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>区块链</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>密码学简介</title>
     <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学一些概念做阐释，不会涉及具体算法，就是单纯的概念</p>
@@ -3559,6 +3560,265 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       <tags>
         <tag>win</tag>
         <tag>恶意代码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>后端基础知识</title>
+    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
+<span id="more"></span>
+
+<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
+<ul>
+<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
+</li>
+<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
+</li>
+<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
+</li>
+<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
+</li>
+<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
+</li>
+<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
+</li>
+<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
+</li>
+<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
+</li>
+</ul>
+<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
+<table>
+<thead>
+<tr>
+<th>体系结构分类</th>
+<th>规模&#x2F;应用层次分类</th>
+<th>结构分类</th>
+<th>用途分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86服务器(RISC)</td>
+<td>入门级</td>
+<td>塔式服务器</td>
+<td>通用型</td>
+</tr>
+<tr>
+<td>非x86服务器(CISC)</td>
+<td>工作组级</td>
+<td>机架式服务器</td>
+<td>专用型</td>
+</tr>
+<tr>
+<td></td>
+<td>部门级</td>
+<td>刀片式服务器</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>企业级</td>
+<td>机柜式服务器</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Web服务器</strong>：</p>
+<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
+<p><strong>DB服务器</strong>：</p>
+<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
+<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>SQL server</th>
+<th>Oracle</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源、简单、小；字符客户端mysql</td>
+<td>微软、可免费；图形化客户端ADS</td>
+<td>顶级；字符客户端sqlplus</td>
+<td>开源；字符客户端pesql</td>
+</tr>
+<tr>
+<td>数据量大时不太行</td>
+<td>windows专属</td>
+<td>收费</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非关系型数据库：</p>
+<ul>
+<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
+<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
+<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
+<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
+<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
+</ul>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<p>发展阶段：人工管理—文件系统—数据库系统。</p>
+<blockquote>
+<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>人工管理</th>
+<th>文件系统</th>
+<th>数据库系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不保存数据</td>
+<td>可以长期保存</td>
+<td>结构化</td>
+</tr>
+<tr>
+<td>没有相应软件</td>
+<td>有专门软件</td>
+<td>数据由DBMS统一管理</td>
+</tr>
+<tr>
+<td>不共享</td>
+<td>共享性差</td>
+<td>共享性好，冗余度低</td>
+</tr>
+<tr>
+<td>数据之间不独立</td>
+<td>独立性差</td>
+<td>高度物理独立性，一定逻辑独立性</td>
+</tr>
+</tbody></table>
+<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据结构</th>
+<th>查询效率</th>
+<th>数据独立性</th>
+<th>DML操作方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>层次、网状</td>
+<td>链表</td>
+<td>低</td>
+<td>差</td>
+<td>过程性</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>二维表</td>
+<td>高</td>
+<td>高</td>
+<td>非过程性</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
+</li>
+<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
+</li>
+<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
+</li>
+</ul>
+<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
+<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
+<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
+<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
+<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
+</ul>
+<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<ol>
+<li><p><strong>关系数据结构</strong></p>
+<ul>
+<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
+<p>关系的6条性质：</p>
+<ul>
+<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
+</li>
+<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
+</li>
+<li><p>每个分量都是原子值，不能进一步拆分；</p>
+</li>
+</ul>
+</li>
+<li><p>关系模式:表的名字；</p>
+<ul>
+<li>形式化:R(U，D，DOM，F)</li>
+<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+</ul>
+</li>
+<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
+</li>
+<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
+</li>
+<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
+</li>
+<li><p>分量:交叉点；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关系的完整性</strong></p>
+<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<ul>
+<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
+</li>
+<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
+<blockquote>
+<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>关系操作</strong></p>
+<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+<ul>
+<li><p>并union：A+B（可用差表示）</p>
+<blockquote>
+<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
+</blockquote>
+</li>
+<li><p>差difference：A-B</p>
+</li>
+<li><p>交intersection：A·B</p>
+</li>
+<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
+</li>
+<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
+</li>
+<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
+</li>
+<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
+<blockquote>
+<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
+</blockquote>
+</li>
+<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
+<blockquote>
+<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
+</blockquote>
+</li>
+<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
+<blockquote>
+<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>后端</tag>
+        <tag>基础知识</tag>
       </tags>
   </entry>
   <entry>
@@ -5431,262 +5691,296 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
-    <title>后端基础知识</title>
-    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
+    <title>网络技术</title>
+    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介</p>
 <span id="more"></span>
 
-<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
 <ul>
-<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
+<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
 </li>
-<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
+<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
 </li>
-<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
-</li>
-<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
-</li>
-<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
-</li>
-<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
-</li>
-<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
-</li>
-<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
+<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
 </li>
 </ul>
-<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
-<table>
-<thead>
-<tr>
-<th>体系结构分类</th>
-<th>规模&#x2F;应用层次分类</th>
-<th>结构分类</th>
-<th>用途分类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>x86服务器(RISC)</td>
-<td>入门级</td>
-<td>塔式服务器</td>
-<td>通用型</td>
-</tr>
-<tr>
-<td>非x86服务器(CISC)</td>
-<td>工作组级</td>
-<td>机架式服务器</td>
-<td>专用型</td>
-</tr>
-<tr>
-<td></td>
-<td>部门级</td>
-<td>刀片式服务器</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>企业级</td>
-<td>机柜式服务器</td>
-<td></td>
-</tr>
-</tbody></table>
-<p><strong>Web服务器</strong>：</p>
-<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
-<p><strong>DB服务器</strong>：</p>
-<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
-<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
-<table>
-<thead>
-<tr>
-<th>MySQL</th>
-<th>SQL server</th>
-<th>Oracle</th>
-<th>PostgreSQL</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>开源、简单、小；字符客户端mysql</td>
-<td>微软、可免费；图形化客户端ADS</td>
-<td>顶级；字符客户端sqlplus</td>
-<td>开源；字符客户端pesql</td>
-</tr>
-<tr>
-<td>数据量大时不太行</td>
-<td>windows专属</td>
-<td>收费</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>非关系型数据库：</p>
-<ul>
-<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
-<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
-<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
-<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
-<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
-</ul>
-<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
-<p>发展阶段：人工管理—文件系统—数据库系统。</p>
-<blockquote>
-<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>人工管理</th>
-<th>文件系统</th>
-<th>数据库系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>不保存数据</td>
-<td>可以长期保存</td>
-<td>结构化</td>
-</tr>
-<tr>
-<td>没有相应软件</td>
-<td>有专门软件</td>
-<td>数据由DBMS统一管理</td>
-</tr>
-<tr>
-<td>不共享</td>
-<td>共享性差</td>
-<td>共享性好，冗余度低</td>
-</tr>
-<tr>
-<td>数据之间不独立</td>
-<td>独立性差</td>
-<td>高度物理独立性，一定逻辑独立性</td>
-</tr>
-</tbody></table>
-<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
-<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>数据结构</th>
-<th>查询效率</th>
-<th>数据独立性</th>
-<th>DML操作方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>层次、网状</td>
-<td>链表</td>
-<td>低</td>
-<td>差</td>
-<td>过程性</td>
-</tr>
-<tr>
-<td>关系</td>
-<td>二维表</td>
-<td>高</td>
-<td>高</td>
-<td>非过程性</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
-</li>
-<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
-</li>
-<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
-</li>
-</ul>
-<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
-<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
-<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
-<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
-<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
-<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
-</ul>
-<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<p>CDN服务器安置原则：</p>
 <ol>
-<li><p><strong>关系数据结构</strong></p>
-<ul>
-<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
-<p>关系的6条性质：</p>
-<ul>
-<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
+<li>在ISP（互联网服务提供商）处架设CDN集群</li>
+<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
+<li>根据地理位置和地区流量检测选择布置</li>
+</ol>
+<hr>
+<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
+<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
+<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
 </li>
-<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
+<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
 </li>
-<li><p>每个分量都是原子值，不能进一步拆分；</p>
+<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+</li>
+<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+</li>
+<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+</li>
+</ul>
+<hr>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
+<p>从两端类型来说分为：</p>
+<ul>
+<li><p>站点对站点VPN：两端的地点相对固定；</p>
+</li>
+<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
+</li>
+</ul>
+<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
+<ul>
+<li><p><strong>IPsec VPN</strong>：</p>
+<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
+<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
+</li>
+<li><p><strong>SSL VPN</strong>：</p>
+<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
+<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
+</li>
+</ul>
+<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<ul>
+<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
+</li>
+<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
+<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
+</li>
+</ul>
+<hr>
+<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
+<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
+<ol>
+<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
+<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
+<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
+<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+</ol>
+<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<ul>
+<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
+<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
+<li>3-4、4-4常规方法无法打洞</li>
+</ul>
+<blockquote>
+<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p><strong>BitTorrent</strong>：</p>
+<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<ul>
+<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+</li>
+<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+</li>
+<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
+<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
+</li>
+<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
+</li>
+<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
+</li>
+<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+</li>
+</ul>
+<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<hr>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<ul>
+<li><p>两种分段模型：</p>
+<ul>
+<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
+</li>
+<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
 </li>
 </ul>
 </li>
-<li><p>关系模式:表的名字；</p>
+<li><p>过滤标准：源IP、目标IP、内容、协议</p>
+</li>
+<li><p><strong>工作模式</strong>：</p>
 <ul>
-<li>形式化:R(U，D，DOM，F)</li>
-<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
+<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
+<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
 </ul>
 </li>
-<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
-</li>
-<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
-</li>
-<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
-</li>
-<li><p>分量:交叉点；</p>
-</li>
-</ul>
-</li>
-<li><p><strong>关系的完整性</strong></p>
-<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<li><p><strong>FireWall类型</strong>：</p>
 <ul>
-<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
-</li>
-<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
-<blockquote>
-<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
-</blockquote>
-</li>
+<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
+<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
+<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
+<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
+<li>混合型：不多bb</li>
 </ul>
 </li>
-<li><p><strong>关系操作</strong></p>
-<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+</ul>
+<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
+<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
+<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<hr>
+<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
 <ul>
-<li><p>并union：A+B（可用差表示）</p>
-<blockquote>
-<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
-</blockquote>
+<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<ol>
+<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
 </li>
-<li><p>差difference：A-B</p>
+<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
 </li>
-<li><p>交intersection：A·B</p>
+<li><p>事件数据库：存储各种事件</p>
 </li>
-<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
-</li>
-<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
-</li>
-<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
-</li>
-<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
-<blockquote>
-<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
-</blockquote>
-</li>
-<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
-<blockquote>
-<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
-</blockquote>
-</li>
-<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
-<blockquote>
-<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
-</blockquote>
-</li>
-</ul>
+<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
 </li>
 </ol>
+</li>
+<li><p><strong>根据数据源的分类</strong>：</p>
+<ol>
+<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
+<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
+<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
+</ol>
+</li>
+<li><p><strong>根据检测方法的分类</strong>：</p>
+<ol>
+<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
+<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
+<li>混合检测系统：不多bb</li>
+</ol>
+</li>
+<li><p>根据响应方式分类：实时监测、非实时检测</p>
+</li>
+<li><p><strong>误用检测分析方法</strong>：</p>
+<ol>
+<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
+<li>专辑系统：专家知识库，形成IF-THEN规则</li>
+<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
+<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
+</ol>
+</li>
+<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+</li>
+</ul>
+<blockquote>
+<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
+</blockquote>
+<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
+<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<ul>
+<li>核心组件如下：<ul>
+<li>签名库：存放已知攻击特征</li>
+<li>异常检测引擎：检测未知攻击和异常行为</li>
+<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
+<li>管理控制台：配置管理IPS</li>
+<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
+<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
+<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
+<blockquote>
+<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
+</blockquote>
+<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
+<hr>
+<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+<ul>
+<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
+</li>
+<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+</li>
+<li><p><strong>模块</strong>：</p>
+<ol>
+<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
+<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
+<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
+<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
+<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+</ol>
+</li>
+<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+</li>
+<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
+</li>
+<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+</li>
+</ul>
+<hr>
+<h3 id="网络攻击防御概述"><a href="#网络攻击防御概述" class="headerlink" title="网络攻击防御概述"></a>网络攻击防御概述</h3><p>根据攻击目的可以分为：破坏型攻击（破坏）、利用型攻击（控制）、信息搜集型攻击（窃取）、网络欺骗型攻击（诈骗）、垃圾信息攻击（干扰）。请自行分类</p>
+<ul>
+<li>攻击准备：确定目标——准备工具——收集信息</li>
+<li>攻击实施：隐蔽位置——登录到目标主机——夺取控制权</li>
+<li>善后阶段：禁止日志审计——清楚事件日志——清楚有关中间件、应用的服务日志</li>
+</ul>
+<p>ATT&amp;CK：<span class="exturl" data-url="aHR0cHM6Ly9hdHRhY2subWl0cmUub3JnLw==">MITRE ATT&amp;CK®<i class="fa fa-external-link-alt"></i></span></p>
+<p>网络杀伤链：<span class="exturl" data-url="aHR0cHM6Ly93d3cubG9ja2hlZWRtYXJ0aW4uY29tL2VuLXVzL2NhcGFiaWxpdGllcy9jeWJlci9jeWJlci1raWxsLWNoYWluLmh0bWw=">Cyber Kill Chain® | Lockheed Martin<i class="fa fa-external-link-alt"></i></span></p>
+<p>入侵分析钻石模型：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1FBWC1BLVRlYW0vUGFwZXJzL2Jsb2IvbWFzdGVyL3BhcGVycy8yMDE5LyVFNSU4NSVBNSVFNCVCRSVCNSVFNSU4OCU4NiVFNiU5RSU5MCVFOSU5MiVCQiVFNyU5RiVCMyVFNiVBOCVBMSVFNSU5RSU4Qi5wZGY=">Papers&#x2F;papers&#x2F;2019&#x2F;入侵分析钻石模型.pdf at master · QAX-A-Team&#x2F;Papers (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<hr>
+<h3 id="缓冲区溢出攻击！"><a href="#缓冲区溢出攻击！" class="headerlink" title="缓冲区溢出攻击！"></a>缓冲区溢出攻击！</h3><p>用户输出的数据长度超出了程序为其分配的空间，这些数据就会覆盖为其他程序分配的内存空间，攻击者通过构造shellcode作为输入使得程序最终执行这些代码，从而危害系统。实现难度高但效果好，本质相当于改变程序的执行流程</p>
+<p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出（也可以归因于写程序的人水平不够）</p>
+<p>类型包括：栈溢出、堆溢出、整型溢出、格式化字符溢出等</p>
+<p>栈溢出：缓冲区在栈中，由于拷贝进来的数据过长导致覆盖了函数返回地址或其他数据指针等</p>
+<p>堆溢出（动态分配的空间）：同上，但是发生在堆分配的结构中</p>
+<p>整型溢出：宽度溢出（超过变量表示范围）、运算溢出、符号溢出（无符号变量的被看作有符号）</p>
+<p>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</p>
+<hr>
+<h3 id="MIMT攻击"><a href="#MIMT攻击" class="headerlink" title="MIMT攻击"></a>MIMT攻击</h3><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
+<ul>
+<li>ARP污染&#x2F;欺骗：</li>
+</ul>
+<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
+<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
+<pre><code>arp -a	//查看缓存表
+    -s + IP MAC	//改为静态
+    -d (+ IP)	//删除全部或某一条
+</code></pre>
+<p>防御措施：进行静态绑定、使用ARP防火墙</p>
+<ul>
+<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
+<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
+<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
+<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
+</ul>
+<hr>
+<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>又叫DOS攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
+<p>主要手段有如下：</p>
+<ul>
+<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
+<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
+<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
+<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
+</ul>
+<p>根据攻击方式有以下分类</p>
+<ul>
+<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
+<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
+<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
+<li>针对中间件或者系统的攻击</li>
+</ul>
+<p>也可以根据网络层次进行分类：</p>
+<ul>
+<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
+</li>
+<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
+</li>
+<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
+<blockquote>
+<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
       <categories>
-        <category>计算机基础</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>后端</tag>
-        <tag>基础知识</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -6657,299 +6951,6 @@ net localgroup administrators temp /add
       </tags>
   </entry>
   <entry>
-    <title>网络技术</title>
-    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介</p>
-<span id="more"></span>
-
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
-<ul>
-<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
-</li>
-<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
-</li>
-<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
-</li>
-</ul>
-<p>CDN服务器安置原则：</p>
-<ol>
-<li>在ISP（互联网服务提供商）处架设CDN集群</li>
-<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
-<li>根据地理位置和地区流量检测选择布置</li>
-</ol>
-<hr>
-<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
-<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
-<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
-</li>
-<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
-</li>
-<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
-</li>
-<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
-</li>
-<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
-</li>
-</ul>
-<hr>
-<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
-<p>从两端类型来说分为：</p>
-<ul>
-<li><p>站点对站点VPN：两端的地点相对固定；</p>
-</li>
-<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
-</li>
-</ul>
-<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
-<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
-<ul>
-<li><p><strong>IPsec VPN</strong>：</p>
-<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
-<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
-</li>
-<li><p><strong>SSL VPN</strong>：</p>
-<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
-<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
-</li>
-</ul>
-<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
-<ul>
-<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
-</li>
-<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
-<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
-</li>
-</ul>
-<hr>
-<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
-<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
-<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
-<ol>
-<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
-<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
-<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
-<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
-</ol>
-<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
-<ul>
-<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
-<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
-<li>3-4、4-4常规方法无法打洞</li>
-</ul>
-<blockquote>
-<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<p><strong>BitTorrent</strong>：</p>
-<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
-<ul>
-<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
-</li>
-<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
-</li>
-<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
-<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
-</li>
-<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
-</li>
-<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
-</li>
-<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
-</li>
-</ul>
-<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
-<hr>
-<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
-<ul>
-<li><p>两种分段模型：</p>
-<ul>
-<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
-</li>
-<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
-</li>
-</ul>
-</li>
-<li><p>过滤标准：源IP、目标IP、内容、协议</p>
-</li>
-<li><p><strong>工作模式</strong>：</p>
-<ul>
-<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
-<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
-<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
-</ul>
-</li>
-<li><p><strong>FireWall类型</strong>：</p>
-<ul>
-<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
-<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
-<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
-<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
-<li>混合型：不多bb</li>
-</ul>
-</li>
-</ul>
-<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
-<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
-<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
-<hr>
-<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
-<ul>
-<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
-<ol>
-<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
-</li>
-<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
-</li>
-<li><p>事件数据库：存储各种事件</p>
-</li>
-<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
-</li>
-</ol>
-</li>
-<li><p><strong>根据数据源的分类</strong>：</p>
-<ol>
-<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
-<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
-<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
-</ol>
-</li>
-<li><p><strong>根据检测方法的分类</strong>：</p>
-<ol>
-<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
-<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
-<li>混合检测系统：不多bb</li>
-</ol>
-</li>
-<li><p>根据响应方式分类：实时监测、非实时检测</p>
-</li>
-<li><p><strong>误用检测分析方法</strong>：</p>
-<ol>
-<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
-<li>专辑系统：专家知识库，形成IF-THEN规则</li>
-<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
-<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
-</ol>
-</li>
-<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
-</li>
-</ul>
-<blockquote>
-<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
-</blockquote>
-<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
-<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
-<ul>
-<li>核心组件如下：<ul>
-<li>签名库：存放已知攻击特征</li>
-<li>异常检测引擎：检测未知攻击和异常行为</li>
-<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
-<li>管理控制台：配置管理IPS</li>
-<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
-</ul>
-</li>
-</ul>
-<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
-<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
-<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
-<blockquote>
-<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
-</blockquote>
-<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
-<hr>
-<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
-<ul>
-<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
-</li>
-<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
-</li>
-<li><p><strong>模块</strong>：</p>
-<ol>
-<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
-<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
-<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
-<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
-<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
-</ol>
-</li>
-<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
-</li>
-<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
-</li>
-<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
-</li>
-</ul>
-<hr>
-<h3 id="网络攻击防御概述"><a href="#网络攻击防御概述" class="headerlink" title="网络攻击防御概述"></a>网络攻击防御概述</h3><p>根据攻击目的可以分为：破坏型攻击（破坏）、利用型攻击（控制）、信息搜集型攻击（窃取）、网络欺骗型攻击（诈骗）、垃圾信息攻击（干扰）。请自行分类</p>
-<ul>
-<li>攻击准备：确定目标——准备工具——收集信息</li>
-<li>攻击实施：隐蔽位置——登录到目标主机——夺取控制权</li>
-<li>善后阶段：禁止日志审计——清楚事件日志——清楚有关中间件、应用的服务日志</li>
-</ul>
-<p>ATT&amp;CK：<span class="exturl" data-url="aHR0cHM6Ly9hdHRhY2subWl0cmUub3JnLw==">MITRE ATT&amp;CK®<i class="fa fa-external-link-alt"></i></span></p>
-<p>网络杀伤链：<span class="exturl" data-url="aHR0cHM6Ly93d3cubG9ja2hlZWRtYXJ0aW4uY29tL2VuLXVzL2NhcGFiaWxpdGllcy9jeWJlci9jeWJlci1raWxsLWNoYWluLmh0bWw=">Cyber Kill Chain® | Lockheed Martin<i class="fa fa-external-link-alt"></i></span></p>
-<p>入侵分析钻石模型：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1FBWC1BLVRlYW0vUGFwZXJzL2Jsb2IvbWFzdGVyL3BhcGVycy8yMDE5LyVFNSU4NSVBNSVFNCVCRSVCNSVFNSU4OCU4NiVFNiU5RSU5MCVFOSU5MiVCQiVFNyU5RiVCMyVFNiVBOCVBMSVFNSU5RSU4Qi5wZGY=">Papers&#x2F;papers&#x2F;2019&#x2F;入侵分析钻石模型.pdf at master · QAX-A-Team&#x2F;Papers (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<hr>
-<h3 id="缓冲区溢出攻击！"><a href="#缓冲区溢出攻击！" class="headerlink" title="缓冲区溢出攻击！"></a>缓冲区溢出攻击！</h3><p>用户输出的数据长度超出了程序为其分配的空间，这些数据就会覆盖为其他程序分配的内存空间，攻击者通过构造shellcode作为输入使得程序最终执行这些代码，从而危害系统。实现难度高但效果好，本质相当于改变程序的执行流程</p>
-<p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出（也可以归因于写程序的人水平不够）</p>
-<p>类型包括：栈溢出、堆溢出、整型溢出、格式化字符溢出等</p>
-<p>栈溢出：缓冲区在栈中，由于拷贝进来的数据过长导致覆盖了函数返回地址或其他数据指针等</p>
-<p>堆溢出（动态分配的空间）：同上，但是发生在堆分配的结构中</p>
-<p>整型溢出：宽度溢出（超过变量表示范围）、运算溢出、符号溢出（无符号变量的被看作有符号）</p>
-<p>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</p>
-<hr>
-<h3 id="MIMT攻击"><a href="#MIMT攻击" class="headerlink" title="MIMT攻击"></a>MIMT攻击</h3><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
-<ul>
-<li>ARP污染&#x2F;欺骗：</li>
-</ul>
-<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
-<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
-<pre><code>arp -a	//查看缓存表
-    -s + IP MAC	//改为静态
-    -d (+ IP)	//删除全部或某一条
-</code></pre>
-<p>防御措施：进行静态绑定、使用ARP防火墙</p>
-<ul>
-<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
-<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
-<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
-<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
-</ul>
-<hr>
-<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>又叫DOS攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
-<p>主要手段有如下：</p>
-<ul>
-<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
-<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
-<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
-<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
-</ul>
-<p>根据攻击方式有以下分类</p>
-<ul>
-<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
-<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
-<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
-<li>针对中间件或者系统的攻击</li>
-</ul>
-<p>也可以根据网络层次进行分类：</p>
-<ul>
-<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
-</li>
-<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
-</li>
-<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
-<blockquote>
-<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网络基础</title>
     <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一些关于网络的基础知识，尽量不向网络中的底层涉及，侧重于实际用到的</p>
@@ -7437,6 +7438,111 @@ net localgroup administrators temp /add
 ]]></content>
       <categories>
         <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计网第三章_数据链路层</title>
+    <url>/2023/10/10/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一堆标准的数据链路层</p>
+<span id="more"></span>
+
+<p>数据链路层使用的信道类型：点到点信道、广播信道（使用专用的共享信道协议来协调主机的数据发送）</p>
+<h3 id="使用点对点信道的数据链路层"><a href="#使用点对点信道的数据链路层" class="headerlink" title="使用点对点信道的数据链路层"></a>使用点对点信道的数据链路层</h3><p>一些概念：</p>
+<p>链路（物理链路）：一条无源的点到点物理线路段，中间没有交换节点！，是一条通路的组成部。数据链路（逻辑链路）：在链路基础上，有通信协议来控制数据传输。数据链路层作用：负责相邻节点间<strong>可靠</strong>的数据传输，目前常用适配器&#x2F;网卡实现软硬件（物理层和数据链路层）</p>
+<blockquote>
+<p>两点间不可靠传输：同步传输问题、噪声干扰、接发速度不匹配。网卡&#x3D;通信适配器&#x3D;网络接口卡NIC的功能有：串&#x2F;并行转换、数据缓存、实现以太网协议、在计算机中安装设备驱动</p>
+</blockquote>
+<p>三个基本问题：封装成帧、透明传输、差错控制</p>
+<ul>
+<li><p>封装成帧-将比特流分成离散帧，并计算校验和：字符计数法（1个字符的开始标记+信息长度+信息）、带字符填充的首位界符法（ASCII中的SOH和EOT表示帧的开始结束）、带位填充的首尾标记法</p>
+</li>
+<li><p>透明传输-正确区分数据和控制信息（避免信息中的SOH被当作控制信息）：字节填充（信息中的SOH前插入转义字符“ESC”）、字符填充</p>
+</li>
+<li><p>差错检测-实现无比特差错的传输：<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8zOTYxNjUzNjg=">循环冗余检验CRC&#x2F;多项式码<i class="fa fa-external-link-alt"></i></span>（一种冗余码计算方式）；帧检验序列FCS（单指添加在帧后面的冗余码）</p>
+<blockquote>
+<p>无传输差错还包括确认和重传机制</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="点对点协议PPP"><a href="#点对点协议PPP" class="headerlink" title="点对点协议PPP"></a>点对点协议PPP</h3><ul>
+<li><p>特点：简单、封装成帧、透明性、差错检测、支持多种网络层协议、支持多种类型链路、检测连接状态、最大传输单元MTU、网络层地址协商、数据压缩协商</p>
+<blockquote>
+<p>对照数据链路层的可靠传输协议HDLC，缺少纠错、流量控制、序号、多点线路、半双工或单工链路</p>
+</blockquote>
+</li>
+<li><p>组成：将IP数据报封装到穿行链路的方法、链路控制协议LCP、网络控制协议NCP</p>
+</li>
+<li><p>帧格式：如下图所示</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png" alt="image-20231024194950975"></p>
+</li>
+<li><p>透明传输：</p>
+<ul>
+<li>字节填充法-异步传输：0x7E转为0x7D,0x5E、将0x7D转为0x7D,0x5D、对ASCII小于0x20的控制字符前加0x7D并自身加0x20</li>
+<li>同步-零比特填充：5个连续的1后面就添0</li>
+</ul>
+</li>
+<li><p>工作过程如下：</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/pjPjJ7km.png" alt="image-20231024195634836"></p>
+</li>
+</ul>
+<h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><p>局域网优点：具有广播功能、便于扩展、范围站点有限</p>
+<p>局域网拓扑：星形网（集线器）、环形（干线耦合器）、总线型（匹配电阻）</p>
+<p>解决共享冲突问题：</p>
+<ul>
+<li><p>传统共享介质：局域网中任何一段物理信道在一个时间段内只能被一个站点占用 </p>
+</li>
+<li><p>媒体接入控制方法&#x2F;介质访问控制方法—与拓扑结构密切相关：静态划分信道（频分、时分、波分、码分），动态媒体接入控制（随机接入、受控接入）</p>
+</li>
+</ul>
+<p>以太网标准&#x2F;802.3局域网：IEEE 802.3、DIX Ethernet V2（TCP&#x2F;IP体系常用）</p>
+<p>局域网的数据链路层拆为两个子层：逻辑链路控制LLC子层（与传输介质无关，看不见下面的局域网，现在没啥卵用），媒体接入控制MAC子层</p>
+<blockquote>
+<p>CSMA&#x2F;CD访问法和Token Passing Bus访问法用于总线型、星型网络；Toekn Passing Ring用于环形网络</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/24/puDgjo5I.png" alt="image-20231024201016511"></p>
+<p>标准以太网（10Base-5即10Mbps，50Ω同轴线长最大500m）采用总线型的拓扑结构，无连接-不可靠交付-曼彻斯特编码；其实现一对一通信的策略：数据帧中的目的地址与接收站地址一致时才能接受；</p>
+<p>以太网核心技术：<strong>带碰撞检测的载波侦听多点接入</strong>&#x3D;CSMA&#x2F;CD（随机争用型的分布式介质访问控制方法-只能半双工-）；先听后发，边发边听，碰撞停发，退避重发。</p>
+<ul>
+<li><p>多点接入：计算机以许多点接入一根总线上</p>
+</li>
+<li><p>载波侦听：总线上是否有其他计算机在发送数据，有则暂停</p>
+</li>
+<li><p>碰撞检测：计算机边发数据边检测信道上的信号电压大小，碰撞时电压摆动会增大，有阈值；记二倍单程传播时延后则碰撞</p>
+</li>
+<li><p>退避重发：二进制指数类型退避算法，碰撞后要等一个随机时间再发</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/xaghSi6h.png" alt="image-20231024203509418"></p>
+</li>
+</ul>
+<p>目前的（10BASE-T）以太网&#x3D;星型拓扑+集线器（物理层）+双绞线+RJ45插头+不到100m</p>
+<p>标准以太网帧格式即MAC帧&#x3D;6B目的地址+6B源地址+2B类型+46-1500B数据+4BFCS</p>
+<blockquote>
+<p>地址中高24位&#x3D;OUI组织唯一标识符；低24位扩展唯一标识符EUI。MAC地址也叫做物理地址&#x2F;硬件地址，适配器标识符EUI-48。类型用于标记上一层的协议类型。无效就丢</p>
+</blockquote>
+<ul>
+<li>扩展以太网：常于数据链路层实现，早期使用网桥，目前多用交换机，用于隔离碰撞域，路由器隔离广播域。帧格式不变。</li>
+</ul>
+<blockquote>
+<p>交换机：接口有存储器、即插即用（帧交换表-自学习算法建立）、专用的交换结构芯片。其交换方式有存储转发、直通方式（区别就是是否检查并缓存）。这里多指数据链路层的交换机，帧交换表&#x3D;MAC地址+端口+类型，三层的参考ARP</p>
+</blockquote>
+<p>存在的回路问题：在IEEE 802.1D中制定了生成树协议STP，在逻辑上切断形成无环路的树状结构</p>
+<ul>
+<li><p>VLAN虚拟局域网：是由一些局域网网段构成的与位置无关的逻辑组，每一个VLAN的帧都有一个明确标示符，指明发送该帧的计算机属于哪个VLAN（VLAN只是一种服务-按照有关需求对资源等重新组合，而不是一种新型局域网）</p>
+<p>划分虚拟局域网：交换机端口（用户不能动）、MAC地址（MAC地址变了之后需要管理员重新配置）、协议（依据上一层协议划）、IP子网（IP地址划分）、高层服务（FTP一个SMTP一个）</p>
+<blockquote>
+<p>虚拟局域网的以太网帧（802.1Q帧）&#x3D;在标准MAC帧的源地址和类型中穿插4B标记位</p>
+</blockquote>
+</li>
+<li><p>高速以太网：100Mbps的以太网，叫100BASE-T&#x2F;快速以太网，IEEE 802.3u。全双工下无冲突发生，MAC帧格式不变，一个网段最大电缆长度减到100m，帧的时间间隔0.96μs</p>
+<p>吉比特以太网：1Gbps下可以全双工（不使用下面技术）和半双工（有冲突）。载波延伸：加上载波延伸后MAC帧共512B，之后再发送；分组突发：第一帧需要载波延伸，后面的帧间有最小间隔即可</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
       </categories>
       <tags>
         <tag>基础知识</tag>

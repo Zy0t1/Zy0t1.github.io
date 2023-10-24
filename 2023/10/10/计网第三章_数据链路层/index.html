@@ -21,31 +21,34 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述">
+    <meta name="description" content="摘要：一堆标准的数据链路层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计网第一章_概述">
-<meta property="og:url" content="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="计网第三章_数据链路层">
+<meta property="og:url" content="https://zy0t1.github.io/2023/10/10/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
-<meta property="og:description" content="摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述">
+<meta property="og:description" content="摘要：一堆标准的数据链路层">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/06/K8feAjLX.png">
-<meta property="article:published_time" content="2023-10-06T10:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-06T10:00:00.000Z">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/pjPjJ7km.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/puDgjo5I.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/xaghSi6h.png">
+<meta property="article:published_time" content="2023-10-10T03:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-10T03:00:00.000Z">
 <meta property="article:author" content="Zy0t1">
 <meta property="article:tag" content="基础知识">
 <meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/06/K8feAjLX.png">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png">
 
 
-<link rel="canonical" href="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/">
+<link rel="canonical" href="https://zy0t1.github.io/2023/10/10/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/","path":"2023/10/06/计网第一章_概述/","title":"计网第一章_概述"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/10/10/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/","path":"2023/10/10/计网第三章_数据链路层/","title":"计网第三章_数据链路层"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>计网第一章_概述 | Zy0t1's blog</title>
+<title>计网第三章_数据链路层 | Zy0t1's blog</title>
   
 
 
@@ -149,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%8F%91%E5%B1%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.</span> <span class="nav-text">计网发展阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">计算机网络概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%BB%84%E6%88%90"><span class="nav-number">3.</span> <span class="nav-text">计算机网络组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%84%E6%88%90"><span class="nav-number">4.</span> <span class="nav-text">互联网组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="nav-number">5.</span> <span class="nav-text">交换技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">计算机网络分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">计算机网络体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">计算机网络的性能</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BF%A1%E9%81%93%E7%9A%84%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">使用点对点信道的数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AEPPP"><span class="nav-number">2.</span> <span class="nav-text">点对点协议PPP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%BF%E6%92%AD%E4%BF%A1%E9%81%93%E7%9A%84%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">使用广播信道的数据链路层</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -214,7 +217,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/10/10/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0_%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head_picture.jpg">
@@ -227,12 +230,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="计网第一章_概述 | Zy0t1's blog">
+      <meta itemprop="name" content="计网第三章_数据链路层 | Zy0t1's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          计网第一章_概述
+          计网第三章_数据链路层
         </h1>
 
         <div class="post-meta-container">
@@ -242,7 +245,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-06 18:00:00" itemprop="dateModified" datetime="2023-10-06T18:00:00+08:00">2023-10-06</time>
+      <time title="修改时间：2023-10-10 11:00:00" itemprop="dateModified" datetime="2023-10-10T11:00:00+08:00">2023-10-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,14 +271,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -285,167 +288,97 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述</p>
+    <div class="post-body" itemprop="articleBody"><p>摘要：一堆标准的数据链路层</p>
 <span id="more"></span>
 
-<h3 id="计网发展阶段"><a href="#计网发展阶段" class="headerlink" title="计网发展阶段"></a>计网发展阶段</h3><ol>
-<li><p>面向终端的计算机网络</p>
-<p>特点：系统中仅主计算机有计算能力，终端无独立处理数据的能力。</p>
+<p>数据链路层使用的信道类型：点到点信道、广播信道（使用专用的共享信道协议来协调主机的数据发送）</p>
+<h3 id="使用点对点信道的数据链路层"><a href="#使用点对点信道的数据链路层" class="headerlink" title="使用点对点信道的数据链路层"></a>使用点对点信道的数据链路层</h3><p>一些概念：</p>
+<p>链路（物理链路）：一条无源的点到点物理线路段，中间没有交换节点！，是一条通路的组成部。数据链路（逻辑链路）：在链路基础上，有通信协议来控制数据传输。数据链路层作用：负责相邻节点间<strong>可靠</strong>的数据传输，目前常用适配器&#x2F;网卡实现软硬件（物理层和数据链路层）</p>
 <blockquote>
-<p>线路控制器：串并转换+传输差错控制；调制&#x2F;解调器：用于数字和模拟信号的转换</p>
+<p>两点间不可靠传输：同步传输问题、噪声干扰、接发速度不匹配。网卡&#x3D;通信适配器&#x3D;网络接口卡NIC的功能有：串&#x2F;并行转换、数据缓存、实现以太网协议、在计算机中安装设备驱动</p>
 </blockquote>
-<p>为降低通信成本：主机前增设前端处理机，终端密集地放置集中器，用以解决终端独占线路与助记负载过重的问题</p>
-</li>
-<li><p>计算机通信网络or分组交换网络or面向标准的计算机网络</p>
-<p>特点：可用于数据传输、终端类型广、节点同等重要、冗余路由、简单但又相对可靠</p>
-<p>先后提出<strong>存储转发技术</strong>与<strong>分组交换技术</strong>（后者相对于前者每一次转发的不是整个文件而是切割后的小包）</p>
-</li>
-<li><p>共享资源的计算机网络</p>
-<p>特点：共享数据为主、每个网络内部使用各自的协议、网络之间用TCP&#x2F;IP协议簇</p>
-<p>三个阶段：</p>
-<ol>
-<li>由单个网络ARPANET发展而来，1983年以TCP&#x2F;IP协议簇为标准也因此作为互联网诞生时间，1990年关闭</li>
-<li>三级结构互联网，包括主干网—地区网—校园网&#x2F;企业网三级</li>
-<li>多层次ISP（互联网服务提供者）结构的互联网，由Alice-本地ISP-地区ISP-主干ISP-…-本地ISP-Bob</li>
-</ol>
-</li>
-<li><p>Internet高速发展</p>
+<p>三个基本问题：封装成帧、透明传输、差错控制</p>
 <ul>
-<li><p>SDN软件定义网络</p>
+<li><p>封装成帧-将比特流分成离散帧，并计算校验和：字符计数法（1个字符的开始标记+信息长度+信息）、带字符填充的首位界符法（ASCII中的SOH和EOT表示帧的开始结束）、带位填充的首尾标记法</p>
 </li>
-<li><p>云计算：分布式、并行计算、虚拟化</p>
+<li><p>透明传输-正确区分数据和控制信息（避免信息中的SOH被当作控制信息）：字节填充（信息中的SOH前插入转义字符“ESC”）、字符填充</p>
 </li>
-<li><p>物联网IoT，借助云实现普适计算</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="计算机网络概念"><a href="#计算机网络概念" class="headerlink" title="计算机网络概念"></a>计算机网络概念</h3><p>最简定义：计算机网络是一些互相连接的、自治的计算机系统的集合。其中最大的计算机网络就是Internet——也叫做网络的网络（Network of Network）</p>
-<h3 id="计算机网络组成"><a href="#计算机网络组成" class="headerlink" title="计算机网络组成"></a>计算机网络组成</h3><p><strong>物理组成</strong>：</p>
-<ul>
-<li><p>硬件：主机host、通信处理控制机CCP、路由器Router、交换机Switch、通信链路。</p>
+<li><p>差错检测-实现无比特差错的传输：<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8zOTYxNjUzNjg=">循环冗余检验CRC&#x2F;多项式码<i class="fa fa-external-link-alt"></i></span>（一种冗余码计算方式）；帧检验序列FCS（单指添加在帧后面的冗余码）</p>
 <blockquote>
-<p>物理媒介&#x2F;物理链路：双绞铜线、同轴电缆、光纤、陆地无线通信、卫星无线通信</p>
-</blockquote>
-</li>
-<li><p>软件：共享的资源的软件、工具软件</p>
-</li>
-<li><p>协议：通信协议、数据交换协议</p>
-</li>
-</ul>
-<p><strong>要素组成</strong>：计算机、路由器、交换机、网卡、通信线路、调制解调器</p>
-<p><strong>功能组成</strong>：资源子网（数据的处理存储）、通信子网（数据的传输）</p>
-<h3 id="互联网组成"><a href="#互联网组成" class="headerlink" title="互联网组成"></a>互联网组成</h3><ul>
-<li><p>直接连接的：点到点链路、经集线器HUB（盒装总线）、多路访问链路</p>
-</li>
-<li><p>网络云：端系统经交换网互联；网络云互联构成互联网，必定有路由器</p>
-<blockquote>
-<p>核心部分&#x3D;网路+路由器（关键！网网互联）；<br>边缘部分&#x3D;主机+终端；端系统之间的通讯方式：C&#x2F;S方式、P2P方式</p>
+<p>无传输差错还包括确认和重传机制</p>
 </blockquote>
 </li>
 </ul>
-<h3 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3><ul>
-<li><p>电路交换：$N$部电话机需要$N(N-1)&#x2F;2$对电线，当然也可以使用交换机。</p>
-<p>必定是面向连接的、线路利用率低</p>
-<p>包括三个阶段：建立专用连接——双方通信——释放连接</p>
-</li>
-</ul>
-<ul>
-<li><p>报文交换：在分组交换之前，基于存储转发，不分组而已。</p>
-</li>
-<li><p>分组交换：同样基于存储转发技术，但是长切短分组进行。</p>
-<ul>
-<li>分组&#x3D;首部+数据，首部含有源&#x2F;目的地址，节点交换机据此转发报文；有额外开销</li>
-<li>每个分组独立选择路径</li>
-<li>路由器处理：放入缓存——查找转发表——送走；需要排队有时延</li>
-</ul>
-</li>
-</ul>
-<h3 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h3><ul>
-<li><p>分布范围：广域网WAN（交换技术）、城域网MAN、局域网LAN（广播技术）、个人区域网PAN</p>
-</li>
-<li><p>使用者：公用网、私用网或是骨干网、接入网、驻地网</p>
-</li>
-<li><p>拓扑结构：总线型、星型、环型、树型、网格型</p>
-</li>
-<li><p>数据交换技术：电路交换、报文交换、分组交换、信元交换、广播技术网络</p>
+<h3 id="点对点协议PPP"><a href="#点对点协议PPP" class="headerlink" title="点对点协议PPP"></a>点对点协议PPP</h3><ul>
+<li><p>特点：简单、封装成帧、透明性、差错检测、支持多种网络层协议、支持多种类型链路、检测连接状态、最大传输单元MTU、网络层地址协商、数据压缩协商</p>
 <blockquote>
-<p>信元交换，又叫异步传输模式（ATM），一种使用异步时分复用技术的面向分组的传输方式，它将信息流分割成53字节的ATM信元&#x3D;5B信头+48净荷</p>
+<p>对照数据链路层的可靠传输协议HDLC，缺少纠错、流量控制、序号、多点线路、半双工或单工链路</p>
 </blockquote>
 </li>
-<li><p>按协议：IP网络、IPX网络（非IP网络）</p>
+<li><p>组成：将IP数据报封装到穿行链路的方法、链路控制协议LCP、网络控制协议NCP</p>
 </li>
-<li><p>传输介质：有线、无线</p>
+<li><p>帧格式：如下图所示</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png" alt="image-20231024194950975"></p>
 </li>
-<li><p>共享资源：C&#x2F;S、P2P</p>
+<li><p>透明传输：</p>
+<ul>
+<li>字节填充法-异步传输：0x7E转为0x7D,0x5E、将0x7D转为0x7D,0x5D、对ASCII小于0x20的控制字符前加0x7D并自身加0x20</li>
+<li>同步-零比特填充：5个连续的1后面就添0</li>
+</ul>
+</li>
+<li><p>工作过程如下：</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/pjPjJ7km.png" alt="image-20231024195634836"></p>
 </li>
 </ul>
-<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p><strong>网络协议</strong>：为进行网络中数据交换而事先约定好的规则。它定义了在两个或多个通信实体之间交换的报文格式和次序，以及在报文传输和接受其他事件方面所采取的动作。只确定外部特点内部具体实现不做规定</p>
+<h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><p>局域网优点：具有广播功能、便于扩展、范围站点有限</p>
+<p>局域网拓扑：星形网（集线器）、环形（干线耦合器）、总线型（匹配电阻）</p>
+<p>解决共享冲突问题：</p>
 <ul>
-<li><p>构成：语法（结构格式）、语义（操作定义）、同步（事件实现顺序）</p>
+<li><p>传统共享介质：局域网中任何一段物理信道在一个时间段内只能被一个站点占用 </p>
 </li>
-<li><p>再同一协议下，两个对等实体之间的通信又可以叫做虚拟通信&#x2F;逻辑通信（没有直接联系），其基于下层所提供的服务实现</p>
-</li>
-<li><p>协议是水平的，服务是垂直的；</p>
-</li>
-<li><p>不同系统中对等实体间交换数据的单位叫第N层的<strong>协议数据单元（N）PDU</strong>。包含用户数据（也可以是SDU）&amp;该层的<strong>协议控制信息PCI</strong>；</p>
-<p>同一系统相邻两层实体间经过接口交换的数据单位叫<strong>接口数据单元IDU</strong>，包括PDU和<strong>接口控制信息ICI</strong></p>
-<p><img src="https://img1.imgtp.com/2023/10/06/K8feAjLX.png" alt="image-20231006203523562"></p>
+<li><p>媒体接入控制方法&#x2F;介质访问控制方法—与拓扑结构密切相关：静态划分信道（频分、时分、波分、码分），动态媒体接入控制（随机接入、受控接入）</p>
 </li>
 </ul>
-<p><strong>网络体系结构</strong>：计算机网络各层及其协议的集合</p>
-<ul>
-<li><p>分层体系结构：目标机第n层接收源主机第n层数据</p>
-</li>
-<li><p>服务：每一层，向上提供服务，以下层的服务为基础而无需考虑</p>
-</li>
-<li><p>实体：发送接收信息的任何对象，可以是终端、进程等。</p>
-<p>不同系统同一层的双方叫对等实体；一般叫下层实体为服务提供者，上层为服务用户</p>
-</li>
-<li><p>接口：<strong>服务访问点SAP</strong>，即第N层实体与第N+1层实体交换数据的地方&#x3D;N层SAP，地址唯一，期间交换信息单位叫<strong>服务数据单元SDU</strong></p>
-</li>
-</ul>
-<p><strong>典型体系结构</strong>：</p>
-<ul>
-<li><p>OSI七层：7应用层，6表示层（翻译应用层），5会话层（管理上层），4传输层，3网络层，2数据链路层，1物理层</p>
+<p>以太网标准&#x2F;802.3局域网：IEEE 802.3、DIX Ethernet V2（TCP&#x2F;IP体系常用）</p>
+<p>局域网的数据链路层拆为两个子层：逻辑链路控制LLC子层（与传输介质无关，看不见下面的局域网，现在没啥卵用），媒体接入控制MAC子层</p>
 <blockquote>
-<p>数据单元从上到下：APDU、PPDU、SPDU、TPDU、分组、帧、比特流；路由器最高下三层，交换机低两层</p>
+<p>CSMA&#x2F;CD访问法和Token Passing Bus访问法用于总线型、星型网络；Toekn Passing Ring用于环形网络</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/24/puDgjo5I.png" alt="image-20231024201016511"></p>
+<p>标准以太网（10Base-5即10Mbps，50Ω同轴线长最大500m）采用总线型的拓扑结构，无连接-不可靠交付-曼彻斯特编码；其实现一对一通信的策略：数据帧中的目的地址与接收站地址一致时才能接受；</p>
+<p>以太网核心技术：<strong>带碰撞检测的载波侦听多点接入</strong>&#x3D;CSMA&#x2F;CD（随机争用型的分布式介质访问控制方法-只能半双工-）；先听后发，边发边听，碰撞停发，退避重发。</p>
+<ul>
+<li><p>多点接入：计算机以许多点接入一根总线上</p>
+</li>
+<li><p>载波侦听：总线上是否有其他计算机在发送数据，有则暂停</p>
+</li>
+<li><p>碰撞检测：计算机边发数据边检测信道上的信号电压大小，碰撞时电压摆动会增大，有阈值；记二倍单程传播时延后则碰撞</p>
+</li>
+<li><p>退避重发：二进制指数类型退避算法，碰撞后要等一个随机时间再发</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/xaghSi6h.png" alt="image-20231024203509418"></p>
+</li>
+</ul>
+<p>目前的（10BASE-T）以太网&#x3D;星型拓扑+集线器（物理层）+双绞线+RJ45插头+不到100m</p>
+<p>标准以太网帧格式即MAC帧&#x3D;6B目的地址+6B源地址+2B类型+46-1500B数据+4BFCS</p>
+<blockquote>
+<p>地址中高24位&#x3D;OUI组织唯一标识符；低24位扩展唯一标识符EUI。MAC地址也叫做物理地址&#x2F;硬件地址，适配器标识符EUI-48。类型用于标记上一层的协议类型。无效就丢</p>
+</blockquote>
+<ul>
+<li>扩展以太网：常于数据链路层实现，早期使用网桥，目前多用交换机，用于隔离碰撞域，路由器隔离广播域。帧格式不变。</li>
+</ul>
+<blockquote>
+<p>交换机：接口有存储器、即插即用（帧交换表-自学习算法建立）、专用的交换结构芯片。其交换方式有存储转发、直通方式（区别就是是否检查并缓存）。这里多指数据链路层的交换机，帧交换表&#x3D;MAC地址+端口+类型，三层的参考ARP</p>
+</blockquote>
+<p>存在的回路问题：在IEEE 802.1D中制定了生成树协议STP，在逻辑上切断形成无环路的树状结构</p>
+<ul>
+<li><p>VLAN虚拟局域网：是由一些局域网网段构成的与位置无关的逻辑组，每一个VLAN的帧都有一个明确标示符，指明发送该帧的计算机属于哪个VLAN（VLAN只是一种服务-按照有关需求对资源等重新组合，而不是一种新型局域网）</p>
+<p>划分虚拟局域网：交换机端口（用户不能动）、MAC地址（MAC地址变了之后需要管理员重新配置）、协议（依据上一层协议划）、IP子网（IP地址划分）、高层服务（FTP一个SMTP一个）</p>
+<blockquote>
+<p>虚拟局域网的以太网帧（802.1Q帧）&#x3D;在标准MAC帧的源地址和类型中穿插4B标记位</p>
 </blockquote>
 </li>
-<li><p>TCP&#x2F;IP四层：应用层—运输层—网际层IP—网络接口层</p>
-</li>
-<li><p>经典五层：5应用层，4运输层，3网络层（包，报），2数据链路层（网卡、网桥，帧），1物理层（线，比特）</p>
-</li>
-</ul>
-<p><strong>各层主要功能</strong>：</p>
-<ul>
-<li>差错控制、流量控制、分段和重装</li>
-<li>复用和分用：发送端几个高层会话复用一条低层的连接，在接收端进行分用</li>
-<li>连接建立和释放：交换前先建立逻辑连接，结束后再释放该连接</li>
-</ul>
-<h3 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h3><ul>
-<li><p>速率：数据传输速率，又叫数据率或比特率，常用bit&#x2F;s、kbit&#x2F;s等，按照1k&#x3D;1000计算</p>
-</li>
-<li><p>带宽：单位时间内能通过的最大数据量，单位bit&#x2F;s，即最大速率</p>
-</li>
-<li><p>吞吐率：单位与前面相同，带宽是最大的速率，吞吐率是实际</p>
-</li>
-<li><p>时延：总时延&#x3D;以下四者的和（注意！高速链路指的是提高发送速率，传播速率由介质决定）</p>
-<ul>
-<li>发送时延：$\frac{数据帧长度bit}{发送速率bit&#x2F;s}$，数据帧从发送端到传输媒介的时间</li>
-<li>传播时延：$\frac{信道长m}{信道传播速率m&#x2F;s}$，信号在传输媒介中跑的时间</li>
-<li>处理时延：主机或处理器处理分组所花费的时间</li>
-<li>排队时延：在路由器的输入输出队列中排队等待处理的时间</li>
-</ul>
-</li>
-<li><p>时延带宽积：又叫做“以比特为单位的链路长度”，&#x3D;传播时延×带宽</p>
-</li>
-<li><p>往返时间RTT：”发送方”发送数据开始到接收到”接收方”的确认</p>
-</li>
-<li><p>利用率：包括信道利用率（某信道有多少时间被用），网络利用率（全网络的信道利用率的加权平均值）</p>
-<blockquote>
-<p>$D&#x3D;\frac{D_{0} }{1-U}$：$D_{0}$网络空闲时的时延，$D$表示当前时延，$U$为网络利用率</p>
-</blockquote>
+<li><p>高速以太网：100Mbps的以太网，叫100BASE-T&#x2F;快速以太网，IEEE 802.3u。全双工下无冲突发生，MAC帧格式不变，一个网段最大电缆长度减到100m，帧的时间间隔0.96μs</p>
+<p>吉比特以太网：1Gbps下可以全双工（不使用下面技术）和半双工（有冲突）。载波延伸：加上载波延伸后MAC帧共512B，之后再发送；分组突发：第一帧需要载波延伸，后面的帧间有最小间隔即可</p>
 </li>
 </ul>
 
@@ -465,14 +398,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E7%89%A9%E7%90%86%E5%B1%82/" rel="prev" title="计网第二章_物理层">
-                  <i class="fa fa-angle-left"></i> 计网第二章_物理层
+                <a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" rel="prev" title="密码学简介">
+                  <i class="fa fa-angle-left"></i> 密码学简介
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/" rel="next" title="浏览器简介">
-                  浏览器简介 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -572,7 +502,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"55fa4f773c1e447b9ff8731dd6d62f01"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"2747655599285d14f0d30975001ba446"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
