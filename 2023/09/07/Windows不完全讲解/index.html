@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/07/v7gijBNO.png">
+<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129111902545.png">
+<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129111723275.png">
 <meta property="article:published_time" content="2023-09-07T03:47:17.000Z">
 <meta property="article:modified_time" content="2023-09-07T03:47:17.000Z">
 <meta property="article:author" content="Zy0t1">
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png">
+<meta name="twitter:image" content="https://zy0t1.github.io/pic/image-20231129111902545.png">
 
 
 <link rel="canonical" href="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B2%E8%A7%A3/">
@@ -150,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">0x00.基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">0x01.命令与批处理脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cwin-R%E9%94%AE"><span class="nav-number">2.1.</span> <span class="nav-text">运行win+R键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cmd%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">cmd基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.3.</span> <span class="nav-text">批处理脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">0x02.系统文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-PE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">0x03.PE文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-Win%E5%BC%95%E5%AF%BC"><span class="nav-number">5.</span> <span class="nav-text">0x04.Win引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">6.</span> <span class="nav-text">0x05.文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT32"><span class="nav-number">6.1.</span> <span class="nav-text">FAT32</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NTFS"><span class="nav-number">6.2.</span> <span class="nav-text">NTFS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-Windows%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">0x06. Windows内存结构与管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Windows%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">0x07.Windows安全机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%89%A7%E8%A1%8C%E4%BF%9D%E6%8A%A4DEP"><span class="nav-number">8.1.</span> <span class="nav-text">数据执行保护DEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E6%A3%80%E6%9F%A5GS"><span class="nav-number">8.2.</span> <span class="nav-text">栈溢出检查GS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E9%9A%8F%E6%9C%BA%E5%88%86%E9%85%8DASLR"><span class="nav-number">8.3.</span> <span class="nav-text">地址空间随机分配ASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SafeSEH"><span class="nav-number">8.4.</span> <span class="nav-text">SafeSEH</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">0x00.基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.</span> <span class="nav-text">0x01.命令与批处理脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cwin-R%E9%94%AE"><span class="nav-number">2.1.</span> <span class="nav-text">运行win+R键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cmd%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">cmd基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E8%84%9A%E6%9C%AC"><span class="nav-number">2.3.</span> <span class="nav-text">批处理脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">0x02.系统文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-PE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">0x03.PE文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-Win%E5%BC%95%E5%AF%BC"><span class="nav-number">5.</span> <span class="nav-text">0x04.Win引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">6.</span> <span class="nav-text">0x05.文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FAT32"><span class="nav-number">6.1.</span> <span class="nav-text">FAT32</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NTFS"><span class="nav-number">6.2.</span> <span class="nav-text">NTFS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-Windows%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">0x06. Windows内存结构与管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Windows%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">0x07.Windows内存安全机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%89%A7%E8%A1%8C%E4%BF%9D%E6%8A%A4DEP"><span class="nav-number">8.1.</span> <span class="nav-text">数据执行保护DEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E6%A3%80%E6%9F%A5GS"><span class="nav-number">8.2.</span> <span class="nav-text">栈溢出检查GS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E9%9A%8F%E6%9C%BA%E5%88%86%E9%85%8DASLR"><span class="nav-number">8.3.</span> <span class="nav-text">地址空间随机分配ASLR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SafeSEH"><span class="nav-number">8.4.</span> <span class="nav-text">SafeSEH</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -269,7 +269,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>21k</span>
+      <span>22k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -289,6 +289,18 @@
     <div class="post-body" itemprop="articleBody"><p>摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容</p>
 <span id="more"></span>
 
+<p>Windows历史！！！！</p>
+<ul>
+<li><p>MS-DOS：微软魔改的86-DOS——Windows1.0：简单的对DOS的图形化包装——Windows2.0——Windows3.0：更改界面UI、添加图标等并且能够模拟32位处理器</p>
+</li>
+<li><p>支持32位处理器的Windows9x系列但仍有16位的代码：包括95、98、98E、Me等。出现了开始菜单和IE的捆绑销售</p>
+</li>
+<li><p>支持32位&#x2F;64位处理器的Windows NT系列没有16位：new technology的意思，win2000——XP引入了家庭企业版——Vista——7基于Vista——8&#x2F;8.1——WindowsPhone——10——11</p>
+<blockquote>
+<p>没有9？因为seven “ate” nine</p>
+</blockquote>
+</li>
+</ul>
 <h3 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00.基础"></a>0x00.基础</h3><table>
 <thead>
 <tr>
@@ -409,7 +421,7 @@
 <blockquote>
 <p>（在专业版中能GUI查看，家庭版命令net user可以进行管理）</p>
 </blockquote>
-<p><img src="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png" alt="image-20231001155146815"></p>
+<p><img src="/../pic/image-20231129111902545.png" alt="image-20231129111902545"></p>
 <p>用户组则是用于将相同类型的账号进行分类，每组权限不一，且不同组的共享资源是可以相互访问的。默认包括：Administrator组、Users组、Guest组。</p>
 <p>自己的账户，默认处于用户组和管理员组，只有相关操作时才会暂时升到管理员权限</p>
 <p><strong>常见进程</strong>：</p>
@@ -757,7 +769,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </li>
 <li><p>Int 13H调用：BIOS提供的基本功能，用于磁盘的复位、读写、校验、定位、诊断、格式化等，使用上述CHS寻址；</p>
 </li>
-<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破</p>
+<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破；常用于下面的UEFI引导</p>
 <blockquote>
 <p>LBA地址&#x3D;当前柱面号×255×63+当前磁头号×63+（当前扇区数-1）；因为不存在C&#x2F;H&#x2F;S&#x3D;0&#x2F;0&#x2F;0，所以最后减一</p>
 </blockquote>
@@ -1022,7 +1034,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </tbody></table>
 <p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
 </blockquote>
-<p><img src="https://img1.imgtp.com/2023/10/07/v7gijBNO.png" alt="image-20231007161407234"></p>
+<p><img src="/../pic/image-20231129111723275.png" alt="image-20231129111723275"></p>
 <h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
 <blockquote>
 <p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
@@ -1368,7 +1380,7 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
 <p>相关API<code>CreateFileMapping()</code>、<code>MapViewOfFile()</code>、<code>UnmapViewOfFile()</code>、<code>FlushViewOfFile()</code></p>
 </li>
 </ul>
-<h3 id="0x07-Windows安全机制"><a href="#0x07-Windows安全机制" class="headerlink" title="0x07.Windows安全机制"></a>0x07.Windows安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
+<h3 id="0x07-Windows内存安全机制"><a href="#0x07-Windows内存安全机制" class="headerlink" title="0x07.Windows内存安全机制"></a>0x07.Windows内存安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
 <h4 id="数据执行保护DEP"><a href="#数据执行保护DEP" class="headerlink" title="数据执行保护DEP"></a>数据执行保护DEP</h4><p>通过使可写内存的不能执行，或者来让可执行内存不可写来消除威胁。常用于防范缓冲区溢出，其他叫法：NX&#x2F;XD&#x2F;WX；</p>
 <p>具体见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvbWVtb3J5L2RhdGEtZXhlY3V0aW9uLXByZXZlbnRpb24=">数据执行保护 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>；</p>
 <p>在Win中DEP相关设置如下：</p>
@@ -1492,13 +1504,13 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">135k</span>
+    <span title="站点总字数">138k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:11</span>
   </span>
 </div>
 <div class="busuanzi-count">

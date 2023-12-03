@@ -28,18 +28,13 @@
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="f:\Picture\Saved Pictures\Linux.jpg">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/08/k7VRm7Rv.png">
+<meta property="og:image" content="https://zy0t1.github.io/2023/09/07/pic/Linux.jpg">
+<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129123037904.png">
 <meta property="og:image" content="https://img1.imgtp.com/2023/10/08/lS79D2ec.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/11/wY4ZqtLq.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/11/rpUI2zaw.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/11/YN359g1Q.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/EuQbjUaw.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/iGKu1XaY.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/dOuFjyZc.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/XhuUVY8j.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/9TdukBG7.png">
-<meta property="og:image" content="https://img1.imgtp.com/2023/10/19/RwS7leCP.png">
+<meta property="og:image" content="https://zy0t1.github.io/2023/09/07/pic/image-20231129121728036.png">
+<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129121814386.png">
+<meta property="og:image" content="https://zy0t1.github.io/2023/09/07/pic/image-20231129122729443.png">
+<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129123244430.png">
 <meta property="article:published_time" content="2023-09-07T03:00:00.000Z">
 <meta property="article:modified_time" content="2023-09-07T03:00:00.000Z">
 <meta property="article:author" content="Zy0t1">
@@ -47,7 +42,7 @@
 <meta property="article:tag" content="基础">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="f:\Picture\Saved Pictures\Linux.jpg">
+<meta name="twitter:image" content="https://zy0t1.github.io/2023/09/07/pic/Linux.jpg">
 
 
 <link rel="canonical" href="https://zy0t1.github.io/2023/09/07/Linux%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AF%B4%E6%98%8E/">
@@ -161,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">1.基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">2.文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ELF%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3.ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E6%A0%B8%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">4.内核介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5.内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6.进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-IO%E8%AE%BE%E5%A4%87%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">7. IO设备与驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Linux%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">8.Linux内核漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SELinux"><span class="nav-number">9.</span> <span class="nav-text">9.SELinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Namespace%E5%8F%8ACgroups%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">10.Namespace及Cgroups机制</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">1.基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">2.文件&amp;目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ELF%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3.ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E6%A0%B8%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">4.内核介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5.内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6.进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-IO%E8%AE%BE%E5%A4%87%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">7. IO设备与驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Linux%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">8.Linux内核漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SELinux"><span class="nav-number">9.</span> <span class="nav-text">9.SELinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Namespace%E5%8F%8ACgroups%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">10.Namespace及Cgroups机制</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -287,7 +282,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>26 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -300,6 +295,36 @@
     <div class="post-body" itemprop="articleBody"><p>摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》</p>
 <span id="more"></span>
 
+<p>linux广义上代指一类操作系统，狭义上指内核，下面是一些常见的发行版（&#x3D;打包(内核+软件)）</p>
+<table>
+<thead>
+<tr>
+<th>系</th>
+<th>OS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Arch</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly9hcmNobGludXgub3JnLw==">Arch<i class="fa fa-external-link-alt"></i></span>、manjaro</td>
+<td>定制化高，适合折腾</td>
+</tr>
+<tr>
+<td>RedHat</td>
+<td>RHEL、<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2VudG9zLm9yZy8=">CentOS<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZmVkb3JhcHJvamVjdC5vcmcvemgtSGFucy8=">Fedora<i class="fa fa-external-link-alt"></i></span></td>
+<td>好用，但有些收费</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly9iaXRzLmRlYmlhbi5vcmcv">debian<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9jbi51YnVudHUuY29tL2Fib3V0">ubuntu<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9saW51eG1pbnQuY29tLw==">Mint<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGVlcGluLm9yZy9pbmRleC96aA==">deepin<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cua2FsaS5vcmcvZmVhdHVyZXMv">Kali<i class="fa fa-external-link-alt"></i></span></td>
+<td>大众化，免费</td>
+</tr>
+<tr>
+<td>SUSE</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly93d3cub3BlbnN1c2Uub3JnLw==">openSUSE<i class="fa fa-external-link-alt"></i></span></td>
+<td>针对企业，配置稍复杂，国内少</td>
+</tr>
+</tbody></table>
 <h3 id="1-基本命令"><a href="#1-基本命令" class="headerlink" title="1.基本命令"></a>1.基本命令</h3><p>ctrl+alt+t(快速打开终端)</p>
 <pre><code class="bash">apt list(列举)
     upgrade  包名(升级)
@@ -317,10 +342,10 @@ rm  文件  注：文件夹以/结尾
 rmdir(删除一个空目录)
 mv  旧文件名 新文件名(更改文件名、也可以移动位置)
 mkdir xxx/ (创建新文件夹)
-man 命令(查看相关命令手册)
+man/info 命令(查看相关命令手册) #或者在/usr/share/doc中查看手册
 exit(退出)
 sudo(管理员)
-shutdown(关机)
+shutdown(关机)=poweroff
 echo&quot;要显示的内容&quot;
 unzip(解压缩)| tar
 cat(直接从终端创建、查看、链接文件)
@@ -347,7 +372,14 @@ vim a.txt()
 i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 :q(离开，并不保存) :q!(强制离开不储存) :w(写入) :w!(强制写入，但与权限有关)可配合使用
 </code></pre>
-<h3 id="2-文件目录"><a href="#2-文件目录" class="headerlink" title="2.文件目录"></a>2.文件目录</h3><img src="F:\Picture\Saved Pictures\Linux.jpg" style="zoom:80%;" />
+<h3 id="2-文件-目录"><a href="#2-文件-目录" class="headerlink" title="2.文件&amp;目录"></a>2.文件&amp;目录</h3><p>一切皆文件：在Linux下文件的识别执行仅与[-rwxrwxrwx]有关，后缀无关</p>
+<ul>
+<li>正规文件：纯文本文件ASCII（给人读的）、二进制文档（执行的）、数据格式文件（软件用的）</li>
+<li>目录-d、链接文件-l（硬链接与软链接）</li>
+<li>设备与设备文件：区块设备文件-b（内存硬盘等）、字符设备文件-c（鼠标键盘等）</li>
+<li>数据接口文件-s：用于网络上的数据承接（常出现于&#x2F;run或&#x2F;tmp下）</li>
+</ul>
+<img src="../pic/Linux.jpg" alt="Linux"  />
 
 <ul>
 <li>&#x2F;sbin、&#x2F;usr&#x2F;sbin、&#x2F;usr&#x2F;local&#x2F;sbin（指令）：管理员可以使用的可执行命令；</li>
@@ -399,7 +431,7 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 </li>
 </ul>
 <p>根据链接和运行时的角度，其文件格式稍有不同（实际上除了ELF文件头外，位置都不固定）：</p>
-<p><img src="https://img1.imgtp.com/2023/10/08/k7VRm7Rv.png" alt="image-20231008194637538"></p>
+<p><img src="/../pic/image-20231129123037904.png" alt="image-20231129123037904"></p>
 <p>大致包括四部分：ELF头（ELF header)、程序头表（Program header table)、节（Section)OR段（Segment）、节头表（Section header table)OR段头表</p>
 <p><strong>ELF文件头</strong>：</p>
 <pre><code class="c">typedef struct&#123;
@@ -674,8 +706,59 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 </ul>
 <p>交换机制：通过将磁盘上一部分空间作为交换空间，当物理内存不足时，将一部分暂不用的数据换入到交换空间中，来解决内存不足的问题。守护进程<code>kswapd()</code></p>
 <p>缓冲机制：采用页面高速缓存（加快对磁盘文件的访问）、缓冲区高速缓存（针对I&#x2F;O）、交换区缓存</p>
-<p>常用内存分配函数：<code>_get_free_pages()</code>直接对页框进行操作 、<code>kmem_cache_alloc()</code>基于slab机制实现 、<code>kmalloc()</code>、<code>vmalloc()</code>建立非连续物理内存到虚拟地址的映射、<code>alloc_bootmem()</code>在启动kernel时，预留一段内存，内核看不见、<code>Ioremap()</code>实现已知物理地址到虚拟地址的映射</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/wY4ZqtLq.png" alt="image-20231011203758961"></p>
+<p>常用内存分配函数:</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>分配原理</th>
+<th>最大内存</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>_get_free_pages()</code></td>
+<td>直接对页框进行操作</td>
+<td>4MB</td>
+<td>适用于分配较大量的连续物理内存</td>
+</tr>
+<tr>
+<td><code>kmem_cache_alloc()</code></td>
+<td>基于slab机制实现</td>
+<td>128KB</td>
+<td>适合需要频繁申请释放相同大小内存块时使用</td>
+</tr>
+<tr>
+<td><code>kmalloc()</code></td>
+<td>基于kmem_cache_alloc实现</td>
+<td>128KB</td>
+<td>最常见的分配方式，需要小于页框大小的内存时使用</td>
+</tr>
+<tr>
+<td><code>vmalloc()</code></td>
+<td>建立非连续物理内存到虚拟地址的映射</td>
+<td></td>
+<td>物理不连续，适合需要大内存，但对地址连续性没有要求的场合</td>
+</tr>
+<tr>
+<td><code>alloc_bootmem()</code></td>
+<td>在启动kernel时，预留一段内存，内核看不见</td>
+<td></td>
+<td>小于物理内存大小，内存管理要求较高</td>
+</tr>
+<tr>
+<td><code>Ioremap()</code></td>
+<td>实现已知物理地址到虚拟地址的映射</td>
+<td></td>
+<td>适用于物理地址已知的场合，如设备驱动</td>
+</tr>
+<tr>
+<td><code>dma_alloc_coherent</code></td>
+<td>基于_alloc_pages实现</td>
+<td>4MB</td>
+<td>适用于DMA操作</td>
+</tr>
+</tbody></table>
 <h3 id="6-进程管理"><a href="#6-进程管理" class="headerlink" title="6.进程管理"></a>6.进程管理</h3><p>进程&#x3D;执行的程序，由程序段+相关数据段+PCB（进程控制块）组成实体&#x2F;进程映像。具有如下特性：动态性（有生命周期）、并发性（可多个实体同存）、独立性（独立运行）、异步性（各自推进）</p>
 <p>进程初始化过程：</p>
 <ol>
@@ -687,7 +770,8 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 <li>启动开始函数；</li>
 </ol>
 <p>进程创建过程如下：</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/rpUI2zaw.png" alt="image-20231011204202478"></p>
+<img src="../pic/image-20231129121728036.png" alt="image-20231129121728036"  />
+
 <ul>
 <li>vfork函数：父进程会一直阻塞，直到子进程调用exit()或者exec()为止；且父子共享地址空间，如果子进程修改了某个变量，这将影响到父进程</li>
 <li>clone函数：不仅可以创建进程或者线程，还可以指定创建新的命名空间、有选择的继承父进程的内存、甚至可以将创建出来的进程变成父进程的兄弟进程等等</li>
@@ -698,7 +782,7 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 <p><strong>1号进程</strong>&#x2F;init进程：由idle通过kernel_thread创建，在内核空间完成初始化函数start_kernel后, 加载init程序，完成系统的初始化</p>
 <p><strong>2号进程</strong>&#x2F;kthreadd进程：由idle通过kernel_thread创建，并始终运行在内核空间, 负责所有内核线程的调度和管理</p>
 <p>进程状态：创建态、就绪态、执行态、阻塞态、终止态；</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/YN359g1Q.png" alt="image-20231011205056679"></p>
+<p><img src="/../pic/image-20231129121814386.png" alt="image-20231129121814386"></p>
 <p>进程终止：</p>
 <ul>
 <li>主动：main函数返回，链接程序自动添加exit()；主动调用exit()</li>
@@ -794,7 +878,6 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 <p>命名空间：mount、uts、ipc、pid、network、user等类似设置</p>
 <p>LibOS：库操作系统，根据某类应用的特殊需求，由某一高级编程语言将原本属于操作系统内核的某些资源管理功能按照模块化的要求，以库形式提供给应用程序的特殊操作系统。与应用程序在编译时被链接到一起，形成一个只有<strong>单地址空间</strong>的二进制文件并<strong>工作在应用层</strong></p>
 <h3 id="7-IO设备与驱动"><a href="#7-IO设备与驱动" class="headerlink" title="7. IO设备与驱动"></a>7. IO设备与驱动</h3><p>Linux上的驱动包括：字符设备（字节为单位的I&#x2F;O传输，键鼠等）、块设备（磁盘等）、网络设备。<code>ls -al /dev</code>查看目录下的设备文件，该目录是动态生成的、使用devtmpfs虚拟文件系统挂载的、基于RAM的虚拟文件系统，打开设备就相当于打开这些文件。</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/EuQbjUaw.png" alt="image-20231019104419710"></p>
 <p>为管理设备，Linux给设备都编的有设备号，包含主副，主的用来区分不同种类，副的区分不同设备。在&#x2F;include&#x2F;linux&#x2F;fs.h中有相关设备号分配的函数，<code>alloc_chrdev_region()</code>自动分配、<code>register_chrdev_region()</code>需要主动指定</p>
 <p><strong>字符设备</strong>：include&#x2F;linux&#x2F;cdev.h中的cdev数据结构</p>
 <pre><code class="c">struct cdev &#123;
@@ -806,12 +889,10 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
     unsigned int count;		//次设备号个数
 &#125;;
 </code></pre>
-<p><strong>块设备驱动</strong>：一般一块512B，有缓存，通常由文件系统调用；对应用层来说通常有如下两种访问方式</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/iGKu1XaY.png" alt="image-20231019110131872"></p>
+<p><strong>块设备驱动</strong>：一般一块512B，有缓存，通常由文件系统调用；对应用层来说通常有如下两种访问方式；&#x2F;dev和文件系统挂载点，前者和字符设备一样，通常用于配置，后者在mount之后就可以通过文件系统直接访问一个块设备</p>
+<img src="../pic/image-20231129122729443.png" alt="image-20231129122729443"  />
+
 <p>I&#x2F;O操作类型：同步阻塞I&#x2F;O（发起后等待返回）、同步非阻塞I&#x2F;O（一直发直到返回）、异步阻塞I&#x2F;O、异步非阻塞I&#x2F;O、多路复用（多线程）</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/dOuFjyZc.png" alt="image-20231019110915063"></p>
-<p><img src="https://img1.imgtp.com/2023/10/19/XhuUVY8j.png" alt="image-20231019111231153"></p>
-<p><img src="https://img1.imgtp.com/2023/10/19/9TdukBG7.png" alt="image-20231019111301952"></p>
 <p><strong>Linux驱动</strong>：模块可以扩充内核功能，驱动程序也算是一种模块。<code>insmod</code>将模块加入正在运行的内核，<code>rmmod</code>将其从内核删除；在内核启动时装载叫静态装载，运行时叫动态装载。</p>
 <p>在开发驱动时：不能访问C库，只能访问有限的系统调用或者使用汇编，此外还需要注意同步与并发。<code>module_init()</code>驱动代码的入口点，每当加载该模块时就会被调用，<code>module_exit()</code>当驱动在内核被卸载时自动调用</p>
 <ul>
@@ -906,8 +987,7 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 <li>MLS：主体和对象均有安全层级</li>
 </ul>
 <p>LSM框架：其允许安全模块插入内核中，用于提高传统DAC安全性。当用户进程经过DAC检查后，会由LSM Hook与SElinux的相关模块进行检查</p>
-<img src="https://img1.imgtp.com/2023/10/19/RwS7leCP.png" alt="image-20231019152026704" style="zoom:80%;" />
-
+<p><img src="/../pic/image-20231129123244430.png" alt="image-20231129123244430"></p>
 <h3 id="10-Namespace及Cgroups机制"><a href="#10-Namespace及Cgroups机制" class="headerlink" title="10.Namespace及Cgroups机制"></a>10.Namespace及Cgroups机制</h3><p>两者在Linux用于隔离进程，前者负责信息隔离，后者负责进程资源大小限制。</p>
 <ul>
 <li>UTS NameSpace：提供了主机名和域名的隔离，使得每个容器就拥有了独立的主机名和域名，在网络上可以被视作一个独立的节点</li>
@@ -976,13 +1056,13 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">135k</span>
+    <span title="站点总字数">138k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:11</span>
   </span>
 </div>
 <div class="busuanzi-count">

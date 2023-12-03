@@ -1,688 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux不完全说明</title>
-    <url>/2023/09/07/Linux%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》</p>
+    <title>VS食用说明</title>
+    <url>/2023/10/29/VS%E9%A3%9F%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：VS从入门到吃土？不讲语言，只讲工具。贴上官网说明<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3Zpc3VhbHN0dWRpby9kZWJ1Z2dlci8/dmlldz12cy0yMDIy">调试器文档 - Visual Studio (Windows) | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
 <span id="more"></span>
 
-<h3 id="1-基本命令"><a href="#1-基本命令" class="headerlink" title="1.基本命令"></a>1.基本命令</h3><p>ctrl+alt+t(快速打开终端)</p>
-<pre><code class="bash">apt list(列举)
-    upgrade  包名(升级)
-    autoremove 包名(移除但不包括相关配置)
-    --purge remove  包名(包括相关配置)
-ls --help
-cd  /home(绝对路径)
-    子文件夹
-    ..(中间有空格，向上一个级别，跳的比 cd /多)
-pwd(显示当前的绝对路径)
-cp [参数] 源文件 目标文件
-rm  文件  注：文件夹以/结尾
-    -r xxxxx/ (空目录)
-    -rf xxxx/ (删除带有内容的目录)
-rmdir(删除一个空目录)
-mv  旧文件名 新文件名(更改文件名、也可以移动位置)
-mkdir xxx/ (创建新文件夹)
-man 命令(查看相关命令手册)
-exit(退出)
-sudo(管理员)
-shutdown(关机)
-echo&quot;要显示的内容&quot;
-unzip(解压缩)| tar
-cat(直接从终端创建、查看、链接文件)
-kill PID/进程名
-ping
-history(使用过的命令)
-uname -a(操作系统详细信息)
-find(寻找文件)
-/xxx/xxxx/xxxxx(绝对路径)
-../xxxx (相对路径)
-</code></pre>
-<p>GCC &#x3D; gcc(编译) + cpp(预处理) + as(处理汇编) + ld(链接) &amp;&amp; vim</p>
-<pre><code class="bash">gcc [参数] [相关文件名称，可多个] -o [生成文件名称]
-gcc hello.c -o hello或hello.out---------------------(一步到位)
-1.预处理：gcc -E hello.c -o test.i---------------------(加入头文件)
-2.编译：gcc -S test.i -o test1.s-----------------------(生成汇编文件)
-3.汇编：gcc -c test1.s -o hello.o----------------------(生成目标文件)
-ps：在此.o或.obj文件中存放着ELF格式的代码，最接近机器语言
-4.链接器ld链接生成可执行程序：gcc hello.o -o hello-----------(与其他文件链接)
-5.运行：在目标执行文件目录下./hello或hello.out
-ps：不写生成文件名就会默认a.out；在win平台下中间相同，但生成.exe
-----------------------------------------------------------------------
-vim a.txt()
-i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
-:q(离开，并不保存) :q!(强制离开不储存) :w(写入) :w!(强制写入，但与权限有关)可配合使用
-</code></pre>
-<h3 id="2-文件目录"><a href="#2-文件目录" class="headerlink" title="2.文件目录"></a>2.文件目录</h3><img src="F:\Picture\Saved Pictures\Linux.jpg" style="zoom:80%;" />
+<h3 id="VS安装"><a href="#VS安装" class="headerlink" title="VS安装"></a>VS安装</h3><p>官方下载的是VS setup，用来安装VS installer（默认装在C盘下的Program File x86下的Microsoft下的Installer）的，这个东西才是安装相应年份版本VS的。这里下载的是v17.7.6（installer 查看），可以查看<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3Zpc3VhbHN0dWRpby9yZWxlYXNlcy8yMDIyL3JlbGVhc2Utbm90ZXMtdjE3LjY=">Visual Studio 2022 版本 17.6 发行说明 | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>，里面还有该发行版本CVE一览</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/c9cbR9Mu.png" alt="image-20231029160026391"></p>
+<ul>
+<li>ATL和下面的MFC都是用来开发windows应用的，这里先不安装，测试工具同理。WIN11SDK一定要安，这里面放的各种头文件，不然“hello world”都跑不起来！</li>
+<li>vcpkg用于第三方的包管理工具，VS有NuGet集成；Cmake为第三方的构建工具（跨OS开发较好），作用和上面的C++Build类似（仅Windows下VS可用）。</li>
+</ul>
+<p>剩下的东西对于查看内存，汇编等还是有用的，按需所取。Important，你后面可以打开这个Installer再下。</p>
+<p>之后如果想要减小VS对C盘的占用的话，可以参考<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EzNTg3NjM0NzEvYXJ0aWNsZS9kZXRhaWxzLzExNTg1NjUxMw==">VS2019&#x2F;VS2022移动安装位置&#x2F;C盘瘦身的一个好方法，亲测有效_vs安装位置-CSDN博客<i class="fa fa-external-link-alt"></i></span>来进行快捷方式建立</p>
+<p>之后就是更改字体与背景之类的啦，背景的话需要下载扩展“Claudia IDE”，下载后需要重新启动。点击上栏中的“工具”——“选项”即可打开字体设置之类的，找到“ClaudiaIDE”中进行背景图片路径更改即可</p>
+<h3 id="第三方包的使用"><a href="#第三方包的使用" class="headerlink" title="第三方包的使用"></a>第三方包的使用</h3><p>首先说明对于C&#x2F;C++这样的语言来说，包管理工具很难，python的pip、js的npm甚至是java的maven等，都是针对语言的，因为这些语言与编译器和版本的依赖关系并没有那么大的差距。对于C&#x2F;C++来说，我们需要对于不同的OS、位、编译器等都编译出相应的静态或动态库，之后再进行引用，就像只能在Linux中gcc使用apt-get一样。除了下面即将提到包管理工具外，还有<span class="exturl" data-url="aHR0cHM6Ly9jb25hbi5pby8=">Conan<i class="fa fa-external-link-alt"></i></span>、Hunter等</p>
+<p>根据网上搜查结果，目前有三种在VS中使用第三方包的方法：Nuget包管理、VS中项目自引用、Vcpkg包管理。（VS用的自家集成的！MSBuild工具，不同于CMake等构建，当然你也可以使用CMake，这里不多bb）</p>
+<h4 id="Nuget包管理"><a href="#Nuget包管理" class="headerlink" title="Nuget包管理"></a>Nuget包管理</h4><p>这个东东集成在VS中（它甚至集成了C#和VB，我哭死），本来是用来管理C#的包的，但是后来也能够管理C++的第三方包了，不是很建议。</p>
+<p>首先我们需要打开一个<strong>项目</strong>（不能仅仅是文件夹），在最上面一栏中找到”项目”——“管理NuGet程序包”或者在”工具”——“NuGet包管理器”中找到，打开后如下界面：</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/KhlRKs1G.png" alt="image-20231029112047693"></p>
+<p>点击相关的包，右面就会显示它的详情信息，需要注意的是，下面会有依赖项，这个东西NuGet会自动帮你下载有关依赖。</p>
+<p>也可以到到<span class="exturl" data-url="aHR0cHM6Ly93d3cubnVnZXQub3JnLw==">NuGet Gallery | Home<i class="fa fa-external-link-alt"></i></span>进行下载，会有更多的版本供选择，假设我们要下载Detours库（一个巨硬官方的hook库）搜索该库，点击进去，选择控制台命令那列“PM&gt; NuGet\Install-Package Detours -Version x.x.x”后，进入到VS中的NuGet控制台输入，并选择目标项目即可安装</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/arwx4ded.png" alt="image-20231029152141278"></p>
+<h4 id="Vcpkg包管理"><a href="#Vcpkg包管理" class="headerlink" title="Vcpkg包管理"></a>Vcpkg包管理</h4><p>介个东东不像上面的Nuget，它本来“巨硬”就是为CPP打造的，可以在VS安装安装器中时安装该组件，当然也可以第三方下载。这里我们在安装器中下载在VS目录下的“\VC\vcpkg”中，最好设置一下环境变量，方便打开（添加用户环境变量，值为<code>xxx\vcpkg</code>就行）</p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vbGludXhBbmRNY3UvcC8xNDY5NjU0Mi5odG1s">C++开源库 - 包管理工具Vcpkg安装使用教程 - fengMisaka - 博客园 (cnblogs.com)<i class="fa fa-external-link-alt"></i></span>这篇文章也许可以扫个盲？</p>
+</blockquote>
+<p>管理员执行！<code>vcpkg integrate project</code>用于下载适配插件和<code>vcpkg integrate install</code>用来适配全局，即开发者无需知道vcpkg把包安装在哪里</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/YYzolVVL.png" alt="image-20231029115221507"></p>
+<p>之后查找第一条命令最下面一行，看看-Source后面的安装地址（由于对指令不了解，就没有指定位置了，当然你也可以下载后拖到“\VC\vcpkg\script\buildsystems”中）。之后更新程序包源，浏览之后安装我们刚才下载的插件</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/q3sk8hHi.png" alt="image-20231029120603215"></p>
+<p>之后点击安装，在不同的项目下引用，之后就可以引用vcpkg下载的包啦</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/j3KDNEgA.png" alt="image-20231029142116964"></p>
+<p>下面是一些可能或用到的命令，<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3ZjcGtnLw==">vcpkg 文档 | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><code>vcpkg integrate remove</code>：移除全局设置</li>
+<li><code>vcpkg search</code>：查看库目录</li>
+<li><code>vcpkg remove/update/install xxx:x64-windows</code>：删除&#x2F;更新&#x2F;安装包，后面跟指定平台</li>
+<li><code>vcpkg list</code>：查看所有已安装的库</li>
+<li><code>vcpkg help triplet</code>：查看支持的平台</li>
+</ul>
+<p>之后引用库就可以像NuGet那样直接使用了，要注意包和真正的头文件位置！”detours.h”还是”detours&#x2F;detours.h”</p>
+<h4 id="VS项目引用（NuGet没有的话最好的选择）"><a href="#VS项目引用（NuGet没有的话最好的选择）" class="headerlink" title="VS项目引用（NuGet没有的话最好的选择）"></a>VS项目引用（NuGet没有的话最好的选择）</h4><p>这个同样对于每个项目来说都需要单独配置，添加下载的第三方包的绝对路径，需要注意我们在添加库时如果<code>x/include</code>结束，则我们需要引用<code>&lt;a/xxx.h&gt;</code>，如果添加<code>x/include/a</code>则可直接<code>&lt;target.h&gt;</code>，这时我们只是能够单纯的有个头文件，这个头文件下面能干啥还不知道，因此还需要包含相应的lib和dll（对应<code>xx/lib</code>文件夹）</p>
+<p><img src="https://img1.imgtp.com/2023/10/29/Xf5ka1Hb.png" alt="image-20231029225054827"></p>
+<p><img src="https://img1.imgtp.com/2023/10/29/x0TOR9H5.png" alt="image-20231029225620978"></p>
+<p>当然你也可以直接拖到项目里面，省时省力（如果你知道具体要调用啥的话</p>
+<h3 id="VS解决方案目录简要说明"><a href="#VS解决方案目录简要说明" class="headerlink" title="VS解决方案目录简要说明"></a>VS解决方案目录简要说明</h3><p>这里我们将解决方案与项目放在同一文件夹下，如果不在一个文件夹下将会在解决方案目录下生成多个项目文件，下面的东西除了sln都将会在项目文件夹下（在VS中：<strong>解决方案&gt;项目</strong>）。以通讯录管理系统为例子：本人使用x86，x64，debug，release都执行了一遍。默认生成配置</p>
+<img src="../pic/image-20231203114732453.png" alt="image-20231203114732453" style="zoom:80%;" />
+
+<p>该项目下的Debug和Release默认都是32位，也就是x86得到的结果，在x64下也有这两个文件夹。一般来说我们在VS中看到的头文件、源文件等代码文件都是在上面的目录中。而得到的可执行文件一般就在Debug或Release文件夹中。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL2NwcC9idWlsZC9yZWZlcmVuY2UvcHJvamVjdC1hbmQtc29sdXRpb24tZmlsZXM/dmlldz1tc3ZjLTE2MA==">项目和解决方案文件<i class="fa fa-external-link-alt"></i></span>（均可用记事本打开）：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3Zpc3VhbHN0dWRpby9leHRlbnNpYmlsaXR5L2ludGVybmFscy9zb2x1dGlvbi1kb3Qtc2xuLWZpbGU/dmlldz12cy0yMDIy">.sln<i class="fa fa-external-link-alt"></i></span>：VS专用解决方案文件，在VS下解决方案可包含多个项目，该文件用于同一这些项目</li>
+<li>.vcxproj：xml文件，是将所有的文件和配置信息都放在了一起</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL2NwcC9idWlsZC9yZWZlcmVuY2UvdmN4cHJvai1maWx0ZXJzLWZpbGVzP3ZpZXc9bXN2Yy0xNzA=">.vcxproj.filters<i class="fa fa-external-link-alt"></i></span>：xml文件，指定上面的文件中哪些是头文件、资源文件等。这也就是为什么打开VS后解决方案管理中的源文件和头文件等有文件夹，而实际目录下面却没有的原因</li>
+<li>.vcxproj.user：xml文件，本地化用户配置（界面配置）</li>
+</ul>
+<p>接下来我们对比看一下生成的debug和release文件，由于x86和x64的文件结构一样，我们下面以x86为例子</p>
+<blockquote>
+<p>debug配置即调试版本，程序将不进行优化，得到的结果通常包含调试信息；release即发布版本进行完全优化，一般不保存调试信息（当然你可自己配置生成的东西）</p>
+</blockquote>
+<img src="../pic/image-20231203114800181.png" alt="image-20231203114800181" style="zoom:80%;" />
 
 <ul>
-<li>&#x2F;sbin、&#x2F;usr&#x2F;sbin、&#x2F;usr&#x2F;local&#x2F;sbin（指令）：管理员可以使用的可执行命令；</li>
-<li>&#x2F;bin————（指令）：存放shell解释器，给普通用户使用的命令；</li>
-<li>&#x2F;root—（账户&#x2F;指令）：系统管理员的目录；</li>
-<li>&#x2F;home-（账户）：用户目录，新增用户时会在此文件下新建；</li>
-<li>&#x2F;usr—–（账户）：应用程序存放位置<ul>
-<li>&#x2F;bin：应用程序；</li>
-<li>&#x2F;share：多用户共享数据；</li>
-<li>&#x2F;lib：库函数文件；</li>
-<li>&#x2F;local：软件升级包；</li>
-<li>&#x2F;src：内核源代码；</li>
+<li>.obj：即linux上的.o文件，是经过预编译-编译-汇编后得到的最终代码的二进制形式</li>
+<li>.pdb：vc143表示143版本的VC编译器，用于存储所有obj文件的调试信息（即符号表），因为这个项目中我们只有一个源文件eTelBook.cpp所以只生成了一个obj；下面的“通讯录管理系统.pdb”则是最终生成的二进制程序的符号表</li>
+<li>.ilk：obj有了之后，就到链接过程了，该文件用于提供链接信息</li>
+<li>.idb：源文件和类定义之间的依赖信息。<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL2NwcC9idWlsZC9yZWZlcmVuY2UvZmlsZS10eXBlcy1jcmVhdGVkLWZvci12aXN1YWwtY3BwLXByb2plY3RzP3ZpZXc9bXN2Yy0xNzA=">Visual Studio C++ 项目创建的文件类型<i class="fa fa-external-link-alt"></i></span></li>
+<li>.iobj和ipdb文件据早期msdn帖子说是有关增量链接功能生成的</li>
 </ul>
-</li>
-<li>&#x2F;boot—-（系统必要）：系统内核and引导装载文件；</li>
-<li>&#x2F;etc——（系统必要）：存放系统的部分配置文件and子目录列表；</li>
-<li>&#x2F;sys——（系统必要）：虚拟档案系统，类似&#x2F;proc；</li>
-<li>&#x2F;lib、&#x2F;lib32、64、x32（系统必要）：动态链接资源库；</li>
-<li>&#x2F;dev——（外部文件）：存放设备文件，即驱动、网卡等；</li>
-<li>&#x2F;mnt—–（外部文件）：文件系统挂载；</li>
-<li>&#x2F;media–（外部文件）：其他设备挂载，U盘等；</li>
-<li>&#x2F;proc—–（运行过程）：该目录中的数据都在内存中，即内存的映射！；</li>
-<li>&#x2F;var——-（运行过程）：存放系统运行过程中经常变化的文件；</li>
-<li>&#x2F;lost+found–（临时）：系统非法关机后会有内容，否则为空；</li>
-<li>&#x2F;run————-（临时）：系统启动临时文件；</li>
-<li>&#x2F;tmp————（临时）：系统运行临时文件；</li>
-<li>&#x2F;srv（扩展）：服务启动后要访问的数据目录，部署服务器后有内容；</li>
-<li>&#x2F;opt（扩展）：额外安装的软件；</li>
-</ul>
-<h3 id="3-ELF文件"><a href="#3-ELF文件" class="headerlink" title="3.ELF文件"></a>3.ELF文件</h3><p>Linux下的可执行文件，全称<strong>Executable and Linking Format</strong>，内容如下：</p>
-<ul>
-<li>包括.out &amp; .o &amp; .so &amp; .elf &amp; .prx文件；readelf，启动！！！</li>
-<li>.out&#x2F;可执行文件：包含代码和数据（有相对固定地址），可直接运行，系统根据地址加载到内存执行</li>
-<li>.o&#x2F;可重定位文件：包含基础代码和数据，而且都没有指定地址，需要与其他文件配合使用</li>
-<li>.so&#x2F;共享目标文件：也叫动态库文件，包含代码与数据，是在原程序运行时动态链接的</li>
-<li>详见！！！<span class="exturl" data-url="aHR0cHM6Ly9wYXBlci5zZWVidWcub3JnL3BhcGVycy9BcmNoaXZlL3JlZnMvZWxmL1VuZGVyc3RhbmRpbmdfRUxGLnBkZg==">Understanding_ELF.pdf (seebug.org)<i class="fa fa-external-link-alt"></i></span></li>
-</ul>
-<p>相关概念如下：</p>
-<ul>
-<li><p>目标文件：可重定位目标文件（汇编器生成的）、可执行目标文件、共享目标文件（链接器+加载器都用，同时具有ScHead和ProHead）；</p>
-</li>
-<li><p>动态链接：是解析符号引用的过程，在进程初始化和运行期间都可能发生</p>
-</li>
-<li><p>链接器：以目标文件为输入，经过符号解析（目标文件中的符号和其定义进行关联）与重定位（将符号的定义与在内存中的位置关联），输出可加载和运行的可执行目标文件。不看程序头表</p>
-</li>
-<li><p>加载器：用于加载可执行文件到内存，看不见节头表，将节换为段</p>
-</li>
-<li><p>程序解析器：系统执行程序时，系统函数 exec(BA_OS)会被调用，内核会去读取该程序的某一节，解析出其包含的ELF 程序解析器的路径字符串。有的话，解析器程序将从系统手中接过控制权继续执行，读取并映射可执行程序的段到内存中，有些则直接将文件内容载入内存</p>
-</li>
-</ul>
-<p>根据链接和运行时的角度，其文件格式稍有不同（实际上除了ELF文件头外，位置都不固定）：</p>
-<p><img src="https://img1.imgtp.com/2023/10/08/k7VRm7Rv.png" alt="image-20231008194637538"></p>
-<p>大致包括四部分：ELF头（ELF header)、程序头表（Program header table)、节（Section)OR段（Segment）、节头表（Section header table)OR段头表</p>
-<p><strong>ELF文件头</strong>：</p>
-<pre><code class="c">typedef struct&#123;
-    unsigned char e_ident[EI_NIDENT];	//魔数,16Byte,见下表
-    Elf32_Half    e_type;         //文件类型
-      Elf32_Half    e_machine;      //架构
-      Elf32_Word    e_version;      //目标文件版本
-      Elf32_Addr    e_entry;        //程序的入口虚拟地址
-      Elf32_Off	  e_phoff;        //程序头表的偏移量，木有则为0
-      Elf32_Off 	  e_shoff;        //节头表开始在文件中的偏移量，同上
-      Elf32_Word    e_flags;        //处理器特定标志位
-      Elf32_Half    e_ehsize;       //ELF头字节大小
-      Elf32_Half    e_phentsize;    //程序头表中每一个表项的字节大小
-     Elf32_Half    e_phnum;        //程序头表中共有多少个表项
-     Elf32_Half    e_shentsize;    //节头表字节大小
-      Elf32_Half    e_shnum;        //节头表表项数目
-      Elf32_Half    e_shstrndx;     //一个节头表项的索引,该项指向存储&quot;节名字表&quot;,没有就设为&quot;SHN_UNDEF&quot;
-&#125;Elf32_Ehdr;
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>偏移</th>
-<th>内容</th>
-<th>偏移</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0-3</td>
-<td>0x7f+”ELF“</td>
-<td>4</td>
-<td>0非法文件,1代表32位,2代表64位</td>
-</tr>
-<tr>
-<td>5</td>
-<td>0非法编码,1小端,2大端</td>
-<td>6</td>
-<td>ELF文件头版本,通常为1</td>
-</tr>
-<tr>
-<td>7-15</td>
-<td>暂未使用</td>
-<td>16</td>
-<td>本数组大小</td>
-</tr>
-</tbody></table>
-<p><strong>程序头表</strong>：提供程序加载到内存中的段信息，为数组结构，每一项结构如下（一个段包含1个或多个节）</p>
-<pre><code class="c">typedef struct&#123;
-  Elf32_Word    p_type;         //本段的类型
-  Elf32_Off 	p_offset;       //偏移位置
-  Elf32_Addr    p_vaddr;        //本段应加载的虚拟地址
-  Elf32_Addr    p_paddr;        //加载物理地址,根据系统选择
-  Elf32_Word    p_filesz;       //本段在文件中大小
-  Elf32_Word    p_memsz;        //本段在内存中的大小
-  Elf32_Word    p_flags;        //本段内容属性,系统会根据此段赋予一定权限
-  Elf32_Word    p_align;        //为0/1时则虚拟地址和偏移没有对齐要求,否则表示对其要求2的次方
-&#125; Elf32_Phdr;
-</code></pre>
-<p><strong>节头表</strong>：同上，也是数组</p>
-<pre><code class="c">typedef struct&#123;
-  Elf32_Word    sh_name;        //节的名称,其值为&quot;节名字表&quot;中的偏移
-  Elf32_Word    sh_type;        //节的类型
-  Elf32_Word    sh_flags;       //本节的属性,1运行时可写,2运行时占用内存单元,4指令
-  Elf32_Addr    sh_addr;        //本节内容需要映射的起始地址
-  Elf32_Off 	sh_offset;      //本节相对于文件开头的偏移量
-  Elf32_Word    sh_size;        //本节大小,字节
-  Elf32_Word    sh_link;        //指向节头表中本节的位置
-  Elf32_Word    sh_info;        //附加信息
-  Elf32_Word    sh_addralign;   //对齐方式,同上
-  Elf32_Word    sh_entsize;     //有些节内容为一张表,该项指定节中每一表项的大小,为0代表不是表格
-&#125; Elf32_Shdr;
-</code></pre>
-<p><strong>节</strong>：专用于连接过程</p>
-<p>.bss未初始化的全局变量；.data初始化过的全局变量；.rodata只读数据；.got全局偏移量表</p>
-<p>.text程序指令代码；.init进程初始化要执行的命令；.fini进程终止时要执行的指令；</p>
-<p>.dynamic动态连接信息；.dynstr动态链接的字符串；.dynsym动态链接符号表；.relname重定位信息；</p>
-<p>.debug调试信息；.line包含调试符号的行号；.comment版本控制信息；</p>
-<p>.hash符号哈希表；.interp包含ELF程序解析器的路径名；.note注释节；.shstrtab节名字表；.symtab符号表；</p>
-<p><strong>字符串表</strong>：包含若干以”null”结尾的字符串，第一个字符串为空串，用于表示”NULL”，该表不一定只有一个，节名字表也类似结构（索引指向开头，直到’\0’出现）。</p>
-<p><img src="https://img1.imgtp.com/2023/10/08/lS79D2ec.png" alt="image-20231008213353154"></p>
-<p>以上面这个25字节的表为例子：包含0-null、1-name.、7-Variable、11-able、16-able、24-null</p>
-<p><strong>符号表</strong>：用于定位和重定位程序中的符号定义和引用，下面是一项的结构</p>
-<pre><code class="c">typedef struct &#123; 
-    Elf32_Word st_name;		//符号名字,是一个指向字符串表的索引值,0代表没名字
-    Elf32_Addr st_value; 	//符号的值,没有固定类型
-    Elf32_Word st_size; 	//符号大小,即字节数
-    unsigned char st_info; 		//符号类型属性
-    unsigned char st_other; 	//暂未使用,0
-    Elf32_Half st_shndx; 	//索引值,指向相关联的节在节头表中的位置
-&#125; Elf32_Sym;
-</code></pre>
-<p><strong>重定位信息</strong>：比如函数名，就代表跳转到该段程序入口</p>
-<pre><code class="c">typedef struct &#123; 
-    Elf32_Addr r_offset;		//对重定位文件来说是节中的字节偏移量,对.out和.so来说是虚拟地址
-    Elf32_Word r_info; 		//重定位作用的符号表索引
-    Elf32_Sword r_addend;		//在Elf32_Rela中有,用于计算需要重定位的域值
-&#125; Elf32_Rel(a);
-</code></pre>
-<p><strong>段</strong>：有若干节构成，存在于装载（目标文件载入内存）和动态连接（解析目标文件中的符号引用）过程中</p>
-<p>代码段&#x2F;文本段：.text、.rodata、.hash、.dynsym、.dynstr、.plt、.rel.got</p>
-<p>数据段：.data、.dynamic、.got、.bss</p>
-<p>注释段&#x2F;注释节：用于给其他程序检查目标文件的一致性和兼容性</p>
-<p>动态段：提供给动态链接器所需要的信息</p>
-<h3 id="4-内核介绍"><a href="#4-内核介绍" class="headerlink" title="4.内核介绍"></a>4.内核介绍</h3><p>宏&#x2F;单内核特点（Linux）：</p>
-<ul>
-<li>内部分多个模块，但运行时是个单独的二进制大映像</li>
-<li>内核程序以内核空间的身份运行</li>
-<li>模块间通讯直接调用其他模块中的函数</li>
-<li>安全性差、占用资源多</li>
-</ul>
-<p>微内核（minix、鸿蒙、L4）：</p>
-<ul>
-<li>大部分内核都作为单独的进程在特权状态下运行，消息传递进行通讯</li>
-<li>微内核部分&#x3D;消息转发站；</li>
-<li>通讯开销大、硬件访问慢-驱动用户态下运行</li>
-</ul>
-<p>混合内核（Mac、Win）：</p>
-<ul>
-<li>让微内核结构中的一些运行在用户空间的代码跑在内核空间</li>
-</ul>
-<p>Linux6.5：RISC-V 64、Rust、WiFi-7、USB4.2、CPU并行启动</p>
-<table>
-<thead>
-<tr>
-<th>内核文件</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&#x2F;arch</td>
-<td>支持的体系结构</td>
-</tr>
-<tr>
-<td>&#x2F;document</td>
-<td>说明文档</td>
-</tr>
-<tr>
-<td>&#x2F;drivers</td>
-<td>系统中的主要驱动设备</td>
-</tr>
-<tr>
-<td>&#x2F;fs</td>
-<td>支持的文件系统和文件操作</td>
-</tr>
-<tr>
-<td>&#x2F;include</td>
-<td>其下&#x2F;linux包含一些关键数据结构</td>
-</tr>
-<tr>
-<td>&#x2F;init</td>
-<td>内核初始化代码</td>
-</tr>
-<tr>
-<td>&#x2F;ipc</td>
-<td>进程间通信代码</td>
-</tr>
-<tr>
-<td>&#x2F;Kernel</td>
-<td>内核管理核心代码</td>
-</tr>
-<tr>
-<td>&#x2F;lib</td>
-<td>核心库代码</td>
-</tr>
-<tr>
-<td>&#x2F;mm</td>
-<td>内存管理代码</td>
-</tr>
-<tr>
-<td>&#x2F;net</td>
-<td>网络功能，实现常见的网络协议</td>
-</tr>
-<tr>
-<td>&#x2F;scripts</td>
-<td>配置内核的脚本</td>
-</tr>
-<tr>
-<td>&#x2F;block</td>
-<td>块设备驱动I&#x2F;O调度的代码</td>
-</tr>
-<tr>
-<td>&#x2F;crypto</td>
-<td>常见加密、压缩、校验算法</td>
-</tr>
-<tr>
-<td>&#x2F;security</td>
-<td>SELinux模块代码</td>
-</tr>
-<tr>
-<td>&#x2F;sound</td>
-<td>音频设备驱动</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>内存管理：&#x2F;mm<br>4KB的内存页，并采用页缓存技术（基数树管理页缓存中包含的页）；<br>三级页表&#x3D;偏移1、2、3+页内偏移（页目录、中间页目录、页表、物理页帧）</p>
-</li>
-<li><p>进程调度：&#x2F;kernel+&#x2F;arch<br>生命周期、优先级、共享CPU、多处理器下的负载均衡</p>
-</li>
-<li><p>进程间通信：&#x2F;ipc<br>管道、共享内存、消息队列、套接字、信号</p>
-</li>
-<li><p>虚拟文件系统VFS：&#x2F;fs<br>为Ext文件系统提供一个通用的抽象接口</p>
-</li>
-<li><p>网络堆栈：&#x2F;net<br>在TCP上有个Socket层，是网络子系统的标准API，为各种网络协议提供接口</p>
-</li>
-<li><p>设备驱动程序：&#x2F;drivers<br>支持特定设备的运转</p>
-</li>
-<li><p>体系架构：&#x2F;arch</p>
-</li>
-<li><p>系统调用接口SCI：&#x2F;kernel+&#x2F;arch，内核提供的来让用户态转为内核态</p>
-<blockquote>
-<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzI2MjI3ODU3L2FydGljbGUvZGV0YWlscy80NDI0NDQzMw==">系统调用表<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-</ul>
-<p>关键数据结构</p>
-<ul>
-<li>Task_struct（进程结构）：<code>/include/linux/sched.h</code></li>
-<li>Linux_binprm（二进制代码装入）：<code>/include/linux/binfmts.h</code></li>
-<li>Super_block（超级块）：<code>/include/linux/fs.h</code></li>
-<li>Inode（索引节点）：<code>/include/linux/fs.h</code></li>
-<li>File（文件）：<code>/include/linux/fs.h</code></li>
-<li>Dentry（目录项）：<code>/include/linux/dcache.h</code></li>
-<li>SK_buff（套接字缓冲区）：<code>/include/linux/skbuff.h</code></li>
-<li>Net_device（网络设备）：<code>/include/linux/netdevice.h</code></li>
-<li>Kern_ipc_perm（ipc的消息队列）：<code>/include/linux/ipc.h</code></li>
-</ul>
-<h3 id="5-内存管理"><a href="#5-内存管理" class="headerlink" title="5.内存管理"></a>5.内存管理</h3><p>目标：地址独立、地址保护</p>
-<p>管理内容：内存初始化、页表的管理、页面分配器、小块内存分配器、vmalloc机制、虚拟内存管理、缺页中断、页面回收</p>
-<p>内存初始化：</p>
-<ul>
-<li>内核启动页表<code>arch/x86/kernel/head.s</code></li>
-<li>内存初始化<code>init/main.c</code>的<code>static void __init mm_init(void)</code></li>
-<li>对于32位linux采用2级页表，64位则采用4级页表</li>
-</ul>
-<p>物理内存空间管理：</p>
-<ul>
-<li><p>数据结构：设置了一个mem_map[]数组管理内存页面page，其在系统初始化时由free_area_init()函数创建。数组元素是page结构体，每个page结构体对应一个物理页面。</p>
-<blockquote>
-<p>page定义在<code>/include/linux/mm_types.h</code>；mem_map[]定义在<code>mm/page_alloc.c</code></p>
-</blockquote>
-</li>
-<li><p>Buddy&#x2F;伙伴算法：对空闲空间管理，mm&#x2F;page_alloc.c中实现 </p>
-</li>
-<li><p>Slab算法：面向对象管理，适合于小块内存的申请，减少了内部碎片</p>
-</li>
-</ul>
-<p>虚拟地址空间管理：</p>
-<ul>
-<li>进程虚拟空间分为内核区和用户区</li>
-<li>&#x2F;include&#x2F;linux&#x2F;mm_types.h中<code>mm_struct</code>定义了每个进程的虚存用户区</li>
-<li>&#x2F;include&#x2F;linux&#x2F;mm.h定义的<code>vm_area_struct</code>为上述虚存用户区的中单独的虚拟区域结构</li>
-<li>&#x2F;mm&#x2F;mmap.c中的<code>do_mmap()</code>完成执行映像向虚存区域的映射，建立有关的虚存区域</li>
-</ul>
-<p>请页机制：相关处理函数<code>do_page_fault()</code></p>
-<ul>
-<li><p>缺页异常：malloc&#x2F;mmap首次申请、代码段首次映射地址空间、内存不足发生页交换、栈不够、访问非法地址</p>
-</li>
-<li><p>没有访问权限：copy on write、程序错误被杀</p>
-</li>
-<li><p>发生过程：</p>
-<ol>
-<li>在内存中有空闲物理页面时，分配一物理页帧，转第5步；</li>
-<li>依据页面置换算法选择将被替换的物理页帧F，对应逻辑页Q；</li>
-<li>如Q被修改过，则把它写回外存；</li>
-<li>修改Q的页表项中驻留位置为0；</li>
-<li>将需要访问的页P装入到物理页面F；</li>
-<li>修改p的页表项驻留位为1，物理页帧号为f；</li>
-<li>重新执行产生缺页的指令</li>
-</ol>
-</li>
-</ul>
-<p>交换机制：通过将磁盘上一部分空间作为交换空间，当物理内存不足时，将一部分暂不用的数据换入到交换空间中，来解决内存不足的问题。守护进程<code>kswapd()</code></p>
-<p>缓冲机制：采用页面高速缓存（加快对磁盘文件的访问）、缓冲区高速缓存（针对I&#x2F;O）、交换区缓存</p>
-<p>常用内存分配函数：<code>_get_free_pages()</code>直接对页框进行操作 、<code>kmem_cache_alloc()</code>基于slab机制实现 、<code>kmalloc()</code>、<code>vmalloc()</code>建立非连续物理内存到虚拟地址的映射、<code>alloc_bootmem()</code>在启动kernel时，预留一段内存，内核看不见、<code>Ioremap()</code>实现已知物理地址到虚拟地址的映射</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/wY4ZqtLq.png" alt="image-20231011203758961"></p>
-<h3 id="6-进程管理"><a href="#6-进程管理" class="headerlink" title="6.进程管理"></a>6.进程管理</h3><p>进程&#x3D;执行的程序，由程序段+相关数据段+PCB（进程控制块）组成实体&#x2F;进程映像。具有如下特性：动态性（有生命周期）、并发性（可多个实体同存）、独立性（独立运行）、异步性（各自推进）</p>
-<p>进程初始化过程：</p>
-<ol>
-<li>创建进程控制块，并将其加入到进程表中；</li>
-<li>分配该进程所需资源；</li>
-<li>设置进程初始状态，如运行态、等待态等；</li>
-<li>加载到内存中，进行重定位给操作；</li>
-<li>为程序设置栈空间，将参数、环境变量等数据拷贝到栈中；</li>
-<li>启动开始函数；</li>
-</ol>
-<p>进程创建过程如下：</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/rpUI2zaw.png" alt="image-20231011204202478"></p>
-<ul>
-<li>vfork函数：父进程会一直阻塞，直到子进程调用exit()或者exec()为止；且父子共享地址空间，如果子进程修改了某个变量，这将影响到父进程</li>
-<li>clone函数：不仅可以创建进程或者线程，还可以指定创建新的命名空间、有选择的继承父进程的内存、甚至可以将创建出来的进程变成父进程的兄弟进程等等</li>
-<li>do_fork函数（&#x2F;kernel&#x2F;fork.c）,copy_process函数（主要用于创建子进程的描述符与相关数据结构）</li>
-<li>内核级线程创建API<code>kthread_create</code>、<code>kthreat_run</code>最终也是调用do_fork实现</li>
-</ul>
-<p><strong>0号进程</strong>&#x2F;idle进程&#x2F;swapper进程：Linux内核初始化阶段从无到有创建的一个内核线程，在&#x2F;include&#x2F;linux&#x2F;init_task.h，所有进程的父进程</p>
-<p><strong>1号进程</strong>&#x2F;init进程：由idle通过kernel_thread创建，在内核空间完成初始化函数start_kernel后, 加载init程序，完成系统的初始化</p>
-<p><strong>2号进程</strong>&#x2F;kthreadd进程：由idle通过kernel_thread创建，并始终运行在内核空间, 负责所有内核线程的调度和管理</p>
-<p>进程状态：创建态、就绪态、执行态、阻塞态、终止态；</p>
-<p><img src="https://img1.imgtp.com/2023/10/11/YN359g1Q.png" alt="image-20231011205056679"></p>
-<p>进程终止：</p>
-<ul>
-<li>主动：main函数返回，链接程序自动添加exit()；主动调用exit()</li>
-<li>被动：收到一个不能处理的信号、产生了异常、收到SIGKILL等终止信号</li>
-<li>exit()系统调用把退出码转换成内核要求的格式并且调用do_exit()函数来处理</li>
-</ul>
-<p>进程调度：调度策略大致分为非实时和实时调度策略</p>
-<ul>
-<li><p>非实时：SCHED_NORMAL（使用CFS调度器来调度运行）、SCHED_BATCH（CFS调度器。采用分时策略，根据动态优先级分配）、SCHED_IDLE（CFS调度器。适用于优先级较低的后台任务）</p>
-</li>
-<li><p>实时：SCHED_FIFO（先进先出）、SCHED_RR（时间片轮转，可抢占）</p>
-</li>
-<li><p>实现于&#x2F;kernel&#x2F;sched.c</p>
-</li>
-<li><p>优先级：初始优先级即nice值，-20到19默认0，越小越高；动态优先级prio值以nice为基数经过effective_prio()函数返回，同样实现于上述文件</p>
-</li>
-</ul>
-<p>CFS&#x2F;完全公平调度算法：每个进程运行一段时间、循环轮转，选择运行虚拟时间最少的进程为下一个运行进程。维护一个以vruntime为索引的红黑树，始终选择树中最左侧叶子节点。实现于&#x2F;kernel&#x2F;sched&#x2F;fair.c</p>
-<blockquote>
-<p> 时间记账vruntime&#x3D;实际运行时间*nice为0的权重值&#x2F;当前进程的权重值（权重越大vruntime增加的越慢）；权重值有对应表查找</p>
-</blockquote>
-<p><strong>锁机制</strong>：</p>
-<ul>
-<li><p>原子操作atomic_t：确保指令执行期间不被打断，要么全部执行完，要么根本不执行</p>
-</li>
-<li><p>自旋锁spinlock_t（中断处理过程）：防止多于一个的执行线程同时进入临界区</p>
-</li>
-<li><p>信号量&#x2F;睡眠锁semaphore：一个任务试图获得一个已经被占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠</p>
-</li>
-<li><p>互斥体mutex：同上，但计数通常为1而非数量</p>
-</li>
-<li><p>读写锁rwlock_t：允许多个线程并发地读访问临界区，但是写访问只限制于一个线程</p>
-</li>
-</ul>
-<p>内存屏障：防止处理器或编译器对指令执行和内存修改进行重新排序；</p>
-<blockquote>
-<p>load屏障：在该屏障后的都要缓冲区内运行完后才可以执行<br>store屏障：强制所有在store屏障指令之前的store指令，都在该store屏障指令执行之前被执行，并把store缓冲区的数据都刷到CPU缓存<br>full屏障：保障了早于屏障的内存读写操作的结果提交到内存之后，再执行晚于屏障的读写操作</p>
-</blockquote>
-<p>内存屏障接口函数：</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>barrier</td>
-<td>阻止编译器跨越屏障对载入或存储操作进行优化</td>
-</tr>
-<tr>
-<td>rmb</td>
-<td>阻止跨越屏障的载入动作发生重排序</td>
-</tr>
-<tr>
-<td>read_barrier_depends</td>
-<td>阻止跨越屏障的具有数据依赖关系的载入动作重排序</td>
-</tr>
-<tr>
-<td>wmb</td>
-<td>阻止跨越屏障的存储动作发生重排序</td>
-</tr>
-<tr>
-<td>mb</td>
-<td>阻止跨越屏障的载入和存储动作重新排序</td>
-</tr>
-<tr>
-<td>smp_rmb</td>
-<td>在SMP上提供rmb()功能，在UP上提供barrier()功能</td>
-</tr>
-<tr>
-<td>smp_read_barrier_depends</td>
-<td>在SMP上提供read_barrier_depends()功能，在UP上提供barrier()功能</td>
-</tr>
-<tr>
-<td>smp_wmb</td>
-<td>在SMP上提供wmb()功能，在UP上提供barrier()功能</td>
-</tr>
-</tbody></table>
-<p><strong>沙箱机制</strong>：隔离环境</p>
-<p>SELinux（LSM安全模块）中</p>
-<ul>
-<li><p>自主访问控制DAC：对象（一般指文件等）的属主全权管理该对象的访问控制策略，有权读取、修改、转移对象信息，并且可以把这种权限转移给其他主体</p>
-</li>
-<li><p>强制访问控制MAC：每一个主体（包括用户和程序）和客体都拥有固定的安全标记，主体能否对客体进行相关操作，取决于主体和客体所拥有安全标记的关系</p>
-</li>
-</ul>
-<blockquote>
-<p>SELinux三种工作模式：强制（违反阻止并记录）,容忍（违反不阻但记录）,关闭</p>
-</blockquote>
-<p>Chroot：更改根目录，但常用于进行逃逸</p>
-<p>Seccomp-BPF：白名单设置系统调用，并使用Berkeley Packet Filter规则实现，可以对任意系统调用及其参数进行过滤</p>
-<p>命名空间：mount、uts、ipc、pid、network、user等类似设置</p>
-<p>LibOS：库操作系统，根据某类应用的特殊需求，由某一高级编程语言将原本属于操作系统内核的某些资源管理功能按照模块化的要求，以库形式提供给应用程序的特殊操作系统。与应用程序在编译时被链接到一起，形成一个只有<strong>单地址空间</strong>的二进制文件并<strong>工作在应用层</strong></p>
-<h3 id="7-IO设备与驱动"><a href="#7-IO设备与驱动" class="headerlink" title="7. IO设备与驱动"></a>7. IO设备与驱动</h3><p>Linux上的驱动包括：字符设备（字节为单位的I&#x2F;O传输，键鼠等）、块设备（磁盘等）、网络设备。<code>ls -al /dev</code>查看目录下的设备文件，该目录是动态生成的、使用devtmpfs虚拟文件系统挂载的、基于RAM的虚拟文件系统，打开设备就相当于打开这些文件。</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/EuQbjUaw.png" alt="image-20231019104419710"></p>
-<p>为管理设备，Linux给设备都编的有设备号，包含主副，主的用来区分不同种类，副的区分不同设备。在&#x2F;include&#x2F;linux&#x2F;fs.h中有相关设备号分配的函数，<code>alloc_chrdev_region()</code>自动分配、<code>register_chrdev_region()</code>需要主动指定</p>
-<p><strong>字符设备</strong>：include&#x2F;linux&#x2F;cdev.h中的cdev数据结构</p>
-<pre><code class="c">struct cdev &#123;
-    struct kobject kobj;	//设备驱动对象
-    struct module *owner;	//驱动程序对应的内核模块的指针
-    const struct file_operations *ops;	//操作函数
-    struct list_head list;	//将字符设备串为链表
-    dev_t dev;	//设备号
-    unsigned int count;		//次设备号个数
-&#125;;
-</code></pre>
-<p><strong>块设备驱动</strong>：一般一块512B，有缓存，通常由文件系统调用；对应用层来说通常有如下两种访问方式</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/iGKu1XaY.png" alt="image-20231019110131872"></p>
-<p>I&#x2F;O操作类型：同步阻塞I&#x2F;O（发起后等待返回）、同步非阻塞I&#x2F;O（一直发直到返回）、异步阻塞I&#x2F;O、异步非阻塞I&#x2F;O、多路复用（多线程）</p>
-<p><img src="https://img1.imgtp.com/2023/10/19/dOuFjyZc.png" alt="image-20231019110915063"></p>
-<p><img src="https://img1.imgtp.com/2023/10/19/XhuUVY8j.png" alt="image-20231019111231153"></p>
-<p><img src="https://img1.imgtp.com/2023/10/19/9TdukBG7.png" alt="image-20231019111301952"></p>
-<p><strong>Linux驱动</strong>：模块可以扩充内核功能，驱动程序也算是一种模块。<code>insmod</code>将模块加入正在运行的内核，<code>rmmod</code>将其从内核删除；在内核启动时装载叫静态装载，运行时叫动态装载。</p>
-<p>在开发驱动时：不能访问C库，只能访问有限的系统调用或者使用汇编，此外还需要注意同步与并发。<code>module_init()</code>驱动代码的入口点，每当加载该模块时就会被调用，<code>module_exit()</code>当驱动在内核被卸载时自动调用</p>
-<ul>
-<li>&#x2F;proc文件系统：仅存在于内存，其下的文件都绑定于一个内核函数，也可以进行修改</li>
-<li>&#x2F;sys文件系统：除了上面的功能外，还能够统一管理设备模型（使用了kobject对象，它使得所有设备在底层具有统一的接口，包括设备、驱动、总线等）</li>
-</ul>
-<h3 id="8-Linux内核漏洞"><a href="#8-Linux内核漏洞" class="headerlink" title="8.Linux内核漏洞"></a>8.Linux内核漏洞</h3><p>用户态漏洞是指用户态程序漏洞，通常包括应用程序的漏洞，以及操作系统用户态模块的漏洞。<br>内核漏洞是指运行在RING0的程序所具有的能被利用的Bug或缺陷。</p>
-<blockquote>
-<p>运行在Ring0上的操作系统内核、驱动共享同一个虚拟地址空间，可以完全访问系统空间的内存。而不像用户态进程那样拥有独立私有的内存空间</p>
-</blockquote>
-<ul>
-<li>内存破坏漏洞：栈溢出、堆溢出（溢出、内存泄漏）</li>
-<li>未初始化的&#x2F;未验证&#x2F;已损坏的指针引用：空指针引用<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAwOS0yNjky">CVE - CVE-2009-2692 (mitre.org)<i class="fa fa-external-link-alt"></i></span>、空指针间接引用本地拒绝服务漏洞<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNC0yNjI3">CVE - CVE-2014-2627 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
-<li>整数溢出：Linux内核中的TCP协议栈整数溢出<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxOS0xMTQ3Nw==">CVE - CVE-2019-11477 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
-<li>竞态条件：脏牛漏洞，内存子系统在处理copy-on-write（COW）时出现竞争条件，导致私有只读存储器映射被破坏，可利用此漏洞非法获得读写权限，进而提升权限<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNi01MTU5">CVE - CVE-2016-5159 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
-<li>基于Cache的侧信道攻击：利用 CPU cache 访问速度和主存访问速度间的巨大时间差异进行侧信道分析</li>
-<li>Hook：修改系统调用函数表<span class="exturl" data-url="aHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjMuMTkuMi9zb3VyY2UvYXJjaC94ODYvc3lzY2FsbHMvc3lzY2FsbF8zMi50Ymw=">sys_call_table<i class="fa fa-external-link-alt"></i></span>；先去掉该表的写保护，劫持system_call并获取上表地址，找到需要的函数进行替换</li>
-</ul>
-<p>缓冲区溢出防护机制：</p>
-<ul>
-<li><p>Canary-金丝雀：将随机产生的canary(探测值)插入到返回地址和局部变量之间，在函数返回之前检查canary，如果检测到错误的canary则证明溢出</p>
-<p>gcc编译选项<code>-fstack-protector</code>仅对局部变量中含有char数组的函数插入，<code>-fstack-protector-all</code>所有函数启用，<code>-fno-stack-protector</code>禁用堆栈保护</p>
-<p>绕过：猜数、获取该值并在shellcode中写入、攻击检查函数、更改存储的canary值</p>
-</li>
-<li><p>NX（DEP）：将数据所在内存页(默认的堆页、栈页以及内存池页）标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。对应操作系统中的NX&#x2F;XD属性，指明该内存不能执行代码</p>
-<p><code>gcc -z execstack -o test test.c</code>关闭NX保护，默认开启</p>
-<p>绕过：关闭DEP、ROP、ret2lib</p>
-</li>
-<li><p>ASLR地址随机化：共享库、栈、mmap、堆、内核地址空间、VDSO的随机化；</p>
-<p>绕过：伪随机、堆喷射定位内存、ROP链、GOT表劫持</p>
-</li>
-</ul>
-<p>提权技术：</p>
-<ol>
-<li>修改cred结构提权</li>
-<li>利用系统权限检查缺陷，为&#x2F;bin&#x2F;bash设置S位，再使用设置了S位的&#x2F;bin&#x2F;bash打开shell，从而获取root权限。（<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNS04NjYw">CVE - CVE-2015-8660 (mitre.org)<i class="fa fa-external-link-alt"></i></span>）</li>
-<li>利用漏洞对任意文件写数据（脏牛）</li>
-<li>直接修改&#x2F;etc&#x2F;passwd中用户的uid和gid为0</li>
-<li>直接修改&#x2F;etc&#x2F;shadow文件中root用户的密码</li>
-</ol>
-<p>内核漏洞防御机制：检查输入输出、安全验证和过滤、安全编码、驱动白名单、CFI-控制流完整性（限制程序运行中的控制流转移，使其始终处于原有的控制流图所限定的范围内）、VSM-虚拟安全模式（微型操作系统运行LSA服务）、SMEP-监督模式执行保护（禁止内核CPU访问用户空间）、KPTI-内核页表隔离（完全分离用户空间与内核空间页表）</p>
-<h3 id="9-SELinux"><a href="#9-SELinux" class="headerlink" title="9.SELinux"></a>9.SELinux</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cucmVkaGF0LmNvbS96aC90b3BpY3MvbGludXgvd2hhdC1pcy1zZWxpbnV4">SELinux<i class="fa fa-external-link-alt"></i></span>是一种基于域-类型模型的强制访问控制MAC安全系统，它定义了每个人对系统上的应用、进程和文件的访问控制。</p>
-<ul>
-<li><p>过程：当程序发出访问对象的请求时，SELinux会检查访问向量缓存表AVC，其中缓存有主体和对象的访问权限，如果SELinux无法做出决定，那么该请求将被发送到安全服务器进行检查匹配。</p>
-</li>
-<li><p>区别：而传统Linux与Unix采用DAC（自主访问控制），即对象拥有者可以任意修改或授予此对象相应的rwx权限。相比于此，SeLinux对于用户和进程只赋予最小权限，并防止了权限的升级（这些策略由管理员定制，一般用户无法更改）</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>SElinux命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>getenforce</td>
-<td>查看SELinux状态</td>
-</tr>
-<tr>
-<td>setenforce 1&#x2F;0</td>
-<td>设置状态1为强制，0为宽容模式</td>
-</tr>
-<tr>
-<td>seinfo&#x2F;sestatus</td>
-<td>查看SE大致信息&#x2F;详细信息</td>
-</tr>
-<tr>
-<td>semodule</td>
-<td>模块管理</td>
-</tr>
-<tr>
-<td>chcon</td>
-<td>更改文件目录设备的安全上下文</td>
-</tr>
-<tr>
-<td>restorecon</td>
-<td>恢复安全上下文</td>
-</tr>
-<tr>
-<td>sesearch</td>
-<td>查看系统详细策略信息-allow语句</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>状态：Enforcing-1（验证并限制）、Permissive-0（验证但不限制仅警告）、Disable（关闭SElinux，需要修改配置文件&#x2F;boot&#x2F;grub&#x2F;grub.conf-优先读取或&#x2F;etc&#x2F;selinux&#x2F;config）<code>SELINUX=enforcing</code>：当前SELinux的状态；<code>SELINUXTYPE=targeted</code>：当前SELinux的策略</p>
-</blockquote>
-<p>Selinux的<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81ODQ0Nzk5MjQ=">MAC<i class="fa fa-external-link-alt"></i></span>由三个相对独立的子模型构成：TE（类型强制）、MCS（多类别模型）、MLS（多层级模型）</p>
-<ul>
-<li>TE：A和B进程类型只能访问给定对象类型，即分类</li>
-<li>MCS：类别标记后的对应访问</li>
-<li>MLS：主体和对象均有安全层级</li>
-</ul>
-<p>LSM框架：其允许安全模块插入内核中，用于提高传统DAC安全性。当用户进程经过DAC检查后，会由LSM Hook与SElinux的相关模块进行检查</p>
-<img src="https://img1.imgtp.com/2023/10/19/RwS7leCP.png" alt="image-20231019152026704" style="zoom:80%;" />
-
-<h3 id="10-Namespace及Cgroups机制"><a href="#10-Namespace及Cgroups机制" class="headerlink" title="10.Namespace及Cgroups机制"></a>10.Namespace及Cgroups机制</h3><p>两者在Linux用于隔离进程，前者负责信息隔离，后者负责进程资源大小限制。</p>
-<ul>
-<li>UTS NameSpace：提供了主机名和域名的隔离，使得每个容器就拥有了独立的主机名和域名，在网络上可以被视作一个独立的节点</li>
-<li>PID Namespace：两个不同命名空间下的进程可以有同一个PID</li>
-<li>Mount NameSpace：使得不同空间下的文件操作互不影响；fs&#x2F;mount.h中的mnt_namespace结构体</li>
-<li>IPC NameSpace：进程间通信如信号量、消息队列、共享内存的隔离</li>
-<li>Network namespace：网络资源如设备、协议栈、路由表等的隔离</li>
-<li>User namespace：隔离了安全相关的标识符和属性</li>
-</ul>
-<p>Cgroups：若干控制组组成树状结构，子节点继承父结点属性，而每一层中有若干子系统，每一个子系统控制该层级的不同资源</p>
-<p>子系统：cpu（限制进程cpu使用率）、cpuacct（统计cpu使用报告）、cpuset（用于分配cpu节点或内存结点）、memory（限制内存使用）、blkio（限制进程对块设备的操作）…</p>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>基础</tag>
-        <tag>OS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图床配置</title>
-    <url>/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：感觉blog有时还是有图片才能说清楚。配置采用ImgTP+PicGo+Typora</p>
-<span id="more"></span>
-
-<h3 id="PicGo-Typora"><a href="#PicGo-Typora" class="headerlink" title="PicGo+Typora"></a>PicGo+Typora</h3><h4 id="安装PicGo"><a href="#安装PicGo" class="headerlink" title="安装PicGo"></a>安装PicGo</h4><p>首先需要保证有安装node.js<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMuY24vZG93bmxvYWQv">下载 | Node.js 中文网 (nodejs.cn)<i class="fa fa-external-link-alt"></i></span>，且版本&gt;&#x3D;16。官网<span class="exturl" data-url="aHR0cHM6Ly9waWNnby5naXRodWIuaW8vUGljR28tRG9jL3poLw==">PicGo<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DQauhJgK.png" alt="image-20230928114412259"></p>
-<p>进入下载安装界面，最新的测试版版（2.4）的能够在github中找到，其余的都是正式发行版（2.3.1）</p>
-<p>安装正式版的即可，没有多大的区别</p>
-<p>这里以山东大学镜像站为例子，进入其右侧链接</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/rrEcNADX.png" alt="image-20230928114745451"></p>
-<p>之后点击v2.3.1即可下载，安装。具体安装过程不再演示</p>
-<h4 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h4><p>PicGo的作用仅相当于快速帮助我们将图片上传到图床中，所以我们还需要配置图床。下面是其默认支持的图床</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/jV90Xtvq.png" alt="image-20230928115100677"></p>
-<p>本人选择的是imgtp（穷啊）<span class="exturl" data-url="aHR0cHM6Ly93d3cuaW1ndHAuY29tLw==">ImgTP - 免费公共图床<i class="fa fa-external-link-alt"></i></span></p>
-<p>当然还有其他许多图床以插件的形式支持，具体请见<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BpY0dvL0F3ZXNvbWUtUGljR28=">GitHub - PicGo&#x2F;Awesome-PicGo: A collection of awesome projects using PicGo.<i class="fa fa-external-link-alt"></i></span></p>
-<p><img src="https://img1.imgtp.com/2023/09/28/QASEnLlP.png" alt="image-20230928120129720"></p>
-<p>如果选择的图床并非上述默认支持，可以在PicGo的 “插件设置” 中进行搜索，之后安装。上述网站中的插件大部分可以用这种方式，少部分需要手动安装，这里不过多叙述</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/DiKzrZcX.png" alt="image-20230928130909949"></p>
-<p>在图床注册号帐号之后，在设置里找到Token项，copy一下</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/hdgfMkRs.png" alt="image-20230928115831774"></p>
-<p>之后进入到PicGo中，插件选项，配置uploader-imgtp</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/J84T068l.png" alt="image-20230928120022812"></p>
-<p>按照框子进行输入（该图床插件并不需要Token，但是大多都是必须的）</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/pgMta4TP.png" alt="image-20230928120243184"></p>
-<p>确认之后，记得到PicGO的图床设置中，将你的图床设置为默认图床</p>
-<h4 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h4><p>在Typora中找到 “文件” ——&gt; “偏好设置” ——&gt; “图像”，进行如下配置：</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/yMn2nLmS.png" alt="image-20230928120852234"></p>
-<p>之后点击 “验证图片上传选项”，成功的话会有如下显示</p>
-<p><img src="https://img1.imgtp.com/2023/09/28/PXUrcHIG.png" alt="image-20230928121022365"></p>
-<p>到这里，就配置完成了，每次在Typora中粘贴图像时，都会自动上传到图床中，上传的图片可以在PicGo的相册看到</p>
-<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ol>
-<li>端口设置，一般默认就好，配置端口36677（位置在”PicGo设置”——&gt;”设置Server”）</li>
-</ol>
-<img src="https://img1.imgtp.com/2023/09/28/tiTBNHVq.png" alt="image-20230928131205132" style="zoom:80%;" />
-
-<p>​	需要与Typora的端口设置对应，也就是上面验证时的命令：</p>
-<p>​	<code>using http://127.0.0.1:36677/upload</code></p>
-<ol start="2">
-<li>后端Token获取失败，需要在配置时，将”上传模式”更改为<code>Front-End</code></li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/q5TwMjjL.png" alt="image-20230928131525676"></p>
-<ol start="3">
-<li>有时显示该图片被阻塞，大概率是墙的问题。就比如SM.MS图床，就需要设置它的备用域名</li>
-</ol>
-<p><img src="https://img1.imgtp.com/2023/09/28/V60z4Ic6.png" alt="image-20230928131830217"></p>
-<p>注意：大多图床都会检测VPN，如果是开着梯子上传的，则会上传失败</p>
+<p>在解决方案中右键项目选择属性，在其中配置有关生成文件</p>
 ]]></content>
       <tags>
         <tag>环境配置</tag>
@@ -1476,22 +864,30 @@ evil.dtd如下
 <p>防御：使用开发语言提供的禁用外部实体的方法、过滤用户提交的XML数据</p>
 <hr>
 <h3 id="8-反序列化漏洞"><a href="#8-反序列化漏洞" class="headerlink" title="8.反序列化漏洞"></a>8.反序列化漏洞</h3><p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
-<h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数serilize()；反序列化函数unserialize()；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code></p>
+<h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数<code>serilize()</code>；反序列化函数<code>unserialize()</code>；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code>；需要注意url编码<code>urlencoder()</code></p>
+<p>php的数组特性：当一个数组被当作函数触发时，如果数组第一个元素是对象，第二个是方法的名字，那么就会调用该对象下的对应方法；对于下面的例子<code>$a=new demo;$a-&gt;test();</code>可以调用该方法，当然也可以<code>$arr=[$demo,&#39;test&#39;];$arr();</code>来调用。此外<code>create_function(&#39;$a,$b;&#39;,&#39;echo($a+$b);&#39;);</code>这样的创造函数的函数也时常会用到（仅创造不调用）</p>
+<pre><code class="php">&lt;?php
+class demo&#123;
+    public $name;
+    public function test()&#123;echo &quot;hi&quot;;&#125;
+&#125;
+&gt;
+</code></pre>
 <p>__wakeup绕过CVE-2016-7124，影响版本PHP5&lt;5.6.25，PHP7&lt;7.0.10</p>
-<p>魔术函数，从序列化到反序列化过程顺序如下：</p>
+<p>魔术函数，从序列化到反序列化过程顺序如下（there are too many）：</p>
 <ol>
-<li><p>__constuct()——对象创建时自动调用（unscrialize不调用）</p>
+<li><p><code>__constuct()</code>——对象创建时自动调用（unserialize不调用）</p>
 </li>
-<li><p>__sleep()——serialize()前调用</p>
+<li><p><code>__sleep()</code>——serialize()前调用</p>
 </li>
-<li><p>__wakeup()——unseriallize()时自动调用</p>
+<li><p><code>__wakeup()</code>——unseriallize()时自动调用</p>
 </li>
-<li><p>__toString()——对象被输出时自动调用</p>
+<li><p><code>__toString()</code>——对象被输出时自动调用</p>
 </li>
-<li><p>__destruct()——销毁对象时自动调用</p>
+<li><p><code>__destruct()</code>——销毁对象时自动调用</p>
 </li>
 </ol>
-<p>POP链：用户可控反序列化—魔术方法—魔术方法中的其他函数—寻找同名函数&#x2F;可以传递参数的函数—构造Poc进行测试；</p>
+<p>POP（面向属性编程）链：用户可控反序列化—魔术方法—魔术方法中的其他函数—寻找同名函数&#x2F;可以传递参数的函数—构造Poc进行测试。说白了就是找类与函数并构造的过程</p>
 <h4 id="8-2-Python反序列化"><a href="#8-2-Python反序列化" class="headerlink" title="8.2.Python反序列化"></a>8.2.Python反序列化</h4><p>与PHP相似，但是用的是pickle和cPickle模块，主要用到就pickle模块</p>
 <p>将对象序列化<code>pickle.dumps()</code>然后存储为文件<code>pickle.dump()</code>、将字符串反序列化<code>pickle.loads()</code>从文件中读取<code>pickle.load()</code>、调试工具<code>pickletools</code>能够反汇编一个被打包的字符串<code>pickletools.dis()</code>&amp;&amp;优化一个被打包的字符串<code>pickletools.optimize()</code>&amp;&amp;返回一个迭代器</p>
 <p>Python中的魔术方法</p>
@@ -1581,190 +977,723 @@ evil.dtd如下
       </tags>
   </entry>
   <entry>
-    <title>x86汇编</title>
-    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
+    <title>Linux不完全说明</title>
+    <url>/2023/09/07/Linux%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》</p>
 <span id="more"></span>
 
-<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
-<li><p><b>Base</b></p>
-<ul>
-<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
-</li>
-<li><p>小端存储：高字节放高地址；</p>
-</li>
-<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
-</li>
-<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
-</li>
-<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
-</li>
-</ul>
-</li>
-<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
-<blockquote>
-<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
-</blockquote>
-</li>
-<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
-<ul>
-<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
-<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
-</li>
-<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
-</li>
-<li><p>系统管理模式：专门为32位OS提供的模式</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
-<ul>
-<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
-<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
-</ul>
-<p>（2）<b>数据传送指令</b>：</p>
-<ul>
-<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
-<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
-<li><code>XCHG</code>交换两个操作数内容；</li>
-</ul>
-<p>（3）<b>运算指令</b>：</p>
-<ul>
-<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
-<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
-<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
-<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
-<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
-</ul>
-<p>（4）<b>位操作指令</b>：</p>
-<ul>
-<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
-<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
-<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
-</ul>
-<p>（5）<b>堆栈操作指令</b>：</p>
-<ul>
-<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
-<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
-</ul>
-<p>（6）<b>跳转指令</b>：</p>
-<ul>
-<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
-<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
-<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
-<li><code>beginWhile......endWhile</code>,while循环</li>
-</ul>
-<p>（7）<b>串串操作指令</b>：</p>
-<ul>
-<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
-<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
-<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
-<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
-<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
-</ul>
-<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
-<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
-</ul>
-<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
-     ...
-main endp  ;结束main过程
+<p>linux广义上代指一类操作系统，狭义上指内核，下面是一些常见的发行版（&#x3D;打包(内核+软件)）</p>
+<table>
+<thead>
+<tr>
+<th>系</th>
+<th>OS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Arch</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly9hcmNobGludXgub3JnLw==">Arch<i class="fa fa-external-link-alt"></i></span>、manjaro</td>
+<td>定制化高，适合折腾</td>
+</tr>
+<tr>
+<td>RedHat</td>
+<td>RHEL、<span class="exturl" data-url="aHR0cHM6Ly93d3cuY2VudG9zLm9yZy8=">CentOS<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZmVkb3JhcHJvamVjdC5vcmcvemgtSGFucy8=">Fedora<i class="fa fa-external-link-alt"></i></span></td>
+<td>好用，但有些收费</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly9iaXRzLmRlYmlhbi5vcmcv">debian<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9jbi51YnVudHUuY29tL2Fib3V0">ubuntu<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly9saW51eG1pbnQuY29tLw==">Mint<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cuZGVlcGluLm9yZy9pbmRleC96aA==">deepin<i class="fa fa-external-link-alt"></i></span>、<span class="exturl" data-url="aHR0cHM6Ly93d3cua2FsaS5vcmcvZmVhdHVyZXMv">Kali<i class="fa fa-external-link-alt"></i></span></td>
+<td>大众化，免费</td>
+</tr>
+<tr>
+<td>SUSE</td>
+<td><span class="exturl" data-url="aHR0cHM6Ly93d3cub3BlbnN1c2Uub3JnLw==">openSUSE<i class="fa fa-external-link-alt"></i></span></td>
+<td>针对企业，配置稍复杂，国内少</td>
+</tr>
+</tbody></table>
+<h3 id="1-基本命令"><a href="#1-基本命令" class="headerlink" title="1.基本命令"></a>1.基本命令</h3><p>ctrl+alt+t(快速打开终端)</p>
+<pre><code class="bash">apt list(列举)
+    upgrade  包名(升级)
+    autoremove 包名(移除但不包括相关配置)
+    --purge remove  包名(包括相关配置)
+ls --help
+cd  /home(绝对路径)
+    子文件夹
+    ..(中间有空格，向上一个级别，跳的比 cd /多)
+pwd(显示当前的绝对路径)
+cp [参数] 源文件 目标文件
+rm  文件  注：文件夹以/结尾
+    -r xxxxx/ (空目录)
+    -rf xxxx/ (删除带有内容的目录)
+rmdir(删除一个空目录)
+mv  旧文件名 新文件名(更改文件名、也可以移动位置)
+mkdir xxx/ (创建新文件夹)
+man/info 命令(查看相关命令手册) #或者在/usr/share/doc中查看手册
+exit(退出)
+sudo(管理员)
+shutdown(关机)=poweroff
+echo&quot;要显示的内容&quot;
+unzip(解压缩)| tar
+cat(直接从终端创建、查看、链接文件)
+kill PID/进程名
+ping
+history(使用过的命令)
+uname -a(操作系统详细信息)
+find(寻找文件)
+/xxx/xxxx/xxxxx(绝对路径)
+../xxxx (相对路径)
 </code></pre>
-<ul>
-<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
-</ul>
-<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
-EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
-ALIGN + 定义类型	;设定对齐方式
-INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
-ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+<p>GCC &#x3D; gcc(编译) + cpp(预处理) + as(处理汇编) + ld(链接) &amp;&amp; vim</p>
+<pre><code class="bash">gcc [参数] [相关文件名称，可多个] -o [生成文件名称]
+gcc hello.c -o hello或hello.out---------------------(一步到位)
+1.预处理：gcc -E hello.c -o test.i---------------------(加入头文件)
+2.编译：gcc -S test.i -o test1.s-----------------------(生成汇编文件)
+3.汇编：gcc -c test1.s -o hello.o----------------------(生成目标文件)
+ps：在此.o或.obj文件中存放着ELF格式的代码，最接近机器语言
+4.链接器ld链接生成可执行程序：gcc hello.o -o hello-----------(与其他文件链接)
+5.运行：在目标执行文件目录下./hello或hello.out
+ps：不写生成文件名就会默认a.out；在win平台下中间相同，但生成.exe
+----------------------------------------------------------------------
+vim a.txt()
+i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
+:q(离开，并不保存) :q!(强制离开不储存) :w(写入) :w!(强制写入，但与权限有关)可配合使用
 </code></pre>
+<h3 id="2-文件-目录"><a href="#2-文件-目录" class="headerlink" title="2.文件&amp;目录"></a>2.文件&amp;目录</h3><p>一切皆文件：在Linux下文件的识别执行仅与[-rwxrwxrwx]有关，后缀无关</p>
 <ul>
-<li>若需要使用过程，则注意过程帧的使用</li>
+<li>正规文件：纯文本文件ASCII（给人读的）、二进制文档（执行的）、数据格式文件（软件用的）</li>
+<li>目录-d、链接文件-l（硬链接与软链接）</li>
+<li>设备与设备文件：区块设备文件-b（内存硬盘等）、字符设备文件-c（鼠标键盘等）</li>
+<li>数据接口文件-s：用于网络上的数据承接（常出现于&#x2F;run或&#x2F;tmp下）</li>
 </ul>
-<pre><code>ENTER		;自动补齐相应的寄存器等	  
-...
-LEAVE
-</code></pre>
-<ul>
-<li>结构体</li>
-</ul>
-<pre><code>name struct/union		;定义结构体，与C一样
-    ...			
-name ENDS		;还支持嵌套使用，此时内层不需要该行的name
-</code></pre>
-<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
-    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
-    ...					
-ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+<img src="../pic/Linux.jpg" alt="Linux"  />
 
-ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
-</code></pre>
 <ul>
-<li>循环宏</li>
+<li>&#x2F;sbin、&#x2F;usr&#x2F;sbin、&#x2F;usr&#x2F;local&#x2F;sbin（指令）：管理员可以使用的可执行命令；</li>
+<li>&#x2F;bin————（指令）：存放shell解释器，给普通用户使用的命令；</li>
+<li>&#x2F;root—（账户&#x2F;指令）：系统管理员的目录；</li>
+<li>&#x2F;home-（账户）：用户目录，新增用户时会在此文件下新建；</li>
+<li>&#x2F;usr—–（账户）：应用程序存放位置<ul>
+<li>&#x2F;bin：应用程序；</li>
+<li>&#x2F;share：多用户共享数据；</li>
+<li>&#x2F;lib：库函数文件；</li>
+<li>&#x2F;local：软件升级包；</li>
+<li>&#x2F;src：内核源代码；</li>
 </ul>
-<pre><code>WHILE(表达式):为真时执行
-REPEAT N:重复N次
-FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
-FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
-</code></pre>
-<ul>
-<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
-</ul>
-<pre><code>IFB/IFNB:空/非空，则允许汇编
-IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
-IFIDNI/IFDIFI a b:上面类似但不区分大小写
-IFDIF/IFNDIF name:如果name已/未定义 则汇编
-IF,ENDIF,ELSE,ELSEIF:自己看
-EXITM:退出宏，且后面的宏语句都不能展开
-</code></pre>
-<ul>
-<li>特殊运算符</li>
-</ul>
-<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
-&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
-&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
-&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
-</code></pre>
-<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
-<ul>
-<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
 </li>
-<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<li>&#x2F;boot—-（系统必要）：系统内核and引导装载文件；</li>
+<li>&#x2F;etc——（系统必要）：存放系统的部分配置文件and子目录列表；</li>
+<li>&#x2F;sys——（系统必要）：虚拟档案系统，类似&#x2F;proc；</li>
+<li>&#x2F;lib、&#x2F;lib32、64、x32（系统必要）：动态链接资源库；</li>
+<li>&#x2F;dev——（外部文件）：存放设备文件，即驱动、网卡等；</li>
+<li>&#x2F;mnt—–（外部文件）：文件系统挂载；</li>
+<li>&#x2F;media–（外部文件）：其他设备挂载，U盘等；</li>
+<li>&#x2F;proc—–（运行过程）：该目录中的数据都在内存中，即内存的映射！；</li>
+<li>&#x2F;var——-（运行过程）：存放系统运行过程中经常变化的文件；</li>
+<li>&#x2F;lost+found–（临时）：系统非法关机后会有内容，否则为空；</li>
+<li>&#x2F;run————-（临时）：系统启动临时文件；</li>
+<li>&#x2F;tmp————（临时）：系统运行临时文件；</li>
+<li>&#x2F;srv（扩展）：服务启动后要访问的数据目录，部署服务器后有内容；</li>
+<li>&#x2F;opt（扩展）：额外安装的软件；</li>
+</ul>
+<h3 id="3-ELF文件"><a href="#3-ELF文件" class="headerlink" title="3.ELF文件"></a>3.ELF文件</h3><p>Linux下的可执行文件，全称<strong>Executable and Linking Format</strong>，内容如下：</p>
+<ul>
+<li>包括.out &amp; .o &amp; .so &amp; .elf &amp; .prx文件；readelf，启动！！！</li>
+<li>.out&#x2F;可执行文件：包含代码和数据（有相对固定地址），可直接运行，系统根据地址加载到内存执行</li>
+<li>.o&#x2F;可重定位文件：包含基础代码和数据，而且都没有指定地址，需要与其他文件配合使用</li>
+<li>.so&#x2F;共享目标文件：也叫动态库文件，包含代码与数据，是在原程序运行时动态链接的</li>
+<li>详见！！！<span class="exturl" data-url="aHR0cHM6Ly9wYXBlci5zZWVidWcub3JnL3BhcGVycy9BcmNoaXZlL3JlZnMvZWxmL1VuZGVyc3RhbmRpbmdfRUxGLnBkZg==">Understanding_ELF.pdf (seebug.org)<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p>相关概念如下：</p>
+<ul>
+<li><p>目标文件：可重定位目标文件（汇编器生成的）、可执行目标文件、共享目标文件（链接器+加载器都用，同时具有ScHead和ProHead）；</p>
+</li>
+<li><p>动态链接：是解析符号引用的过程，在进程初始化和运行期间都可能发生</p>
+</li>
+<li><p>链接器：以目标文件为输入，经过符号解析（目标文件中的符号和其定义进行关联）与重定位（将符号的定义与在内存中的位置关联），输出可加载和运行的可执行目标文件。不看程序头表</p>
+</li>
+<li><p>加载器：用于加载可执行文件到内存，看不见节头表，将节换为段</p>
+</li>
+<li><p>程序解析器：系统执行程序时，系统函数 exec(BA_OS)会被调用，内核会去读取该程序的某一节，解析出其包含的ELF 程序解析器的路径字符串。有的话，解析器程序将从系统手中接过控制权继续执行，读取并映射可执行程序的段到内存中，有些则直接将文件内容载入内存</p>
+</li>
+</ul>
+<p>根据链接和运行时的角度，其文件格式稍有不同（实际上除了ELF文件头外，位置都不固定）：</p>
+<p><img src="/../pic/image-20231129123037904.png" alt="image-20231129123037904"></p>
+<p>大致包括四部分：ELF头（ELF header)、程序头表（Program header table)、节（Section)OR段（Segment）、节头表（Section header table)OR段头表</p>
+<p><strong>ELF文件头</strong>：</p>
+<pre><code class="c">typedef struct&#123;
+    unsigned char e_ident[EI_NIDENT];	//魔数,16Byte,见下表
+    Elf32_Half    e_type;         //文件类型
+      Elf32_Half    e_machine;      //架构
+      Elf32_Word    e_version;      //目标文件版本
+      Elf32_Addr    e_entry;        //程序的入口虚拟地址
+      Elf32_Off	  e_phoff;        //程序头表的偏移量，木有则为0
+      Elf32_Off 	  e_shoff;        //节头表开始在文件中的偏移量，同上
+      Elf32_Word    e_flags;        //处理器特定标志位
+      Elf32_Half    e_ehsize;       //ELF头字节大小
+      Elf32_Half    e_phentsize;    //程序头表中每一个表项的字节大小
+     Elf32_Half    e_phnum;        //程序头表中共有多少个表项
+     Elf32_Half    e_shentsize;    //节头表字节大小
+      Elf32_Half    e_shnum;        //节头表表项数目
+      Elf32_Half    e_shstrndx;     //一个节头表项的索引,该项指向存储&quot;节名字表&quot;,没有就设为&quot;SHN_UNDEF&quot;
+&#125;Elf32_Ehdr;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>偏移</th>
+<th>内容</th>
+<th>偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-3</td>
+<td>0x7f+”ELF“</td>
+<td>4</td>
+<td>0非法文件,1代表32位,2代表64位</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0非法编码,1小端,2大端</td>
+<td>6</td>
+<td>ELF文件头版本,通常为1</td>
+</tr>
+<tr>
+<td>7-15</td>
+<td>暂未使用</td>
+<td>16</td>
+<td>本数组大小</td>
+</tr>
+</tbody></table>
+<p><strong>程序头表</strong>：提供程序加载到内存中的段信息，为数组结构，每一项结构如下（一个段包含1个或多个节）</p>
+<pre><code class="c">typedef struct&#123;
+  Elf32_Word    p_type;         //本段的类型
+  Elf32_Off 	p_offset;       //偏移位置
+  Elf32_Addr    p_vaddr;        //本段应加载的虚拟地址
+  Elf32_Addr    p_paddr;        //加载物理地址,根据系统选择
+  Elf32_Word    p_filesz;       //本段在文件中大小
+  Elf32_Word    p_memsz;        //本段在内存中的大小
+  Elf32_Word    p_flags;        //本段内容属性,系统会根据此段赋予一定权限
+  Elf32_Word    p_align;        //为0/1时则虚拟地址和偏移没有对齐要求,否则表示对其要求2的次方
+&#125; Elf32_Phdr;
+</code></pre>
+<p><strong>节头表</strong>：同上，也是数组</p>
+<pre><code class="c">typedef struct&#123;
+  Elf32_Word    sh_name;        //节的名称,其值为&quot;节名字表&quot;中的偏移
+  Elf32_Word    sh_type;        //节的类型
+  Elf32_Word    sh_flags;       //本节的属性,1运行时可写,2运行时占用内存单元,4指令
+  Elf32_Addr    sh_addr;        //本节内容需要映射的起始地址
+  Elf32_Off 	sh_offset;      //本节相对于文件开头的偏移量
+  Elf32_Word    sh_size;        //本节大小,字节
+  Elf32_Word    sh_link;        //指向节头表中本节的位置
+  Elf32_Word    sh_info;        //附加信息
+  Elf32_Word    sh_addralign;   //对齐方式,同上
+  Elf32_Word    sh_entsize;     //有些节内容为一张表,该项指定节中每一表项的大小,为0代表不是表格
+&#125; Elf32_Shdr;
+</code></pre>
+<p><strong>节</strong>：专用于连接过程</p>
+<p>.bss未初始化的全局变量；.data初始化过的全局变量；.rodata只读数据；.got全局偏移量表</p>
+<p>.text程序指令代码；.init进程初始化要执行的命令；.fini进程终止时要执行的指令；</p>
+<p>.dynamic动态连接信息；.dynstr动态链接的字符串；.dynsym动态链接符号表；.relname重定位信息；</p>
+<p>.debug调试信息；.line包含调试符号的行号；.comment版本控制信息；</p>
+<p>.hash符号哈希表；.interp包含ELF程序解析器的路径名；.note注释节；.shstrtab节名字表；.symtab符号表；</p>
+<p><strong>字符串表</strong>：包含若干以”null”结尾的字符串，第一个字符串为空串，用于表示”NULL”，该表不一定只有一个，节名字表也类似结构（索引指向开头，直到’\0’出现）。</p>
+<p><img src="https://img1.imgtp.com/2023/10/08/lS79D2ec.png" alt="image-20231008213353154"></p>
+<p>以上面这个25字节的表为例子：包含0-null、1-name.、7-Variable、11-able、16-able、24-null</p>
+<p><strong>符号表</strong>：用于定位和重定位程序中的符号定义和引用，下面是一项的结构</p>
+<pre><code class="c">typedef struct &#123; 
+    Elf32_Word st_name;		//符号名字,是一个指向字符串表的索引值,0代表没名字
+    Elf32_Addr st_value; 	//符号的值,没有固定类型
+    Elf32_Word st_size; 	//符号大小,即字节数
+    unsigned char st_info; 		//符号类型属性
+    unsigned char st_other; 	//暂未使用,0
+    Elf32_Half st_shndx; 	//索引值,指向相关联的节在节头表中的位置
+&#125; Elf32_Sym;
+</code></pre>
+<p><strong>重定位信息</strong>：比如函数名，就代表跳转到该段程序入口</p>
+<pre><code class="c">typedef struct &#123; 
+    Elf32_Addr r_offset;		//对重定位文件来说是节中的字节偏移量,对.out和.so来说是虚拟地址
+    Elf32_Word r_info; 		//重定位作用的符号表索引
+    Elf32_Sword r_addend;		//在Elf32_Rela中有,用于计算需要重定位的域值
+&#125; Elf32_Rel(a);
+</code></pre>
+<p><strong>段</strong>：有若干节构成，存在于装载（目标文件载入内存）和动态连接（解析目标文件中的符号引用）过程中</p>
+<p>代码段&#x2F;文本段：.text、.rodata、.hash、.dynsym、.dynstr、.plt、.rel.got</p>
+<p>数据段：.data、.dynamic、.got、.bss</p>
+<p>注释段&#x2F;注释节：用于给其他程序检查目标文件的一致性和兼容性</p>
+<p>动态段：提供给动态链接器所需要的信息</p>
+<h3 id="4-内核介绍"><a href="#4-内核介绍" class="headerlink" title="4.内核介绍"></a>4.内核介绍</h3><p>宏&#x2F;单内核特点（Linux）：</p>
+<ul>
+<li>内部分多个模块，但运行时是个单独的二进制大映像</li>
+<li>内核程序以内核空间的身份运行</li>
+<li>模块间通讯直接调用其他模块中的函数</li>
+<li>安全性差、占用资源多</li>
+</ul>
+<p>微内核（minix、鸿蒙、L4）：</p>
+<ul>
+<li>大部分内核都作为单独的进程在特权状态下运行，消息传递进行通讯</li>
+<li>微内核部分&#x3D;消息转发站；</li>
+<li>通讯开销大、硬件访问慢-驱动用户态下运行</li>
+</ul>
+<p>混合内核（Mac、Win）：</p>
+<ul>
+<li>让微内核结构中的一些运行在用户空间的代码跑在内核空间</li>
+</ul>
+<p>Linux6.5：RISC-V 64、Rust、WiFi-7、USB4.2、CPU并行启动</p>
+<table>
+<thead>
+<tr>
+<th>内核文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;arch</td>
+<td>支持的体系结构</td>
+</tr>
+<tr>
+<td>&#x2F;document</td>
+<td>说明文档</td>
+</tr>
+<tr>
+<td>&#x2F;drivers</td>
+<td>系统中的主要驱动设备</td>
+</tr>
+<tr>
+<td>&#x2F;fs</td>
+<td>支持的文件系统和文件操作</td>
+</tr>
+<tr>
+<td>&#x2F;include</td>
+<td>其下&#x2F;linux包含一些关键数据结构</td>
+</tr>
+<tr>
+<td>&#x2F;init</td>
+<td>内核初始化代码</td>
+</tr>
+<tr>
+<td>&#x2F;ipc</td>
+<td>进程间通信代码</td>
+</tr>
+<tr>
+<td>&#x2F;Kernel</td>
+<td>内核管理核心代码</td>
+</tr>
+<tr>
+<td>&#x2F;lib</td>
+<td>核心库代码</td>
+</tr>
+<tr>
+<td>&#x2F;mm</td>
+<td>内存管理代码</td>
+</tr>
+<tr>
+<td>&#x2F;net</td>
+<td>网络功能，实现常见的网络协议</td>
+</tr>
+<tr>
+<td>&#x2F;scripts</td>
+<td>配置内核的脚本</td>
+</tr>
+<tr>
+<td>&#x2F;block</td>
+<td>块设备驱动I&#x2F;O调度的代码</td>
+</tr>
+<tr>
+<td>&#x2F;crypto</td>
+<td>常见加密、压缩、校验算法</td>
+</tr>
+<tr>
+<td>&#x2F;security</td>
+<td>SELinux模块代码</td>
+</tr>
+<tr>
+<td>&#x2F;sound</td>
+<td>音频设备驱动</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>内存管理：&#x2F;mm<br>4KB的内存页，并采用页缓存技术（基数树管理页缓存中包含的页）；<br>三级页表&#x3D;偏移1、2、3+页内偏移（页目录、中间页目录、页表、物理页帧）</p>
+</li>
+<li><p>进程调度：&#x2F;kernel+&#x2F;arch<br>生命周期、优先级、共享CPU、多处理器下的负载均衡</p>
+</li>
+<li><p>进程间通信：&#x2F;ipc<br>管道、共享内存、消息队列、套接字、信号</p>
+</li>
+<li><p>虚拟文件系统VFS：&#x2F;fs<br>为Ext文件系统提供一个通用的抽象接口</p>
+</li>
+<li><p>网络堆栈：&#x2F;net<br>在TCP上有个Socket层，是网络子系统的标准API，为各种网络协议提供接口</p>
+</li>
+<li><p>设备驱动程序：&#x2F;drivers<br>支持特定设备的运转</p>
+</li>
+<li><p>体系架构：&#x2F;arch</p>
+</li>
+<li><p>系统调用接口SCI：&#x2F;kernel+&#x2F;arch，内核提供的来让用户态转为内核态</p>
 <blockquote>
-<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzI2MjI3ODU3L2FydGljbGUvZGV0YWlscy80NDI0NDQzMw==">系统调用表<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
 </li>
 </ul>
-<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<p>关键数据结构</p>
 <ul>
-<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+<li>Task_struct（进程结构）：<code>/include/linux/sched.h</code></li>
+<li>Linux_binprm（二进制代码装入）：<code>/include/linux/binfmts.h</code></li>
+<li>Super_block（超级块）：<code>/include/linux/fs.h</code></li>
+<li>Inode（索引节点）：<code>/include/linux/fs.h</code></li>
+<li>File（文件）：<code>/include/linux/fs.h</code></li>
+<li>Dentry（目录项）：<code>/include/linux/dcache.h</code></li>
+<li>SK_buff（套接字缓冲区）：<code>/include/linux/skbuff.h</code></li>
+<li>Net_device（网络设备）：<code>/include/linux/netdevice.h</code></li>
+<li>Kern_ipc_perm（ipc的消息队列）：<code>/include/linux/ipc.h</code></li>
+</ul>
+<h3 id="5-内存管理"><a href="#5-内存管理" class="headerlink" title="5.内存管理"></a>5.内存管理</h3><p>目标：地址独立、地址保护</p>
+<p>管理内容：内存初始化、页表的管理、页面分配器、小块内存分配器、vmalloc机制、虚拟内存管理、缺页中断、页面回收</p>
+<p>内存初始化：</p>
+<ul>
+<li>内核启动页表<code>arch/x86/kernel/head.s</code></li>
+<li>内存初始化<code>init/main.c</code>的<code>static void __init mm_init(void)</code></li>
+<li>对于32位linux采用2级页表，64位则采用4级页表</li>
+</ul>
+<p>物理内存空间管理：</p>
+<ul>
+<li><p>数据结构：设置了一个mem_map[]数组管理内存页面page，其在系统初始化时由free_area_init()函数创建。数组元素是page结构体，每个page结构体对应一个物理页面。</p>
+<blockquote>
+<p>page定义在<code>/include/linux/mm_types.h</code>；mem_map[]定义在<code>mm/page_alloc.c</code></p>
+</blockquote>
 </li>
-<li><p>附加段寄存器—ES、FS、GS</p>
+<li><p>Buddy&#x2F;伙伴算法：对空闲空间管理，mm&#x2F;page_alloc.c中实现 </p>
+</li>
+<li><p>Slab算法：面向对象管理，适合于小块内存的申请，减少了内部碎片</p>
 </li>
 </ul>
-<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
-<blockquote>
-<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
-</blockquote>
+<p>虚拟地址空间管理：</p>
 <ul>
-<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
+<li>进程虚拟空间分为内核区和用户区</li>
+<li>&#x2F;include&#x2F;linux&#x2F;mm_types.h中<code>mm_struct</code>定义了每个进程的虚存用户区</li>
+<li>&#x2F;include&#x2F;linux&#x2F;mm.h定义的<code>vm_area_struct</code>为上述虚存用户区的中单独的虚拟区域结构</li>
+<li>&#x2F;mm&#x2F;mmap.c中的<code>do_mmap()</code>完成执行映像向虚存区域的映射，建立有关的虚存区域</li>
+</ul>
+<p>请页机制：相关处理函数<code>do_page_fault()</code></p>
+<ul>
+<li><p>缺页异常：malloc&#x2F;mmap首次申请、代码段首次映射地址空间、内存不足发生页交换、栈不够、访问非法地址</p>
 </li>
-<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
+<li><p>没有访问权限：copy on write、程序错误被杀</p>
+</li>
+<li><p>发生过程：</p>
+<ol>
+<li>在内存中有空闲物理页面时，分配一物理页帧，转第5步；</li>
+<li>依据页面置换算法选择将被替换的物理页帧F，对应逻辑页Q；</li>
+<li>如Q被修改过，则把它写回外存；</li>
+<li>修改Q的页表项中驻留位置为0；</li>
+<li>将需要访问的页P装入到物理页面F；</li>
+<li>修改p的页表项驻留位为1，物理页帧号为f；</li>
+<li>重新执行产生缺页的指令</li>
+</ol>
 </li>
 </ul>
-<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
-<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<p>交换机制：通过将磁盘上一部分空间作为交换空间，当物理内存不足时，将一部分暂不用的数据换入到交换空间中，来解决内存不足的问题。守护进程<code>kswapd()</code></p>
+<p>缓冲机制：采用页面高速缓存（加快对磁盘文件的访问）、缓冲区高速缓存（针对I&#x2F;O）、交换区缓存</p>
+<p>常用内存分配函数:</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>分配原理</th>
+<th>最大内存</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>_get_free_pages()</code></td>
+<td>直接对页框进行操作</td>
+<td>4MB</td>
+<td>适用于分配较大量的连续物理内存</td>
+</tr>
+<tr>
+<td><code>kmem_cache_alloc()</code></td>
+<td>基于slab机制实现</td>
+<td>128KB</td>
+<td>适合需要频繁申请释放相同大小内存块时使用</td>
+</tr>
+<tr>
+<td><code>kmalloc()</code></td>
+<td>基于kmem_cache_alloc实现</td>
+<td>128KB</td>
+<td>最常见的分配方式，需要小于页框大小的内存时使用</td>
+</tr>
+<tr>
+<td><code>vmalloc()</code></td>
+<td>建立非连续物理内存到虚拟地址的映射</td>
+<td></td>
+<td>物理不连续，适合需要大内存，但对地址连续性没有要求的场合</td>
+</tr>
+<tr>
+<td><code>alloc_bootmem()</code></td>
+<td>在启动kernel时，预留一段内存，内核看不见</td>
+<td></td>
+<td>小于物理内存大小，内存管理要求较高</td>
+</tr>
+<tr>
+<td><code>Ioremap()</code></td>
+<td>实现已知物理地址到虚拟地址的映射</td>
+<td></td>
+<td>适用于物理地址已知的场合，如设备驱动</td>
+</tr>
+<tr>
+<td><code>dma_alloc_coherent</code></td>
+<td>基于_alloc_pages实现</td>
+<td>4MB</td>
+<td>适用于DMA操作</td>
+</tr>
+</tbody></table>
+<h3 id="6-进程管理"><a href="#6-进程管理" class="headerlink" title="6.进程管理"></a>6.进程管理</h3><p>进程&#x3D;执行的程序，由程序段+相关数据段+PCB（进程控制块）组成实体&#x2F;进程映像。具有如下特性：动态性（有生命周期）、并发性（可多个实体同存）、独立性（独立运行）、异步性（各自推进）</p>
+<p>进程初始化过程：</p>
+<ol>
+<li>创建进程控制块，并将其加入到进程表中；</li>
+<li>分配该进程所需资源；</li>
+<li>设置进程初始状态，如运行态、等待态等；</li>
+<li>加载到内存中，进行重定位给操作；</li>
+<li>为程序设置栈空间，将参数、环境变量等数据拷贝到栈中；</li>
+<li>启动开始函数；</li>
+</ol>
+<p>进程创建过程如下：</p>
+<img src="../pic/image-20231129121728036.png" alt="image-20231129121728036"  />
+
+<ul>
+<li>vfork函数：父进程会一直阻塞，直到子进程调用exit()或者exec()为止；且父子共享地址空间，如果子进程修改了某个变量，这将影响到父进程</li>
+<li>clone函数：不仅可以创建进程或者线程，还可以指定创建新的命名空间、有选择的继承父进程的内存、甚至可以将创建出来的进程变成父进程的兄弟进程等等</li>
+<li>do_fork函数（&#x2F;kernel&#x2F;fork.c）,copy_process函数（主要用于创建子进程的描述符与相关数据结构）</li>
+<li>内核级线程创建API<code>kthread_create</code>、<code>kthreat_run</code>最终也是调用do_fork实现</li>
+</ul>
+<p><strong>0号进程</strong>&#x2F;idle进程&#x2F;swapper进程：Linux内核初始化阶段从无到有创建的一个内核线程，在&#x2F;include&#x2F;linux&#x2F;init_task.h，所有进程的父进程</p>
+<p><strong>1号进程</strong>&#x2F;init进程：由idle通过kernel_thread创建，在内核空间完成初始化函数start_kernel后, 加载init程序，完成系统的初始化</p>
+<p><strong>2号进程</strong>&#x2F;kthreadd进程：由idle通过kernel_thread创建，并始终运行在内核空间, 负责所有内核线程的调度和管理</p>
+<p>进程状态：创建态、就绪态、执行态、阻塞态、终止态；</p>
+<p><img src="/../pic/image-20231129121814386.png" alt="image-20231129121814386"></p>
+<p>进程终止：</p>
+<ul>
+<li>主动：main函数返回，链接程序自动添加exit()；主动调用exit()</li>
+<li>被动：收到一个不能处理的信号、产生了异常、收到SIGKILL等终止信号</li>
+<li>exit()系统调用把退出码转换成内核要求的格式并且调用do_exit()函数来处理</li>
+</ul>
+<p>进程调度：调度策略大致分为非实时和实时调度策略</p>
+<ul>
+<li><p>非实时：SCHED_NORMAL（使用CFS调度器来调度运行）、SCHED_BATCH（CFS调度器。采用分时策略，根据动态优先级分配）、SCHED_IDLE（CFS调度器。适用于优先级较低的后台任务）</p>
+</li>
+<li><p>实时：SCHED_FIFO（先进先出）、SCHED_RR（时间片轮转，可抢占）</p>
+</li>
+<li><p>实现于&#x2F;kernel&#x2F;sched.c</p>
+</li>
+<li><p>优先级：初始优先级即nice值，-20到19默认0，越小越高；动态优先级prio值以nice为基数经过effective_prio()函数返回，同样实现于上述文件</p>
+</li>
+</ul>
+<p>CFS&#x2F;完全公平调度算法：每个进程运行一段时间、循环轮转，选择运行虚拟时间最少的进程为下一个运行进程。维护一个以vruntime为索引的红黑树，始终选择树中最左侧叶子节点。实现于&#x2F;kernel&#x2F;sched&#x2F;fair.c</p>
 <blockquote>
-<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+<p> 时间记账vruntime&#x3D;实际运行时间*nice为0的权重值&#x2F;当前进程的权重值（权重越大vruntime增加的越慢）；权重值有对应表查找</p>
 </blockquote>
+<p><strong>锁机制</strong>：</p>
+<ul>
+<li><p>原子操作atomic_t：确保指令执行期间不被打断，要么全部执行完，要么根本不执行</p>
+</li>
+<li><p>自旋锁spinlock_t（中断处理过程）：防止多于一个的执行线程同时进入临界区</p>
+</li>
+<li><p>信号量&#x2F;睡眠锁semaphore：一个任务试图获得一个已经被占用的信号量时，信号量会将其推进一个等待队列，然后让其睡眠</p>
+</li>
+<li><p>互斥体mutex：同上，但计数通常为1而非数量</p>
+</li>
+<li><p>读写锁rwlock_t：允许多个线程并发地读访问临界区，但是写访问只限制于一个线程</p>
+</li>
+</ul>
+<p>内存屏障：防止处理器或编译器对指令执行和内存修改进行重新排序；</p>
+<blockquote>
+<p>load屏障：在该屏障后的都要缓冲区内运行完后才可以执行<br>store屏障：强制所有在store屏障指令之前的store指令，都在该store屏障指令执行之前被执行，并把store缓冲区的数据都刷到CPU缓存<br>full屏障：保障了早于屏障的内存读写操作的结果提交到内存之后，再执行晚于屏障的读写操作</p>
+</blockquote>
+<p>内存屏障接口函数：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>barrier</td>
+<td>阻止编译器跨越屏障对载入或存储操作进行优化</td>
+</tr>
+<tr>
+<td>rmb</td>
+<td>阻止跨越屏障的载入动作发生重排序</td>
+</tr>
+<tr>
+<td>read_barrier_depends</td>
+<td>阻止跨越屏障的具有数据依赖关系的载入动作重排序</td>
+</tr>
+<tr>
+<td>wmb</td>
+<td>阻止跨越屏障的存储动作发生重排序</td>
+</tr>
+<tr>
+<td>mb</td>
+<td>阻止跨越屏障的载入和存储动作重新排序</td>
+</tr>
+<tr>
+<td>smp_rmb</td>
+<td>在SMP上提供rmb()功能，在UP上提供barrier()功能</td>
+</tr>
+<tr>
+<td>smp_read_barrier_depends</td>
+<td>在SMP上提供read_barrier_depends()功能，在UP上提供barrier()功能</td>
+</tr>
+<tr>
+<td>smp_wmb</td>
+<td>在SMP上提供wmb()功能，在UP上提供barrier()功能</td>
+</tr>
+</tbody></table>
+<p><strong>沙箱机制</strong>：隔离环境</p>
+<p>SELinux（LSM安全模块）中</p>
+<ul>
+<li><p>自主访问控制DAC：对象（一般指文件等）的属主全权管理该对象的访问控制策略，有权读取、修改、转移对象信息，并且可以把这种权限转移给其他主体</p>
+</li>
+<li><p>强制访问控制MAC：每一个主体（包括用户和程序）和客体都拥有固定的安全标记，主体能否对客体进行相关操作，取决于主体和客体所拥有安全标记的关系</p>
+</li>
+</ul>
+<blockquote>
+<p>SELinux三种工作模式：强制（违反阻止并记录）,容忍（违反不阻但记录）,关闭</p>
+</blockquote>
+<p>Chroot：更改根目录，但常用于进行逃逸</p>
+<p>Seccomp-BPF：白名单设置系统调用，并使用Berkeley Packet Filter规则实现，可以对任意系统调用及其参数进行过滤</p>
+<p>命名空间：mount、uts、ipc、pid、network、user等类似设置</p>
+<p>LibOS：库操作系统，根据某类应用的特殊需求，由某一高级编程语言将原本属于操作系统内核的某些资源管理功能按照模块化的要求，以库形式提供给应用程序的特殊操作系统。与应用程序在编译时被链接到一起，形成一个只有<strong>单地址空间</strong>的二进制文件并<strong>工作在应用层</strong></p>
+<h3 id="7-IO设备与驱动"><a href="#7-IO设备与驱动" class="headerlink" title="7. IO设备与驱动"></a>7. IO设备与驱动</h3><p>Linux上的驱动包括：字符设备（字节为单位的I&#x2F;O传输，键鼠等）、块设备（磁盘等）、网络设备。<code>ls -al /dev</code>查看目录下的设备文件，该目录是动态生成的、使用devtmpfs虚拟文件系统挂载的、基于RAM的虚拟文件系统，打开设备就相当于打开这些文件。</p>
+<p>为管理设备，Linux给设备都编的有设备号，包含主副，主的用来区分不同种类，副的区分不同设备。在&#x2F;include&#x2F;linux&#x2F;fs.h中有相关设备号分配的函数，<code>alloc_chrdev_region()</code>自动分配、<code>register_chrdev_region()</code>需要主动指定</p>
+<p><strong>字符设备</strong>：include&#x2F;linux&#x2F;cdev.h中的cdev数据结构</p>
+<pre><code class="c">struct cdev &#123;
+    struct kobject kobj;	//设备驱动对象
+    struct module *owner;	//驱动程序对应的内核模块的指针
+    const struct file_operations *ops;	//操作函数
+    struct list_head list;	//将字符设备串为链表
+    dev_t dev;	//设备号
+    unsigned int count;		//次设备号个数
+&#125;;
+</code></pre>
+<p><strong>块设备驱动</strong>：一般一块512B，有缓存，通常由文件系统调用；对应用层来说通常有如下两种访问方式；&#x2F;dev和文件系统挂载点，前者和字符设备一样，通常用于配置，后者在mount之后就可以通过文件系统直接访问一个块设备</p>
+<img src="../pic/image-20231129122729443.png" alt="image-20231129122729443"  />
+
+<p>I&#x2F;O操作类型：同步阻塞I&#x2F;O（发起后等待返回）、同步非阻塞I&#x2F;O（一直发直到返回）、异步阻塞I&#x2F;O、异步非阻塞I&#x2F;O、多路复用（多线程）</p>
+<p><strong>Linux驱动</strong>：模块可以扩充内核功能，驱动程序也算是一种模块。<code>insmod</code>将模块加入正在运行的内核，<code>rmmod</code>将其从内核删除；在内核启动时装载叫静态装载，运行时叫动态装载。</p>
+<p>在开发驱动时：不能访问C库，只能访问有限的系统调用或者使用汇编，此外还需要注意同步与并发。<code>module_init()</code>驱动代码的入口点，每当加载该模块时就会被调用，<code>module_exit()</code>当驱动在内核被卸载时自动调用</p>
+<ul>
+<li>&#x2F;proc文件系统：仅存在于内存，其下的文件都绑定于一个内核函数，也可以进行修改</li>
+<li>&#x2F;sys文件系统：除了上面的功能外，还能够统一管理设备模型（使用了kobject对象，它使得所有设备在底层具有统一的接口，包括设备、驱动、总线等）</li>
+</ul>
+<h3 id="8-Linux内核漏洞"><a href="#8-Linux内核漏洞" class="headerlink" title="8.Linux内核漏洞"></a>8.Linux内核漏洞</h3><p>用户态漏洞是指用户态程序漏洞，通常包括应用程序的漏洞，以及操作系统用户态模块的漏洞。<br>内核漏洞是指运行在RING0的程序所具有的能被利用的Bug或缺陷。</p>
+<blockquote>
+<p>运行在Ring0上的操作系统内核、驱动共享同一个虚拟地址空间，可以完全访问系统空间的内存。而不像用户态进程那样拥有独立私有的内存空间</p>
+</blockquote>
+<ul>
+<li>内存破坏漏洞：栈溢出、堆溢出（溢出、内存泄漏）</li>
+<li>未初始化的&#x2F;未验证&#x2F;已损坏的指针引用：空指针引用<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAwOS0yNjky">CVE - CVE-2009-2692 (mitre.org)<i class="fa fa-external-link-alt"></i></span>、空指针间接引用本地拒绝服务漏洞<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNC0yNjI3">CVE - CVE-2014-2627 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
+<li>整数溢出：Linux内核中的TCP协议栈整数溢出<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxOS0xMTQ3Nw==">CVE - CVE-2019-11477 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
+<li>竞态条件：脏牛漏洞，内存子系统在处理copy-on-write（COW）时出现竞争条件，导致私有只读存储器映射被破坏，可利用此漏洞非法获得读写权限，进而提升权限<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNi01MTU5">CVE - CVE-2016-5159 (mitre.org)<i class="fa fa-external-link-alt"></i></span></li>
+<li>基于Cache的侧信道攻击：利用 CPU cache 访问速度和主存访问速度间的巨大时间差异进行侧信道分析</li>
+<li>Hook：修改系统调用函数表<span class="exturl" data-url="aHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjMuMTkuMi9zb3VyY2UvYXJjaC94ODYvc3lzY2FsbHMvc3lzY2FsbF8zMi50Ymw=">sys_call_table<i class="fa fa-external-link-alt"></i></span>；先去掉该表的写保护，劫持system_call并获取上表地址，找到需要的函数进行替换</li>
+</ul>
+<p>缓冲区溢出防护机制：</p>
+<ul>
+<li><p>Canary-金丝雀：将随机产生的canary(探测值)插入到返回地址和局部变量之间，在函数返回之前检查canary，如果检测到错误的canary则证明溢出</p>
+<p>gcc编译选项<code>-fstack-protector</code>仅对局部变量中含有char数组的函数插入，<code>-fstack-protector-all</code>所有函数启用，<code>-fno-stack-protector</code>禁用堆栈保护</p>
+<p>绕过：猜数、获取该值并在shellcode中写入、攻击检查函数、更改存储的canary值</p>
+</li>
+<li><p>NX（DEP）：将数据所在内存页(默认的堆页、栈页以及内存池页）标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。对应操作系统中的NX&#x2F;XD属性，指明该内存不能执行代码</p>
+<p><code>gcc -z execstack -o test test.c</code>关闭NX保护，默认开启</p>
+<p>绕过：关闭DEP、ROP、ret2lib</p>
+</li>
+<li><p>ASLR地址随机化：共享库、栈、mmap、堆、内核地址空间、VDSO的随机化；</p>
+<p>绕过：伪随机、堆喷射定位内存、ROP链、GOT表劫持</p>
+</li>
+</ul>
+<p>提权技术：</p>
+<ol>
+<li>修改cred结构提权</li>
+<li>利用系统权限检查缺陷，为&#x2F;bin&#x2F;bash设置S位，再使用设置了S位的&#x2F;bin&#x2F;bash打开shell，从而获取root权限。（<span class="exturl" data-url="aHR0cHM6Ly9jdmUubWl0cmUub3JnL2NnaS1iaW4vY3ZlbmFtZS5jZ2k/bmFtZT1DVkUtMjAxNS04NjYw">CVE - CVE-2015-8660 (mitre.org)<i class="fa fa-external-link-alt"></i></span>）</li>
+<li>利用漏洞对任意文件写数据（脏牛）</li>
+<li>直接修改&#x2F;etc&#x2F;passwd中用户的uid和gid为0</li>
+<li>直接修改&#x2F;etc&#x2F;shadow文件中root用户的密码</li>
+</ol>
+<p>内核漏洞防御机制：检查输入输出、安全验证和过滤、安全编码、驱动白名单、CFI-控制流完整性（限制程序运行中的控制流转移，使其始终处于原有的控制流图所限定的范围内）、VSM-虚拟安全模式（微型操作系统运行LSA服务）、SMEP-监督模式执行保护（禁止内核CPU访问用户空间）、KPTI-内核页表隔离（完全分离用户空间与内核空间页表）</p>
+<h3 id="9-SELinux"><a href="#9-SELinux" class="headerlink" title="9.SELinux"></a>9.SELinux</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cucmVkaGF0LmNvbS96aC90b3BpY3MvbGludXgvd2hhdC1pcy1zZWxpbnV4">SELinux<i class="fa fa-external-link-alt"></i></span>是一种基于域-类型模型的强制访问控制MAC安全系统，它定义了每个人对系统上的应用、进程和文件的访问控制。</p>
+<ul>
+<li><p>过程：当程序发出访问对象的请求时，SELinux会检查访问向量缓存表AVC，其中缓存有主体和对象的访问权限，如果SELinux无法做出决定，那么该请求将被发送到安全服务器进行检查匹配。</p>
+</li>
+<li><p>区别：而传统Linux与Unix采用DAC（自主访问控制），即对象拥有者可以任意修改或授予此对象相应的rwx权限。相比于此，SeLinux对于用户和进程只赋予最小权限，并防止了权限的升级（这些策略由管理员定制，一般用户无法更改）</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>SElinux命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getenforce</td>
+<td>查看SELinux状态</td>
+</tr>
+<tr>
+<td>setenforce 1&#x2F;0</td>
+<td>设置状态1为强制，0为宽容模式</td>
+</tr>
+<tr>
+<td>seinfo&#x2F;sestatus</td>
+<td>查看SE大致信息&#x2F;详细信息</td>
+</tr>
+<tr>
+<td>semodule</td>
+<td>模块管理</td>
+</tr>
+<tr>
+<td>chcon</td>
+<td>更改文件目录设备的安全上下文</td>
+</tr>
+<tr>
+<td>restorecon</td>
+<td>恢复安全上下文</td>
+</tr>
+<tr>
+<td>sesearch</td>
+<td>查看系统详细策略信息-allow语句</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>状态：Enforcing-1（验证并限制）、Permissive-0（验证但不限制仅警告）、Disable（关闭SElinux，需要修改配置文件&#x2F;boot&#x2F;grub&#x2F;grub.conf-优先读取或&#x2F;etc&#x2F;selinux&#x2F;config）<code>SELINUX=enforcing</code>：当前SELinux的状态；<code>SELINUXTYPE=targeted</code>：当前SELinux的策略</p>
+</blockquote>
+<p>Selinux的<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC81ODQ0Nzk5MjQ=">MAC<i class="fa fa-external-link-alt"></i></span>由三个相对独立的子模型构成：TE（类型强制）、MCS（多类别模型）、MLS（多层级模型）</p>
+<ul>
+<li>TE：A和B进程类型只能访问给定对象类型，即分类</li>
+<li>MCS：类别标记后的对应访问</li>
+<li>MLS：主体和对象均有安全层级</li>
+</ul>
+<p>LSM框架：其允许安全模块插入内核中，用于提高传统DAC安全性。当用户进程经过DAC检查后，会由LSM Hook与SElinux的相关模块进行检查</p>
+<p><img src="/../pic/image-20231129123244430.png" alt="image-20231129123244430"></p>
+<h3 id="10-Namespace及Cgroups机制"><a href="#10-Namespace及Cgroups机制" class="headerlink" title="10.Namespace及Cgroups机制"></a>10.Namespace及Cgroups机制</h3><p>两者在Linux用于隔离进程，前者负责信息隔离，后者负责进程资源大小限制。</p>
+<ul>
+<li>UTS NameSpace：提供了主机名和域名的隔离，使得每个容器就拥有了独立的主机名和域名，在网络上可以被视作一个独立的节点</li>
+<li>PID Namespace：两个不同命名空间下的进程可以有同一个PID</li>
+<li>Mount NameSpace：使得不同空间下的文件操作互不影响；fs&#x2F;mount.h中的mnt_namespace结构体</li>
+<li>IPC NameSpace：进程间通信如信号量、消息队列、共享内存的隔离</li>
+<li>Network namespace：网络资源如设备、协议栈、路由表等的隔离</li>
+<li>User namespace：隔离了安全相关的标识符和属性</li>
+</ul>
+<p>Cgroups：若干控制组组成树状结构，子节点继承父结点属性，而每一层中有若干子系统，每一个子系统控制该层级的不同资源</p>
+<p>子系统：cpu（限制进程cpu使用率）、cpuacct（统计cpu使用报告）、cpuset（用于分配cpu节点或内存结点）、memory（限制内存使用）、blkio（限制进程对块设备的操作）…</p>
 ]]></content>
       <categories>
         <category>系统安全</category>
       </categories>
       <tags>
-        <tag>汇编</tag>
-        <tag>x86</tag>
+        <tag>Linux</tag>
+        <tag>基础</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -1773,6 +1702,18 @@ EXITM:退出宏，且后面的宏语句都不能展开
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及快捷方式、cmd命令、PE文件等windows相关内容</p>
 <span id="more"></span>
 
+<p>Windows历史！！！！</p>
+<ul>
+<li><p>MS-DOS：微软魔改的86-DOS——Windows1.0：简单的对DOS的图形化包装——Windows2.0——Windows3.0：更改界面UI、添加图标等并且能够模拟32位处理器</p>
+</li>
+<li><p>支持32位处理器的Windows9x系列但仍有16位的代码：包括95、98、98E、Me等。出现了开始菜单和IE的捆绑销售</p>
+</li>
+<li><p>支持32位&#x2F;64位处理器的Windows NT系列没有16位：new technology的意思，win2000——XP引入了家庭企业版——Vista——7基于Vista——8&#x2F;8.1——WindowsPhone——10——11</p>
+<blockquote>
+<p>没有9？因为seven “ate” nine</p>
+</blockquote>
+</li>
+</ul>
 <h3 id="0x00-基础"><a href="#0x00-基础" class="headerlink" title="0x00.基础"></a>0x00.基础</h3><table>
 <thead>
 <tr>
@@ -1893,7 +1834,7 @@ EXITM:退出宏，且后面的宏语句都不能展开
 <blockquote>
 <p>（在专业版中能GUI查看，家庭版命令net user可以进行管理）</p>
 </blockquote>
-<p><img src="https://img1.imgtp.com/2023/10/01/4tNIVTRV.png" alt="image-20231001155146815"></p>
+<p><img src="/../pic/image-20231129111902545.png" alt="image-20231129111902545"></p>
 <p>用户组则是用于将相同类型的账号进行分类，每组权限不一，且不同组的共享资源是可以相互访问的。默认包括：Administrator组、Users组、Guest组。</p>
 <p>自己的账户，默认处于用户组和管理员组，只有相关操作时才会暂时升到管理员权限</p>
 <p><strong>常见进程</strong>：</p>
@@ -2241,7 +2182,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </li>
 <li><p>Int 13H调用：BIOS提供的基本功能，用于磁盘的复位、读写、校验、定位、诊断、格式化等，使用上述CHS寻址；</p>
 </li>
-<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破</p>
+<li><p>LBA寻址：将所有的扇区统一编号，从0开始；该地址为线性地址，由地址翻译器（硬件）将前面所述物理地址转换到此；同时也扩展了Int 13H，将其8G的限制突破；常用于下面的UEFI引导</p>
 <blockquote>
 <p>LBA地址&#x3D;当前柱面号×255×63+当前磁头号×63+（当前扇区数-1）；因为不存在C&#x2F;H&#x2F;S&#x3D;0&#x2F;0&#x2F;0，所以最后减一</p>
 </blockquote>
@@ -2506,7 +2447,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </tbody></table>
 <p>其中序列号从1起，若是最后则与’0x40’进行或运算并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
 </blockquote>
-<p><img src="https://img1.imgtp.com/2023/10/07/v7gijBNO.png" alt="image-20231007161407234"></p>
+<p><img src="/../pic/image-20231129111723275.png" alt="image-20231129111723275"></p>
 <h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明</p>
 <blockquote>
 <p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
@@ -2852,7 +2793,7 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
 <p>相关API<code>CreateFileMapping()</code>、<code>MapViewOfFile()</code>、<code>UnmapViewOfFile()</code>、<code>FlushViewOfFile()</code></p>
 </li>
 </ul>
-<h3 id="0x07-Windows安全机制"><a href="#0x07-Windows安全机制" class="headerlink" title="0x07.Windows安全机制"></a>0x07.Windows安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
+<h3 id="0x07-Windows内存安全机制"><a href="#0x07-Windows内存安全机制" class="headerlink" title="0x07.Windows内存安全机制"></a>0x07.Windows内存安全机制</h3><p>相关位置在windows Defender中应用和浏览器控制下的攻击防护设置</p>
 <h4 id="数据执行保护DEP"><a href="#数据执行保护DEP" class="headerlink" title="数据执行保护DEP"></a>数据执行保护DEP</h4><p>通过使可写内存的不能执行，或者来让可执行内存不可写来消除威胁。常用于防范缓冲区溢出，其他叫法：NX&#x2F;XD&#x2F;WX；</p>
 <p>具体见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvbWVtb3J5L2RhdGEtZXhlY3V0aW9uLXByZXZlbnRpb24=">数据执行保护 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span>；</p>
 <p>在Win中DEP相关设置如下：</p>
@@ -2927,6 +2868,192 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       <tags>
         <tag>OS</tag>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
+<ul>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
+</li>
+<li><p>小端存储：高字节放高地址；</p>
+</li>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
+</li>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
+</li>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
+</li>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
+<blockquote>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
+</blockquote>
+</li>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
+<ul>
+<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
+<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
+</li>
+<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
+</li>
+<li><p>系统管理模式：专门为32位OS提供的模式</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li>CF—无符号进位标志位、OF—有符号溢出标志位</li>
+<li>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</li>
+</ul>
+<p><img src="/../pic/Eflags.jpg" alt="eflags"></p>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+        <tag>x86</tag>
       </tags>
   </entry>
   <entry>
@@ -3218,708 +3345,9 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       </tags>
   </entry>
   <entry>
-    <title>恶意代码</title>
-    <url>/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对恶意代码做理论介绍，并不涉及具体实例</p>
-<span id="more"></span>
-
-<h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
-<ul>
-<li><p>分类</p>
-<ul>
-<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
-</li>
-<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
-</li>
-<li><p>木马：不能传播复制的计算机病毒</p>
-</li>
-<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
-</li>
-<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
-</li>
-<li><p>流氓软件：</p>
-<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
-</li>
-<li><p>僵尸：实现恶意控制的代码</p>
-<p>基于IRC协议、HTTP、P2P</p>
-</li>
-<li><p>Exploit：漏洞利用程序</p>
-<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
-</li>
-<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
-</li>
-</ul>
-</li>
-<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
-</li>
-<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
-</li>
-<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
-</li>
-</ul>
-<p><strong>计算机病毒</strong>：</p>
-<ul>
-<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
-</li>
-<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
-</li>
-<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
-</li>
-<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
-<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
-</li>
-<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
-</li>
-<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
-</li>
-</ul>
-<p><strong>网络蠕虫-Worm</strong>：</p>
-<ul>
-<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
-</li>
-<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
-</li>
-<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
-</li>
-<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
-</li>
-<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
-<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
-</li>
-</ul>
-<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
-<ul>
-<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
-</li>
-<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
-</li>
-<li><p><strong>检测与防治</strong>：</p>
-<ol>
-<li><p>主机角度：及时修补补丁、防火墙、安软</p>
-</li>
-<li><p>网络角度：</p>
-<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
-<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
-</li>
-</ol>
-</li>
-</ul>
-<p><strong>木马-Trojan</strong>：</p>
-<ul>
-<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
-</li>
-<li><p>按功能分：</p>
-<p>远程控制木马：上兴、灰鸽子</p>
-<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
-<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
-</li>
-<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
-</li>
-<li><p>客户端与受害者<strong>连接方式</strong>：</p>
-<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
-</li>
-<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
-</li>
-<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
-<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
-</li>
-</ul>
-<p><strong>Rootkit</strong>：</p>
-<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
-<ul>
-<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
-<ol>
-<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
-<li>内联钩子</li>
-</ol>
-</li>
-<li><p>内核态HOOK</p>
-<ol>
-<li><p>IDT（中断描述符表）钩子</p>
-</li>
-<li><p>SSDT（系统服务调度表）钩子</p>
-<blockquote>
-<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
-</blockquote>
-</li>
-<li><p>过滤驱动程序</p>
-</li>
-<li><p>驱动程序钩子</p>
-</li>
-</ol>
-</li>
-<li><p>直接内核对象操作（DKOM）</p>
-</li>
-<li><p>检测工具：IceSword、XueTr</p>
-</li>
-</ul>
-<p><strong>手机恶意软件</strong>：</p>
-<ul>
-<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
-</li>
-<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
-</li>
-<li><p>隐私窃取：</p>
-<ol>
-<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
-<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
-<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
-<li><strong>病毒特征值检测技术</strong>：</li>
-</ul>
-<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
-<p>关键组件：病毒检测引擎、病毒特征库</p>
-<p>实现步骤：</p>
-<ol>
-<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
-<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
-<li>将特征值纳入特征数据库</li>
-</ol>
-<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
-<ul>
-<li><strong>校验和检测技术</strong>：</li>
-</ul>
-<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
-<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
-<p>常校验对象：</p>
-<ol>
-<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
-<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
-<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
-<li>文件校验和：文件内容的全部字节</li>
-</ol>
-<ul>
-<li><strong>虚拟机检测技术</strong>：</li>
-</ul>
-<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
-<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
-<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
-<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
-<p>虚拟机设计方案：</p>
-<ol>
-<li>自含代码虚拟机SCCE：like a full CPU</li>
-<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
-<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
-</ol>
-<ul>
-<li><strong>启发式扫描技术</strong>：</li>
-</ul>
-<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
-<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
-<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
-<p>注意需要进行加权，以降低误报</p>
-<ul>
-<li><strong>主动防御技术</strong>：</li>
-</ul>
-<p>又叫做行为实时监控技术</p>
-<p>常见病毒行为（不排除安全软件）：</p>
-<ol>
-<li>对可执行文件进行写操作</li>
-<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
-<li>加载驱动：Rootkit</li>
-<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
-</ol>
-<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
-<hr>
-<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
-<li><p>特征值检测对抗：</p>
-<ol>
-<li>代码加密混淆：加密，增加花指令等</li>
-<li>加壳：压缩壳、保护壳</li>
-<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
-</ol>
-</li>
-<li><p>虚拟机检测对抗：</p>
-<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
-<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
-</li>
-<li><p>启发式扫描对抗：</p>
-<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
-</li>
-<li><p>主动防御对抗：</p>
-<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
-</li>
-<li><p>对抗云查杀：</p>
-<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
-</li>
-<li><p>恶意程序的主动保护机制：</p>
-<ol>
-<li>消灭反病毒程序、防火墙等</li>
-<li>阻断并独占文件来防止检查</li>
-<li>修改hosts文件防止杀软升级</li>
-<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
-</ol>
-</li>
-<li><p>人工分析对抗：</p>
-<ol>
-<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
-<blockquote>
-<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
-</blockquote>
-</li>
-<li><p>动态分析对抗—检测是否处于调试状态</p>
-<ul>
-<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
-<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
-<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
-<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
-<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
-</ul>
-</li>
-<li><p>动态对抗—检测调试器软件是否存在</p>
-<ul>
-<li>查找进程或文件特征码、特定服务</li>
-<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
-<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
-</ul>
-</li>
-<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
-</li>
-</ol>
-</li>
-</ul>
-<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
-<ol>
-<li>保存入口参数</li>
-<li>获取壳自己需要的API地址</li>
-<li>解密原程序的各个区块</li>
-<li>重定位</li>
-<li>修复引入函数地址表</li>
-<li>跳转到程序入口点OEP</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>壳</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Upx、Neolite</td>
-<td>高效压缩，内置压缩和解压缩</td>
-</tr>
-<tr>
-<td>ASpack、Petite、PECompact、Shrinker</td>
-<td>有保护性的压缩，不内置解压缩</td>
-</tr>
-<tr>
-<td>幻影、PC_Guard、Krypton、Armadillo</td>
-<td>有保护性的加密壳</td>
-</tr>
-<tr>
-<td>ASProtect、tElock</td>
-<td>有高效保护性的加密压缩壳</td>
-</tr>
-</tbody></table>
-<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
-<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
-<hr>
-<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
-<p>分析过程：</p>
-<ol>
-<li><p>虚拟机环境准备</p>
-</li>
-<li><p>系统监控：</p>
-<ul>
-<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
-<p>工具-Process Explorer、PrcView等</p>
-</li>
-<li><p>文件监控：读写行为；工具FileMon</p>
-</li>
-<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
-</li>
-<li><p>网络连接分析：工具FPort、TcpView</p>
-</li>
-<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
-</li>
-<li><p>内核监控：工具PC_Hunter、IceSword</p>
-</li>
-<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
-</li>
-</ul>
-</li>
-<li><p>文件类型侦测：工具PEiD、FileInfo</p>
-</li>
-<li><p>PE文件格式分析：工具PEView、Study_PE</p>
-</li>
-<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
-</li>
-<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
-</li>
-<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>win</tag>
-        <tag>恶意代码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>后端基础知识</title>
-    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
-<span id="more"></span>
-
-<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
-<ul>
-<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
-</li>
-<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
-</li>
-<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
-</li>
-<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
-</li>
-<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
-</li>
-<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
-</li>
-<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
-</li>
-<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
-</li>
-</ul>
-<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
-<table>
-<thead>
-<tr>
-<th>体系结构分类</th>
-<th>规模&#x2F;应用层次分类</th>
-<th>结构分类</th>
-<th>用途分类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>x86服务器(RISC)</td>
-<td>入门级</td>
-<td>塔式服务器</td>
-<td>通用型</td>
-</tr>
-<tr>
-<td>非x86服务器(CISC)</td>
-<td>工作组级</td>
-<td>机架式服务器</td>
-<td>专用型</td>
-</tr>
-<tr>
-<td></td>
-<td>部门级</td>
-<td>刀片式服务器</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>企业级</td>
-<td>机柜式服务器</td>
-<td></td>
-</tr>
-</tbody></table>
-<p><strong>Web服务器</strong>：</p>
-<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
-<p><strong>DB服务器</strong>：</p>
-<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
-<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
-<table>
-<thead>
-<tr>
-<th>MySQL</th>
-<th>SQL server</th>
-<th>Oracle</th>
-<th>PostgreSQL</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>开源、简单、小；字符客户端mysql</td>
-<td>微软、可免费；图形化客户端ADS</td>
-<td>顶级；字符客户端sqlplus</td>
-<td>开源；字符客户端pesql</td>
-</tr>
-<tr>
-<td>数据量大时不太行</td>
-<td>windows专属</td>
-<td>收费</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>非关系型数据库：</p>
-<ul>
-<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
-<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
-<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
-<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
-<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
-</ul>
-<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
-<p>发展阶段：人工管理—文件系统—数据库系统。</p>
-<blockquote>
-<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>人工管理</th>
-<th>文件系统</th>
-<th>数据库系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>不保存数据</td>
-<td>可以长期保存</td>
-<td>结构化</td>
-</tr>
-<tr>
-<td>没有相应软件</td>
-<td>有专门软件</td>
-<td>数据由DBMS统一管理</td>
-</tr>
-<tr>
-<td>不共享</td>
-<td>共享性差</td>
-<td>共享性好，冗余度低</td>
-</tr>
-<tr>
-<td>数据之间不独立</td>
-<td>独立性差</td>
-<td>高度物理独立性，一定逻辑独立性</td>
-</tr>
-</tbody></table>
-<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
-<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>数据结构</th>
-<th>查询效率</th>
-<th>数据独立性</th>
-<th>DML操作方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>层次、网状</td>
-<td>链表</td>
-<td>低</td>
-<td>差</td>
-<td>过程性</td>
-</tr>
-<tr>
-<td>关系</td>
-<td>二维表</td>
-<td>高</td>
-<td>高</td>
-<td>非过程性</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
-</li>
-<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
-</li>
-<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
-</li>
-</ul>
-<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
-<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
-<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
-<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
-<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
-<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
-</ul>
-<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
-<ol>
-<li><p><strong>关系数据结构</strong></p>
-<ul>
-<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
-<p>关系的6条性质：</p>
-<ul>
-<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
-</li>
-<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
-</li>
-<li><p>每个分量都是原子值，不能进一步拆分；</p>
-</li>
-</ul>
-</li>
-<li><p>关系模式:表的名字；</p>
-<ul>
-<li>形式化:R(U，D，DOM，F)</li>
-<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
-</ul>
-</li>
-<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
-</li>
-<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
-</li>
-<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
-</li>
-<li><p>分量:交叉点；</p>
-</li>
-</ul>
-</li>
-<li><p><strong>关系的完整性</strong></p>
-<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
-<ul>
-<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
-</li>
-<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
-<blockquote>
-<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>关系操作</strong></p>
-<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
-<ul>
-<li><p>并union：A+B（可用差表示）</p>
-<blockquote>
-<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
-</blockquote>
-</li>
-<li><p>差difference：A-B</p>
-</li>
-<li><p>交intersection：A·B</p>
-</li>
-<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
-</li>
-<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
-</li>
-<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
-</li>
-<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
-<blockquote>
-<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
-</blockquote>
-</li>
-<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
-<blockquote>
-<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
-</blockquote>
-</li>
-<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
-<blockquote>
-<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>计算机基础</category>
-      </categories>
-      <tags>
-        <tag>后端</tag>
-        <tag>基础知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器简介</title>
-    <url>/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
-<span id="more"></span>
-
-<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p><strong>导航过程</strong>：</p>
-<ol>
-<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
-</li>
-<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
-<blockquote>
-<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
-</blockquote>
-</li>
-<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
-</li>
-<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
-</li>
-<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
-</li>
-</ol>
-<p><strong>搜索引擎</strong>：</p>
-<ul>
-<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
-<blockquote>
-<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
-</blockquote>
-</li>
-<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
-</li>
-<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
-</li>
-</ul>
-<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
-<ul>
-<li>Geocko：火狐浏览器；开源；</li>
-<li>Trident：IE浏览器、世界之窗；</li>
-<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
-<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
-</ul>
-<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
-<ol>
-<li><p>解析HTML，生成HTML DOM树：</p>
-<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
-</li>
-<li><p>碰到CSS，生成CSSOM树：同上</p>
-<blockquote>
-<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
-</blockquote>
-</li>
-<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
-</li>
-<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
-<blockquote>
-<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
-<img src="https://img1.imgtp.com/2023/10/06/XERZIozg.png" alt="box" style="zoom: 80%;" />
-</blockquote>
-</li>
-<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
-</li>
-</ol>
-<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
-<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
-<ul>
-<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
-<li>Chakra：微软开发，用于IE；</li>
-<li>JavaScriptCore：用于webkit，Apple开发；</li>
-<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
-<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
-</ul>
-<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
-<ul>
-<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
-<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
-<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
-</li>
-<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
-</li>
-<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
-</li>
-<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
-<blockquote>
-<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Web</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对称密码</title>
+    <title>对称密码&amp;Hash</title>
     <url>/2023/09/16/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：DES、IDEA、AES、SM4、TEA等分组密码，祖冲之、RC4等序列密码，SM3、MD5等hash函数</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：DES、IDEA、AES、SM4、TEA等分组密码，祖冲之、RC4等序列密码；SM3、MD5等hash函数</p>
 <span id="more"></span>
 
 <h3 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h3><p>DES属于对称密码体制，前美国数据加密标准，也是一个分组加密算法。参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vc29uZ3dlbmxvbmcvcC81OTQ0MTM5Lmh0bWw=">DES算法详解 - songoo<i class="fa fa-external-link-alt"></i></span></p>
@@ -5691,296 +5119,702 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
-    <title>网络技术</title>
-    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介</p>
+    <title>后端基础知识</title>
+    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
 <span id="more"></span>
 
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
 <ul>
-<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
+<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
 </li>
-<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
+<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
 </li>
-<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
 </li>
-</ul>
-<p>CDN服务器安置原则：</p>
-<ol>
-<li>在ISP（互联网服务提供商）处架设CDN集群</li>
-<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
-<li>根据地理位置和地区流量检测选择布置</li>
-</ol>
-<hr>
-<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
-<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
-<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
+<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
 </li>
-<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
+<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
 </li>
-<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
 </li>
-<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
 </li>
-<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
 </li>
 </ul>
-<hr>
-<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
-<p>从两端类型来说分为：</p>
+<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
+<table>
+<thead>
+<tr>
+<th>体系结构分类</th>
+<th>规模&#x2F;应用层次分类</th>
+<th>结构分类</th>
+<th>用途分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86服务器(RISC)</td>
+<td>入门级</td>
+<td>塔式服务器</td>
+<td>通用型</td>
+</tr>
+<tr>
+<td>非x86服务器(CISC)</td>
+<td>工作组级</td>
+<td>机架式服务器</td>
+<td>专用型</td>
+</tr>
+<tr>
+<td></td>
+<td>部门级</td>
+<td>刀片式服务器</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>企业级</td>
+<td>机柜式服务器</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Web服务器</strong>：</p>
+<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
+<p><strong>DB服务器</strong>：</p>
+<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
+<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>SQL server</th>
+<th>Oracle</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源、简单、小；字符客户端mysql</td>
+<td>微软、可免费；图形化客户端ADS</td>
+<td>顶级；字符客户端sqlplus</td>
+<td>开源；字符客户端pesql</td>
+</tr>
+<tr>
+<td>数据量大时不太行</td>
+<td>windows专属</td>
+<td>收费</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非关系型数据库：</p>
 <ul>
-<li><p>站点对站点VPN：两端的地点相对固定；</p>
-</li>
-<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
-</li>
+<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
+<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
+<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
+<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
+<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
 </ul>
-<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
-<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
-<ul>
-<li><p><strong>IPsec VPN</strong>：</p>
-<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
-<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
-</li>
-<li><p><strong>SSL VPN</strong>：</p>
-<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
-<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
-</li>
-</ul>
-<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
-<ul>
-<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
-</li>
-<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
-<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
-</li>
-</ul>
-<hr>
-<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
-<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
-<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
-<ol>
-<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
-<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
-<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
-<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
-</ol>
-<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
-<ul>
-<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
-<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
-<li>3-4、4-4常规方法无法打洞</li>
-</ul>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<p>发展阶段：人工管理—文件系统—数据库系统。</p>
 <blockquote>
-<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
 </blockquote>
-<p><strong>BitTorrent</strong>：</p>
-<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<table>
+<thead>
+<tr>
+<th>人工管理</th>
+<th>文件系统</th>
+<th>数据库系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不保存数据</td>
+<td>可以长期保存</td>
+<td>结构化</td>
+</tr>
+<tr>
+<td>没有相应软件</td>
+<td>有专门软件</td>
+<td>数据由DBMS统一管理</td>
+</tr>
+<tr>
+<td>不共享</td>
+<td>共享性差</td>
+<td>共享性好，冗余度低</td>
+</tr>
+<tr>
+<td>数据之间不独立</td>
+<td>独立性差</td>
+<td>高度物理独立性，一定逻辑独立性</td>
+</tr>
+</tbody></table>
+<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据结构</th>
+<th>查询效率</th>
+<th>数据独立性</th>
+<th>DML操作方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>层次、网状</td>
+<td>链表</td>
+<td>低</td>
+<td>差</td>
+<td>过程性</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>二维表</td>
+<td>高</td>
+<td>高</td>
+<td>非过程性</td>
+</tr>
+</tbody></table>
 <ul>
-<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
 </li>
-<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
 </li>
-<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
-<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
-</li>
-<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
-</li>
-<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
-</li>
-<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
 </li>
 </ul>
-<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
-<hr>
-<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
-<ul>
-<li><p>两种分段模型：</p>
-<ul>
-<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
-</li>
-<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
-</li>
+<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
+<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
+<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
+<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
+<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
 </ul>
-</li>
-<li><p>过滤标准：源IP、目标IP、内容、协议</p>
-</li>
-<li><p><strong>工作模式</strong>：</p>
-<ul>
-<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
-<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
-<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
-</ul>
-</li>
-<li><p><strong>FireWall类型</strong>：</p>
-<ul>
-<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
-<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
-<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
-<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
-<li>混合型：不多bb</li>
-</ul>
-</li>
-</ul>
-<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
-<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
-<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
-<hr>
-<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
-<ul>
-<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
 <ol>
-<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
+<li><p><strong>关系数据结构</strong></p>
+<ul>
+<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
+<p>关系的6条性质：</p>
+<ul>
+<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
 </li>
-<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
+<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
 </li>
-<li><p>事件数据库：存储各种事件</p>
-</li>
-<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
-</li>
-</ol>
-</li>
-<li><p><strong>根据数据源的分类</strong>：</p>
-<ol>
-<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
-<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
-<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
-</ol>
-</li>
-<li><p><strong>根据检测方法的分类</strong>：</p>
-<ol>
-<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
-<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
-<li>混合检测系统：不多bb</li>
-</ol>
-</li>
-<li><p>根据响应方式分类：实时监测、非实时检测</p>
-</li>
-<li><p><strong>误用检测分析方法</strong>：</p>
-<ol>
-<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
-<li>专辑系统：专家知识库，形成IF-THEN规则</li>
-<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
-<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
-</ol>
-</li>
-<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+<li><p>每个分量都是原子值，不能进一步拆分；</p>
 </li>
 </ul>
+</li>
+<li><p>关系模式:表的名字；</p>
+<ul>
+<li>形式化:R(U，D，DOM，F)</li>
+<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+</ul>
+</li>
+<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
+</li>
+<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
+</li>
+<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
+</li>
+<li><p>分量:交叉点；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关系的完整性</strong></p>
+<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<ul>
+<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
+</li>
+<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
 <blockquote>
-<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
+<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
 </blockquote>
-<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
-<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
-<ul>
-<li>核心组件如下：<ul>
-<li>签名库：存放已知攻击特征</li>
-<li>异常检测引擎：检测未知攻击和异常行为</li>
-<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
-<li>管理控制台：配置管理IPS</li>
-<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
-</ul>
 </li>
 </ul>
-<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
-<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
-<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
+</li>
+<li><p><strong>关系操作</strong></p>
+<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+<ul>
+<li><p>并union：A+B（可用差表示）</p>
 <blockquote>
-<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
+<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
 </blockquote>
-<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
-<hr>
-<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+</li>
+<li><p>差difference：A-B</p>
+</li>
+<li><p>交intersection：A·B</p>
+</li>
+<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
+</li>
+<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
+</li>
+<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
+</li>
+<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
+<blockquote>
+<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
+</blockquote>
+</li>
+<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
+<blockquote>
+<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
+</blockquote>
+</li>
+<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
+<blockquote>
+<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>后端</tag>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>恶意代码</title>
+    <url>/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对恶意代码做理论介绍，并不涉及具体实例</p>
+<span id="more"></span>
+
+<h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
 <ul>
-<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
+<li><p>分类</p>
+<ul>
+<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
 </li>
-<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
 </li>
-<li><p><strong>模块</strong>：</p>
+<li><p>木马：不能传播复制的计算机病毒</p>
+</li>
+<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
+</li>
+<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
+</li>
+<li><p>流氓软件：</p>
+<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
+</li>
+<li><p>僵尸：实现恶意控制的代码</p>
+<p>基于IRC协议、HTTP、P2P</p>
+</li>
+<li><p>Exploit：漏洞利用程序</p>
+<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
+</li>
+<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
+</li>
+</ul>
+</li>
+<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
+</li>
+<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
+</li>
+<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
+</li>
+</ul>
+<p><strong>计算机病毒</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
+</li>
+<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
+</li>
+<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
+</li>
+<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
+<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
+</li>
+<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
+</li>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
+</li>
+</ul>
+<p><strong>网络蠕虫-Worm</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
+</li>
+<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
+</li>
+<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
+</li>
+<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
+</li>
+<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
+<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
+</li>
+</ul>
+<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
+<ul>
+<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
+</li>
+<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
+</li>
+<li><p><strong>检测与防治</strong>：</p>
 <ol>
-<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
-<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
-<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
-<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
-<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+<li><p>主机角度：及时修补补丁、防火墙、安软</p>
+</li>
+<li><p>网络角度：</p>
+<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
+<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
+</li>
 </ol>
 </li>
-<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+</ul>
+<p><strong>木马-Trojan</strong>：</p>
+<ul>
+<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
 </li>
-<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
+<li><p>按功能分：</p>
+<p>远程控制木马：上兴、灰鸽子</p>
+<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
+<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
 </li>
-<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
+</li>
+<li><p>客户端与受害者<strong>连接方式</strong>：</p>
+<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
+</li>
+<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
+</li>
+<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
+<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
 </li>
 </ul>
-<hr>
-<h3 id="网络攻击防御概述"><a href="#网络攻击防御概述" class="headerlink" title="网络攻击防御概述"></a>网络攻击防御概述</h3><p>根据攻击目的可以分为：破坏型攻击（破坏）、利用型攻击（控制）、信息搜集型攻击（窃取）、网络欺骗型攻击（诈骗）、垃圾信息攻击（干扰）。请自行分类</p>
+<p><strong>Rootkit</strong>：</p>
+<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
 <ul>
-<li>攻击准备：确定目标——准备工具——收集信息</li>
-<li>攻击实施：隐蔽位置——登录到目标主机——夺取控制权</li>
-<li>善后阶段：禁止日志审计——清楚事件日志——清楚有关中间件、应用的服务日志</li>
-</ul>
-<p>ATT&amp;CK：<span class="exturl" data-url="aHR0cHM6Ly9hdHRhY2subWl0cmUub3JnLw==">MITRE ATT&amp;CK®<i class="fa fa-external-link-alt"></i></span></p>
-<p>网络杀伤链：<span class="exturl" data-url="aHR0cHM6Ly93d3cubG9ja2hlZWRtYXJ0aW4uY29tL2VuLXVzL2NhcGFiaWxpdGllcy9jeWJlci9jeWJlci1raWxsLWNoYWluLmh0bWw=">Cyber Kill Chain® | Lockheed Martin<i class="fa fa-external-link-alt"></i></span></p>
-<p>入侵分析钻石模型：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1FBWC1BLVRlYW0vUGFwZXJzL2Jsb2IvbWFzdGVyL3BhcGVycy8yMDE5LyVFNSU4NSVBNSVFNCVCRSVCNSVFNSU4OCU4NiVFNiU5RSU5MCVFOSU5MiVCQiVFNyU5RiVCMyVFNiVBOCVBMSVFNSU5RSU4Qi5wZGY=">Papers&#x2F;papers&#x2F;2019&#x2F;入侵分析钻石模型.pdf at master · QAX-A-Team&#x2F;Papers (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<hr>
-<h3 id="缓冲区溢出攻击！"><a href="#缓冲区溢出攻击！" class="headerlink" title="缓冲区溢出攻击！"></a>缓冲区溢出攻击！</h3><p>用户输出的数据长度超出了程序为其分配的空间，这些数据就会覆盖为其他程序分配的内存空间，攻击者通过构造shellcode作为输入使得程序最终执行这些代码，从而危害系统。实现难度高但效果好，本质相当于改变程序的执行流程</p>
-<p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出（也可以归因于写程序的人水平不够）</p>
-<p>类型包括：栈溢出、堆溢出、整型溢出、格式化字符溢出等</p>
-<p>栈溢出：缓冲区在栈中，由于拷贝进来的数据过长导致覆盖了函数返回地址或其他数据指针等</p>
-<p>堆溢出（动态分配的空间）：同上，但是发生在堆分配的结构中</p>
-<p>整型溢出：宽度溢出（超过变量表示范围）、运算溢出、符号溢出（无符号变量的被看作有符号）</p>
-<p>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</p>
-<hr>
-<h3 id="MIMT攻击"><a href="#MIMT攻击" class="headerlink" title="MIMT攻击"></a>MIMT攻击</h3><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
-<ul>
-<li>ARP污染&#x2F;欺骗：</li>
-</ul>
-<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
-<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
-<pre><code>arp -a	//查看缓存表
-    -s + IP MAC	//改为静态
-    -d (+ IP)	//删除全部或某一条
-</code></pre>
-<p>防御措施：进行静态绑定、使用ARP防火墙</p>
-<ul>
-<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
-<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
-<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
-<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
-</ul>
-<hr>
-<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>又叫DOS攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
-<p>主要手段有如下：</p>
-<ul>
-<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
-<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
-<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
-<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
-</ul>
-<p>根据攻击方式有以下分类</p>
-<ul>
-<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
-<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
-<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
-<li>针对中间件或者系统的攻击</li>
-</ul>
-<p>也可以根据网络层次进行分类：</p>
-<ul>
-<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
+<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
+<ol>
+<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
+<li>内联钩子inlineHoooook</li>
+</ol>
 </li>
-<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
+<li><p>内核态HOOK</p>
+<ol>
+<li><p>IDT（中断描述符表）钩子</p>
 </li>
-<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
+<li><p>SSDT（系统服务调度表）钩子</p>
 <blockquote>
-<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
+<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
+</blockquote>
+</li>
+<li><p>过滤驱动程序</p>
+</li>
+<li><p>驱动程序钩子</p>
+</li>
+</ol>
+</li>
+<li><p>直接内核对象操作（DKOM）</p>
+</li>
+<li><p>检测工具：IceSword、XueTr</p>
+</li>
+</ul>
+<p><strong>手机恶意软件</strong>：</p>
+<ul>
+<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
+</li>
+<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
+</li>
+<li><p>隐私窃取：</p>
+<ol>
+<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
+<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
+<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
+<li><strong>病毒特征值检测技术</strong>：</li>
+</ul>
+<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
+<p>关键组件：病毒检测引擎、病毒特征库</p>
+<p>实现步骤：</p>
+<ol>
+<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
+<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
+<li>将特征值纳入特征数据库</li>
+</ol>
+<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
+<ul>
+<li><strong>校验和检测技术</strong>：</li>
+</ul>
+<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
+<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
+<p>常校验对象：</p>
+<ol>
+<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
+<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
+<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
+<li>文件校验和：文件内容的全部字节</li>
+</ol>
+<ul>
+<li><strong>虚拟机检测技术</strong>：</li>
+</ul>
+<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
+<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
+<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
+<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
+<p>虚拟机设计方案：</p>
+<ol>
+<li>自含代码虚拟机SCCE：like a full CPU</li>
+<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
+<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
+</ol>
+<ul>
+<li><strong>启发式扫描技术</strong>：</li>
+</ul>
+<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
+<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
+<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
+<p>注意需要进行加权，以降低误报</p>
+<ul>
+<li><strong>主动防御技术</strong>：</li>
+</ul>
+<p>又叫做行为实时监控技术</p>
+<p>常见病毒行为（不排除安全软件）：</p>
+<ol>
+<li>对可执行文件进行写操作</li>
+<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
+<li>加载驱动：Rootkit</li>
+<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
+</ol>
+<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
+<hr>
+<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
+<li><p>特征值检测对抗：</p>
+<ol>
+<li>代码加密混淆：加密，增加花指令等</li>
+<li>加壳：压缩壳、保护壳</li>
+<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
+</ol>
+</li>
+<li><p>虚拟机检测对抗：</p>
+<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
+<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
+</li>
+<li><p>启发式扫描对抗：</p>
+<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
+</li>
+<li><p>主动防御对抗：</p>
+<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
+</li>
+<li><p>对抗云查杀：</p>
+<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
+</li>
+<li><p>恶意程序的主动保护机制：</p>
+<ol>
+<li>消灭反病毒程序、防火墙等</li>
+<li>阻断并独占文件来防止检查</li>
+<li>修改hosts文件防止杀软升级</li>
+<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
+</ol>
+</li>
+<li><p>人工分析对抗：</p>
+<ol>
+<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
+<blockquote>
+<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
+</blockquote>
+</li>
+<li><p>动态分析对抗—检测是否处于调试状态</p>
+<ul>
+<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
+<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
+<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
+<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
+<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
+</ul>
+</li>
+<li><p>动态对抗—检测调试器软件是否存在</p>
+<ul>
+<li>查找进程或文件特征码、特定服务</li>
+<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
+<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
+</ul>
+</li>
+<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
+<ol>
+<li>保存入口参数</li>
+<li>获取壳自己需要的API地址</li>
+<li>解密原程序的各个区块</li>
+<li>重定位</li>
+<li>修复引入函数地址表</li>
+<li>跳转到程序入口点OEP</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>壳</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Upx、Neolite</td>
+<td>高效压缩，内置压缩和解压缩</td>
+</tr>
+<tr>
+<td>ASpack、Petite、PECompact、Shrinker</td>
+<td>有保护性的压缩，不内置解压缩</td>
+</tr>
+<tr>
+<td>幻影、PC_Guard、Krypton、Armadillo</td>
+<td>有保护性的加密壳</td>
+</tr>
+<tr>
+<td>ASProtect、tElock</td>
+<td>有高效保护性的加密压缩壳</td>
+</tr>
+</tbody></table>
+<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
+<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<hr>
+<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
+<p>分析过程：</p>
+<ol>
+<li><p>虚拟机环境准备</p>
+</li>
+<li><p>系统监控：</p>
+<ul>
+<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
+<p>工具-Process Explorer、PrcView等</p>
+</li>
+<li><p>文件监控：读写行为；工具FileMon</p>
+</li>
+<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
+</li>
+<li><p>网络连接分析：工具FPort、TcpView</p>
+</li>
+<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
+</li>
+<li><p>内核监控：工具PC_Hunter、IceSword</p>
+</li>
+<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
+</li>
+</ul>
+</li>
+<li><p>文件类型侦测：工具PEiD、FileInfo</p>
+</li>
+<li><p>PE文件格式分析：工具PEView、Study_PE</p>
+</li>
+<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
+</li>
+<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
+</li>
+<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>win</tag>
+        <tag>恶意代码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器简介</title>
+    <url>/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：大致讲解浏览器有关内容，内核、搜索引擎、安全机制等</p>
+<span id="more"></span>
+
+<p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p><strong>导航过程</strong>：</p>
+<ol>
+<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
+</li>
+<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
+<blockquote>
+<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
+</blockquote>
+</li>
+<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
+</li>
+<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
+</li>
+<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
+</li>
+</ol>
+<p><strong>搜索引擎</strong>：</p>
+<ul>
+<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
+<blockquote>
+<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
+</blockquote>
+</li>
+<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
+</li>
+<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
+</li>
+</ul>
+<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
+<ul>
+<li>Geocko：火狐浏览器；开源；</li>
+<li>Trident：IE浏览器、世界之窗；</li>
+<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
+<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
+</ul>
+<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
+<ol>
+<li><p>解析HTML，生成HTML DOM树：</p>
+<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
+</li>
+<li><p>碰到CSS，生成CSSOM树：同上</p>
+<blockquote>
+<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
+</blockquote>
+</li>
+<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
+</li>
+<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
+<blockquote>
+<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
+<p><img src="/../pic/box.png" alt="Boxmod"></p>
+</blockquote>
+</li>
+<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
+</li>
+</ol>
+<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
+<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
+<ul>
+<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
+<li>Chakra：微软开发，用于IE；</li>
+<li>JavaScriptCore：用于webkit，Apple开发；</li>
+<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
+<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
+</ul>
+<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
+<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
+<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
+</li>
+<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
+</li>
+<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
+</li>
+<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
 </blockquote>
 </li>
 </ul>
 ]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
       <tags>
-        <tag>网络</tag>
+        <tag>Web</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -6776,177 +6610,295 @@ net localgroup administrators temp /add
       </tags>
   </entry>
   <entry>
-    <title>计网第一章_概述</title>
-    <url>/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述</p>
+    <title>网络技术</title>
+    <url>/2023/09/10/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：介绍一些网络上的重要技术与设备，如CDN、VPN、P2P、IDS等，也有部分网络攻击简介</p>
 <span id="more"></span>
 
-<h3 id="计网发展阶段"><a href="#计网发展阶段" class="headerlink" title="计网发展阶段"></a>计网发展阶段</h3><ol>
-<li><p>面向终端的计算机网络</p>
-<p>特点：系统中仅主计算机有计算能力，终端无独立处理数据的能力。</p>
-<blockquote>
-<p>线路控制器：串并转换+传输差错控制；调制&#x2F;解调器：用于数字和模拟信号的转换</p>
-</blockquote>
-<p>为降低通信成本：主机前增设前端处理机，终端密集地放置集中器，用以解决终端独占线路与助记负载过重的问题</p>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<ul>
+<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
 </li>
-<li><p>计算机通信网络or分组交换网络or面向标准的计算机网络</p>
-<p>特点：可用于数据传输、终端类型广、节点同等重要、冗余路由、简单但又相对可靠</p>
-<p>先后提出<strong>存储转发技术</strong>与<strong>分组交换技术</strong>（后者相对于前者每一次转发的不是整个文件而是切割后的小包）</p>
+<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
 </li>
-<li><p>共享资源的计算机网络</p>
-<p>特点：共享数据为主、每个网络内部使用各自的协议、网络之间用TCP&#x2F;IP协议簇</p>
-<p>三个阶段：</p>
+<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+</li>
+</ul>
+<p>CDN服务器安置原则：</p>
 <ol>
-<li>由单个网络ARPANET发展而来，1983年以TCP&#x2F;IP协议簇为标准也因此作为互联网诞生时间，1990年关闭</li>
-<li>三级结构互联网，包括主干网—地区网—校园网&#x2F;企业网三级</li>
-<li>多层次ISP（互联网服务提供者）结构的互联网，由Alice-本地ISP-地区ISP-主干ISP-…-本地ISP-Bob</li>
+<li>在ISP（互联网服务提供商）处架设CDN集群</li>
+<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
+<li>根据地理位置和地区流量检测选择布置</li>
+</ol>
+<hr>
+<h3 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h3><ul>
+<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
+<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
+</li>
+<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
+</li>
+<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+</li>
+<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+</li>
+<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+</li>
+</ul>
+<hr>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
+<p>从两端类型来说分为：</p>
+<ul>
+<li><p>站点对站点VPN：两端的地点相对固定；</p>
+</li>
+<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
+</li>
+</ul>
+<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
+<ul>
+<li><p><strong>IPsec VPN</strong>：</p>
+<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
+<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
+</li>
+<li><p><strong>SSL VPN</strong>：</p>
+<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
+<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
+</li>
+</ul>
+<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<ul>
+<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
+</li>
+<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
+<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
+</li>
+</ul>
+<hr>
+<h3 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
+<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
+<ol>
+<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
+<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
+<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
+<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+</ol>
+<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<ul>
+<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
+<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
+<li>3-4、4-4常规方法无法打洞</li>
+</ul>
+<blockquote>
+<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p><strong>BitTorrent</strong>：</p>
+<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<ul>
+<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+</li>
+<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+</li>
+<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
+<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
+</li>
+<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
+</li>
+<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
+</li>
+<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+</li>
+</ul>
+<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<hr>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<ul>
+<li><p>两种分段模型：</p>
+<ul>
+<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
+</li>
+<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
+</li>
+</ul>
+</li>
+<li><p>过滤标准：源IP、目标IP、内容、协议</p>
+</li>
+<li><p><strong>工作模式</strong>：</p>
+<ul>
+<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
+<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
+<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
+</ul>
+</li>
+<li><p><strong>FireWall类型</strong>：</p>
+<ul>
+<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
+<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
+<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
+<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
+<li>混合型：不多bb</li>
+</ul>
+</li>
+</ul>
+<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
+<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
+<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<hr>
+<h3 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h3><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
+<ul>
+<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<ol>
+<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
+</li>
+<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
+</li>
+<li><p>事件数据库：存储各种事件</p>
+</li>
+<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
+</li>
 </ol>
 </li>
-<li><p>Internet高速发展</p>
-<ul>
-<li><p>SDN软件定义网络</p>
-</li>
-<li><p>云计算：分布式、并行计算、虚拟化</p>
-</li>
-<li><p>物联网IoT，借助云实现普适计算</p>
-</li>
-</ul>
-</li>
+<li><p><strong>根据数据源的分类</strong>：</p>
+<ol>
+<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
+<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
+<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
 </ol>
-<h3 id="计算机网络概念"><a href="#计算机网络概念" class="headerlink" title="计算机网络概念"></a>计算机网络概念</h3><p>最简定义：计算机网络是一些互相连接的、自治的计算机系统的集合。其中最大的计算机网络就是Internet——也叫做网络的网络（Network of Network）</p>
-<h3 id="计算机网络组成"><a href="#计算机网络组成" class="headerlink" title="计算机网络组成"></a>计算机网络组成</h3><p><strong>物理组成</strong>：</p>
-<ul>
-<li><p>硬件：主机host、通信处理控制机CCP、路由器Router、交换机Switch、通信链路。</p>
+</li>
+<li><p><strong>根据检测方法的分类</strong>：</p>
+<ol>
+<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
+<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
+<li>混合检测系统：不多bb</li>
+</ol>
+</li>
+<li><p>根据响应方式分类：实时监测、非实时检测</p>
+</li>
+<li><p><strong>误用检测分析方法</strong>：</p>
+<ol>
+<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
+<li>专辑系统：专家知识库，形成IF-THEN规则</li>
+<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
+<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
+</ol>
+</li>
+<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+</li>
+</ul>
 <blockquote>
-<p>物理媒介&#x2F;物理链路：双绞铜线、同轴电缆、光纤、陆地无线通信、卫星无线通信</p>
+<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
 </blockquote>
-</li>
-<li><p>软件：共享的资源的软件、工具软件</p>
-</li>
-<li><p>协议：通信协议、数据交换协议</p>
+<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
+<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<ul>
+<li>核心组件如下：<ul>
+<li>签名库：存放已知攻击特征</li>
+<li>异常检测引擎：检测未知攻击和异常行为</li>
+<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
+<li>管理控制台：配置管理IPS</li>
+<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
+</ul>
 </li>
 </ul>
-<p><strong>要素组成</strong>：计算机、路由器、交换机、网卡、通信线路、调制解调器</p>
-<p><strong>功能组成</strong>：资源子网（数据的处理存储）、通信子网（数据的传输）</p>
-<h3 id="互联网组成"><a href="#互联网组成" class="headerlink" title="互联网组成"></a>互联网组成</h3><ul>
-<li><p>直接连接的：点到点链路、经集线器HUB（盒装总线）、多路访问链路</p>
-</li>
-<li><p>网络云：端系统经交换网互联；网络云互联构成互联网，必定有路由器</p>
+<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
+<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
+<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
 <blockquote>
-<p>核心部分&#x3D;网路+路由器（关键！网网互联）；<br>边缘部分&#x3D;主机+终端；端系统之间的通讯方式：C&#x2F;S方式、P2P方式</p>
+<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3><ul>
-<li><p>电路交换：$N$部电话机需要$N(N-1)&#x2F;2$对电线，当然也可以使用交换机。</p>
-<p>必定是面向连接的、线路利用率低</p>
-<p>包括三个阶段：建立专用连接——双方通信——释放连接</p>
-</li>
-</ul>
+<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
+<hr>
+<h3 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h3><p>也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
 <ul>
-<li><p>报文交换：在分组交换之前，基于存储转发，不分组而已。</p>
+<li><p><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</p>
 </li>
-<li><p>分组交换：同样基于存储转发技术，但是长切短分组进行。</p>
+<li><p><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</p>
+</li>
+<li><p><strong>模块</strong>：</p>
+<ol>
+<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
+<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
+<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
+<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
+<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+</ol>
+</li>
+<li><p><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</p>
+</li>
+<li><p><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</p>
+</li>
+<li><p><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</p>
+</li>
+</ul>
+<hr>
+<h3 id="网络攻击防御概述"><a href="#网络攻击防御概述" class="headerlink" title="网络攻击防御概述"></a>网络攻击防御概述</h3><p>根据攻击目的可以分为：破坏型攻击（破坏）、利用型攻击（控制）、信息搜集型攻击（窃取）、网络欺骗型攻击（诈骗）、垃圾信息攻击（干扰）。请自行分类</p>
 <ul>
-<li>分组&#x3D;首部+数据，首部含有源&#x2F;目的地址，节点交换机据此转发报文；有额外开销</li>
-<li>每个分组独立选择路径</li>
-<li>路由器处理：放入缓存——查找转发表——送走；需要排队有时延</li>
+<li>攻击准备：确定目标——准备工具——收集信息</li>
+<li>攻击实施：隐蔽位置——登录到目标主机——夺取控制权</li>
+<li>善后阶段：禁止日志审计——清楚事件日志——清楚有关中间件、应用的服务日志</li>
 </ul>
-</li>
+<p>ATT&amp;CK：<span class="exturl" data-url="aHR0cHM6Ly9hdHRhY2subWl0cmUub3JnLw==">MITRE ATT&amp;CK®<i class="fa fa-external-link-alt"></i></span></p>
+<p>网络杀伤链：<span class="exturl" data-url="aHR0cHM6Ly93d3cubG9ja2hlZWRtYXJ0aW4uY29tL2VuLXVzL2NhcGFiaWxpdGllcy9jeWJlci9jeWJlci1raWxsLWNoYWluLmh0bWw=">Cyber Kill Chain® | Lockheed Martin<i class="fa fa-external-link-alt"></i></span></p>
+<p>入侵分析钻石模型：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1FBWC1BLVRlYW0vUGFwZXJzL2Jsb2IvbWFzdGVyL3BhcGVycy8yMDE5LyVFNSU4NSVBNSVFNCVCRSVCNSVFNSU4OCU4NiVFNiU5RSU5MCVFOSU5MiVCQiVFNyU5RiVCMyVFNiVBOCVBMSVFNSU5RSU4Qi5wZGY=">Papers&#x2F;papers&#x2F;2019&#x2F;入侵分析钻石模型.pdf at master · QAX-A-Team&#x2F;Papers (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<hr>
+<h3 id="缓冲区溢出攻击！"><a href="#缓冲区溢出攻击！" class="headerlink" title="缓冲区溢出攻击！"></a>缓冲区溢出攻击！</h3><p>用户输出的数据长度超出了程序为其分配的空间，这些数据就会覆盖为其他程序分配的内存空间，攻击者通过构造shellcode作为输入使得程序最终执行这些代码，从而危害系统。实现难度高但效果好，本质相当于改变程序的执行流程</p>
+<p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出（也可以归因于写程序的人水平不够）</p>
+<p>类型包括：栈溢出、堆溢出、整型溢出、格式化字符溢出等</p>
+<p>栈溢出：缓冲区在栈中，由于拷贝进来的数据过长导致覆盖了函数返回地址或其他数据指针等</p>
+<p>堆溢出（动态分配的空间）：同上，但是发生在堆分配的结构中</p>
+<p>整型溢出：宽度溢出（超过变量表示范围）、运算溢出、符号溢出（无符号变量的被看作有符号）</p>
+<p>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</p>
+<hr>
+<h3 id="MIMT攻击"><a href="#MIMT攻击" class="headerlink" title="MIMT攻击"></a>MIMT攻击</h3><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
+<ul>
+<li>ARP污染&#x2F;欺骗：</li>
 </ul>
-<h3 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h3><ul>
-<li><p>分布范围：广域网WAN（交换技术）、城域网MAN、局域网LAN（广播技术）、个人区域网PAN</p>
+<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
+<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
+<pre><code>arp -a	//查看缓存表
+    -s + IP MAC	//改为静态
+    -d (+ IP)	//删除全部或某一条
+</code></pre>
+<p>防御措施：进行静态绑定、使用ARP防火墙</p>
+<ul>
+<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
+<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
+<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
+<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
+</ul>
+<hr>
+<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>又叫DOS攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
+<p>主要手段有如下：</p>
+<ul>
+<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
+<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
+<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
+<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
+</ul>
+<p>根据攻击方式有以下分类</p>
+<ul>
+<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
+<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
+<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
+<li>针对中间件或者系统的攻击</li>
+</ul>
+<p>也可以根据网络层次进行分类：</p>
+<ul>
+<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
 </li>
-<li><p>使用者：公用网、私用网或是骨干网、接入网、驻地网</p>
+<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
 </li>
-<li><p>拓扑结构：总线型、星型、环型、树型、网格型</p>
-</li>
-<li><p>数据交换技术：电路交换、报文交换、分组交换、信元交换、广播技术网络</p>
+<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
 <blockquote>
-<p>信元交换，又叫异步传输模式（ATM），一种使用异步时分复用技术的面向分组的传输方式，它将信息流分割成53字节的ATM信元&#x3D;5B信头+48净荷</p>
-</blockquote>
-</li>
-<li><p>按协议：IP网络、IPX网络（非IP网络）</p>
-</li>
-<li><p>传输介质：有线、无线</p>
-</li>
-<li><p>共享资源：C&#x2F;S、P2P</p>
-</li>
-</ul>
-<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p><strong>网络协议</strong>：为进行网络中数据交换而事先约定好的规则。它定义了在两个或多个通信实体之间交换的报文格式和次序，以及在报文传输和接受其他事件方面所采取的动作。只确定外部特点内部具体实现不做规定</p>
-<ul>
-<li><p>构成：语法（结构格式）、语义（操作定义）、同步（事件实现顺序）</p>
-</li>
-<li><p>再同一协议下，两个对等实体之间的通信又可以叫做虚拟通信&#x2F;逻辑通信（没有直接联系），其基于下层所提供的服务实现</p>
-</li>
-<li><p>协议是水平的，服务是垂直的；</p>
-</li>
-<li><p>不同系统中对等实体间交换数据的单位叫第N层的<strong>协议数据单元（N）PDU</strong>。包含用户数据（也可以是SDU）&amp;该层的<strong>协议控制信息PCI</strong>；</p>
-<p>同一系统相邻两层实体间经过接口交换的数据单位叫<strong>接口数据单元IDU</strong>，包括PDU和<strong>接口控制信息ICI</strong></p>
-<p><img src="https://img1.imgtp.com/2023/10/06/K8feAjLX.png" alt="image-20231006203523562"></p>
-</li>
-</ul>
-<p><strong>网络体系结构</strong>：计算机网络各层及其协议的集合</p>
-<ul>
-<li><p>分层体系结构：目标机第n层接收源主机第n层数据</p>
-</li>
-<li><p>服务：每一层，向上提供服务，以下层的服务为基础而无需考虑</p>
-</li>
-<li><p>实体：发送接收信息的任何对象，可以是终端、进程等。</p>
-<p>不同系统同一层的双方叫对等实体；一般叫下层实体为服务提供者，上层为服务用户</p>
-</li>
-<li><p>接口：<strong>服务访问点SAP</strong>，即第N层实体与第N+1层实体交换数据的地方&#x3D;N层SAP，地址唯一，期间交换信息单位叫<strong>服务数据单元SDU</strong></p>
-</li>
-</ul>
-<p><strong>典型体系结构</strong>：</p>
-<ul>
-<li><p>OSI七层：7应用层，6表示层（翻译应用层），5会话层（管理上层），4传输层，3网络层，2数据链路层，1物理层</p>
-<blockquote>
-<p>数据单元从上到下：APDU、PPDU、SPDU、TPDU、分组、帧、比特流；路由器最高下三层，交换机低两层</p>
-</blockquote>
-</li>
-<li><p>TCP&#x2F;IP四层：应用层—运输层—网际层IP—网络接口层</p>
-</li>
-<li><p>经典五层：5应用层，4运输层，3网络层（包，报），2数据链路层（网卡、网桥，帧），1物理层（线，比特）</p>
-</li>
-</ul>
-<p><strong>各层主要功能</strong>：</p>
-<ul>
-<li>差错控制、流量控制、分段和重装</li>
-<li>复用和分用：发送端几个高层会话复用一条低层的连接，在接收端进行分用</li>
-<li>连接建立和释放：交换前先建立逻辑连接，结束后再释放该连接</li>
-</ul>
-<h3 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h3><ul>
-<li><p>速率：数据传输速率，又叫数据率或比特率，常用bit&#x2F;s、kbit&#x2F;s等，按照1k&#x3D;1000计算</p>
-</li>
-<li><p>带宽：单位时间内能通过的最大数据量，单位bit&#x2F;s，即最大速率</p>
-</li>
-<li><p>吞吐率：单位与前面相同，带宽是最大的速率，吞吐率是实际</p>
-</li>
-<li><p>时延：总时延&#x3D;以下四者的和（注意！高速链路指的是提高发送速率，传播速率由介质决定）</p>
-<ul>
-<li>发送时延：$\frac{数据帧长度bit}{发送速率bit&#x2F;s}$，数据帧从发送端到传输媒介的时间</li>
-<li>传播时延：$\frac{信道长m}{信道传播速率m&#x2F;s}$，信号在传输媒介中跑的时间</li>
-<li>处理时延：主机或处理器处理分组所花费的时间</li>
-<li>排队时延：在路由器的输入输出队列中排队等待处理的时间</li>
-</ul>
-</li>
-<li><p>时延带宽积：又叫做“以比特为单位的链路长度”，&#x3D;传播时延×带宽</p>
-</li>
-<li><p>往返时间RTT：”发送方”发送数据开始到接收到”接收方”的确认</p>
-</li>
-<li><p>利用率：包括信道利用率（某信道有多少时间被用），网络利用率（全网络的信道利用率的加权平均值）</p>
-<blockquote>
-<p>$D&#x3D;\frac{D_{0} }{1-U}$：$D_{0}$网络空闲时的时延，$D$表示当前时延，$U$为网络利用率</p>
+<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
 </blockquote>
 </li>
 </ul>
 ]]></content>
       <categories>
-        <category>计算机网络</category>
+        <category>网络安全</category>
       </categories>
       <tags>
-        <tag>基础知识</tag>
         <tag>网络</tag>
       </tags>
   </entry>
@@ -7438,6 +7390,181 @@ net localgroup administrators temp /add
 ]]></content>
       <categories>
         <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计网第一章_概述</title>
+    <url>/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述</p>
+<span id="more"></span>
+
+<h3 id="计网发展阶段"><a href="#计网发展阶段" class="headerlink" title="计网发展阶段"></a>计网发展阶段</h3><ol>
+<li><p>面向终端的计算机网络</p>
+<p>特点：系统中仅主计算机有计算能力，终端无独立处理数据的能力。</p>
+<blockquote>
+<p>线路控制器：串并转换+传输差错控制；调制&#x2F;解调器：用于数字和模拟信号的转换</p>
+</blockquote>
+<p>为降低通信成本：主机前增设前端处理机，终端密集地放置集中器，用以解决终端独占线路与助记负载过重的问题</p>
+</li>
+<li><p>计算机通信网络or分组交换网络or面向标准的计算机网络</p>
+<p>特点：可用于数据传输、终端类型广、节点同等重要、冗余路由、简单但又相对可靠</p>
+<p>先后提出<strong>存储转发技术</strong>与<strong>分组交换技术</strong>（后者相对于前者每一次转发的不是整个文件而是切割后的小包）</p>
+</li>
+<li><p>共享资源的计算机网络</p>
+<p>特点：共享数据为主、每个网络内部使用各自的协议、网络之间用TCP&#x2F;IP协议簇</p>
+<p>三个阶段：</p>
+<ol>
+<li>由单个网络ARPANET发展而来，1983年以TCP&#x2F;IP协议簇为标准也因此作为互联网诞生时间，1990年关闭</li>
+<li>三级结构互联网，包括主干网—地区网—校园网&#x2F;企业网三级</li>
+<li>多层次ISP（互联网服务提供者）结构的互联网，由Alice-本地ISP-地区ISP-主干ISP-…-本地ISP-Bob</li>
+</ol>
+</li>
+<li><p>Internet高速发展</p>
+<ul>
+<li><p>SDN软件定义网络</p>
+</li>
+<li><p>云计算：分布式、并行计算、虚拟化</p>
+</li>
+<li><p>物联网IoT，借助云实现普适计算</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="计算机网络概念"><a href="#计算机网络概念" class="headerlink" title="计算机网络概念"></a>计算机网络概念</h3><p>最简定义：计算机网络是一些互相连接的、自治的计算机系统的集合。其中最大的计算机网络就是Internet——也叫做网络的网络（Network of Network）</p>
+<h3 id="计算机网络组成"><a href="#计算机网络组成" class="headerlink" title="计算机网络组成"></a>计算机网络组成</h3><p><strong>物理组成</strong>：</p>
+<ul>
+<li><p>硬件：主机host、通信处理控制机CCP、路由器Router、交换机Switch、通信链路。</p>
+<blockquote>
+<p>物理媒介&#x2F;物理链路：双绞铜线、同轴电缆、光纤、陆地无线通信、卫星无线通信</p>
+</blockquote>
+</li>
+<li><p>软件：共享的资源的软件、工具软件</p>
+</li>
+<li><p>协议：通信协议、数据交换协议</p>
+</li>
+</ul>
+<p><strong>要素组成</strong>：计算机、路由器、交换机、网卡、通信线路、调制解调器</p>
+<p><strong>功能组成</strong>：资源子网（数据的处理存储）、通信子网（数据的传输）</p>
+<h3 id="互联网组成"><a href="#互联网组成" class="headerlink" title="互联网组成"></a>互联网组成</h3><ul>
+<li><p>直接连接的：点到点链路、经集线器HUB（盒装总线）、多路访问链路</p>
+</li>
+<li><p>网络云：端系统经交换网互联；网络云互联构成互联网，必定有路由器</p>
+<blockquote>
+<p>核心部分&#x3D;网路+路由器（关键！网网互联）；<br>边缘部分&#x3D;主机+终端；端系统之间的通讯方式：C&#x2F;S方式、P2P方式</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3><ul>
+<li><p>电路交换：$N$部电话机需要$N(N-1)&#x2F;2$对电线，当然也可以使用交换机。</p>
+<p>必定是面向连接的、线路利用率低</p>
+<p>包括三个阶段：建立专用连接——双方通信——释放连接</p>
+</li>
+</ul>
+<ul>
+<li><p>报文交换：在分组交换之前，基于存储转发，不分组而已。</p>
+</li>
+<li><p>分组交换：同样基于存储转发技术，但是长切短分组进行。</p>
+<ul>
+<li>分组&#x3D;首部+数据，首部含有源&#x2F;目的地址，节点交换机据此转发报文；有额外开销</li>
+<li>每个分组独立选择路径</li>
+<li>路由器处理：放入缓存——查找转发表——送走；需要排队有时延</li>
+</ul>
+</li>
+</ul>
+<h3 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h3><ul>
+<li><p>分布范围：广域网WAN（交换技术）、城域网MAN、局域网LAN（广播技术）、个人区域网PAN</p>
+</li>
+<li><p>使用者：公用网、私用网或是骨干网、接入网、驻地网</p>
+</li>
+<li><p>拓扑结构：总线型、星型、环型、树型、网格型</p>
+</li>
+<li><p>数据交换技术：电路交换、报文交换、分组交换、信元交换、广播技术网络</p>
+<blockquote>
+<p>信元交换，又叫异步传输模式（ATM），一种使用异步时分复用技术的面向分组的传输方式，它将信息流分割成53字节的ATM信元&#x3D;5B信头+48净荷</p>
+</blockquote>
+</li>
+<li><p>按协议：IP网络、IPX网络（非IP网络）</p>
+</li>
+<li><p>传输介质：有线、无线</p>
+</li>
+<li><p>共享资源：C&#x2F;S、P2P</p>
+</li>
+</ul>
+<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p><strong>网络协议</strong>：为进行网络中数据交换而事先约定好的规则。它定义了在两个或多个通信实体之间交换的报文格式和次序，以及在报文传输和接受其他事件方面所采取的动作。只确定外部特点内部具体实现不做规定</p>
+<ul>
+<li><p>构成：语法（结构格式）、语义（操作定义）、同步（事件实现顺序）</p>
+</li>
+<li><p>再同一协议下，两个对等实体之间的通信又可以叫做虚拟通信&#x2F;逻辑通信（没有直接联系），其基于下层所提供的服务实现</p>
+</li>
+<li><p>协议是水平的，服务是垂直的；</p>
+</li>
+<li><p>不同系统中对等实体间交换数据的单位叫第N层的<strong>协议数据单元（N）PDU</strong>。包含用户数据（也可以是SDU）&amp;该层的<strong>协议控制信息PCI</strong>；</p>
+<p>同一系统相邻两层实体间经过接口交换的数据单位叫<strong>接口数据单元IDU</strong>，包括PDU和<strong>接口控制信息ICI</strong></p>
+<p><img src="https://img1.imgtp.com/2023/10/06/K8feAjLX.png" alt="image-20231006203523562"></p>
+</li>
+</ul>
+<p><strong>网络体系结构</strong>：计算机网络各层及其协议的集合</p>
+<ul>
+<li><p>分层体系结构：目标机第n层接收源主机第n层数据</p>
+</li>
+<li><p>服务：每一层，向上提供服务，以下层的服务为基础而无需考虑</p>
+</li>
+<li><p>实体：发送接收信息的任何对象，可以是终端、进程等。</p>
+<p>不同系统同一层的双方叫对等实体；一般叫下层实体为服务提供者，上层为服务用户</p>
+</li>
+<li><p>接口：<strong>服务访问点SAP</strong>，即第N层实体与第N+1层实体交换数据的地方&#x3D;N层SAP，地址唯一，期间交换信息单位叫<strong>服务数据单元SDU</strong></p>
+</li>
+</ul>
+<p><strong>典型体系结构</strong>：</p>
+<ul>
+<li><p>OSI七层：7应用层，6表示层（翻译应用层），5会话层（管理上层），4传输层，3网络层，2数据链路层，1物理层</p>
+<blockquote>
+<p>数据单元从上到下：APDU、PPDU、SPDU、TPDU、分组、帧、比特流；路由器最高下三层，交换机低两层</p>
+</blockquote>
+</li>
+<li><p>TCP&#x2F;IP四层：应用层—运输层—网际层IP—网络接口层</p>
+</li>
+<li><p>经典五层：5应用层，4运输层，3网络层（包，报），2数据链路层（网卡、网桥，帧），1物理层（线，比特）</p>
+</li>
+</ul>
+<p><strong>各层主要功能</strong>：</p>
+<ul>
+<li>差错控制、流量控制、分段和重装</li>
+<li>复用和分用：发送端几个高层会话复用一条低层的连接，在接收端进行分用</li>
+<li>连接建立和释放：交换前先建立逻辑连接，结束后再释放该连接</li>
+</ul>
+<h3 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h3><ul>
+<li><p>速率：数据传输速率，又叫数据率或比特率，常用bit&#x2F;s、kbit&#x2F;s等，按照1k&#x3D;1000计算</p>
+</li>
+<li><p>带宽：单位时间内能通过的最大数据量，单位bit&#x2F;s，即最大速率</p>
+</li>
+<li><p>吞吐率：单位与前面相同，带宽是最大的速率，吞吐率是实际</p>
+</li>
+<li><p>时延：总时延&#x3D;以下四者的和（注意！高速链路指的是提高发送速率，传播速率由介质决定）</p>
+<ul>
+<li>发送时延：$\frac{数据帧长度bit}{发送速率bit&#x2F;s}$，数据帧从发送端到传输媒介的时间</li>
+<li>传播时延：$\frac{信道长m}{信道传播速率m&#x2F;s}$，信号在传输媒介中跑的时间</li>
+<li>处理时延：主机或处理器处理分组所花费的时间</li>
+<li>排队时延：在路由器的输入输出队列中排队等待处理的时间</li>
+</ul>
+</li>
+<li><p>时延带宽积：又叫做“以比特为单位的链路长度”，&#x3D;传播时延×带宽</p>
+</li>
+<li><p>往返时间RTT：”发送方”发送数据开始到接收到”接收方”的确认</p>
+</li>
+<li><p>利用率：包括信道利用率（某信道有多少时间被用），网络利用率（全网络的信道利用率的加权平均值）</p>
+<blockquote>
+<p>$D&#x3D;\frac{D_{0} }{1-U}$：$D_{0}$网络空闲时的时延，$D$表示当前时延，$U$为网络利用率</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
       </categories>
       <tags>
         <tag>基础知识</tag>

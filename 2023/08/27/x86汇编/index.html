@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zy0t1.github.io/pic/Eflags.jpg">
 <meta property="article:published_time" content="2023-08-27T07:47:26.000Z">
 <meta property="article:modified_time" content="2023-08-27T07:47:26.000Z">
 <meta property="article:author" content="Zy0t1">
 <meta property="article:tag" content="汇编">
 <meta property="article:tag" content="x86">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zy0t1.github.io/pic/Eflags.jpg">
 
 
 <link rel="canonical" href="https://zy0t1.github.io/2023/08/27/x86%E6%B1%87%E7%BC%96/">
@@ -448,11 +450,10 @@ EXITM:退出宏，且后面的宏语句都不能展开
 <p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
 </blockquote>
 <ul>
-<li><p>CF—无符号进位标志位、OF—有符号溢出标志位</p>
-</li>
-<li><p>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</p>
-</li>
+<li>CF—无符号进位标志位、OF—有符号溢出标志位</li>
+<li>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</li>
 </ul>
+<p><img src="/../pic/Eflags.jpg" alt="eflags"></p>
 <p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
 <p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
 <blockquote>
@@ -514,13 +515,13 @@ EXITM:退出宏，且后面的宏语句都不能展开
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">135k</span>
+    <span title="站点总字数">138k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:11</span>
   </span>
 </div>
 <div class="busuanzi-count">

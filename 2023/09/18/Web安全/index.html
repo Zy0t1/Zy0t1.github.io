@@ -936,22 +936,30 @@ evil.dtd如下
 <p>防御：使用开发语言提供的禁用外部实体的方法、过滤用户提交的XML数据</p>
 <hr>
 <h3 id="8-反序列化漏洞"><a href="#8-反序列化漏洞" class="headerlink" title="8.反序列化漏洞"></a>8.反序列化漏洞</h3><p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
-<h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数serilize()；反序列化函数unserialize()；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code></p>
+<h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数<code>serilize()</code>；反序列化函数<code>unserialize()</code>；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code>；需要注意url编码<code>urlencoder()</code></p>
+<p>php的数组特性：当一个数组被当作函数触发时，如果数组第一个元素是对象，第二个是方法的名字，那么就会调用该对象下的对应方法；对于下面的例子<code>$a=new demo;$a-&gt;test();</code>可以调用该方法，当然也可以<code>$arr=[$demo,&#39;test&#39;];$arr();</code>来调用。此外<code>create_function(&#39;$a,$b;&#39;,&#39;echo($a+$b);&#39;);</code>这样的创造函数的函数也时常会用到（仅创造不调用）</p>
+<pre><code class="php">&lt;?php
+class demo&#123;
+    public $name;
+    public function test()&#123;echo &quot;hi&quot;;&#125;
+&#125;
+&gt;
+</code></pre>
 <p>__wakeup绕过CVE-2016-7124，影响版本PHP5&lt;5.6.25，PHP7&lt;7.0.10</p>
-<p>魔术函数，从序列化到反序列化过程顺序如下：</p>
+<p>魔术函数，从序列化到反序列化过程顺序如下（there are too many）：</p>
 <ol>
-<li><p>__constuct()——对象创建时自动调用（unscrialize不调用）</p>
+<li><p><code>__constuct()</code>——对象创建时自动调用（unserialize不调用）</p>
 </li>
-<li><p>__sleep()——serialize()前调用</p>
+<li><p><code>__sleep()</code>——serialize()前调用</p>
 </li>
-<li><p>__wakeup()——unseriallize()时自动调用</p>
+<li><p><code>__wakeup()</code>——unseriallize()时自动调用</p>
 </li>
-<li><p>__toString()——对象被输出时自动调用</p>
+<li><p><code>__toString()</code>——对象被输出时自动调用</p>
 </li>
-<li><p>__destruct()——销毁对象时自动调用</p>
+<li><p><code>__destruct()</code>——销毁对象时自动调用</p>
 </li>
 </ol>
-<p>POP链：用户可控反序列化—魔术方法—魔术方法中的其他函数—寻找同名函数&#x2F;可以传递参数的函数—构造Poc进行测试；</p>
+<p>POP（面向属性编程）链：用户可控反序列化—魔术方法—魔术方法中的其他函数—寻找同名函数&#x2F;可以传递参数的函数—构造Poc进行测试。说白了就是找类与函数并构造的过程</p>
 <h4 id="8-2-Python反序列化"><a href="#8-2-Python反序列化" class="headerlink" title="8.2.Python反序列化"></a>8.2.Python反序列化</h4><p>与PHP相似，但是用的是pickle和cPickle模块，主要用到就pickle模块</p>
 <p>将对象序列化<code>pickle.dumps()</code>然后存储为文件<code>pickle.dump()</code>、将字符串反序列化<code>pickle.loads()</code>从文件中读取<code>pickle.load()</code>、调试工具<code>pickletools</code>能够反汇编一个被打包的字符串<code>pickletools.dis()</code>&amp;&amp;优化一个被打包的字符串<code>pickletools.optimize()</code>&amp;&amp;返回一个迭代器</p>
 <p>Python中的魔术方法</p>
@@ -1048,13 +1056,13 @@ evil.dtd如下
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/16/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81/" rel="prev" title="对称密码">
-                  <i class="fa fa-angle-left"></i> 对称密码
+                <a href="/2023/09/16/%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81/" rel="prev" title="对称密码&Hash">
+                  <i class="fa fa-angle-left"></i> 对称密码&Hash
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/28/PicGo%E9%85%8D%E7%BD%AE/" rel="next" title="图床配置">
-                  图床配置 <i class="fa fa-angle-right"></i>
+                <a href="/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E7%89%A9%E7%90%86%E5%B1%82/" rel="next" title="计网第二章_物理层">
+                  计网第二章_物理层 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -1087,13 +1095,13 @@ evil.dtd如下
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">135k</span>
+    <span title="站点总字数">138k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:11</span>
   </span>
 </div>
 <div class="busuanzi-count">
