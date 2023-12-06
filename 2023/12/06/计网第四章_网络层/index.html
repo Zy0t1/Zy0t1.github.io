@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="摘要：IP、路由协议、MPLS、VPN等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计网第四章_网络层">
+<meta property="og:url" content="https://zy0t1.github.io/2023/12/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E7%BD%91%E7%BB%9C%E5%B1%82/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="摘要：IP、路由协议、MPLS、VPN等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-06T03:30:00.000Z">
+<meta property="article:modified_time" content="2023-12-06T03:30:00.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="基础知识">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/12/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/12/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E7%BD%91%E7%BB%9C%E5%B1%82/","path":"2023/12/06/计网第四章_网络层/","title":"计网第四章_网络层"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计网第四章_网络层 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C-%E7%BD%91%E9%99%85%E5%B1%82"><span class="nav-number">1.</span> <span class="nav-text">网络&#x2F;网际层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4"><span class="nav-number">1.0.1.</span> <span class="nav-text">IPv4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP"><span class="nav-number">1.0.2.</span> <span class="nav-text">ICMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.3.</span> <span class="nav-text">ARP地址解析协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6"><span class="nav-number">1.0.4.</span> <span class="nav-text">IPv6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">路由选择协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AEIGP"><span class="nav-number">2.1.</span> <span class="nav-text">内部网关协议IGP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RIP-%E8%B7%9D%E7%A6%BB%E5%90%91%E9%87%8F%E7%AE%97%E6%B3%95-%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.1.1.</span> <span class="nav-text">RIP-距离向量算法-应用层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OSPF-%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E7%AE%97%E6%B3%95-%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">2.1.2.</span> <span class="nav-text">OSPF-链路状态算法-网络层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AEBGP"><span class="nav-number">2.2.</span> <span class="nav-text">外部网关协议BGP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E5%A4%9A%E6%92%AD-%E7%BB%84%E6%92%AD"><span class="nav-number">2.2.1.</span> <span class="nav-text">IP多播&#x2F;组播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPN%E4%B8%8ENAT"><span class="nav-number">2.2.2.</span> <span class="nav-text">VPN与NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MPLS"><span class="nav-number">2.2.3.</span> <span class="nav-text">MPLS</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/12/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E5%9B%9B%E7%AB%A0_%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计网第四章_网络层 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计网第四章_网络层
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-12-06 11:30:00" itemprop="dateModified" datetime="2023-12-06T11:30:00+08:00">2023-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>摘要：IP、路由协议、MPLS、VPN等</p>
+<span id="more"></span>
+
+<h2 id="网络-网际层"><a href="#网络-网际层" class="headerlink" title="网络&#x2F;网际层"></a>网络&#x2F;网际层</h2><p><strong>网络层提供的两种服务</strong>：</p>
+<ol>
+<li>面向连接的可靠交付，之前先建立虚电路VC来保证双方通信所需的一切网络资源。分组沿着同一路径传送</li>
+</ol>
+<blockquote>
+<p>虚电路：一条物理链路上通过缓冲区区分多个虚拟电路，因此每个节点需要有虚电路的入口出口表，每个口对应一个VC号</p>
+</blockquote>
+<ol start="2">
+<li>无连接的，尽力交付的数据服务，每一个分组独立发送，路径可以不同，让运输层负责可靠传输。</li>
+</ol>
+<p>路由器之间传播的信息有数据、路由信息，也因此有网络层的两个层面，数据层面和控制层面（可单独抽出来作为SDN）</p>
+<blockquote>
+<p>SDN—软件定义网络：由远程控制器计算出最佳路由之后在每一个路由器中生成正确的转发表，此时的路由器仅需查找转发表并转发分组即可</p>
+</blockquote>
+<p>中间设备：</p>
+<ul>
+<li>运输层及以上：网关</li>
+<li>网络层：路由器</li>
+<li>数据链路层：网桥或桥接器，交换机</li>
+<li>物理层：转发器</li>
+</ul>
+<h4 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h4><p><strong>IPv4配套的协议</strong>：地址解析协议ARP、网际报文控制协议ICMP、网际组管理协议IGMP</p>
+<p><strong>表示法</strong>：32位二进制代码，4*8，<strong>点分十进制法</strong>。每个IP地址由ICANN互联网名字和数字分配机构（域名IP分配）</p>
+<p><strong>IPv4发展阶段</strong>：</p>
+<ol>
+<li><p>分类IP地址—2级结构：【网络名+主机名】</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>网络号</th>
+<th>主机号</th>
+<th>第1个网络号</th>
+<th>最后网络号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>8b（0开）</td>
+<td>24b</td>
+<td>1</td>
+<td>126</td>
+</tr>
+<tr>
+<td>B</td>
+<td>16b（10开）</td>
+<td>16b</td>
+<td>128.1</td>
+<td>191.255</td>
+</tr>
+<tr>
+<td>C</td>
+<td>24b（110开）</td>
+<td>8b</td>
+<td>192.0.1</td>
+<td>223.255.255</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1110开</td>
+<td>多播地址</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>1111开</td>
+<td>保留</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>A类中网络号0表示本网络，127表示本地环回测试地址；B类中128.0被保留；C类192.0.0保留（B、C类在后面的CIDR中可以使用）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>网络号</th>
+<th>主机号</th>
+<th>源</th>
+<th>目的</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>可以</td>
+<td>不可</td>
+<td>本网络上本主机（DHCP）</td>
+</tr>
+<tr>
+<td>0</td>
+<td>X</td>
+<td>可</td>
+<td>N</td>
+<td>本网络上主机号为X的主机</td>
+</tr>
+<tr>
+<td>全1</td>
+<td>全1</td>
+<td>N</td>
+<td>Y</td>
+<td>只在本网络进行广播</td>
+</tr>
+<tr>
+<td>S</td>
+<td>全1</td>
+<td>N</td>
+<td>Y</td>
+<td>对网络号为Y的网络中进行广播</td>
+</tr>
+<tr>
+<td>127</td>
+<td>非全0或全1</td>
+<td>Y</td>
+<td>Y</td>
+<td>本地软件环回测试</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>划分子网—三级IP地址：【网络号+子网号+主机号】</p>
+<ul>
+<li><p>仍有ABC类之分，子网号从主机号位数中拿取</p>
+</li>
+<li><p>子网掩码：网络号等长位置全1，主机号等长全0；与IP地址相&amp;得到网络地址</p>
+</li>
+<li><p>路由表中除了目的网络地址还要有该网络的子网掩码</p>
+</li>
+</ul>
+</li>
+<li><p>CIDR—无分类域间路由选择：【网络前缀+主机号】</p>
+<ul>
+<li>没有了ABC之分，这种编址方式也叫<em>构造超网</em>，但还是无法解决IP缺少的问题。</li>
+<li>VLSM：变长子网掩码，一个划分子网的网络中可同时使用几个不同的子网掩码</li>
+<li><strong>斜线记法</strong>a.b.c.d&#x2F;n，表明前n位是网络前缀，前缀越短，地址块包含地址越大。</li>
+<li>子网掩码：又叫地址掩码，即32位，点分十进制表示的网络前缀。</li>
+<li>地址块：网络前缀都相同的所有连续IP地址，每个地址块中地址数一定是2的整数次幂</li>
+</ul>
+</li>
+</ol>
+<p><strong>IP层分组转发</strong>：特定路由？——最长前缀匹配？——默认路由？——丢弃</p>
+<ul>
+<li><p>路由聚合：使用网络前缀减少路由表中的相近条目；路由聚合地址表【目的网络，下一跳】</p>
+</li>
+<li><p>基于终点的转发：基于分组首部中的目的地址传送和转发</p>
+</li>
+<li><p>最长前缀匹配：使用CIDR查找转发表时，选择前缀最长的一个作为匹配的前缀</p>
+<blockquote>
+<p>两种特殊路由：主机路由，对特定目的主机的IP地址专门指明的一个路由，a.b.c.d&#x2F;32，放在转发表最前面；默认路由，都由指定路由器处理，0.0.0.0&#x2F;0表示</p>
+</blockquote>
+</li>
+<li><p>二叉线索查找转发表：自顶向下最多32层，每层对应IP地址中的一位，可以用唯一前缀构造该线索二叉</p>
+</li>
+</ul>
+<p><strong>IP数据报</strong>首部：</p>
+<ol>
+<li><p>4B-IP协议版本+4B-首部长度+8B-区分服务（一般不用）+16B-IP数据报总长度</p>
+</li>
+<li><p>16B-标识（计数器）+3B-标志（MF-DF-保留）+13B-片偏移（本部分数据在原分组中的偏移，8字节为单位）</p>
+<blockquote>
+<p>MF&#x3D;1，表示后面还有分片；DF&#x3D;0才允许分片</p>
+</blockquote>
+</li>
+<li><p>8B-生存时间（可通过的路由器数最大值TTL）+8B-协议（数据部分协议）+16B-首部检验和</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>ICMP</th>
+<th>IGMP</th>
+<th>IP</th>
+<th>TCP</th>
+<th>UDP</th>
+<th>IPv6</th>
+<th>ICMP-v6</th>
+<th>OSPF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字段</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+<td>17</td>
+<td>41</td>
+<td>58</td>
+<td>89</td>
+</tr>
+</tbody></table>
+<p>发送端：数据报<strong>首部</strong>每16位一单位（此时检验和当0），反码后求和，再取反码得到检验和</p>
+<p>接收端再拿着检验和计算，反码求和，若0则保留，否则丢弃</p>
+</blockquote>
+</li>
+<li><p>32B-源地址+32B目的地址+（可选部分+填充，一定是32B的倍数）</p>
+</li>
+<li><p>数据部分</p>
+</li>
+</ol>
+<h4 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h4><p>允许主机或路由器报告差错情况和提供有关异常情况的报告。ICMP报文封装于IP数据报中，但属于IP层协议。</p>
+<p><strong>ICMP报文格式</strong>：8b-类型+8b-代码+16b-检验和+（16b-标识符+16b-序列号+数据部分）</p>
+<p><strong>ICMP报文类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>报文种类</th>
+<th>类型值</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>差错报文</strong></td>
+<td>3</td>
+<td>终点不可达</td>
+</tr>
+<tr>
+<td>多播特殊地址不发</td>
+<td>11</td>
+<td>时间超过</td>
+</tr>
+<tr>
+<td>对ICMP不发ICMP</td>
+<td>15</td>
+<td>参数问题</td>
+</tr>
+<tr>
+<td>仅第一个分片</td>
+<td>5</td>
+<td>改变路由</td>
+</tr>
+<tr>
+<td><strong>询问报文</strong></td>
+<td>8或0</td>
+<td>回送请求或回答</td>
+</tr>
+<tr>
+<td></td>
+<td>13或14</td>
+<td>时间戳请求或回答</td>
+</tr>
+</tbody></table>
+<p><strong>应用</strong>：<code>ping</code>命令直接使用网络层测试两个主机的连通性；<code>tracert</code>命令跟踪一个分组路径。</p>
+<h4 id="ARP地址解析协议"><a href="#ARP地址解析协议" class="headerlink" title="ARP地址解析协议"></a>ARP地址解析协议</h4><p><strong>ARP高速缓存</strong>：已知一个IP，用来找MAC</p>
+<ul>
+<li>存放IP地址到MAC地址的映射表</li>
+<li>映射表动态更新（新增或超时删除）</li>
+<li>映射表&lt;IP地址；MAC地址；生存时间；类型&gt;</li>
+</ul>
+<p><strong>ARP工作</strong>：A在自己的ARP高速缓冲中找B的IP地址，找到后取出MAC并写入MAC帧；没找到则A在本局域网中广播发送ARP请求，之后由目标B向A单播ARP响应分组</p>
+<blockquote>
+<p>请求分组：&lt;A的MAC；A的IP；B的MAC（未知全0）；B的IP&gt;。响应分组类似</p>
+</blockquote>
+<p><strong>ARPcache作用</strong>：</p>
+<ul>
+<li>解决同一个局域网上的主机或路由器的IP和MAC地址的映射关系—动态更新</li>
+<li>减少ARP广播的通信量（请求分组与响应分组会被记入缓冲中）</li>
+<li>存放最近获得的IP地址到MAC地址的绑定。</li>
+</ul>
+<p><strong>ARP使用的四种情况</strong>：</p>
+<ol>
+<li>发送方是主机，要把IP数据报发送到<strong>本网络</strong>上另一个主机：用ARP找——目标主机MAC</li>
+<li>发送到<strong>另一个网</strong>上的一个主机：ARP找到本网络的路由器的硬件地址，剩下交给路由器</li>
+<li>发送方<strong>路由器</strong>，要把IP数据报传给<strong>本网络</strong>上一个主机：使用ARP找——目标主机MAC</li>
+<li>IP数据报发给<strong>另一个网</strong>上另一个主机：ARP找到本网络上<strong>另一个路由器的硬件地址</strong>，再交给路由器</li>
+</ol>
+<h4 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h4><p>主要是解决IP枯竭的问题，将协议数据单元PDU称为分组；支持即插即用，无需使用DHCP；首部长度必须是8B的整数倍；支持资源的预分配</p>
+<p><strong>数据报格式</strong>：基本首部+有效载荷（净负荷&#x3D;[扩展首部]+数据部分）</p>
+<ul>
+<li><p>40B的基本首部：4b-版本+8b通信量类+24b-流标号+16b-有效载荷长度+8b-下一个首部+8b-跳数限制+128b-源地址+128b-目标地址</p>
+<blockquote>
+<p>版本指明协议版本；通信量类区分不同数据报的优先级；流标号指明该数据流编号，同一流下数据报共享一个标号；下一个首部相当于IPv4的协议字段；</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>基本类型</strong>：单播（点对点）、多播（一对多）、任播（终点是一组，但只能有一个收到）</p>
+<p><strong>冒号十六进制记法</strong>：每个地址128位，8×4×hex；零压缩技术（一串连续的0可用一对冒号取代）、点分十进制记法的后缀（用来由4向6转换）</p>
+<table>
+<thead>
+<tr>
+<th>地址类型</th>
+<th>二进制前缀</th>
+<th>IPv6记法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未指明地址</td>
+<td>00…0（128b）</td>
+<td>::&#x2F;128</td>
+</tr>
+<tr>
+<td>环回地址</td>
+<td>00…1（仅此一个）</td>
+<td>::1&#x2F;128</td>
+</tr>
+<tr>
+<td>多播地址</td>
+<td>11111111（8位）</td>
+<td>FF00::&#x2F;8</td>
+</tr>
+<tr>
+<td>本地链路单播地址</td>
+<td>1111111010（10位）未连接到互联网</td>
+<td>FE80::&#x2F;10</td>
+</tr>
+<tr>
+<td>全球单播地址</td>
+<td>除上述四种之外所有</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>单播地址划分：【子网前缀+接口标识符】、【全球路由选择前缀+子网标识符+接口标识符】</p>
+</blockquote>
+<p><strong>v4向v6过渡</strong>：双协议栈（路由器提供v6和v4数据报的转换）或者隧道技术（将v6作为内容包在v4数据包之中）</p>
+<p><strong>ICMPv6</strong>：差错报文、信息报文、邻站发现报文ND、组成员关系报文MLD</p>
+<h2 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h2><p>互联网采用<strong>自适应（动态）、分布式</strong>路由选择协议。将整个互联网划分为许多较小的自治系统AS，采用分层次的路由选择协议，即自治系统之间的路由选择协议（域间路由选择&#x3D;外部网关协议）和自治系统内部的路由选择（内部网关协议&#x3D;域内路由选择）</p>
+<blockquote>
+<p>自治系统AS：每一个AS对其他AS表现出的是一个单一的和一致的路由选择策略</p>
+</blockquote>
+<h3 id="内部网关协议IGP"><a href="#内部网关协议IGP" class="headerlink" title="内部网关协议IGP"></a>内部网关协议IGP</h3><h4 id="RIP-距离向量算法-应用层"><a href="#RIP-距离向量算法-应用层" class="headerlink" title="RIP-距离向量算法-应用层"></a>RIP-距离向量算法-应用层</h4><p>分布式、基于距离向量的路由选择；互联网标准协议；每个路由器都要维护从他自己到其他每个目的网络的距离记录。坏消息传得慢</p>
+<ul>
+<li><p>距离&#x2F;跳数：路由器到直接连接的网络距离&#x3D;1，到非直接连接的网络距离&#x3D;经过的路由数+1</p>
+</li>
+<li><p>好路由&#x3D;距离短，不关注时间，一条路最多15个路由器，16&#x3D;不可到达，只选择距离最短路由</p>
+</li>
+</ul>
+<p><strong>三个特点</strong>：仅和相邻路由交换信息、交换自己路由表、固定时间间隔30s交换</p>
+<p>路由表建立：空的—交换直接连接的—若干更新—收敛完成</p>
+<blockquote>
+<p>收敛：自治系统中所有结点都得到正确的路由选择信息的过程；坏消息传得慢</p>
+</blockquote>
+<p><strong>RIP报文处理</strong>：采用距离向量算法</p>
+<ul>
+<li>对收到来自X的RIP报文中的路由表，下一跳地址都改为X，距离++</li>
+<li>——本地路由表中没有的目的网络则全部添加</li>
+<li>——本地有目标网络，但下一跳为X的话，就用收到的替换</li>
+<li>——若下一跳不是X，且本地表距离更远则更新</li>
+<li>180s还没收到X的更新，则把X记为不可达，距离设置为16</li>
+</ul>
+<p><strong>RIP2报文</strong>：支持CIDR，使用UDP端口520传送；由首部+路由构成</p>
+<blockquote>
+<p>首部-4B：命令+版本+0；一条路由-20B：地址标识符+路由标记+网络地址+子网掩码+下一跳路由地址+距离（1-16，但占4B）；最多25个路由信息，多的额外报文传送</p>
+</blockquote>
+<h4 id="OSPF-链路状态算法-网络层"><a href="#OSPF-链路状态算法-网络层" class="headerlink" title="OSPF-链路状态算法-网络层"></a>OSPF-链路状态算法-网络层</h4><p>原理简单实现复杂；迪杰斯特拉的最短路径算法SPF；分布式的链路状态协议；目前采用v2版本；将自治系统化为主干区域（路由器BR）和区域（边界路由器ASBR）</p>
+<p><strong>三个特点</strong>：洪泛法向所有本AS路由器发送信息、发送相邻链路状态、每隔一长段时间或链路状态变换再泛洪</p>
+<blockquote>
+<p>链路状态：说明本路由器和哪些路由器相邻，以及链路的度量&#x2F;权重</p>
+</blockquote>
+<p><strong>其他特点</strong>：可实现负载均衡、OSPF路由具有鉴别功能、支持可变长度的子网划分和CIDR、序号空间大、根据权重计算不同的路由</p>
+<p><strong>五种分组类型</strong>：问候分组、数据库描述分组、链路状态的请求、更新、确认分组</p>
+<p><strong>格式</strong>：用IP数据报传送，包括24B的分组首部+具体分组内容</p>
+<p><strong>工作过程</strong>：确定邻站可达—同步链路状态数据库—更新链路状态（30min左右）</p>
+<h3 id="外部网关协议BGP"><a href="#外部网关协议BGP" class="headerlink" title="外部网关协议BGP"></a>外部网关协议BGP</h3><p>目前使用BGP-4，一种不同自治系统的路由器之间的交换路由信息的协议，路径向量算法-应用层</p>
+<ul>
+<li>不同自治系统之间由BGP发言者（边界路由器）交换信息，在半永久性TCP链接（179端口）建立BGP会话，也叫做eBGP连接在（不同AS之间交换路由协议）；AS内部，iBGP连接。</li>
+<li>AS内部运行IGP或iBGP，AS之间运行eBGP</li>
+<li>eBGP连接的两端可以互相通报；iBGP对等信息不能双向</li>
+<li>路由信息【前缀,BGP属性】&#x3D;【前缀,AS路径,下一跳】，不允许相同AS号出现</li>
+</ul>
+<p><strong>不同类型AS</strong>：末梢AS（树叶）；多归属AS（同时连接到两个或以上的AS）；穿越AS（为其他AS有偿转发）；对等AS（事先商量的两个AS，彼此之间不收费）</p>
+<p><strong>路由选择</strong>：本地偏好值最高的路由（默认100）——AS跳数最小的路由——热土豆路由算法（分组在AS内转发次数最小）——路由器BGP ID数值最小的路由。</p>
+<p><strong>四种类型</strong>：打开（与另一个BGP发言者建立关系）、更新、保活（周期性证实邻站连同）、通知（发送检测到的差错）</p>
+<p><strong>格式</strong>：16B标记+2B长度+1B类型+报文主体部分</p>
+<p><strong>路由器结构</strong>：路由选择结构-软件+分组转发部分-硬件；工作在网络层；主要用于转发分组；</p>
+<ul>
+<li><p>转发仅涉及一个路由器，将用户的IP数据报从合适端口转发出去，是从路由表得出来的；路由选择涉及到多个路由器，路由表一般仅包含目的网络到下一跳的映射</p>
+</li>
+<li><p>输入：收到的分组是交换路由信息的分组则送交路由选择处理机，数据分组则按照目的地址查找转发表经交换结构到达合适的输出端口，若某分组正在查找则排队等待</p>
+</li>
+<li><p>输出：从交换结构接受分组。传来的速率&gt;输出链路发送速率就缓存在队列中，满了则丢弃后面的</p>
+</li>
+<li><p>交换结构：</p>
+<ul>
+<li>通过存储器：收到分组就中断通知，之后复制到存储器</li>
+<li>总线：共享的总线，不需要预处理机，若总线忙则排队；受总线速率影响</li>
+<li>纵横交换结构：2N条总线，水平线与垂直线，定位到对应出口上</li>
+</ul>
+</li>
+</ul>
+<h4 id="IP多播-组播"><a href="#IP多播-组播" class="headerlink" title="IP多播&#x2F;组播"></a>IP多播&#x2F;组播</h4><ul>
+<li>互联网上进行多播就叫IP多播，因为是一对多，只能用于目的地址；发送一次数据到多播组，由多播路由器则复制传输</li>
+<li>多播数据报中需要写入多播组的标识符，标识符就是D类地址，只能用于目的地址</li>
+<li>包装的IP协议字段&#x3D;2，表明使用网际组管理协议IGMP，最大努力交付，无ICMP差错报文</li>
+<li>硬件多播：01-00-5E-00-00-00到01-00-5E-7F-FF-FF（前25位不变）</li>
+</ul>
+<p><strong>IGMP</strong>：让多播路由器知道多播组成员信息。动态适应变化，考虑数据报的来源与去向。使用IP数据包传递报文。</p>
+<p><strong>IGMP工作</strong>：加入多播组（新人主动发送IGMP，之后由多播路由器转发给其他路由器）——探询组成员变化情况（多播路由器周期性试探组，组内有一台机器响应即可，否则不活跃，不再转发给其他多播路由器）</p>
+<p><strong>多播路由选择</strong>方法：洪泛与剪除、隧道技术、基于核心的发现技术</p>
+<ul>
+<li><p>洪泛与剪除：使用较小的多播组；开始时洪泛（采用反向路径广播RPB避免兜圈子）</p>
+<blockquote>
+<p>RBP：经最短路径转发来的转发，否则丢弃（检查）。长度相同的则选择IP地址最小的。这样就形成了<strong>多播转发树</strong>，某个路由器下游树枝没有多播组成员则一并剪除（剪枝），有某个树枝新增组成员则再介入到该转发树（嫁接）</p>
+</blockquote>
+</li>
+<li><p>隧道技术：适用于地理上很分散的情况；</p>
+</li>
+<li><p>基于核心的发现：多播组大小在较大范围内变化；每个多播组指定一个核心路由器，并给出它的IP单播地址</p>
+<blockquote>
+<p>路由器1发出多播数据报到一个多播组，则多播组就向其成员转发该数据报；若是请求加入多播组的数据报，则该核心路由器就用隧道技术向1转发每一个多播数据报的副本</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>多播路由选择协议</strong>：距离向量多播路由选择协议DVMRP、基于核心的转发树CBT、开放最短通路优先的多播扩展MOSPF、协议无关多播-稀疏方式PIM-SM、协议无关多播-密集方式PIM-DM</p>
+<h4 id="VPN与NAT"><a href="#VPN与NAT" class="headerlink" title="VPN与NAT"></a>VPN与NAT</h4><p>采用专门IP地址的互联网络叫专用网，专门IP地址即仅在机构内部使用的IP地址，路由器对目的地址是专用地址的数据报一律不进行转发</p>
+<p><strong>三个专用IP地址块</strong>：10.0.0.0&#x2F;8；172.16.0.0&#x2F;12；192.168.0.0&#x2F;16</p>
+<p><strong>专用网</strong>：用于机构内部的通信，并借助互联网作为两个专用网之间的载体，即VPN-虚拟专用网（数据必加密，两边必须有专门软硬件）</p>
+<ul>
+<li><p>内联网：同一个机构内部的网路构成的VPN</p>
+</li>
+<li><p>外联网：一个机构和某些外部机构共同建立的</p>
+</li>
+<li><p>远程接入VPN：外部建立VPN隧道访问公司内部网络</p>
+</li>
+</ul>
+<p><strong>NAT</strong>：一种安装在上述特殊硬件上的软件，用于网络地址转换，至少一个全网IP和内网IP</p>
+<ul>
+<li><p>地址转换表【出—源IP—旧的IP—新的IP】【入—目的IP—旧IP—新IP】</p>
+</li>
+<li><p>传统NAT：NAT路由器n个公网IP，则专用网内最多n个主机接入（或者轮流使用）</p>
+</li>
+<li><p>网络地址与端口号转换<strong>NAPT</strong>：可以使多台拥有本地地址的主机，共用一个公网IP，P代表运输层的TCP端口号；</p>
+</li>
+</ul>
+<h4 id="MPLS"><a href="#MPLS" class="headerlink" title="MPLS"></a>MPLS</h4><p>多协议标签交换技术，建立基于标签的转发路径（虚路径），使得MPLS网络中的路由器在<strong>转发报文</strong>时不必再<strong>查找数目庞大的网络层路由条目</strong>，而是<strong>根据标签来转发分组</strong>。</p>
+<ul>
+<li><p>MPLS上层可有多种协议，IPv4、IPv6、IPX，也可以使用多种链路层协议，PPP、以太网、ATM以及帧中继等。利用面向连接的技术，使每个分组携带一个叫做标签的小整数（固定长度），让标签路由器用标签值检索转发表，从而实现在链路层用<strong>硬件</strong>快速转发（标签交换）</p>
+</li>
+<li><p>封装位置：网络层与数据链路层之间，即IP数据报之前加一个MPLS首部之后再封装为以太网帧</p>
+</li>
+<li><p>MPLS域：该域中有许多彼此相邻的路由器，并且所有路由器都是支持MPLS技术的标记交换路由器LSR（标记交换-快速转发，路由选择-构造转发表）</p>
+</li>
+<li><p><strong>工作过程</strong>：</p>
+<ul>
+<li><p>各LSR使用标签分配协议LDP交换报文，找出和标签对应的标签交换路径LSP。</p>
+</li>
+<li><p>入口节点给IP数据报打上标签（插入MPLS首部）即分类，并按照转发表转发给下一个LSR</p>
+<blockquote>
+<p>首部&#x3D;20b标签位+3b保留位+1b栈位+8b生存时间TTL</p>
+</blockquote>
+</li>
+<li><p>LSR转发并更新标记（入标记改为出标记，也叫做标签对换）</p>
+</li>
+<li><p>分组离开MPLS域时，出口节点把分组的标签去除</p>
+</li>
+</ul>
+</li>
+<li><p>转发等价类FEC：一组具有相同转发处理方式的分组；传统IP转发中，到同一个目的地址的所有报文就是一个FEC，而FEC的划分可以由管理员控制！（可以实现路经的人工配置）</p>
+</li>
+</ul>
+<p>因为MPLS的复杂维护难，且无法做到基于时延或带宽等要求的流量调度，于是新一代MPLS，段路由选择协议SR，需要借助下面的SDN控制器给分组分配SR标签，指明分组从原点到终点的路径</p>
+<p><strong>SDN</strong>：软件定义网络，将控制层和数据层分开，使用软件控制数据层面的设备，OpenFlow作为两层之间的通信接口。</p>
+<p><strong>OpenFlow</strong>：SDN远程控制器通过一个安全信道，使用OpenFlow协议远程管理，OpenFlow交换机中的流表，该表规定了“匹配+动作”，即如何进行字段匹配以及之后的操作</p>
+<blockquote>
+<p>流表中的一项：首部字段值（匹配字段）+计数器（已匹配分组数）+动作</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 基础知识</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/10/29/VS%E9%A3%9F%E7%94%A8%E8%AF%B4%E6%98%8E/" rel="prev" title="VS食用说明">
+                  <i class="fa fa-angle-left"></i> VS食用说明
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">145k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:24</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"2cb312ef5726d5d4b5856c8cf0fe55ae"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>
