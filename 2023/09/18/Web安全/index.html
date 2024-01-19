@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="摘要：主要讲解Web应用相关漏洞原理">
 <meta property="og:type" content="article">
@@ -31,8 +31,8 @@
 <meta property="article:published_time" content="2023-09-18T13:29:44.000Z">
 <meta property="article:modified_time" content="2023-09-18T13:29:44.000Z">
 <meta property="article:author" content="Zy0t1">
-<meta property="article:tag" content="CTF">
 <meta property="article:tag" content="Web">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
 
 
@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">1.SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.1.注入类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E9%98%B2%E8%8C%83SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.防范SQL注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.数据库软件说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.</span> <span class="nav-text">2.上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.文件解析漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.</span> <span class="nav-text">2.2.文件上传限制绕过漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.3.</span> <span class="nav-text">2.3.文本编辑器上传漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">2.4.</span> <span class="nav-text">2.4.防御措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%BC%8F%E6%B4%9E"><span class="nav-number">3.</span> <span class="nav-text">3.XSS跨站脚本漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-xss%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1.xss类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-XSS%E9%AB%98%E7%BA%A7%E5%88%A9%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">3.2.XSS高级利用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E9%98%B2%E5%BE%A1-%E7%BB%95%E8%BF%87%E6%8E%AA%E6%96%BD"><span class="nav-number">3.3.</span> <span class="nav-text">3.3.防御&#x2F;绕过措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E"><span class="nav-number">4.</span> <span class="nav-text">4.命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-PHP%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">4.1.</span> <span class="nav-text">4.1.PHP命令执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD"><span class="nav-number">4.2.</span> <span class="nav-text">4.2.防范措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-number">5.</span> <span class="nav-text">5.文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-PHP%E5%8C%85%E5%90%AB"><span class="nav-number">5.1.</span> <span class="nav-text">5.1.PHP包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-JSP%E5%8C%85%E5%90%AB"><span class="nav-number">5.2.</span> <span class="nav-text">5.2.JSP包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD"><span class="nav-number">5.3.</span> <span class="nav-text">5.3.防范措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-CSRF-SSRF"><span class="nav-number">6.</span> <span class="nav-text">6.CSRF&amp;&amp;SSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-CSRF%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"><span class="nav-number">6.1.</span> <span class="nav-text">6.1.CSRF跨站请求伪造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-SSRF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E6%9E%84%E9%80%A0"><span class="nav-number">6.2.</span> <span class="nav-text">6.2.SSRF服务端请求构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-xml%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-number">7.</span> <span class="nav-text">7.xml外部实体注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-XML%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.1.</span> <span class="nav-text">7.1.XML介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-XXE%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.</span> <span class="nav-text">7.2.XXE原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">8.反序列化漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.1.</span> <span class="nav-text">8.1.PHP反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.2.</span> <span class="nav-text">8.2.Python反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.3.</span> <span class="nav-text">8.3.Java反序列化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E9%80%BB%E8%BE%91%E9%94%99%E8%AF%AF%E6%BC%8F%E6%B4%9E"><span class="nav-number">9.</span> <span class="nav-text">9.逻辑错误漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5"><span class="nav-number">10.</span> <span class="nav-text">10. 代码注入</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">0x01.SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1.1.注入类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E9%98%B2%E8%8C%83SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">1.2.防范SQL注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.</span> <span class="nav-text">1.3.数据库软件说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.</span> <span class="nav-text">0x02.上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">2.1.文件解析漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.</span> <span class="nav-text">2.2.文件上传限制绕过漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.3.</span> <span class="nav-text">2.3.文本编辑器上传漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">2.4.</span> <span class="nav-text">2.4.防御措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%BC%8F%E6%B4%9E"><span class="nav-number">3.</span> <span class="nav-text">0x03.XSS跨站脚本漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-xss%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1.xss类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-XSS%E9%AB%98%E7%BA%A7%E5%88%A9%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">3.2.XSS高级利用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E9%98%B2%E5%BE%A1-%E7%BB%95%E8%BF%87%E6%8E%AA%E6%96%BD"><span class="nav-number">3.3.</span> <span class="nav-text">3.3.防御&#x2F;绕过措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E"><span class="nav-number">4.</span> <span class="nav-text">0x04.命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-PHP%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">4.1.</span> <span class="nav-text">4.1.PHP命令执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD"><span class="nav-number">4.2.</span> <span class="nav-text">4.2.防范措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-number">5.</span> <span class="nav-text">0x05.文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-PHP%E5%8C%85%E5%90%AB"><span class="nav-number">5.1.</span> <span class="nav-text">5.1.PHP包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-JSP%E5%8C%85%E5%90%AB"><span class="nav-number">5.2.</span> <span class="nav-text">5.2.JSP包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD"><span class="nav-number">5.3.</span> <span class="nav-text">5.3.防范措施</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-CSRF-SSRF"><span class="nav-number">6.</span> <span class="nav-text">0x06.CSRF&amp;&amp;SSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-CSRF%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"><span class="nav-number">6.1.</span> <span class="nav-text">6.1.CSRF跨站请求伪造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-SSRF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E6%9E%84%E9%80%A0"><span class="nav-number">6.2.</span> <span class="nav-text">6.2.SSRF服务端请求构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x07-Xml%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%E6%B3%A8%E5%85%A5"><span class="nav-number">7.</span> <span class="nav-text">0x07.Xml外部实体注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-XML%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.1.</span> <span class="nav-text">7.1.XML介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-XXE%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.</span> <span class="nav-text">7.2.XXE原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x08-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">0x08.反序列化漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.1.</span> <span class="nav-text">8.1.PHP反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.2.</span> <span class="nav-text">8.2.Python反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">8.3.</span> <span class="nav-text">8.3.Java反序列化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x09-%E9%80%BB%E8%BE%91%E9%94%99%E8%AF%AF%E6%BC%8F%E6%B4%9E"><span class="nav-number">9.</span> <span class="nav-text">0x09.逻辑错误漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x0A-%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5"><span class="nav-number">10.</span> <span class="nav-text">0x0A. 代码注入</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -161,18 +161,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -286,7 +286,7 @@
     <div class="post-body" itemprop="articleBody"><p>摘要：主要讲解Web应用相关漏洞原理</p>
 <span id="more"></span>
 
-<h3 id="1-SQL注入"><a href="#1-SQL注入" class="headerlink" title="1.SQL注入"></a>1.SQL注入</h3><p>原理：用户输入的数据未经过滤被SQL解释器执行；扫描、注入工具：SqlMap、Pangolin（穿山甲）、Havij、BSQL Hacker、The Mole；使用单双引号或<code>\</code>来检测是否报错；靶场：sqli-labs</p>
+<h3 id="0x01-SQL注入"><a href="#0x01-SQL注入" class="headerlink" title="0x01.SQL注入"></a>0x01.SQL注入</h3><p>原理：用户输入的数据未经过滤被SQL解释器执行；扫描、注入工具：SqlMap、Pangolin（穿山甲）、Havij、BSQL Hacker、The Mole；使用单双引号或<code>\</code>来检测是否报错；靶场：sqli-labs</p>
 <h4 id="1-1-注入类型"><a href="#1-1-注入类型" class="headerlink" title="1.1.注入类型"></a>1.1.注入类型</h4><ol>
 <li>数字型注入：输入参数为整数；会出现在ASP、PHP等弱类型语言中，对于Java、C#等强类型语言难以自动将字符串推导为string类型</li>
 </ol>
@@ -465,7 +465,7 @@ select banner from sys.v_$version where rownum=1	#当前数据库版本
 </code></pre>
 <p>Oracle包&#x3D;包的规范（接口）+包体（具体实现）；<code>UTL_HTTP</code>对http的操作、<code>UTL_FILE</code>专门操作I&#x2F;O</p>
 <hr>
-<h3 id="2-上传漏洞"><a href="#2-上传漏洞" class="headerlink" title="2.上传漏洞"></a>2.上传漏洞</h3><p>只要允许上传头像文件等就可能存在该漏洞；一般POST上传过程：客户端JS检测扩展名—服务端MIME类型检测—服务端目标路径检测path—服务端文件内容检测；靶场:upload-labs；原因如下：</p>
+<h3 id="0x02-上传漏洞"><a href="#0x02-上传漏洞" class="headerlink" title="0x02.上传漏洞"></a>0x02.上传漏洞</h3><p>只要允许上传头像文件等就可能存在该漏洞；一般POST上传过程：客户端JS检测扩展名—服务端MIME类型检测—服务端目标路径检测path—服务端文件内容检测；靶场:upload-labs；原因如下：</p>
 <ol>
 <li>服务器配置不当</li>
 <li>开源文本编辑器上传漏洞</li>
@@ -567,7 +567,7 @@ echo(&quot;上传成功 path=/$Extension/$imageName&quot;);
 </li>
 </ol>
 <hr>
-<h3 id="3-XSS跨站脚本漏洞"><a href="#3-XSS跨站脚本漏洞" class="headerlink" title="3.XSS跨站脚本漏洞"></a>3.XSS跨站脚本漏洞</h3><p>用户恶意向网页中插入脚本执行，大多为JS、VBS等；<code>&lt;script&gt;alert(&#39;hello&#39;)&lt;/script&gt;</code>；工具：xsser（kali）、beef-xss(kali)、xss-proxy、XSS shell；靶场：BuleLotus XSSReceiver、xss.pt、xss platfrom、XSSER.ME</p>
+<h3 id="0x03-XSS跨站脚本漏洞"><a href="#0x03-XSS跨站脚本漏洞" class="headerlink" title="0x03.XSS跨站脚本漏洞"></a>0x03.XSS跨站脚本漏洞</h3><p>用户恶意向网页中插入脚本执行，大多为JS、VBS等；<code>&lt;script&gt;alert(&#39;hello&#39;)&lt;/script&gt;</code>；工具：xsser（kali）、beef-xss(kali)、xss-proxy、XSS shell；靶场：BuleLotus XSSReceiver、xss.pt、xss platfrom、XSSER.ME</p>
 <h4 id="3-1-xss类型"><a href="#3-1-xss类型" class="headerlink" title="3.1.xss类型"></a>3.1.xss类型</h4><ol>
 <li>反射型&#x2F;非持久性XSS</li>
 </ol>
@@ -620,7 +620,7 @@ echo(&quot;上传成功 path=/$Extension/$imageName&quot;);
 </li>
 </ol>
 <hr>
-<h3 id="4-命令执行漏洞"><a href="#4-命令执行漏洞" class="headerlink" title="4.命令执行漏洞"></a>4.命令执行漏洞</h3><p>用户输入的参数被当作命令执行，主要为PHP代码执行漏洞；区别一下代码执行漏洞和命令执行漏洞，后者直接调用OS命令，前者是依靠脚本来间接执行OS命令。php-webshell连接工具：b374k web shell</p>
+<h3 id="0x04-命令执行漏洞"><a href="#0x04-命令执行漏洞" class="headerlink" title="0x04.命令执行漏洞"></a>0x04.命令执行漏洞</h3><p>用户输入的参数被当作命令执行，主要为PHP代码执行漏洞；区别一下代码执行漏洞和命令执行漏洞，后者直接调用OS命令，前者是依靠脚本来间接执行OS命令。php-webshell连接工具：b374k web shell</p>
 <blockquote>
 <p>java SE中Runtime类，ProcessBuilder等也含有</p>
 </blockquote>
@@ -651,7 +651,7 @@ fputs(fopen(&quot;horse.php&quot;,&quot;w&quot;),&#39;&lt;?php eval($_POST[&quot
 <li>过滤特殊字符，制作白名单</li>
 </ol>
 <hr>
-<h3 id="5-文件包含漏洞"><a href="#5-文件包含漏洞" class="headerlink" title="5.文件包含漏洞"></a>5.文件包含漏洞</h3><p>A文件包含了含有恶意代码的B文件，导致载荷执行。多出现于PHP中，与上传漏洞配合。CVE-2018-12613 PHPmyadmin上传文件漏洞；</p>
+<h3 id="0x05-文件包含漏洞"><a href="#0x05-文件包含漏洞" class="headerlink" title="0x05.文件包含漏洞"></a>0x05.文件包含漏洞</h3><p>A文件包含了含有恶意代码的B文件，导致载荷执行。多出现于PHP中，与上传漏洞配合。CVE-2018-12613 PHPmyadmin上传文件漏洞；</p>
 <h4 id="5-1-PHP包含"><a href="#5-1-PHP包含" class="headerlink" title="5.1.PHP包含"></a>5.1.PHP包含</h4><p>包括本地包含LFI和远程包含RFI，相关函数如下</p>
 <pre><code class="php">require()	//找不到被包含的函数会产生错误，并停止脚本
 include()	//找不到只产生警告
@@ -789,7 +789,7 @@ require_once()	//同上
 <li>减少使用动态包含</li>
 </ol>
 <hr>
-<h3 id="6-CSRF-SSRF"><a href="#6-CSRF-SSRF" class="headerlink" title="6.CSRF&amp;&amp;SSRF"></a>6.CSRF&amp;&amp;SSRF</h3><h4 id="6-1-CSRF跨站请求伪造"><a href="#6-1-CSRF跨站请求伪造" class="headerlink" title="6.1.CSRF跨站请求伪造"></a>6.1.CSRF跨站请求伪造</h4><p>建立在一段<em>会话之上</em>，通过目标已登录的状态<em>点击攻击者布置的URL</em>，来达到目的，分为GET型和POST型；检测工具：CSRFTester、bp中Scanner模块有<code>Generate CSRF Poc</code>；靶场PocBox</p>
+<h3 id="0x06-CSRF-SSRF"><a href="#0x06-CSRF-SSRF" class="headerlink" title="0x06.CSRF&amp;&amp;SSRF"></a>0x06.CSRF&amp;&amp;SSRF</h3><h4 id="6-1-CSRF跨站请求伪造"><a href="#6-1-CSRF跨站请求伪造" class="headerlink" title="6.1.CSRF跨站请求伪造"></a>6.1.CSRF跨站请求伪造</h4><p>建立在一段<em>会话之上</em>，通过目标已登录的状态<em>点击攻击者布置的URL</em>，来达到目的，分为GET型和POST型；检测工具：CSRFTester、bp中Scanner模块有<code>Generate CSRF Poc</code>；靶场PocBox</p>
 <p>通常用于增删改等操作，其它用于读取操作类型的JSONP、CORS、Flash跨域劫持</p>
 <p>跨站资源共享：cors使用额外的HTTP头<code>Origin:xxxxxx://ip</code>来使A能够使用B的资源；另一种策略是JSONP，前端构造一个恶意页面，请求JSONP接口，收集服务端的敏感信息</p>
 <p>预防：二次确认+Token认证，双重cookie，同源检测</p>
@@ -817,7 +817,7 @@ curl_exec($curlobj);	//执行指定curl会话，多与dict、file、gopher协议
 </ol>
 <p>修复：限制内网访问并屏蔽返回消息；</p>
 <hr>
-<h3 id="7-xml外部实体注入"><a href="#7-xml外部实体注入" class="headerlink" title="7.xml外部实体注入"></a>7.xml外部实体注入</h3><h4 id="7-1-XML介绍"><a href="#7-1-XML介绍" class="headerlink" title="7.1.XML介绍"></a>7.1.XML介绍</h4><p>xml与html的标签非常相似，但是目的只是传输数据，而非显示，因此标签名字都可以由用户定义</p>
+<h3 id="0x07-Xml外部实体注入"><a href="#0x07-Xml外部实体注入" class="headerlink" title="0x07.Xml外部实体注入"></a>0x07.Xml外部实体注入</h3><h4 id="7-1-XML介绍"><a href="#7-1-XML介绍" class="headerlink" title="7.1.XML介绍"></a>7.1.XML介绍</h4><p>xml与html的标签非常相似，但是目的只是传输数据，而非显示，因此标签名字都可以由用户定义</p>
 <p>DTD文档定义类型，用于对XML文件的格式描述；可以在内部也可以在外部</p>
 <pre><code class="xml-dtd">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!DOCTYPE note [&lt;!--定义此文档是 note 类型的文档--&gt;
@@ -935,7 +935,7 @@ evil.dtd如下
 </ul>
 <p>防御：使用开发语言提供的禁用外部实体的方法、过滤用户提交的XML数据</p>
 <hr>
-<h3 id="8-反序列化漏洞"><a href="#8-反序列化漏洞" class="headerlink" title="8.反序列化漏洞"></a>8.反序列化漏洞</h3><p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
+<h3 id="0x08-反序列化漏洞"><a href="#0x08-反序列化漏洞" class="headerlink" title="0x08.反序列化漏洞"></a>0x08.反序列化漏洞</h3><p>对象转换为字符串叫序列化，反之就是反序列化，用于对象传输问题；漏洞产生原因是反序列化时会调用到相关析构函数（魔术函数），而该函数内参数可控，攻击者控制输入参数执行一些敏感操作；常见的序列化格式：二进制格式，字节数组，json字符串，xml字符串</p>
 <h4 id="8-1-PHP反序列化"><a href="#8-1-PHP反序列化" class="headerlink" title="8.1.PHP反序列化"></a>8.1.PHP反序列化</h4><p>序列化函数<code>serilize()</code>；反序列化函数<code>unserialize()</code>；字符串格式<code>O:长度:类名:属性数:&#123;S:属性名长度:属性名;S:值的长度:值;i:数值;b:1代表true，0代表false;N:空;......&#125;</code>；需要注意url编码<code>urlencoder()</code></p>
 <p>php的数组特性：当一个数组被当作函数触发时，如果数组第一个元素是对象，第二个是方法的名字，那么就会调用该对象下的对应方法；对于下面的例子<code>$a=new demo;$a-&gt;test();</code>可以调用该方法，当然也可以<code>$arr=[$demo,&#39;test&#39;];$arr();</code>来调用。此外<code>create_function(&#39;$a,$b;&#39;,&#39;echo($a+$b);&#39;);</code>这样的创造函数的函数也时常会用到（仅创造不调用）</p>
 <pre><code class="php">&lt;?php
@@ -975,7 +975,7 @@ class demo&#123;
 <p>相关漏洞：WebLogic XMLDecoder反序列化漏洞(CVE-2017-10271)</p>
 <p>防御措施：hh代码审计、黑盒检测、白名单等</p>
 <hr>
-<h3 id="9-逻辑错误漏洞"><a href="#9-逻辑错误漏洞" class="headerlink" title="9.逻辑错误漏洞"></a>9.逻辑错误漏洞</h3><p>程序设计有问题，没有考虑完整情况；无法用扫描器查出；burp看包！！！</p>
+<h3 id="0x09-逻辑错误漏洞"><a href="#0x09-逻辑错误漏洞" class="headerlink" title="0x09.逻辑错误漏洞"></a>0x09.逻辑错误漏洞</h3><p>程序设计有问题，没有考虑完整情况；无法用扫描器查出；burp看包！！！</p>
 <p>流程：发现功能模块—确定模块功能流程—抓包—改参数</p>
 <ul>
 <li><p>url跳转：url参数中的link&#x3D;木马网站；sso登录、验证跳转配合钓鱼、xss、csrf、浏览器漏洞（CVE-2018-8174）；bypass方式：真的@钓鱼、真的#钓鱼、真的？钓鱼；</p>
@@ -995,7 +995,7 @@ class demo&#123;
 <li><p>条件竞争漏洞：多线程且无锁下，burp的爆破模块；抽奖、文件上传中竞争上传</p>
 </li>
 </ul>
-<h3 id="10-代码注入"><a href="#10-代码注入" class="headerlink" title="10. 代码注入"></a>10. 代码注入</h3><ul>
+<h3 id="0x0A-代码注入"><a href="#0x0A-代码注入" class="headerlink" title="0x0A. 代码注入"></a>0x0A. 代码注入</h3><ul>
 <li><p>XML注入：类似于XSS，插入成对的闭合标签，需要标签闭合和XML表结构；将预定义字符进行转义即可修复</p>
 </li>
 <li><p>XPath注入：XML路径语言，基于XML树状结构，提供在树中寻找节点的能力，类似SQL注入；预防同上</p>
@@ -1048,8 +1048,8 @@ class demo&#123;
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CTF/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> CTF</a>
               <a href="/tags/Web/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> Web</a>
+              <a href="/tags/CTF/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> CTF</a>
           </div>
 
         
@@ -1061,8 +1061,8 @@ class demo&#123;
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/10/06/%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%BA%8C%E7%AB%A0_%E7%89%A9%E7%90%86%E5%B1%82/" rel="next" title="计网第二章_物理层">
-                  计网第二章_物理层 <i class="fa fa-angle-right"></i>
+                <a href="/2023/10/06/%E8%AE%A1%E7%BD%91/" rel="next" title="计网">
+                  计网 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -1075,7 +1075,6 @@ class demo&#123;
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -1084,7 +1083,7 @@ class demo&#123;
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1095,13 +1094,13 @@ class demo&#123;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">150k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:24</span>
+    <span title="站点阅读时长">4:33</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1161,10 +1160,6 @@ class demo&#123;
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"91ee138ae697dd06feb261e1ef129e11"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>

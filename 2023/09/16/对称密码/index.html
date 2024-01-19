@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="摘要：DES、IDEA、AES、SM4、TEA等分组密码，祖冲之、RC4等序列密码；SM3、MD5等hash函数">
 <meta property="og:type" content="article">
@@ -160,18 +160,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -861,7 +861,7 @@ v[n-1] += (((y&gt;&gt;5^x&lt;&lt;2) + (x&gt;&gt;3^y&lt;&lt;4)) ^ ((sum^x) + (Key
 y = v[n-1];  
 </code></pre>
 <hr>
-<h3 id="SM4"><a href="#SM4" class="headerlink" title="SM4"></a>SM4</h3><p>也叫SMS4分组算法，数据分组128bit，密钥也是128bit，加密算法与密钥扩展算法都采用32轮迭代。是对合运算（加密解密算法相同，只是轮密钥使用顺序相反），以1字节和1字（这里32bit）。参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20va2VudGxlL3AvMTQxMzU4NjUuaHRtbA==">SM4加密算法原理和简单实现（java） - kentle<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="SM4"><a href="#SM4" class="headerlink" title="SM4"></a>SM4</h3><p>也叫SMS4分组算法，数据分组128bit，密钥也是128bit，加密算法与密钥扩展算法都采用32轮迭代。是对合运算（加密解密算法相同，只是轮密钥使用顺序相反），以1字节和1字（这里32bit）。参考<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20va2VudGxlL3AvMTQxMzU4NjUuaHRtbA==">SM4加密算法原理和简单实现 - kentle<i class="fa fa-external-link-alt"></i></span></p>
 <p>大致过程如下所示：</p>
 <p>明文输入四个字$(X_{0},X_{1},X_{2},X_{3})$，轮密钥$rk_{i}$，其中$i$代表轮数</p>
 <p>经过32次迭代，得到$(X_{32},X_{33},X_{34},X_{35})$，之后在进行反序，并拼接得到密文</p>
@@ -1248,14 +1248,14 @@ y = v[n-1];
 </ol>
 <p><strong>工作模式</strong>：相比于初始化模式，只需要去掉第二步即可</p>
 <h4 id="2-BR"><a href="#2-BR" class="headerlink" title="2.BR"></a>2.BR</h4><p>输入LSFR的16个寄存器，并按照以下规则抽取128bit来组成4个32bit字</p>
-<p>$X_{0}&#x3D;S_{15H}||S_{14L};<br>X_{1}&#x3D;S_{11L}||S_{9H};<br>X_{2}&#x3D;S_{7L}||S_{5H};<br>X_{3}&#x3D;S_{2L}||S_{0H}$</p>
+<p>$X_{0}&#x3D;S_{15H}||S_{14L}——;<br>X_{1}&#x3D;S_{11L}||S_{9H}——;<br>X_{2}&#x3D;S_{7L}||S_{5H}——;<br>X_{3}&#x3D;S_{2L}||S_{0H}$</p>
 <h4 id="3-F函数"><a href="#3-F函数" class="headerlink" title="3.F函数"></a>3.F函数</h4><p>以前面X0、X1、X2作为输入的函数，会输出一个32bit的字W，将W与X3异或的到输出密钥序列。过程如下：（S函数即S盒，有两个；L函数）</p>
 <ol>
-<li>$W&#x3D;((X_{0}\oplus R_{1})+R_{2})\bmod 2^{32}$</li>
+<li>$W&#x3D;[(X_{0}\oplus R_{1})+R_{2}]\bmod 2^{32}$</li>
 <li>$W_{1}&#x3D;(R_{1}+X_{1})\bmod 2^{32}$</li>
 <li>$W_{2}&#x3D;R_{2}\oplus X_{2}$</li>
-<li>$R_{1}&#x3D;S(L_{1}(W_{1L}||W_{2H}))$</li>
-<li>$R_{2}&#x3D;S(L_{2}(W_{1H}||W_{2L}))$</li>
+<li>$R_{1}&#x3D;S[L_{1}(W_{1L}||W_{2H})]$</li>
+<li>$R_{2}&#x3D;S[L_{2}(W_{1H}||W_{2L})]$</li>
 </ol>
 <p><strong>L线性变换函数</strong>：</p>
 <ul>
@@ -2055,8 +2055,8 @@ d15=100011110101100
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/14/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E6%A6%82%E8%BF%B0/" rel="prev" title="恶意代码">
-                  <i class="fa fa-angle-left"></i> 恶意代码
+                <a href="/2023/09/07/Windows%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B2%E8%A7%A3/" rel="prev" title="Windows不完全讲解">
+                  <i class="fa fa-angle-left"></i> Windows不完全讲解
                 </a>
             </div>
             <div class="post-nav-item">
@@ -2074,7 +2074,6 @@ d15=100011110101100
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -2083,7 +2082,7 @@ d15=100011110101100
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -2094,13 +2093,13 @@ d15=100011110101100
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">150k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:24</span>
+    <span title="站点阅读时长">4:33</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -2160,10 +2159,6 @@ d15=100011110101100
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"af32983c5b62a6b15cb12a21633b9e58"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>

@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="后端基础知识">
+<meta property="og:title" content="数据库与云">
 <meta property="og:url" content="https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。">
@@ -40,10 +40,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/","path":"2023/09/01/数据库理论/","title":"后端基础知识"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/","path":"2023/09/01/数据库理论/","title":"数据库与云"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>后端基础知识 | Zy0t1's blog</title>
+<title>数据库与云 | Zy0t1's blog</title>
   
 
 
@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">0x01.什么是服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">服务器介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">服务器分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">0x02.数据库理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">（1）介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89DataBase"><span class="nav-number">2.2.</span> <span class="nav-text">（2）DataBase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">（3）数据库系统结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89DBMS"><span class="nav-number">2.4.</span> <span class="nav-text">（4）DBMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.</span> <span class="nav-text">（5）关系模型</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">0x01.什么是服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">服务器介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">服务器分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">0x02.数据库理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataBase"><span class="nav-number">2.2.</span> <span class="nav-text">DataBase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">数据库系统结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DBMS"><span class="nav-number">2.4.</span> <span class="nav-text">DBMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.5.</span> <span class="nav-text">关系模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-Redis"><span class="nav-number">3.</span> <span class="nav-text">0x03.Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-%E4%BA%91%E8%AE%A1%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">0x04.云计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%91%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">4.1.</span> <span class="nav-text">云基本知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="nav-number">4.2.</span> <span class="nav-text">虚拟化技术</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -161,18 +161,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,12 +225,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="后端基础知识 | Zy0t1's blog">
+      <meta itemprop="name" content="数据库与云 | Zy0t1's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          后端基础知识
+          数据库与云
         </h1>
 
         <div class="post-meta-container">
@@ -266,14 +266,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>6.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -375,7 +375,7 @@
 <li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
 <li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
 </ul>
-<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="（1）介绍"><a href="#（1）介绍" class="headerlink" title="（1）介绍"></a>（1）介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
 <p>发展阶段：人工管理—文件系统—数据库系统。</p>
 <blockquote>
 <p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
@@ -409,7 +409,7 @@
 <td>高度物理独立性，一定逻辑独立性</td>
 </tr>
 </tbody></table>
-<h4 id="（2）DataBase"><a href="#（2）DataBase" class="headerlink" title="（2）DataBase"></a>（2）DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<h4 id="DataBase"><a href="#DataBase" class="headerlink" title="DataBase"></a>DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
 <p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
 <table>
 <thead>
@@ -444,14 +444,14 @@
 <li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
 </li>
 </ul>
-<h4 id="（3）数据库系统结构"><a href="#（3）数据库系统结构" class="headerlink" title="（3）数据库系统结构"></a>（3）数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<h4 id="数据库系统结构"><a href="#数据库系统结构" class="headerlink" title="数据库系统结构"></a>数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
 <p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
-<h4 id="（4）DBMS"><a href="#（4）DBMS" class="headerlink" title="（4）DBMS"></a>（4）DBMS</h4><ul>
+<h4 id="DBMS"><a href="#DBMS" class="headerlink" title="DBMS"></a>DBMS</h4><ul>
 <li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
 <li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
 <li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
 </ul>
-<h4 id="（5）关系模型"><a href="#（5）关系模型" class="headerlink" title="（5）关系模型"></a>（5）关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<h4 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
 <ol>
 <li><p><strong>关系数据结构</strong></p>
 <ul>
@@ -530,6 +530,129 @@
 </ul>
 </li>
 </ol>
+<h3 id="0x03-Redis"><a href="#0x03-Redis" class="headerlink" title="0x03.Redis"></a>0x03.Redis</h3><ul>
+<li>字符串</li>
+</ul>
+<pre><code>SET 键 值	//键需要区分大小写
+GET 键	//返回值
+DEL 键	//成功则返回1
+EXISTS 键	//有则返回1否则0
+KEYS 匹配模式	//查找所有匹配的键
+FLUSHALL	//清除所有键值
+当存入中文时，要想显现redis-cli --raw
+TTL 键	//返回-1则是无过期时间（秒）-2表示过期
+EXPIRE 键	//设置生存时间
+SETEX 键 时 值	//设置带时间的键值对
+SETNX 键 值	//键不存在时更新值否则不动
+</code></pre>
+<ul>
+<li>列表</li>
+</ul>
+<pre><code>LPUSH 键 值	//给列表左侧添加值
+LRANGE 键 开始 终止	//栈，左闭右闭
+RPUSH 键 开始 终止	//队列
+L/RPOP 键 [数]	//从列表左/右开始数删除第n个
+LLEN 键	//列表的长度
+LTRIM 键 开始 结束	//只保留开始-结束之间的东西
+</code></pre>
+<ul>
+<li>集合</li>
+</ul>
+<pre><code>SADD 键 值[值]	//向集合中添加一个或多个值，返回1成功，0失败
+SMEMBERS 键	//列出集合中所有的值
+SISMEMBER 键 值	//判断集合中是否有该值，有1无0
+SREM 键 值[值]	//删除集合中的元素
+SINTER/SUNION/SDIFF	键[键]	//交集/并集/差
+SCARD 键	//集合的成员数
+</code></pre>
+<ul>
+<li>有序集合</li>
+</ul>
+<pre><code>ZADD 名 键 值[键 值]	//默认递增
+ZRABNGE 集合 开始 结束[WITHSCORES]	//显示键
+ZSCORE 集合 键	//返回对应值
+ZRANK 集合 键	//返回该键的排名
+</code></pre>
+<ul>
+<li>哈希</li>
+</ul>
+<pre><code class="sql">HSET 名 键 值[键 值]	//一个名下可以有多个键值对
+HGET 名 键	//返回对应值
+HGETALL 名	//返回名下所有键值对
+HDEL 名 键	//删除
+HEXISTS 名 键	//是否存在该键
+HKEYS 名	//返回所有的键
+HLEN 名	//返回键数
+</code></pre>
+<ul>
+<li>订阅模式</li>
+</ul>
+<pre><code>subscribe 频道名 [名]	//订阅该频道
+publish 名 消息	//向该消息频道发送消息
+</code></pre>
+<ul>
+<li>消息队列</li>
+</ul>
+<pre><code class="redis">XADD 消息名 * 键 值
+XLEN 名	//返回后面的键值对数
+XRANGE 名 - +	//列出所有ID对应的消息
+XDEL 名 ID	//删除ID对应的消息
+XTRIM 名 MAXLEN 数
+XREAD count e（一次读取个数） block e（没有则阻塞多少毫秒） streams 名 $（从最新的开始读取）
+XGROUP CREATE 消息名 组名 ID
+XINFO GROUPS 消息名	//返回消费者组的信息
+XGROUP CREATECONSUMER 消息名 组名 消费者名	//向该组中添加消费者
+</code></pre>
+<ul>
+<li>事务</li>
+</ul>
+<pre><code>MULTI 开启事务
+EXEC/DISCARD 执行事务（某一事务失败后不影响后续，与mysql不一样）
+</code></pre>
+<ul>
+<li>持久化：基于内存speed &gt; mysql</li>
+</ul>
+<p>RDB：规定时间内有多少修改才保存</p>
+<p>ADF：将命令以日志形式存到ADF文件中</p>
+<ul>
+<li>主从复制：主节点为master。从节点slave，只读</li>
+</ul>
+<h3 id="0x04-云计算"><a href="#0x04-云计算" class="headerlink" title="0x04.云计算"></a>0x04.云计算</h3><p>简单来说就是通过网络按需提供可动态伸缩的廉价计算服务。类似于网盘网页的资源存储，提供远程的计算&#x2F;存储功能。</p>
+<h4 id="云基本知识"><a href="#云基本知识" class="headerlink" title="云基本知识"></a>云基本知识</h4><p><strong>云计算部署模式</strong></p>
+<ul>
+<li>公有云：放在公共地方，即付即用，由厂商负责管理。</li>
+<li>私有云：内部部署于DMZ区，或者外部托管给其他厂商，仅自己使用。</li>
+<li>社区云：面向一个社区或者服务专用的云，音乐网盘、存储网盘等</li>
+<li>混合云：融合公有和私有云的优点，目前各大云服务商就是此类模式</li>
+</ul>
+<p><strong>云计算服务类型</strong></p>
+<p>传统来说，由用户管理【网络、存储、服务器、虚拟化、OS、中间件、运行环境、数据、应用程序】</p>
+<ul>
+<li>IaaS&#x2F;基础设施即服务：自虚拟化及以下由厂商管理，即提供基础设施；用户申请后能够部署运行任意软件；例如AWS、Google Engine</li>
+<li>PaaS&#x2F;平台即服务：将软件研发的平台作为服务，运行环境及以下都由厂商管理；说白了就拿最经典的微软的Azure做栗子，其服务中通常都是用的自家的windows与.NET</li>
+<li>SaaS&#x2F;软件即服务：厂商为用户已经提供了完整的软件功能，不需要自己再额外安装东西，即买即用；例如Office365</li>
+</ul>
+<p><strong>云计算特点</strong></p>
+<ul>
+<li>超大规模：集群更大（服务器更多）</li>
+<li>虚拟化：用户无需关注硬件实体，除非买的裸金属服务器</li>
+<li>按需分配服务：云计算&#x3D;资源池，用户按照自己需要购买相应服务</li>
+<li>广泛网络访问：API、VPN、浏览器、SSH等访问资源，无关地理，有简单的连接设备即可</li>
+<li>高可靠：厂商做的都有备份、容错、镜像恢复、受灾方案等</li>
+<li>服务可度量：为服务商和消费者提供透明的使用情况统计和实时结算等服务</li>
+<li>可动态伸缩：通过虚拟化技术将一台服务器虚拟成多台服务器，对计算资源进行虚拟化和管理，可以实现服务器虚拟化、存储虚拟化、网络虚拟化和桌面虚拟化。</li>
+</ul>
+<p>其核心技术有：分布式存储、虚拟化技术、分布式资源管理、智能管理平台和编程模型。</p>
+<h4 id="虚拟化技术"><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h4><p>在计算机上创建一个抽象层即VMM，将单台计算机硬件元素虚拟地分成多个，每个虚拟机VM都有自己的OS。</p>
+<p>根据VMM在虚拟化平台的位置，分为三类：</p>
+<ul>
+<li>裸机虚拟化模型：虚拟机监控器直接运行在没有操作系统的裸机上，具有最高特权级，管理底层所有的硬件资源。【VMwareESXi、Xen】</li>
+<li>宿主机虚拟化模型：虚拟机监控器作为一个应用程序运行在宿主机操作系统（Host OS）上，而Guest OS运行于虚拟机监控器之上。【VMware、VirtualBox】</li>
+<li>混合模型：虚拟机监控器作为OS上的一个特权级运行，在此之上可以建立其他的VM。【WSL、KVM】</li>
+</ul>
+<blockquote>
+<p>虚拟化和容器化是不同的内容，容器侧重于打包，虚拟侧重于分割。此外虚拟机依赖于宿主设备架构，在x86上虚拟出来的仍是x86，而模拟器可以实现其他的硬件级别的模拟【qemu、bochs】</p>
+</blockquote>
 
     </div>
 
@@ -547,7 +670,7 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/08/30/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="prev" title="网络基础">
+                <a href="/2023/08/30/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb/" rel="prev" title="网络基础">
                   <i class="fa fa-angle-left"></i> 网络基础
                 </a>
             </div>
@@ -566,7 +689,6 @@
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -575,7 +697,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -586,13 +708,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">150k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:24</span>
+    <span title="站点阅读时长">4:33</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -652,10 +774,6 @@
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"ebc45a491c1b27de6a07571d0cb0e57c"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>

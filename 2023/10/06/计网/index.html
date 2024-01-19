@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计网">
+<meta property="og:url" content="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/06/K8feAjLX.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/pjPjJ7km.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/puDgjo5I.png">
+<meta property="og:image" content="https://img1.imgtp.com/2023/10/24/xaghSi6h.png">
+<meta property="article:published_time" content="2023-10-06T10:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-06T10:00:00.000Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="基础知识">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/10/06/K8feAjLX.png">
+
+
+<link rel="canonical" href="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91/","path":"2023/10/06/计网/","title":"计网"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计网 | Zy0t1's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+  
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Zy0t1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">道阻且长，行则将至</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">计网第一章：概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E5%8F%91%E5%B1%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.0.1.</span> <span class="nav-text">计网发展阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A6%82%E5%BF%B5"><span class="nav-number">1.0.2.</span> <span class="nav-text">计算机网络概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%BB%84%E6%88%90"><span class="nav-number">1.0.3.</span> <span class="nav-text">计算机网络组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%84%E6%88%90"><span class="nav-number">1.0.4.</span> <span class="nav-text">互联网组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">交换技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-number">1.0.6.</span> <span class="nav-text">计算机网络分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.0.7.</span> <span class="nav-text">计算机网络体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E6%80%A7%E8%83%BD"><span class="nav-number">1.0.8.</span> <span class="nav-text">计算机网络的性能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">计网第二章：物理层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">2.0.1.</span> <span class="nav-text">数据通信基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E4%B8%8B%E7%9A%84%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="nav-number">2.0.2.</span> <span class="nav-text">物理层下的传输媒体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="nav-number">2.0.3.</span> <span class="nav-text">信道复用技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.0.4.</span> <span class="nav-text">物理层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">计网第三章：数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BF%A1%E9%81%93%E7%9A%84%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.0.1.</span> <span class="nav-text">使用点对点信道的数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AEPPP"><span class="nav-number">3.0.2.</span> <span class="nav-text">点对点协议PPP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%BF%E6%92%AD%E4%BF%A1%E9%81%93%E7%9A%84%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.0.3.</span> <span class="nav-text">使用广播信道的数据链路层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">计网第四章：网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C-%E7%BD%91%E9%99%85%E5%B1%82"><span class="nav-number">4.0.1.</span> <span class="nav-text">网络&#x2F;网际层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4"><span class="nav-number">4.0.1.1.</span> <span class="nav-text">IPv4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ICMP"><span class="nav-number">4.0.1.2.</span> <span class="nav-text">ICMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARP%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.0.1.3.</span> <span class="nav-text">ARP地址解析协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6"><span class="nav-number">4.0.1.4.</span> <span class="nav-text">IPv6</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.0.2.</span> <span class="nav-text">路由选择协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AEIGP"><span class="nav-number">4.0.2.1.</span> <span class="nav-text">内部网关协议IGP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%BD%91%E5%85%B3%E5%8D%8F%E8%AE%AEBGP"><span class="nav-number">4.0.2.2.</span> <span class="nav-text">外部网关协议BGP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E5%A4%9A%E6%92%AD-%E7%BB%84%E6%92%AD"><span class="nav-number">4.0.2.3.</span> <span class="nav-text">IP多播&#x2F;组播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VPN%E4%B8%8ENAT"><span class="nav-number">4.0.2.4.</span> <span class="nav-text">VPN与NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MPLS"><span class="nav-number">4.0.2.5.</span> <span class="nav-text">MPLS</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zy0t1"
+      src="/images/head_picture.jpg">
+  <p class="site-author-name" itemprop="name">Zy0t1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1p5MHQx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zy0t1"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTE2OTY3NDI4MDI=" title="网易云音乐 → https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;1696742802"><i class="fab wy fa-fw"></i>网易云音乐</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zy0t1.github.io/2023/10/06/%E8%AE%A1%E7%BD%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head_picture.jpg">
+      <meta itemprop="name" content="Zy0t1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计网 | Zy0t1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计网
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-06 18:00:00" itemprop="dateModified" datetime="2023-10-06T18:00:00+08:00">2023-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>26 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>摘要：以《计算机网络》谢希仁第八版为参考，会从下向上讲述，如有重复的将不再赘述</p>
+<span id="more"></span>
+
+<h1 id="计网第一章：概述"><a href="#计网第一章：概述" class="headerlink" title="计网第一章：概述"></a>计网第一章：概述</h1><h3 id="计网发展阶段"><a href="#计网发展阶段" class="headerlink" title="计网发展阶段"></a>计网发展阶段</h3><ol>
+<li><p>面向终端的计算机网络</p>
+<p>特点：系统中仅主计算机有计算能力，终端无独立处理数据的能力。</p>
+<blockquote>
+<p>线路控制器：串并转换+传输差错控制；调制&#x2F;解调器：用于数字和模拟信号的转换</p>
+</blockquote>
+<p>为降低通信成本：主机前增设前端处理机，终端密集地放置集中器，用以解决终端独占线路与助记负载过重的问题</p>
+</li>
+<li><p>计算机通信网络or分组交换网络or面向标准的计算机网络</p>
+<p>特点：可用于数据传输、终端类型广、节点同等重要、冗余路由、简单但又相对可靠</p>
+<p>先后提出<strong>存储转发技术</strong>与<strong>分组交换技术</strong>（后者相对于前者每一次转发的不是整个文件而是切割后的小包）</p>
+</li>
+<li><p>共享资源的计算机网络</p>
+<p>特点：共享数据为主、每个网络内部使用各自的协议、网络之间用TCP&#x2F;IP协议簇</p>
+<p>三个阶段：</p>
+<ol>
+<li>由单个网络ARPANET发展而来，1983年以TCP&#x2F;IP协议簇为标准也因此作为互联网诞生时间，1990年关闭</li>
+<li>三级结构互联网，包括主干网—地区网—校园网&#x2F;企业网三级</li>
+<li>多层次ISP（互联网服务提供者）结构的互联网，由Alice-本地ISP-地区ISP-主干ISP-…-本地ISP-Bob</li>
+</ol>
+</li>
+<li><p>Internet高速发展</p>
+<ul>
+<li><p>SDN软件定义网络</p>
+</li>
+<li><p>云计算：分布式、并行计算、虚拟化</p>
+</li>
+<li><p>物联网IoT，借助云实现普适计算</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="计算机网络概念"><a href="#计算机网络概念" class="headerlink" title="计算机网络概念"></a>计算机网络概念</h3><p>最简定义：计算机网络是一些互相连接的、自治的计算机系统的集合。其中最大的计算机网络就是Internet——也叫做网络的网络（Network of Network）</p>
+<h3 id="计算机网络组成"><a href="#计算机网络组成" class="headerlink" title="计算机网络组成"></a>计算机网络组成</h3><p><strong>物理组成</strong>：</p>
+<ul>
+<li><p>硬件：主机host、通信处理控制机CCP、路由器Router、交换机Switch、通信链路。</p>
+<blockquote>
+<p>物理媒介&#x2F;物理链路：双绞铜线、同轴电缆、光纤、陆地无线通信、卫星无线通信</p>
+</blockquote>
+</li>
+<li><p>软件：共享的资源的软件、工具软件</p>
+</li>
+<li><p>协议：通信协议、数据交换协议</p>
+</li>
+</ul>
+<p><strong>要素组成</strong>：计算机、路由器、交换机、网卡、通信线路、调制解调器</p>
+<p><strong>功能组成</strong>：资源子网（数据的处理存储）、通信子网（数据的传输）</p>
+<h3 id="互联网组成"><a href="#互联网组成" class="headerlink" title="互联网组成"></a>互联网组成</h3><ul>
+<li><p>直接连接的：点到点链路、经集线器HUB（盒装总线）、多路访问链路</p>
+</li>
+<li><p>网络云：端系统经交换网互联；网络云互联构成互联网，必定有路由器</p>
+<blockquote>
+<p>核心部分&#x3D;网路+路由器（关键！网网互联）；<br>边缘部分&#x3D;主机+终端；端系统之间的通讯方式：C&#x2F;S方式、P2P方式</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3><ul>
+<li><p>电路交换：$N$部电话机需要$N(N-1)&#x2F;2$对电线，当然也可以使用交换机。</p>
+<p>必定是面向连接的、线路利用率低</p>
+<p>包括三个阶段：建立专用连接——双方通信——释放连接</p>
+</li>
+</ul>
+<ul>
+<li><p>报文交换：在分组交换之前，基于存储转发，不分组而已。</p>
+</li>
+<li><p>分组交换：同样基于存储转发技术，但是长切短分组进行。</p>
+<ul>
+<li>分组&#x3D;首部+数据，首部含有源&#x2F;目的地址，节点交换机据此转发报文；有额外开销</li>
+<li>每个分组独立选择路径</li>
+<li>路由器处理：放入缓存——查找转发表——送走；需要排队有时延</li>
+</ul>
+</li>
+</ul>
+<h3 id="计算机网络分类"><a href="#计算机网络分类" class="headerlink" title="计算机网络分类"></a>计算机网络分类</h3><ul>
+<li><p>分布范围：广域网WAN（交换技术）、城域网MAN、局域网LAN（广播技术）、个人区域网PAN</p>
+</li>
+<li><p>使用者：公用网、私用网或是骨干网、接入网、驻地网</p>
+</li>
+<li><p>拓扑结构：总线型、星型、环型、树型、网格型</p>
+</li>
+<li><p>数据交换技术：电路交换、报文交换、分组交换、信元交换、广播技术网络</p>
+<blockquote>
+<p>信元交换，又叫异步传输模式（ATM），一种使用异步时分复用技术的面向分组的传输方式，它将信息流分割成53字节的ATM信元&#x3D;5B信头+48净荷</p>
+</blockquote>
+</li>
+<li><p>按协议：IP网络、IPX网络（非IP网络）</p>
+</li>
+<li><p>传输介质：有线、无线</p>
+</li>
+<li><p>共享资源：C&#x2F;S、P2P</p>
+</li>
+</ul>
+<h3 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h3><p><strong>网络协议</strong>：为进行网络中数据交换而事先约定好的规则。它定义了在两个或多个通信实体之间交换的报文格式和次序，以及在报文传输和接受其他事件方面所采取的动作。只确定外部特点内部具体实现不做规定</p>
+<ul>
+<li><p>构成：语法（结构格式）、语义（操作定义）、同步（事件实现顺序）</p>
+</li>
+<li><p>再同一协议下，两个对等实体之间的通信又可以叫做虚拟通信&#x2F;逻辑通信（没有直接联系），其基于下层所提供的服务实现</p>
+</li>
+<li><p>协议是水平的，服务是垂直的；</p>
+</li>
+<li><p>不同系统中对等实体间交换数据的单位叫第N层的<strong>协议数据单元（N）PDU</strong>。包含用户数据（也可以是SDU）&amp;该层的<strong>协议控制信息PCI</strong>；</p>
+<p>同一系统相邻两层实体间经过接口交换的数据单位叫<strong>接口数据单元IDU</strong>，包括PDU和<strong>接口控制信息ICI</strong></p>
+<p><img src="https://img1.imgtp.com/2023/10/06/K8feAjLX.png" alt="image-20231006203523562"></p>
+</li>
+</ul>
+<p><strong>网络体系结构</strong>：计算机网络各层及其协议的集合</p>
+<ul>
+<li><p>分层体系结构：目标机第n层接收源主机第n层数据</p>
+</li>
+<li><p>服务：每一层，向上提供服务，以下层的服务为基础而无需考虑</p>
+</li>
+<li><p>实体：发送接收信息的任何对象，可以是终端、进程等。</p>
+<p>不同系统同一层的双方叫对等实体；一般叫下层实体为服务提供者，上层为服务用户</p>
+</li>
+<li><p>接口：<strong>服务访问点SAP</strong>，即第N层实体与第N+1层实体交换数据的地方&#x3D;N层SAP，地址唯一，期间交换信息单位叫<strong>服务数据单元SDU</strong></p>
+</li>
+</ul>
+<p><strong>典型体系结构</strong>：</p>
+<ul>
+<li><p>OSI七层：7应用层，6表示层（翻译应用层），5会话层（管理上层），4传输层，3网络层，2数据链路层，1物理层</p>
+<blockquote>
+<p>数据单元从上到下：APDU、PPDU、SPDU、TPDU、分组、帧、比特流；路由器最高下三层，交换机低两层</p>
+</blockquote>
+</li>
+<li><p>TCP&#x2F;IP四层：应用层—运输层—网际层IP—网络接口层</p>
+</li>
+<li><p>经典五层：5应用层，4运输层，3网络层（包，报），2数据链路层（网卡、网桥，帧），1物理层（线，比特）</p>
+</li>
+</ul>
+<p><strong>各层主要功能</strong>：</p>
+<ul>
+<li>差错控制、流量控制、分段和重装</li>
+<li>复用和分用：发送端几个高层会话复用一条低层的连接，在接收端进行分用</li>
+<li>连接建立和释放：交换前先建立逻辑连接，结束后再释放该连接</li>
+</ul>
+<h3 id="计算机网络的性能"><a href="#计算机网络的性能" class="headerlink" title="计算机网络的性能"></a>计算机网络的性能</h3><ul>
+<li><p>速率：数据传输速率，又叫数据率或比特率，常用bit&#x2F;s、kbit&#x2F;s等，按照1k&#x3D;1000计算</p>
+</li>
+<li><p>带宽：单位时间内能通过的最大数据量，单位bit&#x2F;s，即最大速率</p>
+</li>
+<li><p>吞吐率：单位与前面相同，带宽是最大的速率，吞吐率是实际</p>
+</li>
+<li><p>时延：总时延&#x3D;以下四者的和（注意！高速链路指的是提高发送速率，传播速率由介质决定）</p>
+<ul>
+<li>发送时延：$\frac{数据帧长度bit}{发送速率bit&#x2F;s}$，数据帧从发送端到传输媒介的时间</li>
+<li>传播时延：$\frac{信道长m}{信道传播速率m&#x2F;s}$，信号在传输媒介中跑的时间</li>
+<li>处理时延：主机或处理器处理分组所花费的时间</li>
+<li>排队时延：在路由器的输入输出队列中排队等待处理的时间</li>
+</ul>
+</li>
+<li><p>时延带宽积：又叫做“以比特为单位的链路长度”，&#x3D;传播时延×带宽</p>
+</li>
+<li><p>往返时间RTT：”发送方”发送数据开始到接收到”接收方”的确认</p>
+</li>
+<li><p>利用率：包括信道利用率（某信道有多少时间被用），网络利用率（全网络的信道利用率的加权平均值）</p>
+<blockquote>
+<p>$D&#x3D;\frac{D_{0} }{1-U}$：$D_{0}$网络空闲时的时延，$D$表示当前时延，$U$为网络利用率</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="计网第二章：物理层"><a href="#计网第二章：物理层" class="headerlink" title="计网第二章：物理层"></a>计网第二章：物理层</h1><h3 id="数据通信基本知识"><a href="#数据通信基本知识" class="headerlink" title="数据通信基本知识"></a>数据通信基本知识</h3><p>数据通信系统：源系统&#x3D;原点+发送器——传输系统——目的系统&#x3D;接收器+终点</p>
+<blockquote>
+<p>目的是传送消息，数据是运送消息的实体，信号则是数据的电器表现</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>码元</td>
+<td>即一个固定时长的数字信号波形，其宽度为时间</td>
+</tr>
+<tr>
+<td>频谱</td>
+<td>信号中各频率成分的集合</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>信号带宽即信号占据的频率范围；信道带宽就是允许通过的信号频率范围</td>
+</tr>
+<tr>
+<td>域</td>
+<td>时域：信号与时间的函数；频域：信号与频率的函数</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>数字数据:在某区间残生离散值的数据；数字信号:离散变化的序列；数字传输:传输数字信号的方法（可以是调制后为数字信号）；中继方式增大传输距离</td>
+</tr>
+<tr>
+<td>模拟</td>
+<td>某区间产生连续的数据；连续变化的电磁波；传输模拟信号的方法；放大方式增加距离</td>
+</tr>
+<tr>
+<td>信道</td>
+<td>能传送信号的一条道路，由线路及附属设备构成</td>
+</tr>
+</tbody></table>
+<p>通信交互模式：</p>
+<ul>
+<li>单向通信&#x2F;单工通信：只能A到B</li>
+<li>双向交替通信&#x2F;半双工通信：同一时间只能一个方向，换方向时换线</li>
+<li>双向同时通信&#x2F;全双工：四线制</li>
+</ul>
+<p>基带信号（信号源的信号，需要进行调制）调制方法：</p>
+<ul>
+<li><p>基带调制&#x2F;编码：仅进行波形变换—得到的仍是基带信号</p>
+</li>
+<li><p>带通调制：即使用载波将其频率提高并转换为模拟信号—带通调制后得到带通信号</p>
+<blockquote>
+<p>带通调制方法：调幅AM、调频FM、调相PM——正交振幅调制QAM</p>
+</blockquote>
+</li>
+</ul>
+<p>常用信道编码：</p>
+<ul>
+<li>不归零制：正电平&#x3D;1，负电平&#x3D;0，不用0电压</li>
+<li>归零制：无事归0，正电平&#x3D;1，负电平&#x3D;0</li>
+<li>曼彻斯特编码：周期中心，高到低&#x3D;1，低到高&#x3D;0</li>
+<li>差分曼彻斯特编码：位开始处，有跳变&#x3D;0，无跳变&#x3D;1</li>
+</ul>
+<p>信道相关概念：</p>
+<ul>
+<li><p>信道容量：无差错传输的最大速率，是信道的最大数据率</p>
+</li>
+<li><p>抖动：有效瞬时相对于理想位置的偏移</p>
+</li>
+<li><p>误码率：二进制位传错的概率</p>
+</li>
+<li><p>信噪比：信号的平均功率S和噪声的平均功率N之比&#x3D;$10\times \log_{10}(S&#x2F;N)(dB)$</p>
+</li>
+<li><p>奈氏准则：在带宽为W Hz的低通信道中，若不考虑噪声，假定每个信号取M个离散电平均值，则码元传输最高速率2W（码元&#x2F;秒），信道极限数据率为$C&#x3D;2W\log_{2}{M}$，否则接收端不可能识别码元</p>
+</li>
+<li><p>香农公式：信道的极限信息传输速率：$C&#x3D;W\log_{2}(1+S&#x2F;N)(bps)$，相比奈奎斯特，考虑了噪音。</p>
+</li>
+<li><p>延迟失真：较高频率传输速度的较低</p>
+</li>
+<li><p>噪声：热噪声、脉冲噪声（持续短、不规则、振幅高）、串扰（电气耦合）</p>
+</li>
+<li><p>调制解调器：大于9600b&#x2F;s为高速，小于600b&#x2F;s为低速</p>
+</li>
+</ul>
+<p>传输损害：</p>
+<ul>
+<li>衰减&#x2F;幅度衰变：衰减量是距离的函数，对模拟信号来说频率越高，衰减越严重</li>
+<li>延迟失真：有线专有，针对数字信号不同频率信号走的快慢不同</li>
+<li>热&#x2F;白&#x2F;高斯噪声：温度变化结果</li>
+<li>串扰：两条线路间的电气耦合</li>
+<li>脉冲噪声：由持续时间短和幅度大的不规则脉冲或草绳尖峰组成</li>
+</ul>
+<p>同步方式：数据从发送端到接收端的步调一致</p>
+<ul>
+<li>异步：每次传送一个字符，前+起始位编码0，后+停止位编码1</li>
+<li>同步：比特块以固定的位流形式，前后需要有一组比特信息来标志该信息块</li>
+</ul>
+<h3 id="物理层下的传输媒体"><a href="#物理层下的传输媒体" class="headerlink" title="物理层下的传输媒体"></a>物理层下的传输媒体</h3><p><strong>双绞线&#x2F;双扭线</strong>：</p>
+<p>包含屏蔽双绞线STP、非屏蔽双绞线UTP。</p>
+<ul>
+<li><p>非屏蔽双绞线：四对纽线：白-橙+橙；白-绿+绿；白-蓝+蓝；白-棕+棕；连接配件RJ-45接头</p>
+</li>
+<li><p>连接配件的两种连接标准：EIA&#x2F;TIA 568A和B（直通方式-标准相同-主机与交换机相连；交叉方式-不同-两主机与交换机直连）</p>
+</li>
+</ul>
+<p><strong>同轴电缆</strong>：已被双绞线替代</p>
+<ul>
+<li><p>50Ω即细缆，采用BNC接口</p>
+</li>
+<li><p>75Ω同轴电缆即粗缆，采用AUI接口</p>
+</li>
+<li><p>结构：内导体铜质芯线—绝缘层—外导体屏蔽层—绝缘保护层</p>
+</li>
+</ul>
+<p><strong>光缆</strong>：包括光源+光纤+光检测器；任何时候只能单向传输；</p>
+<ul>
+<li><p>多模光缆：多条不同角度入射的光线在一条光纤中传输，距离2km</p>
+</li>
+<li><p>单模光缆：直线传输，直线传输，距离10km</p>
+</li>
+<li><p>光纤由玻璃塑料制成，传输速度依赖于介质密度，密度越大速度越高，真空中300000Km&#x2F;s</p>
+</li>
+<li><p>光纤包括多模与单模光纤，前者是用发光二极管LEG产生光源，后者使用半导体激光器产生光源</p>
+</li>
+</ul>
+<p><strong>非引导型传输媒体</strong>：微波、无线电、红外线</p>
+<ul>
+<li>无线电微波通信，主要使用2-40GHz，主要直线传播</li>
+<li>多径效应：基站信号经过多个障碍物反射同时到达接收方，叠加后有很大失真</li>
+<li>微波接力：中继站放大信号后再发送；频率高，信道容量大，但相邻站间必须直视</li>
+<li>卫星通信：通信距离远，稳定，但传播时延大</li>
+</ul>
+<h3 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h3><p>复用：用户使用一个共享信道进行通信，降低成本（因为介质传输能力超过单一信号带宽）</p>
+<ul>
+<li><p>频分FDM：所有用户同样时间不同带宽，即大水管切为小水管</p>
+</li>
+<li><p>时分TDM：不同时间占同样的频带宽度；适合数字信号；切为每段等长的时分复用帧即TDM帧，也叫做等时信息；在各个设备间轮转的过程叫做“交织”</p>
+<p>异步&#x2F;统计时分多路复用：不分配固定时间片，比较灵活</p>
+<blockquote>
+<p>30路PCM-E1标准：32个时间片，0号用做同步，16号传递信令<br>24路PCM-T1：193bit，分为24路8bit时间片+1个附加同步bit</p>
+</blockquote>
+</li>
+<li><p>波分WDM：光的频分复用</p>
+</li>
+<li><p>码分CDM：码分多址CDMA，各用户使用经过挑选的不同码型</p>
+</li>
+</ul>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><ul>
+<li><p>目的：屏蔽掉物理设备和传输介质不同带来的差异</p>
+</li>
+<li><p>特性：是DTE（数据终端设备）和DCE（数据端接设备）之间的一组约定，需要规定接口标准</p>
+</li>
+<li><p>接口标准的四个特性：机械（接口外观）、电气（电压范围）、功能（物理接口上各条信号线各电平的功能分配和定义）、规程（具体步骤）</p>
+</li>
+<li><p>标准：EIA RS-232-E、EIA RS-449、X.21</p>
+</li>
+</ul>
+<h1 id="计网第三章：数据链路层"><a href="#计网第三章：数据链路层" class="headerlink" title="计网第三章：数据链路层"></a>计网第三章：数据链路层</h1><h3 id="使用点对点信道的数据链路层"><a href="#使用点对点信道的数据链路层" class="headerlink" title="使用点对点信道的数据链路层"></a>使用点对点信道的数据链路层</h3><p>一些概念：</p>
+<p>链路（物理链路）：一条无源的点到点物理线路段，中间没有交换节点！，是一条通路的组成部。数据链路（逻辑链路）：在链路基础上，有通信协议来控制数据传输。数据链路层作用：负责相邻节点间<strong>可靠</strong>的数据传输，目前常用适配器&#x2F;网卡实现软硬件（物理层和数据链路层）</p>
+<blockquote>
+<p>两点间不可靠传输：同步传输问题、噪声干扰、接发速度不匹配。网卡&#x3D;通信适配器&#x3D;网络接口卡NIC的功能有：串&#x2F;并行转换、数据缓存、实现以太网协议、在计算机中安装设备驱动</p>
+</blockquote>
+<p>三个基本问题：封装成帧、透明传输、差错控制</p>
+<ul>
+<li><p>封装成帧-将比特流分成离散帧，并计算校验和：字符计数法（1个字符的开始标记+信息长度+信息）、带字符填充的首位界符法（ASCII中的SOH和EOT表示帧的开始结束）、带位填充的首尾标记法</p>
+</li>
+<li><p>透明传输-正确区分数据和控制信息（避免信息中的SOH被当作控制信息）：字节填充（信息中的SOH前插入转义字符“ESC”）、字符填充</p>
+</li>
+<li><p>差错检测-实现无比特差错的传输：<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8zOTYxNjUzNjg=">循环冗余检验CRC&#x2F;多项式码<i class="fa fa-external-link-alt"></i></span>（一种冗余码计算方式）；帧检验序列FCS（单指添加在帧后面的冗余码）</p>
+<blockquote>
+<p>无传输差错还包括确认和重传机制</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="点对点协议PPP"><a href="#点对点协议PPP" class="headerlink" title="点对点协议PPP"></a>点对点协议PPP</h3><ul>
+<li><p>特点：简单、封装成帧、透明性、差错检测、支持多种网络层协议、支持多种类型链路、检测连接状态、最大传输单元MTU、网络层地址协商、数据压缩协商</p>
+<blockquote>
+<p>对照数据链路层的可靠传输协议HDLC，缺少纠错、流量控制、序号、多点线路、半双工或单工链路</p>
+</blockquote>
+</li>
+<li><p>组成：将IP数据报封装到穿行链路的方法、链路控制协议LCP、网络控制协议NCP</p>
+</li>
+<li><p>帧格式：如下图所示</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/TKV7nmLT.png" alt="image-20231024194950975"></p>
+</li>
+<li><p>透明传输：</p>
+<ul>
+<li>字节填充法-异步传输：0x7E转为0x7D,0x5E、将0x7D转为0x7D,0x5D、对ASCII小于0x20的控制字符前加0x7D并自身加0x20</li>
+<li>同步-零比特填充：5个连续的1后面就添0</li>
+</ul>
+</li>
+<li><p>工作过程如下：</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/pjPjJ7km.png" alt="image-20231024195634836"></p>
+</li>
+</ul>
+<h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><p>局域网优点：具有广播功能、便于扩展、范围站点有限</p>
+<p>局域网拓扑：星形网（集线器）、环形（干线耦合器）、总线型（匹配电阻）</p>
+<p>解决共享冲突问题：</p>
+<ul>
+<li><p>传统共享介质：局域网中任何一段物理信道在一个时间段内只能被一个站点占用 </p>
+</li>
+<li><p>媒体接入控制方法&#x2F;介质访问控制方法—与拓扑结构密切相关：静态划分信道（频分、时分、波分、码分），动态媒体接入控制（随机接入、受控接入）</p>
+</li>
+</ul>
+<p>以太网标准&#x2F;802.3局域网：IEEE 802.3、DIX Ethernet V2（TCP&#x2F;IP体系常用）</p>
+<p>局域网的数据链路层拆为两个子层：逻辑链路控制LLC子层（与传输介质无关，看不见下面的局域网，现在没啥卵用），媒体接入控制MAC子层</p>
+<blockquote>
+<p>CSMA&#x2F;CD访问法和Token Passing Bus访问法用于总线型、星型网络；Toekn Passing Ring用于环形网络</p>
+</blockquote>
+<p><img src="https://img1.imgtp.com/2023/10/24/puDgjo5I.png" alt="image-20231024201016511"></p>
+<p>标准以太网（10Base-5即10Mbps，50Ω同轴线长最大500m）采用总线型的拓扑结构，无连接-不可靠交付-曼彻斯特编码；其实现一对一通信的策略：数据帧中的目的地址与接收站地址一致时才能接受；</p>
+<p>以太网核心技术：<strong>带碰撞检测的载波侦听多点接入</strong>&#x3D;CSMA&#x2F;CD（随机争用型的分布式介质访问控制方法-只能半双工-）；先听后发，边发边听，碰撞停发，退避重发。</p>
+<ul>
+<li><p>多点接入：计算机以许多点接入一根总线上</p>
+</li>
+<li><p>载波侦听：总线上是否有其他计算机在发送数据，有则暂停</p>
+</li>
+<li><p>碰撞检测：计算机边发数据边检测信道上的信号电压大小，碰撞时电压摆动会增大，有阈值；记二倍单程传播时延后则碰撞</p>
+</li>
+<li><p>退避重发：二进制指数类型退避算法，碰撞后要等一个随机时间再发</p>
+<p><img src="https://img1.imgtp.com/2023/10/24/xaghSi6h.png" alt="image-20231024203509418"></p>
+</li>
+</ul>
+<p>目前的（10BASE-T）以太网&#x3D;星型拓扑+集线器（物理层）+双绞线+RJ45插头+不到100m</p>
+<p>标准以太网帧格式即MAC帧&#x3D;6B目的地址+6B源地址+2B类型+46-1500B数据+4BFCS</p>
+<blockquote>
+<p>地址中高24位&#x3D;OUI组织唯一标识符；低24位扩展唯一标识符EUI。MAC地址也叫做物理地址&#x2F;硬件地址，适配器标识符EUI-48。类型用于标记上一层的协议类型。无效就丢</p>
+</blockquote>
+<ul>
+<li>扩展以太网：常于数据链路层实现，早期使用网桥，目前多用交换机，用于隔离碰撞域，路由器隔离广播域。帧格式不变。</li>
+</ul>
+<blockquote>
+<p>交换机：接口有存储器、即插即用（帧交换表-自学习算法建立）、专用的交换结构芯片。其交换方式有存储转发、直通方式（区别就是是否检查并缓存）。这里多指数据链路层的交换机，帧交换表&#x3D;MAC地址+端口+类型，三层的参考ARP</p>
+</blockquote>
+<p>存在的回路问题：在IEEE 802.1D中制定了生成树协议STP，在逻辑上切断形成无环路的树状结构</p>
+<ul>
+<li><p>VLAN虚拟局域网：是由一些局域网网段构成的与位置无关的逻辑组，每一个VLAN的帧都有一个明确标示符，指明发送该帧的计算机属于哪个VLAN（VLAN只是一种服务-按照有关需求对资源等重新组合，而不是一种新型局域网）</p>
+<p>划分虚拟局域网：交换机端口（用户不能动）、MAC地址（MAC地址变了之后需要管理员重新配置）、协议（依据上一层协议划）、IP子网（IP地址划分）、高层服务（FTP一个SMTP一个）</p>
+<blockquote>
+<p>虚拟局域网的以太网帧（802.1Q帧）&#x3D;在标准MAC帧的源地址和类型中穿插4B标记位</p>
+</blockquote>
+</li>
+<li><p>高速以太网：100Mbps的以太网，叫100BASE-T&#x2F;快速以太网，IEEE 802.3u。全双工下无冲突发生，MAC帧格式不变，一个网段最大电缆长度减到100m，帧的时间间隔0.96μs</p>
+<p>吉比特以太网：1Gbps下可以全双工（不使用下面技术）和半双工（有冲突）。载波延伸：加上载波延伸后MAC帧共512B，之后再发送；分组突发：第一帧需要载波延伸，后面的帧间有最小间隔即可</p>
+</li>
+</ul>
+<h1 id="计网第四章：网络层"><a href="#计网第四章：网络层" class="headerlink" title="计网第四章：网络层"></a>计网第四章：网络层</h1><h3 id="网络-网际层"><a href="#网络-网际层" class="headerlink" title="网络&#x2F;网际层"></a>网络&#x2F;网际层</h3><p><strong>网络层提供的两种服务</strong>：</p>
+<ol>
+<li>面向连接的可靠交付，之前先建立虚电路VC来保证双方通信所需的一切网络资源。分组沿着同一路径传送</li>
+</ol>
+<blockquote>
+<p>虚电路：一条物理链路上通过缓冲区区分多个虚拟电路，因此每个节点需要有虚电路的入口出口表，每个口对应一个VC号</p>
+</blockquote>
+<ol start="2">
+<li>无连接的，尽力交付的数据服务，每一个分组独立发送，路径可以不同，让运输层负责可靠传输。</li>
+</ol>
+<p>路由器之间传播的信息有数据、路由信息，也因此有网络层的两个层面，数据层面和控制层面（可单独抽出来作为SDN）</p>
+<blockquote>
+<p>SDN—软件定义网络：由远程控制器计算出最佳路由之后在每一个路由器中生成正确的转发表，此时的路由器仅需查找转发表并转发分组即可</p>
+</blockquote>
+<p>中间设备：</p>
+<ul>
+<li>运输层及以上：网关</li>
+<li>网络层：路由器</li>
+<li>数据链路层：网桥或桥接器，交换机</li>
+<li>物理层：转发器</li>
+</ul>
+<h4 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h4><p><strong>IPv4配套的协议</strong>：地址解析协议ARP、网际报文控制协议ICMP、网际组管理协议IGMP</p>
+<p><strong>表示法</strong>：32位二进制代码，4*8，<strong>点分十进制法</strong>。每个IP地址由ICANN互联网名字和数字分配机构（域名IP分配）</p>
+<p><strong>IPv4发展阶段</strong>：</p>
+<ol>
+<li><p>分类IP地址—2级结构：【网络名+主机名】</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>网络号</th>
+<th>主机号</th>
+<th>第1个网络号</th>
+<th>最后网络号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>8b（0开）</td>
+<td>24b</td>
+<td>1</td>
+<td>126</td>
+</tr>
+<tr>
+<td>B</td>
+<td>16b（10开）</td>
+<td>16b</td>
+<td>128.1</td>
+<td>191.255</td>
+</tr>
+<tr>
+<td>C</td>
+<td>24b（110开）</td>
+<td>8b</td>
+<td>192.0.1</td>
+<td>223.255.255</td>
+</tr>
+<tr>
+<td>D</td>
+<td>1110开</td>
+<td>多播地址</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>1111开</td>
+<td>保留</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>A类中网络号0表示本网络，127表示本地环回测试地址；B类中128.0被保留；C类192.0.0保留（B、C类在后面的CIDR中可以使用）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>网络号</th>
+<th>主机号</th>
+<th>源</th>
+<th>目的</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>可以</td>
+<td>不可</td>
+<td>本网络上本主机（DHCP）</td>
+</tr>
+<tr>
+<td>0</td>
+<td>X</td>
+<td>可</td>
+<td>N</td>
+<td>本网络上主机号为X的主机</td>
+</tr>
+<tr>
+<td>全1</td>
+<td>全1</td>
+<td>N</td>
+<td>Y</td>
+<td>只在本网络进行广播</td>
+</tr>
+<tr>
+<td>S</td>
+<td>全1</td>
+<td>N</td>
+<td>Y</td>
+<td>对网络号为Y的网络中进行广播</td>
+</tr>
+<tr>
+<td>127</td>
+<td>非全0或全1</td>
+<td>Y</td>
+<td>Y</td>
+<td>本地软件环回测试</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>划分子网—三级IP地址：【网络号+子网号+主机号】</p>
+<ul>
+<li><p>仍有ABC类之分，子网号从主机号位数中拿取</p>
+</li>
+<li><p>子网掩码：网络号等长位置全1，主机号等长全0；与IP地址相&amp;得到网络地址</p>
+</li>
+<li><p>路由表中除了目的网络地址还要有该网络的子网掩码</p>
+</li>
+</ul>
+</li>
+<li><p>CIDR—无分类域间路由选择：【网络前缀+主机号】</p>
+<ul>
+<li>没有了ABC之分，这种编址方式也叫<em>构造超网</em>，但还是无法解决IP缺少的问题。</li>
+<li>VLSM：变长子网掩码，一个划分子网的网络中可同时使用几个不同的子网掩码</li>
+<li><strong>斜线记法</strong>a.b.c.d&#x2F;n，表明前n位是网络前缀，前缀越短，地址块包含地址越大。</li>
+<li>子网掩码：又叫地址掩码，即32位，点分十进制表示的网络前缀。</li>
+<li>地址块：网络前缀都相同的所有连续IP地址，每个地址块中地址数一定是2的整数次幂</li>
+</ul>
+</li>
+</ol>
+<p><strong>IP层分组转发</strong>：特定路由？——最长前缀匹配？——默认路由？——丢弃</p>
+<ul>
+<li><p>路由聚合：使用网络前缀减少路由表中的相近条目；路由聚合地址表【目的网络，下一跳】</p>
+</li>
+<li><p>基于终点的转发：基于分组首部中的目的地址传送和转发</p>
+</li>
+<li><p>最长前缀匹配：使用CIDR查找转发表时，选择前缀最长的一个作为匹配的前缀</p>
+<blockquote>
+<p>两种特殊路由：主机路由，对特定目的主机的IP地址专门指明的一个路由，a.b.c.d&#x2F;32，放在转发表最前面；默认路由，都由指定路由器处理，0.0.0.0&#x2F;0表示</p>
+</blockquote>
+</li>
+<li><p>二叉线索查找转发表：自顶向下最多32层，每层对应IP地址中的一位，可以用唯一前缀构造该线索二叉</p>
+</li>
+</ul>
+<p><strong>IP数据报</strong>首部：</p>
+<ol>
+<li><p>4B-IP协议版本+4B-首部长度+8B-区分服务（一般不用）+16B-IP数据报总长度</p>
+</li>
+<li><p>16B-标识（计数器）+3B-标志（MF-DF-保留）+13B-片偏移（本部分数据在原分组中的偏移，8字节为单位）</p>
+<blockquote>
+<p>MF&#x3D;1，表示后面还有分片；DF&#x3D;0才允许分片</p>
+</blockquote>
+</li>
+<li><p>8B-生存时间（可通过的路由器数最大值TTL）+8B-协议（数据部分协议）+16B-首部检验和</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>协议</th>
+<th>ICMP</th>
+<th>IGMP</th>
+<th>IP</th>
+<th>TCP</th>
+<th>UDP</th>
+<th>IPv6</th>
+<th>ICMP-v6</th>
+<th>OSPF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字段</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>6</td>
+<td>17</td>
+<td>41</td>
+<td>58</td>
+<td>89</td>
+</tr>
+</tbody></table>
+<p>发送端：数据报<strong>首部</strong>每16位一单位（此时检验和当0），反码后求和，再取反码得到检验和</p>
+<p>接收端再拿着检验和计算，反码求和，若0则保留，否则丢弃</p>
+</blockquote>
+</li>
+<li><p>32B-源地址+32B目的地址+（可选部分+填充，一定是32B的倍数）</p>
+</li>
+<li><p>数据部分</p>
+</li>
+</ol>
+<h4 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h4><p>允许主机或路由器报告差错情况和提供有关异常情况的报告。ICMP报文封装于IP数据报中，但属于IP层协议。</p>
+<p><strong>ICMP报文格式</strong>：8b-类型+8b-代码+16b-检验和+（16b-标识符+16b-序列号+数据部分）</p>
+<p><strong>ICMP报文类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>报文种类</th>
+<th>类型值</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>差错报文</strong></td>
+<td>3</td>
+<td>终点不可达</td>
+</tr>
+<tr>
+<td>多播特殊地址不发</td>
+<td>11</td>
+<td>时间超过</td>
+</tr>
+<tr>
+<td>对ICMP不发ICMP</td>
+<td>15</td>
+<td>参数问题</td>
+</tr>
+<tr>
+<td>仅第一个分片</td>
+<td>5</td>
+<td>改变路由</td>
+</tr>
+<tr>
+<td><strong>询问报文</strong></td>
+<td>8或0</td>
+<td>回送请求或回答</td>
+</tr>
+<tr>
+<td></td>
+<td>13或14</td>
+<td>时间戳请求或回答</td>
+</tr>
+</tbody></table>
+<p><strong>应用</strong>：<code>ping</code>命令直接使用网络层测试两个主机的连通性；<code>tracert</code>命令跟踪一个分组路径。</p>
+<h4 id="ARP地址解析协议"><a href="#ARP地址解析协议" class="headerlink" title="ARP地址解析协议"></a>ARP地址解析协议</h4><p><strong>ARP高速缓存</strong>：已知一个IP，用来找MAC</p>
+<ul>
+<li>存放IP地址到MAC地址的映射表</li>
+<li>映射表动态更新（新增或超时删除）</li>
+<li>映射表&lt;IP地址；MAC地址；生存时间；类型&gt;</li>
+</ul>
+<p><strong>ARP工作</strong>：A在自己的ARP高速缓冲中找B的IP地址，找到后取出MAC并写入MAC帧；没找到则A在本局域网中广播发送ARP请求，之后由目标B向A单播ARP响应分组</p>
+<blockquote>
+<p>请求分组：&lt;A的MAC；A的IP；B的MAC（未知全0）；B的IP&gt;。响应分组类似</p>
+</blockquote>
+<p><strong>ARPcache作用</strong>：</p>
+<ul>
+<li>解决同一个局域网上的主机或路由器的IP和MAC地址的映射关系—动态更新</li>
+<li>减少ARP广播的通信量（请求分组与响应分组会被记入缓冲中）</li>
+<li>存放最近获得的IP地址到MAC地址的绑定。</li>
+</ul>
+<p><strong>ARP使用的四种情况</strong>：</p>
+<ol>
+<li>发送方是主机，要把IP数据报发送到<strong>本网络</strong>上另一个主机：用ARP找——目标主机MAC</li>
+<li>发送到<strong>另一个网</strong>上的一个主机：ARP找到本网络的路由器的硬件地址，剩下交给路由器</li>
+<li>发送方<strong>路由器</strong>，要把IP数据报传给<strong>本网络</strong>上一个主机：使用ARP找——目标主机MAC</li>
+<li>IP数据报发给<strong>另一个网</strong>上另一个主机：ARP找到本网络上<strong>另一个路由器的硬件地址</strong>，再交给路由器</li>
+</ol>
+<h4 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h4><p>主要是解决IP枯竭的问题，将协议数据单元PDU称为分组；支持即插即用，无需使用DHCP；首部长度必须是8B的整数倍；支持资源的预分配</p>
+<p><strong>数据报格式</strong>：基本首部+有效载荷（净负荷&#x3D;[扩展首部]+数据部分）</p>
+<ul>
+<li><p>40B的基本首部：4b-版本+8b通信量类+24b-流标号+16b-有效载荷长度+8b-下一个首部+8b-跳数限制+128b-源地址+128b-目标地址</p>
+<blockquote>
+<p>版本指明协议版本；通信量类区分不同数据报的优先级；流标号指明该数据流编号，同一流下数据报共享一个标号；下一个首部相当于IPv4的协议字段；</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>基本类型</strong>：单播（点对点）、多播（一对多）、任播（终点是一组，但只能有一个收到）</p>
+<p><strong>冒号十六进制记法</strong>：每个地址128位，8×4×hex；零压缩技术（一串连续的0可用一对冒号取代）、点分十进制记法的后缀（用来由4向6转换）</p>
+<table>
+<thead>
+<tr>
+<th>地址类型</th>
+<th>二进制前缀</th>
+<th>IPv6记法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未指明地址</td>
+<td>00…0（128b）</td>
+<td>::&#x2F;128</td>
+</tr>
+<tr>
+<td>环回地址</td>
+<td>00…1（仅此一个）</td>
+<td>::1&#x2F;128</td>
+</tr>
+<tr>
+<td>多播地址</td>
+<td>11111111（8位）</td>
+<td>FF00::&#x2F;8</td>
+</tr>
+<tr>
+<td>本地链路单播地址</td>
+<td>1111111010（10位）未连接到互联网</td>
+<td>FE80::&#x2F;10</td>
+</tr>
+<tr>
+<td>全球单播地址</td>
+<td>除上述四种之外所有</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>单播地址划分：【子网前缀+接口标识符】、【全球路由选择前缀+子网标识符+接口标识符】</p>
+</blockquote>
+<p><strong>v4向v6过渡</strong>：双协议栈（路由器提供v6和v4数据报的转换）或者隧道技术（将v6作为内容包在v4数据包之中）</p>
+<p><strong>ICMPv6</strong>：差错报文、信息报文、邻站发现报文ND、组成员关系报文MLD</p>
+<h3 id="路由选择协议"><a href="#路由选择协议" class="headerlink" title="路由选择协议"></a>路由选择协议</h3><p>互联网采用<strong>自适应（动态）、分布式</strong>路由选择协议。将整个互联网划分为许多较小的自治系统AS，采用分层次的路由选择协议，即自治系统之间的路由选择协议（域间路由选择&#x3D;外部网关协议）和自治系统内部的路由选择（内部网关协议&#x3D;域内路由选择）</p>
+<blockquote>
+<p>自治系统AS：每一个AS对其他AS表现出的是一个单一的和一致的路由选择策略</p>
+</blockquote>
+<h4 id="内部网关协议IGP"><a href="#内部网关协议IGP" class="headerlink" title="内部网关协议IGP"></a>内部网关协议IGP</h4><p><strong>RIP-距离向量算法-应用层</strong></p>
+<p>分布式、基于距离向量的路由选择；互联网标准协议；每个路由器都要维护从他自己到其他每个目的网络的距离记录。坏消息传得慢</p>
+<ul>
+<li><p>距离&#x2F;跳数：路由器到直接连接的网络距离&#x3D;1，到非直接连接的网络距离&#x3D;经过的路由数+1</p>
+</li>
+<li><p>好路由&#x3D;距离短，不关注时间，一条路最多15个路由器，16&#x3D;不可到达，只选择距离最短路由</p>
+</li>
+</ul>
+<p><strong>三个特点</strong>：仅和相邻路由交换信息、交换自己路由表、固定时间间隔30s交换</p>
+<p>路由表建立：空的—交换直接连接的—若干更新—收敛完成</p>
+<blockquote>
+<p>收敛：自治系统中所有结点都得到正确的路由选择信息的过程；坏消息传得慢</p>
+</blockquote>
+<p><strong>RIP报文处理</strong>：采用距离向量算法</p>
+<ul>
+<li>对收到来自X的RIP报文中的路由表，下一跳地址都改为X，距离++</li>
+<li>——本地路由表中没有的目的网络则全部添加</li>
+<li>——本地有目标网络，但下一跳为X的话，就用收到的替换</li>
+<li>——若下一跳不是X，且本地表距离更远则更新</li>
+<li>180s还没收到X的更新，则把X记为不可达，距离设置为16</li>
+</ul>
+<p><strong>RIP2报文</strong>：支持CIDR，使用UDP端口520传送；由首部+路由构成</p>
+<blockquote>
+<p>首部-4B：命令+版本+0；一条路由-20B：地址标识符+路由标记+网络地址+子网掩码+下一跳路由地址+距离（1-16，但占4B）；最多25个路由信息，多的额外报文传送</p>
+</blockquote>
+<p><strong>OSPF-链路状态算法-网络层</strong></p>
+<p>原理简单实现复杂；迪杰斯特拉的最短路径算法SPF；分布式的链路状态协议；目前采用v2版本；将自治系统化为主干区域（路由器BR）和区域（边界路由器ASBR）</p>
+<p><strong>三个特点</strong>：洪泛法向所有本AS路由器发送信息、发送相邻链路状态、每隔一长段时间或链路状态变换再泛洪</p>
+<blockquote>
+<p>链路状态：说明本路由器和哪些路由器相邻，以及链路的度量&#x2F;权重</p>
+</blockquote>
+<p><strong>其他特点</strong>：可实现负载均衡、OSPF路由具有鉴别功能、支持可变长度的子网划分和CIDR、序号空间大、根据权重计算不同的路由</p>
+<p><strong>五种分组类型</strong>：问候分组、数据库描述分组、链路状态的请求、更新、确认分组</p>
+<p><strong>格式</strong>：用IP数据报传送，包括24B的分组首部+具体分组内容</p>
+<p><strong>工作过程</strong>：确定邻站可达—同步链路状态数据库—更新链路状态（30min左右）</p>
+<h4 id="外部网关协议BGP"><a href="#外部网关协议BGP" class="headerlink" title="外部网关协议BGP"></a>外部网关协议BGP</h4><p>目前使用BGP-4，一种不同自治系统的路由器之间的交换路由信息的协议，路径向量算法-应用层</p>
+<ul>
+<li>不同自治系统之间由BGP发言者（边界路由器）交换信息，在半永久性TCP链接（179端口）建立BGP会话，也叫做eBGP连接在（不同AS之间交换路由协议）；AS内部，iBGP连接。</li>
+<li>AS内部运行IGP或iBGP，AS之间运行eBGP</li>
+<li>eBGP连接的两端可以互相通报；iBGP对等信息不能双向</li>
+<li>路由信息【前缀,BGP属性】&#x3D;【前缀,AS路径,下一跳】，不允许相同AS号出现</li>
+</ul>
+<p><strong>不同类型AS</strong>：末梢AS（树叶）；多归属AS（同时连接到两个或以上的AS）；穿越AS（为其他AS有偿转发）；对等AS（事先商量的两个AS，彼此之间不收费）</p>
+<p><strong>路由选择</strong>：本地偏好值最高的路由（默认100）——AS跳数最小的路由——热土豆路由算法（分组在AS内转发次数最小）——路由器BGP ID数值最小的路由。</p>
+<p><strong>四种类型</strong>：打开（与另一个BGP发言者建立关系）、更新、保活（周期性证实邻站连同）、通知（发送检测到的差错）</p>
+<p><strong>格式</strong>：16B标记+2B长度+1B类型+报文主体部分</p>
+<p><strong>路由器结构</strong>：路由选择结构-软件+分组转发部分-硬件；工作在网络层；主要用于转发分组；</p>
+<ul>
+<li><p>转发仅涉及一个路由器，将用户的IP数据报从合适端口转发出去，是从路由表得出来的；路由选择涉及到多个路由器，路由表一般仅包含目的网络到下一跳的映射</p>
+</li>
+<li><p>输入：收到的分组是交换路由信息的分组则送交路由选择处理机，数据分组则按照目的地址查找转发表经交换结构到达合适的输出端口，若某分组正在查找则排队等待</p>
+</li>
+<li><p>输出：从交换结构接受分组。传来的速率&gt;输出链路发送速率就缓存在队列中，满了则丢弃后面的</p>
+</li>
+<li><p>交换结构：</p>
+<ul>
+<li>通过存储器：收到分组就中断通知，之后复制到存储器</li>
+<li>总线：共享的总线，不需要预处理机，若总线忙则排队；受总线速率影响</li>
+<li>纵横交换结构：2N条总线，水平线与垂直线，定位到对应出口上</li>
+</ul>
+</li>
+</ul>
+<h4 id="IP多播-组播"><a href="#IP多播-组播" class="headerlink" title="IP多播&#x2F;组播"></a>IP多播&#x2F;组播</h4><ul>
+<li>互联网上进行多播就叫IP多播，因为是一对多，只能用于目的地址；发送一次数据到多播组，由多播路由器则复制传输</li>
+<li>多播数据报中需要写入多播组的标识符，标识符就是D类地址，只能用于目的地址</li>
+<li>包装的IP协议字段&#x3D;2，表明使用网际组管理协议IGMP，最大努力交付，无ICMP差错报文</li>
+<li>硬件多播：01-00-5E-00-00-00到01-00-5E-7F-FF-FF（前25位不变）</li>
+</ul>
+<p><strong>IGMP</strong>：让多播路由器知道多播组成员信息。动态适应变化，考虑数据报的来源与去向。使用IP数据包传递报文。</p>
+<p><strong>IGMP工作</strong>：加入多播组（新人主动发送IGMP，之后由多播路由器转发给其他路由器）——探询组成员变化情况（多播路由器周期性试探组，组内有一台机器响应即可，否则不活跃，不再转发给其他多播路由器）</p>
+<p><strong>多播路由选择</strong>方法：洪泛与剪除、隧道技术、基于核心的发现技术</p>
+<ul>
+<li><p>洪泛与剪除：使用较小的多播组；开始时洪泛（采用反向路径广播RPB避免兜圈子）</p>
+<blockquote>
+<p>RBP：经最短路径转发来的转发，否则丢弃（检查）。长度相同的则选择IP地址最小的。这样就形成了<strong>多播转发树</strong>，某个路由器下游树枝没有多播组成员则一并剪除（剪枝），有某个树枝新增组成员则再介入到该转发树（嫁接）</p>
+</blockquote>
+</li>
+<li><p>隧道技术：适用于地理上很分散的情况；</p>
+</li>
+<li><p>基于核心的发现：多播组大小在较大范围内变化；每个多播组指定一个核心路由器，并给出它的IP单播地址</p>
+<blockquote>
+<p>路由器1发出多播数据报到一个多播组，则多播组就向其成员转发该数据报；若是请求加入多播组的数据报，则该核心路由器就用隧道技术向1转发每一个多播数据报的副本</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>多播路由选择协议</strong>：距离向量多播路由选择协议DVMRP、基于核心的转发树CBT、开放最短通路优先的多播扩展MOSPF、协议无关多播-稀疏方式PIM-SM、协议无关多播-密集方式PIM-DM</p>
+<h4 id="VPN与NAT"><a href="#VPN与NAT" class="headerlink" title="VPN与NAT"></a>VPN与NAT</h4><p>采用专门IP地址的互联网络叫专用网，专门IP地址即仅在机构内部使用的IP地址，路由器对目的地址是专用地址的数据报一律不进行转发</p>
+<p><strong>三个专用IP地址块</strong>：10.0.0.0&#x2F;8；172.16.0.0&#x2F;12；192.168.0.0&#x2F;16</p>
+<p><strong>专用网</strong>：用于机构内部的通信，并借助互联网作为两个专用网之间的载体，即VPN-虚拟专用网（数据必加密，两边必须有专门软硬件）</p>
+<ul>
+<li><p>内联网：同一个机构内部的网路构成的VPN</p>
+</li>
+<li><p>外联网：一个机构和某些外部机构共同建立的</p>
+</li>
+<li><p>远程接入VPN：外部建立VPN隧道访问公司内部网络</p>
+</li>
+</ul>
+<p><strong>NAT</strong>：一种安装在上述特殊硬件上的软件，用于网络地址转换，至少一个全网IP和内网IP</p>
+<ul>
+<li><p>地址转换表【出—源IP—旧的IP—新的IP】【入—目的IP—旧IP—新IP】</p>
+</li>
+<li><p>传统NAT：NAT路由器n个公网IP，则专用网内最多n个主机接入（或者轮流使用）</p>
+</li>
+<li><p>网络地址与端口号转换<strong>NAPT</strong>：可以使多台拥有本地地址的主机，共用一个公网IP，P代表运输层的TCP端口号；</p>
+</li>
+</ul>
+<h4 id="MPLS"><a href="#MPLS" class="headerlink" title="MPLS"></a>MPLS</h4><p>多协议标签交换技术，建立基于标签的转发路径（虚路径），使得MPLS网络中的路由器在<strong>转发报文</strong>时不必再<strong>查找数目庞大的网络层路由条目</strong>，而是<strong>根据标签来转发分组</strong>。</p>
+<ul>
+<li><p>MPLS上层可有多种协议，IPv4、IPv6、IPX，也可以使用多种链路层协议，PPP、以太网、ATM以及帧中继等。利用面向连接的技术，使每个分组携带一个叫做标签的小整数（固定长度），让标签路由器用标签值检索转发表，从而实现在链路层用<strong>硬件</strong>快速转发（标签交换）</p>
+</li>
+<li><p>封装位置：网络层与数据链路层之间，即IP数据报之前加一个MPLS首部之后再封装为以太网帧</p>
+</li>
+<li><p>MPLS域：该域中有许多彼此相邻的路由器，并且所有路由器都是支持MPLS技术的标记交换路由器LSR（标记交换-快速转发，路由选择-构造转发表）</p>
+</li>
+<li><p><strong>工作过程</strong>：</p>
+<ul>
+<li><p>各LSR使用标签分配协议LDP交换报文，找出和标签对应的标签交换路径LSP。</p>
+</li>
+<li><p>入口节点给IP数据报打上标签（插入MPLS首部）即分类，并按照转发表转发给下一个LSR</p>
+<blockquote>
+<p>首部&#x3D;20b标签位+3b保留位+1b栈位+8b生存时间TTL</p>
+</blockquote>
+</li>
+<li><p>LSR转发并更新标记（入标记改为出标记，也叫做标签对换）</p>
+</li>
+<li><p>分组离开MPLS域时，出口节点把分组的标签去除</p>
+</li>
+</ul>
+</li>
+<li><p>转发等价类FEC：一组具有相同转发处理方式的分组；传统IP转发中，到同一个目的地址的所有报文就是一个FEC，而FEC的划分可以由管理员控制！（可以实现路经的人工配置）</p>
+</li>
+</ul>
+<p>因为MPLS的复杂维护难，且无法做到基于时延或带宽等要求的流量调度，于是新一代MPLS，段路由选择协议SR，需要借助下面的SDN控制器给分组分配SR标签，指明分组从原点到终点的路径</p>
+<p><strong>SDN</strong>：软件定义网络，将控制层和数据层分开，使用软件控制数据层面的设备，OpenFlow作为两层之间的通信接口。</p>
+<p><strong>OpenFlow</strong>：SDN远程控制器通过一个安全信道，使用OpenFlow协议远程管理，OpenFlow交换机中的流表，该表规定了“匹配+动作”，即如何进行字段匹配以及之后的操作</p>
+<blockquote>
+<p>流表中的一项：首部字段值（匹配字段）+计数器（已匹配分组数）+动作</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 基础知识</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="far fa-alien-monster"></i><i class="fa fa-tag"></i> 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/18/Web%E5%AE%89%E5%85%A8/" rel="prev" title="Web安全">
+                  <i class="fa fa-angle-left"></i> Web安全
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" rel="next" title="密码学及相关应用">
+                  密码学及相关应用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zy0t1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">150k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:33</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <!--音乐-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+  <div id="player" class="aplayer aplayer-withlist aplayer-fixed" data-id="8698753667" data-server="netease" data-type="playlist" data-order="random" data-fixed="true" data-listfolded="true" data-theme="#2D8CF0"></div>
+ <!--https://music.163.com/#/outchain/0/8698753667/-->
+
+</body>
+</html>

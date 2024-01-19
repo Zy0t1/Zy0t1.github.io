@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-flash.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zy0t1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":16,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="摘要：基础说明外加一些内核介绍，说明部分还是推荐《鸟哥的Linux私房菜》">
 <meta property="og:type" content="article">
@@ -156,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">1.基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">2.文件&amp;目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ELF%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3.ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E6%A0%B8%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">4.内核介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5.内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6.进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-IO%E8%AE%BE%E5%A4%87%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">7. IO设备与驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Linux%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">8.Linux内核漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SELinux"><span class="nav-number">9.</span> <span class="nav-text">9.SELinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Namespace%E5%8F%8ACgroups%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">10.Namespace及Cgroups机制</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">1.基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6-%E7%9B%AE%E5%BD%95-%E7%BE%A4%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">2.文件&amp;目录&amp;群组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ELF%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3.ELF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%86%85%E6%A0%B8%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">4.内核介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5.内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6.进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-IO%E8%AE%BE%E5%A4%87%E4%B8%8E%E9%A9%B1%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">7. IO设备与驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Linux%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E"><span class="nav-number">8.</span> <span class="nav-text">8.Linux内核漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-SELinux"><span class="nav-number">9.</span> <span class="nav-text">9.SELinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Namespace%E5%8F%8ACgroups%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">10.Namespace及Cgroups机制</span></a></li></ol></div>
         </div>
         <!--/noindex-->
         <div class="site-overview-wrap sidebar-panel">
@@ -170,18 +170,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -275,14 +275,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>15k</span>
+      <span>16k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>28 分钟</span>
+      <span>29 分钟</span>
     </span>
 </div>
 
@@ -330,56 +330,77 @@
     upgrade  包名(升级)
     autoremove 包名(移除但不包括相关配置)
     --purge remove  包名(包括相关配置)
-ls --help
-cd  /home(绝对路径)
-    子文件夹
-    ..(中间有空格，向上一个级别，跳的比 cd /多)
-pwd(显示当前的绝对路径)
-cp [参数] 源文件 目标文件
-rm  文件  注：文件夹以/结尾
-    -r xxxxx/ (空目录)
-    -rf xxxx/ (删除带有内容的目录)
-rmdir(删除一个空目录)
-mv  旧文件名 新文件名(更改文件名、也可以移动位置)
-mkdir xxx/ (创建新文件夹)
-man/info 命令(查看相关命令手册) #或者在/usr/share/doc中查看手册
 exit(退出)
 sudo(管理员)
-shutdown(关机)=poweroff
 echo&quot;要显示的内容&quot;
-unzip(解压缩)| tar
-cat(直接从终端创建、查看、链接文件)
 kill PID/进程名
 ping
 history(使用过的命令)
-uname -a(操作系统详细信息)
-find(寻找文件)
-/xxx/xxxx/xxxxx(绝对路径)
-../xxxx (相对路径)
 </code></pre>
-<p>GCC &#x3D; gcc(编译) + cpp(预处理) + as(处理汇编) + ld(链接) &amp;&amp; vim</p>
+<ul>
+<li><p>日常没什么用？：<code>date</code>显示日期、<code>cal</code>显示日历、<code>bc</code>简单计算器-交互式、<code>uname</code>-查看本机信息、<code>pwd</code>-当前绝对路径</p>
+</li>
+<li><p>文件<strong>权限属性</strong>配置：<code>chgrp</code>-改属组、<code>chown</code>-改属主、<code>chmod</code>-变权限、<code>umask</code>-设置默认权限、<code>chattr</code>-设置隐藏属性、<code>lsattr</code>-查看隐藏属性</p>
+<blockquote>
+<p>文件创建默认666，目录默认777。<code>umask</code>指令后跟要减掉的权限</p>
+</blockquote>
+</li>
+<li><p><strong>文件目录操作</strong>：<code>cd</code>-换目录、<code>ls</code>-检视、<code>cp</code>-复制、<code>rm</code>-删除、<code>mv</code>-移动或改名、<code>mkdir</code>-创建目录、<code>rmdir</code>-删除空目录、<code>touch</code>-修改创建文件</p>
+</li>
+<li><p>文件内容查阅：<code>cat</code>-第一行开始全部显示、<code>tac</code>-最后一行开始、<code>more/less</code>-页单位显示、<code>head/tail</code>-只看头或尾、<code>od</code>-二进制查看、<code>nl</code>-带行号显示、<code>file</code>-观察文件类型</p>
+</li>
+<li><p>关机有关指令：<code>shutdown</code>&#x3D;<code>systemctl</code>+<code>reboot</code>,<code>halt</code>,<code>poweroff</code>；数据同步写入盘中<code>sync</code></p>
+</li>
+<li><p>文本编辑器：<code>nano</code>、<code>vi</code>、<code>vim</code></p>
+<blockquote>
+<p>vim：i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)<br>:q(离开，并不保存) :q!(强制离开不储存) :w(写入) :w!(强制写入，但与权限有关)可配合使用</p>
+</blockquote>
+</li>
+<li><p>求助工具：<code>man</code>一次全显示，<code>info</code>页显示；<code>/usr/share/doc/</code>存放软件信息；<code>xx -h</code></p>
+<blockquote>
+<p>man中表格第一行，数字-意义：1-可执行文件；3-大多为C函数库；4-设备文件或文件格式；5-配置文件；8-root可用命令；9-与内核相关</p>
+</blockquote>
+</li>
+<li><p>搜索指令：<code>which</code> 寻找可执行文件、<code>whereis</code>、<code>locate</code>、 <code>find</code>根据文件名寻找</p>
+<blockquote>
+<p>locate使用本地数据库查找&#x2F;var&#x2F;lib&#x2F;mlocate，updatedb指令会读取&#x2F;etc&#x2F;updatedb.conf来更新该数据库。whereis仅在指定目录下查找内容，-l列出查找列表。find全盘寻找</p>
+</blockquote>
+</li>
+<li><p><strong>GCC</strong>工具链 &#x3D; gcc(编译) + cpp(预处理) + as(处理汇编) + ld(链接)+make(构建)</p>
+</li>
+</ul>
 <pre><code class="bash">gcc [参数] [相关文件名称，可多个] -o [生成文件名称]
 gcc hello.c -o hello或hello.out---------------------(一步到位)
 1.预处理：gcc -E hello.c -o test.i---------------------(加入头文件)
 2.编译：gcc -S test.i -o test1.s-----------------------(生成汇编文件)
 3.汇编：gcc -c test1.s -o hello.o----------------------(生成目标文件)
-ps：在此.o或.obj文件中存放着ELF格式的代码，最接近机器语言
+#ps：在此.o或.obj文件中存放着ELF格式的代码，最接近机器语言
 4.链接器ld链接生成可执行程序：gcc hello.o -o hello-----------(与其他文件链接)
 5.运行：在目标执行文件目录下./hello或hello.out
-ps：不写生成文件名就会默认a.out；在win平台下中间相同，但生成.exe
-----------------------------------------------------------------------
-vim a.txt()
-i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
-:q(离开，并不保存) :q!(强制离开不储存) :w(写入) :w!(强制写入，但与权限有关)可配合使用
+#ps：不写生成文件名就会默认a.out；在win平台下中间相同，但生成.exe
 </code></pre>
-<h3 id="2-文件-目录"><a href="#2-文件-目录" class="headerlink" title="2.文件&amp;目录"></a>2.文件&amp;目录</h3><p>一切皆文件：在Linux下文件的识别执行仅与[-rwxrwxrwx]有关，后缀无关</p>
+<ul>
+<li>正则表达式（方便bash下使用）</li>
+</ul>
+<pre><code class="bash">^[a-z0-9] + abc$ //以a-z或0-9开头，以abc结尾的字符串
+[^abc]	//匹配字符串中所有的除abc外的东西，包括空格
+.	//匹配除换行符外的任何
+\w数字，字母下划线、\f换页、\n换行、\r回车、\s匹配所有空白包括换行、\S匹配非空白、\t制表符、\v垂直制表符
+*零次或多次、+一次或多次、|表示或、？零次或一次、\转义字符，后跟大小中括号
+修饰符
+/xxx/i	//不区分大小写
+~~~/g	//所有匹配的
+~~~/m	//搭配边界字符^与$配合所有行
+~~~./s	//在原基础上还需匹配换行符
+</code></pre>
+<h3 id="2-文件-目录-群组"><a href="#2-文件-目录-群组" class="headerlink" title="2.文件&amp;目录&amp;群组"></a>2.文件&amp;目录&amp;群组</h3><p>一切皆文件：在Linux下文件的识别执行仅与[-rwxrwxrwx]有关，后缀无关</p>
 <ul>
 <li>正规文件：纯文本文件ASCII（给人读的）、二进制文档（执行的）、数据格式文件（软件用的）</li>
 <li>目录-d、链接文件-l（硬链接与软链接）</li>
 <li>设备与设备文件：区块设备文件-b（内存硬盘等）、字符设备文件-c（鼠标键盘等）</li>
 <li>数据接口文件-s：用于网络上的数据承接（常出现于&#x2F;run或&#x2F;tmp下）</li>
 </ul>
-<p><img src="/pic/Linux.jpg" alt="linux"></p>
+<p><img src="/../pic/Linux.jpg" alt="linux"></p>
 <ul>
 <li>&#x2F;sbin、&#x2F;usr&#x2F;sbin、&#x2F;usr&#x2F;local&#x2F;sbin（指令）：管理员可以使用的可执行命令；</li>
 <li>&#x2F;bin————（指令）：存放shell解释器，给普通用户使用的命令；</li>
@@ -430,7 +451,7 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 </li>
 </ul>
 <p>根据链接和运行时的角度，其文件格式稍有不同（实际上除了ELF文件头外，位置都不固定）：</p>
-<p><img src="/pic/image-20231129123037904.png" alt="image-20231129123037904"></p>
+<p><img src="/../pic/image-20231129123037904.png" alt="image-20231129123037904"></p>
 <p>大致包括四部分：ELF头（ELF header)、程序头表（Program header table)、节（Section)OR段（Segment）、节头表（Section header table)OR段头表</p>
 <p><strong>ELF文件头</strong>：</p>
 <pre><code class="c">typedef struct&#123;
@@ -1014,8 +1035,8 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" rel="prev" title="后端基础知识">
-                  <i class="fa fa-angle-left"></i> 后端基础知识
+                <a href="/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" rel="prev" title="数据库与云">
+                  <i class="fa fa-angle-left"></i> 数据库与云
                 </a>
             </div>
             <div class="post-nav-item">
@@ -1033,7 +1054,6 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 
 
 
-    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -1042,7 +1062,7 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1053,13 +1073,13 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">150k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:24</span>
+    <span title="站点阅读时长">4:33</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1119,10 +1139,6 @@ i(进入编辑模式),ESC(退出编辑模式),:(开启命令模式)
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
-
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Zy0t1","repo":"Zy0t1.github.io","client_id":"6c6f625308573e74f41b","client_secret":"04c1811c17f0554819f3dabcd6711bda56078cc9","admin_user":"Zy0t1","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"4a0f16fbf5b605d46cc79a7311092d6d"}</script>
-<script src="/js/third-party/comments/gitalk.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
