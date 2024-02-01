@@ -174,7 +174,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -279,14 +279,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>25k</span>
+      <span>27k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>46 分钟</span>
+      <span>49 分钟</span>
     </span>
 </div>
 
@@ -339,7 +339,7 @@
 <td>全屏</td>
 </tr>
 </tbody></table>
-<p><strong>文件扩展</strong>：仅仅用来告诉程序如何打开该文件，并不会对文件内容有啥破坏。</p>
+<p><strong>文件扩展</strong>：仅仅用来告诉程序如何打开该文件，并不会对文件内容有啥破坏。在windows下扩展后缀用于指示如何打开该文件，而在linux下则是根据文件属性来判断的。</p>
 <ol>
 <li><p>.inf文件即驱动的说明文件；驱动，即硬件驱动程序，是使硬件正常工作的一种软件；.inf文件里存放着关于驱动的适配厂商，版本号等信息</p>
 </li>
@@ -619,7 +619,18 @@ pause (暂停)
 <p>Fonts：字体文件。IME：存放系统默认的输入法。</p>
 <p>Media：系统提示音等。Resources：系统主题文件。Web：系统自带的图片壁纸</p>
 </blockquote>
-<h3 id="0x03-PE文件"><a href="#0x03-PE文件" class="headerlink" title="0x03.PE文件"></a>0x03.PE文件</h3><p>PE（Portable Executable），可移植的可执行文件。由COFF（UNIX下的通用对象文件格式）发展过来，对应Linux下的ELF文件；PE指的32位的可执行文件也叫PE32，对于64位的叫PE+或PE32+是一种扩展形式</p>
+<h3 id="0x03-PE文件"><a href="#0x03-PE文件" class="headerlink" title="0x03.PE文件"></a>0x03.PE文件</h3><p>PE（Portable Executable），可移植的可执行文件。由COFF（UNIX下的通用对象文件格式）发展过来，对应Linux下的ELF文件；PE指的32位的可执行文件也叫PE32，对于64位的叫PE+或PE32+是一种扩展形式。因为PE文件在装载时被映射到进程虚拟空间中运行，所以在官网中也称PE为映像文件。</p>
+<p><strong>有关操作</strong>：</p>
+<ul>
+<li><p>与gcc的<code>__attritube__()</code>类似，VC使用<code>#pragma</code>来提示编译器</p>
+</li>
+<li><p>VC的cpp编译器：<code>cl /c /Za hello.c</code>&#x2F;c表示只编译为.obj文件，&#x2F;Za则是禁用掉默认扩展，&#x2F;Zl关闭默认链接库</p>
+</li>
+<li><p>链接器link</p>
+</li>
+<li><p>可执行文件查看器dumpbin：<code>dumpbin [/ALL|/SUMMARY] xx.obj</code>一个看全部信息，一个仅看基本</p>
+</li>
+</ul>
 <p>二进制下打开4D 5A开头对应ASCII码中的MZ，其后面不远就有PE，这些标志着PE文件的叫做PE指纹；整体结构：DOS首部—NT映像头—块表&#x2F;节表—块&#x2F;节</p>
 <blockquote>
 <p>详细概述见<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvZGVidWcvcGUtZm9ybWF0">PE 格式 - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
@@ -648,8 +659,9 @@ pause (暂停)
 <td>.obj</td>
 </tr>
 </tbody></table>
+<p>不同于Linux下目标文件和最终的可执行文件，VC生成的.obj文件与.exe文件格式不太相同，前者采用的是没有PE可选头的COFF格式，后者则是完整的PE格式。COFF格式以<code>IMAGE_FILE_HEADER</code>开头，之后就是段表和段，在PE中该头以<code>IMAGE_NT_HEADER</code>代替，在其前面还添加了DOS头（兼容DOS系统），后面内容基本一致。我们主要介绍PE</p>
 <ul>
-<li><p>DOS部首：DOS MZ(4D 5A)文件头，DOS块共64字节，最低四字节，存放着PE的地址，在DOS MZ和PE头之间剩下的是DOS插桩程序。是一个在DOS环境下显示”This program can not be run in DOS mode”或”This program must be run under Win32”的小程序</p>
+<li><p>DOS部首：DOS MZ(4D 5A)文件头，DOS块共64字节，最低四字节，存放着PE的地址，在DOS MZ和PE头之间剩下的是DOS插桩程序。DOS部首<code>IMAGE_DOS_HEADER</code>中有<code>e_cs</code>和<code>e_ip</code>两个成员来指向上述插桩程序入口地址，当PE在DOS下被执行时，最开始两个字节“MZ”使其误以为是正常的DOS可执行文件，之后读取上述两个成员值，跳转到DOS stub中，该段代码可以在DOS下运行，其唯一作用就是在终端输出“This program cannot be run in DOS”或”This program must be run under Win32”，然后退出。在目前的DOS头中唯一有用的就是其<code>e_lfanew</code>成员，其表明了NT头的偏移位置。</p>
 </li>
 <li><p><strong>PE文件头&#x2F;NT映像头</strong>：4B+20B+224B；这里以32位做实例，存在于&lt;winnt.h&gt;头文件中，详情参考<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbm50L25zLXdpbm50LWltYWdlX250X2hlYWRlcnMzMg==">Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
 <pre><code class="c++">typedef struct _IMAGE_NT_HEADERS &#123;
@@ -747,7 +759,7 @@ pause (暂停)
 <ol>
 <li><p>代码节.text或.code：PE文件均有，含有程序可执行代码</p>
 </li>
-<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表</p>
+<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表。</p>
 <pre><code class="c++">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;
     DWORD   Characteristics;	//属性，一般为0
     DWORD   TimeDateStamp;		//文件生成时间戳
@@ -763,7 +775,7 @@ pause (暂停)
 &#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;
 </code></pre>
 </li>
-<li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项</p>
+<li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项，最后一项全0表示结束。</p>
 <pre><code class="c++">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;
     union &#123;
         DWORD   Characteristics;
@@ -799,6 +811,10 @@ typedef struct _IMAGE_IMPORT_BY_NAME &#123;
 </li>
 <li><p>资源节.rsrc或.rdata：程序要用到的资源，树形结构</p>
 </li>
+<li><p><code>.debug$S</code>符号相关的调试信息段；<code>.debug$P</code>预编译头文件调试信息；<code>.debug$T</code>类型相关调试信息</p>
+</li>
+<li><p>.drectve段：区别于GCC下的链接脚本，在VC中编译器通过该段来告诉链接器如何对本目标文件进行链接</p>
+</li>
 <li><p>重定位信息段.reloc：存放重定位信息</p>
 <pre><code class="c++">typedef struct _IMAGE_BASE_RELOCATION &#123;
     DWORD   VirtualAddress;		//重定位数据开始的RVA地址-以页表为单位分配-4KB
@@ -827,7 +843,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </blockquote>
 </li>
 </ul>
-<hr>
+<p>分区与引导：用于对一个或多个真实存在的磁盘进行分区（划分为一个或多个），而每个分区都需要有自己的文件系统用来让OS进行管理，这些文件系统也需要有引导，一般都在开头位置的引导区。分区中也存放着操作系统的引导代码，引导重点在于OS的启动过程。</p>
 <p><strong>Legacy BIOS引导模式</strong>：</p>
 <p>使用MBR磁盘格式，系统只能在MBR格式磁盘上；这里以win的启动为例；过程如下：</p>
 <ol>
@@ -854,7 +870,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </li>
 </ol>
 <p><strong>MBR分区模式</strong>：</p>
-<p>包括：主引导记录MBR（开机必读）、硬盘主分区表DPT、引导扇区标记boot record ID；</p>
+<p>即主引导记录分区，也叫做DOS（磁盘操作系统）分区。包括：主引导记录MBR（开机必读）、硬盘主分区表DPT、引导扇区标记boot record ID；</p>
 <ul>
 <li><p>MBR：占前446字节，存放着系统主引导程序，位于磁盘0柱面、0磁头、1扇区</p>
 </li>
@@ -910,7 +926,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </ul>
 <p>在win下常用簇作为单位，扇区sector &lt; 簇Cluster：4KB，为单位分配空间，即占用空间，其内部的未使用叫内部碎片，外部碎片是介于两个簇之间但 &lt; 4KB的未使用的空间。</p>
 <blockquote>
-<p>松弛&#x2F;文件残留空间：指的是文件最后一个数据单元中未使用的字节；<br>卷松弛：文件系统末端和其占用的分区末端之间有空</p>
+<p>松弛&#x2F;文件残留空间：指的是文件最后一个数据单元中未使用的字节；<br>卷松弛：硬盘在使用前需要格式化，有些空间未经格式化就无法被使用，这种未被格式化的空间就叫卷松弛（卷是指磁盘，真正实用的即格式化好的叫做分区）</p>
 </blockquote>
 <p>分配簇&#x2F;文件空间的算法主要有：</p>
 <ul>
@@ -998,7 +1014,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </li>
 <li><p>目录区：属于数据区，一个目录项占32字节。以表的形式存在，又叫做目录表—DIR（Directory_Table）或文件目录表—FDT（File_Directory_Table）每个表项对应一个文件或者子目录相关信息（在FAT中文件和文件夹处理方式相同）</p>
 <blockquote>
-<p> 子目录项的最后一项为0；长文件名的需要用长文件名（LFN）目录项来存储；文件属性一项最高两位不用：0x01只读、0x02隐藏文件、0x04系统文件、0x08包含磁盘卷标签的表项、0x10子目录表项、0x20归档文件（即长文件名）</p>
+<p> 子目录项的最后一项为0。长文件名的需要用长文件名（LFN）目录项来存储。文件属性一项最高两位不用：0x01只读、0x02隐藏文件、0x04系统文件、0x08包含磁盘卷标签的表项、0x10子目录表项、0x20归档文件（即长文件名）</p>
 </blockquote>
 <table>
 <thead>
@@ -1048,6 +1064,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </tbody></table>
 </li>
 </ul>
+<p>当使用长目录项时，必定会有一个标准目录项，标准目录项中的短文件名由长文件名中派生出来，“长文件名前6个字符+‘~’（0x7e）+1个数字+文件扩展名”。LEN目录项都依次位于标准目录项之前。</p>
 <blockquote>
 <p>下面是LFN表项的具体内容，同样32字节，一个长文件名文件可能有多个该表项；文件名以Unicode格式保存，且占2字节</p>
 <table>
@@ -1087,12 +1104,13 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <p>其中序列号从1起，若是最后的则加上’0x40’（或运算）并填入，若对应文件&#x2F;目录被删记为’0xE5’</p>
 </blockquote>
 <p><img src="/../pic/image-20231129111723275.png" alt="image-20231129111723275"></p>
+<p>对于删除的文件来说，文件正名第一字节为<code>0xe5</code>，表示清空回收站；如果只是移动到回收站并没有清空，则只会改变FAT区的簇链。</p>
 <h4 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h4><p>win_xp之后首选文件系统，使用B+树来组织目录项，解决了FAT的磁盘大小限制、空间利用率以及文件名长度等问题。NTFS具体内容太过麻烦，这里仅作部分说明（<span class="exturl" data-url="aHR0cHM6Ly9mb3JlbnNpY3MueGlkaWFuLmVkdS5jbi9jYXQvY24vYmxvZy8wMy1udGZz">NTFS文件系统解析 – 取证猫 (xidian.edu.cn)<i class="fa fa-external-link-alt"></i></span>）</p>
 <blockquote>
 <p>同样用簇为单位，但是稍有区别，在NTFS中有逻辑簇号LCN与虚拟簇号VCN之分，前者是实际上占的簇号，后者是本文件的第几个簇号</p>
 </blockquote>
 <p>NTFS使用NTFS Log记录详细的事务日志，跟踪卷的文件系统的元数据变化（人话：有相关文件记录元数据）。</p>
-<p>格式：1个引导扇区+15个扇区的NTLDR区域+MFT分配空间+文件存储区+MFT前几个数据文件的备份+文件存储区</p>
+<p>格式：1个引导扇区+15个扇区的NTLDR区域+MFT区+文件区</p>
 <ul>
 <li><p>引导扇区：包含引导程序和BPB参数（用于定位后面的NTLDR区），格式与FAT的分区引导区相似</p>
 <table>
@@ -1180,8 +1198,10 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 </li>
 <li><p>NTLDR区：引导程序的一部分（与NTFS没有必要联系，以前多用该程序来启动加载windows）</p>
 </li>
-<li><p><strong>主控文件表MFT</strong>：包含卷中所有的信息，以数组实现，每个文件记录项大小1KB，一个文件至少一项。</p>
-<p>在这个表中的前16项位置固定，且有备份，后面才存放每个文件或目录对应的MFT项；以<code>$</code>符开头，0-11如下，12-15保留。</p>
+<li><p><strong>主控文件表MFT</strong>：包含卷中所有的信息，以数组实现，每个文件记录项大小1KB，一个文件至少一项。在这个表中的前16项位置固定，且有备份；以<code>$</code>符开头，0-11如下，12-15保留。</p>
+<blockquote>
+<p>注意：MFT区包含下面这些内容，<code>$MFT</code>表项的<code>$DATA</code>属性中记录的是真正MFT项的位置（文件目录的MFT），而<code>$MFTMirr</code>的内容同上</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -1195,7 +1215,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <td><code>$MFT</code></td>
 <td>主文件表</td>
 <td><code>$MFTMirr</code></td>
-<td>主文件表前几项的备份</td>
+<td>主文件表的备份</td>
 </tr>
 <tr>
 <td><code>$LogFile</code></td>
@@ -1207,7 +1227,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <td><code>$AttrDef</code></td>
 <td>属性定义列表</td>
 <td><code>$Root</code></td>
-<td>根目录文件</td>
+<td>根目录文件(索引树)</td>
 </tr>
 <tr>
 <td><code>$Bitmap</code></td>
@@ -1228,7 +1248,7 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <td>扩展属性</td>
 </tr>
 </tbody></table>
-<p>对于每一个表项，大多以’FILE‘（4B）开头，以0xFF FF FF FF结束；表项&#x3D;MFT头+属性</p>
+<p>对于每一个表项（包括上面这些文件），大多以’FILE‘（4B）开头，以0xFF FF FF FF结束；表项&#x3D;MFT头+属性</p>
 <p>每一个文件&#x2F;MFT表项有对应的64位文件引用地址&#x3D;16位序列号（见下表，放高位）+ 48位文件地址（也可以说是表项序号，从0递增，放低位），对于较大文件的属性除了MFT外，还有一个扩展区域来存放多余的内容。</p>
 <table>
 <thead>
@@ -1288,7 +1308,11 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <td></td>
 </tr>
 </tbody></table>
-<p>属性分为两部分，属性头+属性体（属性内容）。属性头描述了是常驻属性（属性内容存在MFT中）还是非常驻属性（存在文件区），其属性体数据结构不同。非常驻属性的内容叫做数据流DataRun，流的大小不一，其第一个字节的低4位表示流大小的字节数，高4位表示包含流的起始簇地址的字节数（DataRunList）。属性头格式如下：</p>
+<p>属性分为两部分，属性头+属性体（属性内容）。属性头描述了本属性名字长度等，以及最关键的是常驻属性（属性内容存在MFT中）还是非常驻属性（存在文件区），一般来说900B以下的都是常驻属性，其属性体数据结构不同。</p>
+<blockquote>
+<p>常驻与非常驻用于说明属性内容的位置，属性内容是说明是什么。每一个属性都有独特的数据结构，即属性体结构。在NTFS中文件内容是属性的一部分，对应的属性类型为<code>$DATA</code></p>
+</blockquote>
+<p>常驻属性头格式如下：</p>
 <table>
 <thead>
 <tr>
@@ -1319,13 +1343,68 @@ typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
 <tr>
 <td>14-15</td>
 <td>属性ID</td>
+<td>16-19</td>
+<td>属性体大小</td>
+</tr>
+<tr>
+<td>20-21</td>
+<td>属性体偏移</td>
 <td></td>
 <td></td>
 </tr>
 </tbody></table>
-<p>对于常驻属性：16-19为属性体大小，20-21为属性体的偏移。非常驻属性这里不再过多叙述</p>
+<p>非常驻属性头据格式如下：</p>
+<table>
+<thead>
+<tr>
+<th>字节偏移</th>
+<th>内容</th>
+<th>字节偏移</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0-15</td>
+<td>同常驻（）</td>
+<td>16-23</td>
+<td>属性体的起始虚拟簇号</td>
+</tr>
+<tr>
+<td>24-31</td>
+<td>属性体结束虚拟簇号</td>
+<td>34-35</td>
+<td>压缩单位大小</td>
+</tr>
+<tr>
+<td>36-39</td>
+<td>无意义</td>
+<td>40-47</td>
+<td>属性体的分配大小</td>
+</tr>
+<tr>
+<td>48-55</td>
+<td>属性体实际大小</td>
+<td>56-63</td>
+<td>属性体初始大小</td>
+</tr>
+<tr>
+<td>64+</td>
+<td>DataRun（属性内容）</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非常住属性的内容叫做数据流DataRun，流的大小不一，其第一个字节的低4位表示流大小的字节数，高4位表示包含流的起始簇地址的字节数（DataRunList），后面紧跟着分别是数据流长度+数据流偏移（单位都是簇）</p>
+<blockquote>
+<p>关于虚拟簇号即VCN，区别于逻辑簇号LCN，前者的起始位置是本文件系统开头，后者则是实际的硬盘上的簇号位置</p>
+</blockquote>
 </li>
 </ul>
+<p>特性：NTFS中其索引区别于FAT的线性搜索，采用的是B*树进行，索引和名字等都是以属性记录的。此外在NTFSv3之后，还有EFS，即加密文件系统，可以命令行下使用<code>cipher.exe</code>来使用。在NTFS中还有稀疏文件与文件压缩的方法，来提高空间利用率</p>
+<blockquote>
+<p>稀疏文件：将文件内容（仅<code>$DATA</code>）中的非0数据写入磁盘，而将连续的0以非常驻属性中的备用流表示，该流仅包含流的长度（0数据的簇数），而没有其起始地址。剩下的非0数据则以常规数据流形式存在</p>
+</blockquote>
+<p>对于NTFS文件的删除，首先要在<code>$Root</code>中删除相关索引项，之后设置对应的MFT表项，最后在<code>$Bitmap</code>中将对应的位设置为0.</p>
 <h3 id="0x06-Windows内存结构与管理"><a href="#0x06-Windows内存结构与管理" class="headerlink" title="0x06. Windows内存结构与管理"></a>0x06. Windows内存结构与管理</h3><p><strong>DOS内存布局</strong>：运行于实模式中，寻址范围只有1MB。</p>
 <table>
 <thead>
@@ -1628,13 +1707,13 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">150k</span>
+    <span title="站点总字数">168k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:33</span>
+    <span title="站点阅读时长">5:06</span>
   </span>
 </div>
 <div class="busuanzi-count">

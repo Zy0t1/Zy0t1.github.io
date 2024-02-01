@@ -170,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -282,7 +282,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>29 分钟</span>
+      <span>30 分钟</span>
     </span>
 </div>
 
@@ -429,7 +429,7 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
 <li>&#x2F;srv（扩展）：服务启动后要访问的数据目录，部署服务器后有内容；</li>
 <li>&#x2F;opt（扩展）：额外安装的软件；</li>
 </ul>
-<h3 id="3-ELF文件"><a href="#3-ELF文件" class="headerlink" title="3.ELF文件"></a>3.ELF文件</h3><p>Linux下的可执行文件，全称<strong>Executable and Linking Format</strong>，内容如下：</p>
+<h3 id="3-ELF文件"><a href="#3-ELF文件" class="headerlink" title="3.ELF文件"></a>3.ELF文件</h3><p>Linux下的可执行文件，全称<strong>Executable and Linking Format</strong>，elf文件相关定义在<code>/usr/include/elf.h</code>中，有32位和64位版本，区别仅在于部分成员大小不一样，内容如下：</p>
 <ul>
 <li>包括.out &amp; .o &amp; .so &amp; .elf &amp; .prx文件；readelf，启动！！！</li>
 <li>.out&#x2F;可执行文件：包含代码和数据（有相对固定地址），可直接运行，系统根据地址加载到内存执行</li>
@@ -525,12 +525,34 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
   Elf32_Word    sh_entsize;     //有些节内容为一张表,该项指定节中每一表项的大小,为0代表不是表格
 &#125; Elf32_Shdr;
 </code></pre>
-<p><strong>节</strong>：专用于连接过程</p>
-<p>.bss未初始化的全局变量；.data初始化过的全局变量；.rodata只读数据；.got全局偏移量表</p>
-<p>.text程序指令代码；.init进程初始化要执行的命令；.fini进程终止时要执行的指令；</p>
-<p>.dynamic动态连接信息；.dynstr动态链接的字符串；.dynsym动态链接符号表；.relname重定位信息；</p>
-<p>.debug调试信息；.line包含调试符号的行号；.comment版本控制信息；</p>
-<p>.hash符号哈希表；.interp包含ELF程序解析器的路径名；.note注释节；.shstrtab节名字表；.symtab符号表；</p>
+<p><strong>节</strong>：专用于链接过程（也就是没有执行时）。.开头的都是系统保留的，当然也可以自己插入自定义的段<code>objcopy</code>工具可以将图片、音乐之类的作为段插入到目标文件中。此外gcc提供了一个扩展机制，使得程序员可以指定变量所处的段<code>__attribute__((section(&quot;hah&quot;)))</code>，变量前加上此扩展可以把对应的变量放到对应的段，下面是一些常见的段：</p>
+<ul>
+<li><p>.data段保存已初始化的全局静态变量和局部静态变量</p>
+</li>
+<li><p>.rodata存放只读数据，包括但不限于格式化字符串，const关键字修饰的变量</p>
+</li>
+<li><p>.bss存放未初始化的全局变量和局部静态变量（仅在装载时占用空间）</p>
+</li>
+<li><p>.plt和.got动态链接的跳转表和全局入口表</p>
+</li>
+<li><p>.init和.fini程序的初始化与终结代码段</p>
+</li>
+<li><p>.debug调试信息。gcc的-g参数用于加上调试信息，会最终多出来一个debug段，<code>strip</code>可以去除ELF文件中的调试信息。ELF采用DWARF标准的调试信息格式，微软采用CodeView标准。</p>
+</li>
+<li><p>.line包含调试符号的行号，即源代码行号编译后指令的对应表</p>
+</li>
+<li><p>.text程序指令代码；.rel.text代码段的重定位表</p>
+</li>
+<li><p>其他链接相关：.dynamic动态链接信息；.dynstr动态链接的字符串；.dynsym动态链接符号表；.relname重定位信息；</p>
+</li>
+<li><p>其他：.comment存放编译器版本控制信息；.note注释节；</p>
+</li>
+<li><p>字符串相关：.hash符号哈希表，帮助查找符号；.interp包含ELF程序解析器的路径名；.shstrtab节名字表；.symtab符号表；.strtab字符串表，存储ELF文件中用到的各种字符串；</p>
+<blockquote>
+<p><code>nm</code>、<code>objdump</code>、<code>readelf</code>查看符号表。<code>ldd xx</code>可以查看目标依赖于哪些共享库</p>
+</blockquote>
+</li>
+</ul>
 <p><strong>字符串表</strong>：包含若干以”null”结尾的字符串，第一个字符串为空串，用于表示”NULL”，该表不一定只有一个，节名字表也类似结构（索引指向开头，直到’\0’出现）。</p>
 <p><img src="https://img1.imgtp.com/2023/10/08/lS79D2ec.png" alt="image-20231008213353154"></p>
 <p>以上面这个25字节的表为例子：包含0-null、1-name.、7-Variable、11-able、16-able、24-null</p>
@@ -1073,13 +1095,13 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">150k</span>
+    <span title="站点总字数">168k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:33</span>
+    <span title="站点阅读时长">5:06</span>
   </span>
 </div>
 <div class="busuanzi-count">
