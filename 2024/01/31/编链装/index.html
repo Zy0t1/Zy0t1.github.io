@@ -272,7 +272,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>29 分钟</span>
+      <span>30 分钟</span>
     </span>
 </div>
 
@@ -722,8 +722,31 @@ memcpy(ret, eax, size);
 <p>C语言默认cdecl，也可以gcc下<code>__attribute(())</code>设置</p>
 </blockquote>
 <h4 id="2-堆"><a href="#2-堆" class="headerlink" title="2. 堆"></a>2. 堆</h4><p>一般都是程序预先向操作系统申请一块大小适当的堆空间，之后由程序自己管理（运行库）这块空间，不够了再申请</p>
-<p><strong>堆结构</strong></p>
-<p>&#x2F;&#x2F;TODO</p>
+<p><strong>Windows堆结构</strong></p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjU1NTQ2Lmh0bQ==">Windows内存堆内容整理总结<i class="fa fa-external-link-alt"></i></span>，下面这里讲的都是传统的NT堆。</p>
+</blockquote>
+<p>在win中有一系列大小不一的堆块，一部分由程序自主管理，剩下的空白堆块由系统的堆表管理。每个堆块都有一个头，用来存储相关信息。</p>
+<p>堆表<code>_HEAP</code>有两种（不同堆表对应不同的堆块头<code>_HEAP_ENTRY</code>）：</p>
+<ul>
+<li>空闲双向链表freelist：一个128项的数组，其中的内容是指向堆块header的指针。从free[1]开始每个指针指向的是一个8*n大小的堆块，&gt;&#x3D;1024B的堆块都在free[0]中按照升序排列</li>
+<li>快速单向链表&#x2F;快表lookaside：同样是128项，每项是一个单向链表，链表长度不超过4。（PS：没说堆块大小！但一条链上的应该是相等的）</li>
+</ul>
+<p>注意这里的两种在内存中都有，配合使用。三种堆块分配方式</p>
+<ol>
+<li><p>查找快速单向链表，也就是进程要的大小正好能在这里找到对应的。</p>
+</li>
+<li><p>空闲双向链表中寻找，最小的但&gt;&#x3D;要求的堆结构。</p>
+<blockquote>
+<p>如果大于要求大小，则会将选择的堆块重新切割，多余的堆块继续插回到freelist中。当两个堆块彼此相邻时还会发生堆合并的操作，用于减小碎片，并插回freelist</p>
+</blockquote>
+</li>
+<li><p>0号空表，从freelist[0]队尾反向搜索</p>
+</li>
+</ol>
+<blockquote>
+<p>详细数据结构<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjc5NjE3Lmh0bQ==">Windows堆初探-二进制漏洞<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
 <p><strong>Linux下堆管理</strong>：</p>
 <ul>
 <li><code>int brk(void* end_data_segment)</code>系统调用设置进程数据段的结束地址，扩大的空间就可以被用作堆。Glibc中的封装<code>sbrk()</code></li>
@@ -731,9 +754,9 @@ memcpy(ret, eax, size);
 </ul>
 <p><strong>Windows进程堆管理</strong></p>
 <ul>
-<li><p><code>VirtualAlloc()</code>申请空间，函数可以干任何事，但大小必须是页的整数倍</p>
+<li><p><code>kernel32.dll</code>中的<code>VirtualAlloc()</code>申请空间，函数可以干任何事，但大小必须是页的整数倍</p>
 </li>
-<li><p>堆管理器根据上述API提供了相关API：<code>HeapCreate</code>创建堆；<code>HeapAlloc</code>堆中分配内存；<code>HeapFree</code>释放已分配内存；<code>HeapDestory</code>摧毁</p>
+<li><p>堆管理器根据上述API封装至<code>NTDLL</code>中的<code>RtlAllocHeap()</code>再向上提供了相关API：<code>HeapCreate</code>创建堆；<code>HeapAlloc</code>堆中分配内存；<code>HeapFree</code>释放已分配内存；<code>HeapDestory</code>摧毁</p>
 <blockquote>
 <p>这个堆管理器有两份：NTDLL.dll面向用户；Ntoskrnl.exe面向内核</p>
 </blockquote>
@@ -857,13 +880,13 @@ memcpy(ret, eax, size);
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">168k</span>
+    <span title="站点总字数">170k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:06</span>
+    <span title="站点阅读时长">5:10</span>
   </span>
 </div>
 <div class="busuanzi-count">

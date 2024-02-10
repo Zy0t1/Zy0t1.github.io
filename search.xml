@@ -911,192 +911,6 @@ AVI:头41-56-49-20
       </tags>
   </entry>
   <entry>
-    <title>x86汇编</title>
-    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
-<span id="more"></span>
-
-<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
-<li><p><b>Base</b></p>
-<ul>
-<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
-</li>
-<li><p>小端存储：高字节放高地址；</p>
-</li>
-<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
-</li>
-<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
-</li>
-<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
-</li>
-</ul>
-</li>
-<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
-<blockquote>
-<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
-</blockquote>
-</li>
-<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
-<ul>
-<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
-<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
-</li>
-<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
-</li>
-<li><p>系统管理模式：专门为32位OS提供的模式</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
-<ul>
-<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
-<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
-</ul>
-<p>（2）<b>数据传送指令</b>：</p>
-<ul>
-<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
-<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
-<li><code>XCHG</code>交换两个操作数内容；</li>
-</ul>
-<p>（3）<b>运算指令</b>：</p>
-<ul>
-<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
-<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
-<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
-<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
-<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
-</ul>
-<p>（4）<b>位操作指令</b>：</p>
-<ul>
-<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
-<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
-<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
-</ul>
-<p>（5）<b>堆栈操作指令</b>：</p>
-<ul>
-<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
-<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
-</ul>
-<p>（6）<b>跳转指令</b>：</p>
-<ul>
-<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
-<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
-<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
-<li><code>beginWhile......endWhile</code>,while循环</li>
-</ul>
-<p>（7）<b>串串操作指令</b>：</p>
-<ul>
-<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
-<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
-<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
-<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
-<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
-</ul>
-<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
-<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
-</ul>
-<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
-     ...
-main endp  ;结束main过程
-</code></pre>
-<ul>
-<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
-</ul>
-<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
-EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
-ALIGN + 定义类型	;设定对齐方式
-INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
-ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
-</code></pre>
-<ul>
-<li>若需要使用过程，则注意过程帧的使用</li>
-</ul>
-<pre><code>ENTER		;自动补齐相应的寄存器等	  
-...
-LEAVE
-</code></pre>
-<ul>
-<li>结构体</li>
-</ul>
-<pre><code>name struct/union		;定义结构体，与C一样
-    ...			
-name ENDS		;还支持嵌套使用，此时内层不需要该行的name
-</code></pre>
-<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
-    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
-    ...					
-ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
-
-ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
-</code></pre>
-<ul>
-<li>循环宏</li>
-</ul>
-<pre><code>WHILE(表达式):为真时执行
-REPEAT N:重复N次
-FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
-FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
-</code></pre>
-<ul>
-<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
-</ul>
-<pre><code>IFB/IFNB:空/非空，则允许汇编
-IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
-IFIDNI/IFDIFI a b:上面类似但不区分大小写
-IFDIF/IFNDIF name:如果name已/未定义 则汇编
-IF,ENDIF,ELSE,ELSEIF:自己看
-EXITM:退出宏，且后面的宏语句都不能展开
-</code></pre>
-<ul>
-<li>特殊运算符</li>
-</ul>
-<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
-&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
-&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
-&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
-</code></pre>
-<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
-<ul>
-<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
-</li>
-<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
-<blockquote>
-<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
-</blockquote>
-</li>
-</ul>
-<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
-<ul>
-<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
-</li>
-<li><p>附加段寄存器—ES、FS、GS</p>
-</li>
-</ul>
-<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
-<blockquote>
-<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
-</blockquote>
-<ul>
-<li>CF—无符号进位标志位、OF—有符号溢出标志位</li>
-<li>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</li>
-</ul>
-<p><img src="/../pic/Eflags.jpg" alt="eflags"></p>
-<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
-<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
-<blockquote>
-<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>汇编</tag>
-        <tag>x86</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Web安全</title>
     <url>/2023/09/18/Web%E5%AE%89%E5%85%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：主要讲解Web应用相关漏洞原理</p>
@@ -1862,6 +1676,192 @@ class demo&#123;
       <tags>
         <tag>CTF</tag>
         <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>x86汇编</title>
+    <url>/2023/08/27/x86%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：最好从32位ARM或MIPS汇编过来，强烈推荐王爽的《汇编语言》</p>
+<span id="more"></span>
+
+<h3 id="0x00-基础介绍"><a href="#0x00-基础介绍" class="headerlink" title="0x00.基础介绍"></a>0x00.基础介绍</h3><ol>
+<li><p><b>Base</b></p>
+<ul>
+<li><p>在x86架构中，1字&#x3D;2字节，与位数无关；</p>
+</li>
+<li><p>小端存储：高字节放高地址；</p>
+</li>
+<li><p>K(千)-M(兆)-G(吉)-T(太)-P(拍)-E(艾)-Z(泽)-Y(尧)</p>
+</li>
+<li><p>AT&amp;T语法会在常量前加<code>$</code>，而在寄存器前加<code>%</code>，且源操作数放在目的操作数前面，Intel语法不加这些符号，且目的在源前面</p>
+</li>
+<li><p>x86指32位架构&#x3D;IA-32，x86-64指在32位上扩展至64位&#x3D;amd64&#x3D;intel64&#x3D;IA-32E，IA-64即64位架构（但是并不兼容之前的32位）</p>
+</li>
+</ul>
+</li>
+<li><p><b>Build</b>——常量（整数常量&#x2F;整型常量表达式、实数常量、字符常量&#x2F;字符串常量）+ 保留字 + 标识符 + 伪指令 + 指令；指令（一条语句）&#x3D;  (标号) + 指令助记符 + 操作数 + (注释) + (NOP)</p>
+<blockquote>
+<p>NOP占1个字节，用于对齐到4的位数位置，类似作用的还有ALIGN（伪指令）；单行注释用“；”，块注释用“COMMENT 符号……符号”，中间包括的内容全是注释；</p>
+</blockquote>
+</li>
+<li><p><b>Model</b>——32位模式下三个模式：保护模式 + 实地址模式 + 系统管理模式；64位（x86-64）模式下额外包含：兼容模式（不兼容16位实地址模式） + 64位模式；</p>
+<ul>
+<li><p>保护模式（大多）：为兼容8086；32位地址线均可用；支持分页、优先级；所有指令可用，程序被分配的段以外的空间不允许访问。</p>
+<p>其下的虚拟8086模式，以一个任务的形式工作在保护模式下。</p>
+</li>
+<li><p>实地址模式：兼容8086。寻址方式&#x3D;段寄存器×16当作基地址，再加上偏移地址形成最终物理地址（只用了32位中的低20位）。可执行所有指令，且所有指令工作在特权级（优先级0）。由于不能分页管理，所以可以直接操作内存</p>
+</li>
+<li><p>系统管理模式：专门为32位OS提供的模式</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x01-指令助记符"><a href="#0x01-指令助记符" class="headerlink" title="0x01.指令助记符"></a>0x01.指令助记符</h3><p>（1）<b>定义类型</b>：</p>
+<ul>
+<li><code>BYTE,WORD,DWORD</code>在前面加S表示有符号整数；<code>FWORD,QWORD,TBYTE</code>,表示48位、64位、80位整数；</li>
+<li><code>REAL4,REAL8,REAL10</code>表示32位、64位80位实数；</li>
+</ul>
+<p>（2）<b>数据传送指令</b>：</p>
+<ul>
+<li><code>MOV,MOVZX,MOVSX</code>，mov用于相同位数传送，MOVZX全零扩展后传送，MOVSX符号扩展后传送；</li>
+<li><code>LAHF,SAHF</code>，将EFLAGS低字节内容load到AH中，或将AH内容save到EFLAGS中；</li>
+<li><code>XCHG</code>交换两个操作数内容；</li>
+</ul>
+<p>（3）<b>运算指令</b>：</p>
+<ul>
+<li><code>INC,DEC,ADD,SUB,ADC,SBB</code>，功能依次：+1，-1，加法，减法，带进位(CF)加法，带借位减法；</li>
+<li><code>OFFSET,TYPE,LENGTHOF,SIZEOF,PTR，LABEL</code>，offset+标识符&#x3D;标识符偏移地址、返回数据类型字节数、数组长度、数组字节数&#x3D;type*lengthof、更改预设标识符类型、预分配待填充（预先时无分配地址）；</li>
+<li><code>TYPEDEF</code>,指定数据类型（换名）；</li>
+<li><code>MUL,IMUL(有符号)</code>，单操作数，mul后跟乘数，另一个乘数根据操作数位数决定，8位（AL）积（AX），16位（AX）积（DX：AX），32位（EAX）积（EDX：EAX），64位（RAX）积（RDX：RAX）；</li>
+<li><code>DIV,IDIV</code>,被除数（AX、…….）默认➗除数（8、16、32、64）&#x3D;商（AL、AX、EAX、DAX）+余数（AH、DX、EDX、RDX）；在做有符号除法前，需要被除数扩展符号位，<code>CBW,CWD,CDQ</code>,字节转字，字转双字，双字转四字，AL向AH扩，AX向DX扩，EAX向EDX扩；</li>
+</ul>
+<p>（4）<b>位操作指令</b>：</p>
+<ul>
+<li><code>NEG,AND,OR,XOR,NOT</code>，转补码（取相反数）、与（字符AND11011111转大写）、或（字符OR00100000转小写）、异或、非；</li>
+<li><code>SHL(SHR),SAL,ROL,RCL</code>,逻辑左移即填0，算数左移低位填0（右移时填符号位），注意挤出来的那位需要放在EFLAGS中CF位，循环左移（带着CF），带进位循环左移（相比ROL差一位，会将CF的值加入），L改为R变成向右；</li>
+<li><code>SHLD/SHRD</code>,双精度左移&#x2F;右移，<code>SHLD des sou count  </code>将des左移count位，低位插入sou高位</li>
+</ul>
+<p>（5）<b>堆栈操作指令</b>：</p>
+<ul>
+<li><code>PUSH,PUSHFD,PUSHAD,PUSHA</code>,入栈，EFLAGS入栈，按照EAX、ECX、EDX、EBX、ESP、EBP、ESI、EDI顺序放栈，pusha是pushad的16位版本；pop同理，但出栈顺序相反；</li>
+<li><code>CALL RET</code>,将call的下一条指令压入栈，并跳转，ret则弹出并跳转；</li>
+</ul>
+<p>（6）<b>跳转指令</b>：</p>
+<ul>
+<li><code>LOOP(LOOPW),LOOPD,LOOPZ(LOOPE),LOOPNZ(LOOPNE),JMP</code>，cx!&#x3D;0跳转、ecx!&#x3D;0跳转、在loop基础上且ZF&#x3D;1跳、在loop基础上且ZF&#x3D;0跳、直接跳；</li>
+<li><code>JC(JNC),JZ(.),JO(.),JS(.),JP(.),JE(JNE),JCXZ(JECXZ,JRAXZ)</code>，括号外是CF&#x3D;1、ZF&#x3D;1、OF&#x3D;1、SF&#x3D;1、PF&#x3D;1跳，括号内则是&#x3D;0跳，JE：左等于右跳，加N不等则跳，JCXZ则是&#x3D;0（ECX&#x2F;RCX&#x3D;0）跳；</li>
+<li><code>JA,JNA,JAE,JNAE</code>，无符号数 大于 不大于 大于等于 不大于等于 时跳转；无符号数大于（above）小于（below），有符号数大于（greater）小于（less）； </li>
+<li><code>beginWhile......endWhile</code>,while循环</li>
+</ul>
+<p>（7）<b>串串操作指令</b>：</p>
+<ul>
+<li><code>MOVSB(W/D)</code>：将（ESI）指向的值赋给（EDI）指向的地方；</li>
+<li><code>CMPSB(W/D)</code>：比较（ESI）与（EDI）指向的值的大小；</li>
+<li><code>SCASB(W/D),STOSB(W/D),LODS(W/D)</code>：比较；令AL&#x2F;AX&#x2F;EAX投射到（EDI）的位置；装载；</li>
+<li><code>CLD,STD</code>：设置正向（方向标记位&#x3D;0）or反向；</li>
+<li><code>REP,REP(N)Z/E</code>：ECX&gt;0时重复，增加条件ZF&#x3D;1（ZF&#x3D;0）；</li>
+</ul>
+<h3 id="0x02-伪指令"><a href="#0x02-伪指令" class="headerlink" title="0x02.伪指令"></a>0x02.伪指令</h3><ul>
+<li>public&#x2F;private表明该模块是否可以被其他模块调用</li>
+</ul>
+<pre><code>main proc (PUBLIC/PRIVATE) (传入参数...)  ;main过程开始，过程即子函数
+     ...
+main endp  ;结束main过程
+</code></pre>
+<ul>
+<li>若需要调用的模块写在main之后，需要下面的方式做个提前声明</li>
+</ul>
+<pre><code>PROTP target_fx		;提前声明，类似于C的int sum();
+EXTERN target_gx	;引用当前文件之外的模块，注意被引用的需要为public
+ALIGN + 定义类型	;设定对齐方式
+INVOKE 过程名 [入栈参数n...入栈参数1] ;只能在32位模式下，若参数小于32位，则会使用CBW等扩展命令
+ADDR array		;ADDR只能跟在INVOKE后面做入栈参数使用，意思是取地址/传地址 
+</code></pre>
+<ul>
+<li>若需要使用过程，则注意过程帧的使用</li>
+</ul>
+<pre><code>ENTER		;自动补齐相应的寄存器等	  
+...
+LEAVE
+</code></pre>
+<ul>
+<li>结构体</li>
+</ul>
+<pre><code>name struct/union		;定义结构体，与C一样
+    ...			
+name ENDS		;还支持嵌套使用，此时内层不需要该行的name
+</code></pre>
+<h4 id="宏（放在-data段，而不是-code段）"><a href="#宏（放在-data段，而不是-code段）" class="headerlink" title="宏（放在.data段，而不是.code段）"></a>宏（放在.data段，而不是.code段）</h4><pre><code>name MACRO(参数1：REQ，参数2：=&lt; &gt;，参数3)    ;定义时不检查参数类型，只有宏展开时检查,REQ表明是必须要的，:=&lt;无赋值时的初始值&gt;
+    LOCAL string			;LOCAL作用是，在一个宏多次展开时为避免出现多个重复的string，而使用的，将其转换为唯一标识符“??0000”、&quot;??0001&quot;等			
+    ...					
+ENDM		;;该注释在宏展开时不会出现在代码中，上述注释会出现
+
+ECHO ‘xxxxxxxxxx’		;输出字符串xxxxxxxxxx
+</code></pre>
+<ul>
+<li>循环宏</li>
+</ul>
+<pre><code>WHILE(表达式):为真时执行
+REPEAT N:重复N次
+FOR A,&lt;A1,A2...&gt;:让A依次为A1,A2...
+FORC A,&lt;string&gt;:让A依次为&#39;s&#39;,&#39;t&#39;...
+</code></pre>
+<ul>
+<li>条件宏（可与LT小于，GT大于，EQ等于，NE不等于，LE小于等于，GE大于等于，搭配使用）</li>
+</ul>
+<pre><code>IFB/IFNB:空/非空，则允许汇编
+IFIDN/IFDIF a b:参数a和参数b 相等/不相等 则允许（区分大小写）
+IFIDNI/IFDIFI a b:上面类似但不区分大小写
+IFDIF/IFNDIF name:如果name已/未定义 则汇编
+IF,ENDIF,ELSE,ELSEIF:自己看
+EXITM:退出宏，且后面的宏语句都不能展开
+</code></pre>
+<ul>
+<li>特殊运算符</li>
+</ul>
+<pre><code>&#39;&amp;&#39; : 使“CX”通过“&amp;CX”变为CX
+&#39;&lt;&gt;&#39; : 传递宏参数时“a，0，0”为三个参数，“&lt;a,0,0&gt;”为一个参数
+&#39;!&#39; : &lt;xxxx5&gt;2&gt;,第一个‘&gt;’影响判断“&lt;xxxx5!&gt;2&gt;”则将其当做字符串的一部分
+&#39;%&#39; : 传递宏参数时，“%(5+2)”，是可行的，会自动运算，“5+2”不可行
+</code></pre>
+<h3 id="0x03-32位寄存器"><a href="#0x03-32位寄存器" class="headerlink" title="0x03.32位寄存器"></a>0x03.32位寄存器</h3><p>（1）<strong>8个通用寄存器</strong>（64位时前缀R，共16个通用reg）：</p>
+<ul>
+<li><p>EAX（常用于累加）EBX（内存寻址の基址寄存器）ECX（循环计数器）EDX（与除法乘法有关）</p>
+</li>
+<li><p>ESI、EDI（与bx&#x2F;bp搭配使用，遍历数组）ESP（指向栈顶）EBP（指向栈底）</p>
+<blockquote>
+<p>EBP与ESP总是指向堆栈段最上面的栈帧，也叫活动记录，用于向子函数传递参数</p>
+</blockquote>
+</li>
+</ul>
+<p>（2）<strong>6个段寄存器</strong>（指向大致方向）：</p>
+<ul>
+<li><p>CS（代码段寄存器）DS（数据段寄存器，与BX搭配）SS（堆栈段寄存器，与SP、BP搭配）</p>
+</li>
+<li><p>附加段寄存器—ES、FS、GS</p>
+</li>
+</ul>
+<p>（3）<strong>标志寄存器</strong>（EFLAGS）</p>
+<blockquote>
+<p>有32位，在64位模式下，由64位的RFLAGS取代，但是高32位不使用，各位用法不变</p>
+</blockquote>
+<ul>
+<li>CF—无符号进位标志位、OF—有符号溢出标志位</li>
+<li>SF—符号标志位（正&#x3D;0）、ZF—零标志位（结果为0&#x3D;1）</li>
+</ul>
+<p><img src="/../pic/Eflags.jpg" alt="eflags"></p>
+<p>（4）<strong>指令指针寄存器</strong>（EIP&#x2F;RIP）：指向下一条要执行的指令，与CS搭配食用</p>
+<p>（5）<strong>特殊寄存器</strong>：8个64位のMMX寄存器 + 8个128位的XMM寄存器，被用于SIMD（单指令多数据）指令体系中，多用于高级多媒体通信或用于FPU中（用于计算浮点数，现多集成于cpu中）；</p>
+<blockquote>
+<p>在64位模式下&#x3D;8个64位のMMX寄存器 + 16个128位的XMM寄存器 + 8个80位的浮点寄存器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>汇编</tag>
+        <tag>x86</tag>
       </tags>
   </entry>
   <entry>
@@ -3223,6 +3223,39 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
 <li>.iobj和ipdb文件据早期msdn帖子说是有关增量链接功能生成的</li>
 </ul>
 <p>在解决方案中右键项目选择属性，在其中配置有关生成文件</p>
+<h3 id="0x09-Win技术栈"><a href="#0x09-Win技术栈" class="headerlink" title="0x09.Win技术栈"></a>0x09.Win技术栈</h3><p>Windows API：Win操的内核提供的接口函数，常见的就是Win32 API，但目前的win基本都是64位的，为了兼容早些时候的32位的应用，64位win中模拟出了一个32位的win，也就是一个子系统，在WoW64中实现。上述API函数一般都是位于dll中的</p>
+<ul>
+<li><code>kernel32.dll</code>：负责内存管理、进程管理等</li>
+<li><code>user32.dll</code>：负责处理用户的请求</li>
+<li><code>gdi32.dll</code>：用于在屏幕上显示文本图形</li>
+</ul>
+<p>Windows SDK：Software Develope Kit即软件开发工具包，顾名思义里面包含了开发所需要用到的一系列的库和工具（比如编写C语言时的头文件与相关库等）</p>
+<p>COM：是一种规范&#x2F;标准，由于C++的二进制层面标准问题，微软自己规定的该标准，用于方便在windows上实现软件组件之间的相互操作。</p>
+<p>ATL：Active Template Library则是微软提供的一个<strong>模板库</strong>，用于简化上述COM组件的开发。（这里单独拿出来，但实际上是作为MFC的补充库）</p>
+<p>MFC：Microsoft Foundation Class是一个<strong>类库</strong>，一般用于开发具有图形界面的应用程序。如果是Win32API写的话需要大量的过程，而MFC则以类的形式封装。</p>
+<p>WinRT&amp;UWP：即Windows Runtime，是一种标准，建立在之前的COM上。相比与早期的Win下用MFC和ATL进行开发，该标准以C++17的特性等为基础，最大的特点是使用该标准（一堆API函数）实现的应用，也就是UWP（Universal Windows Platform）windows通用平台应用，可以在不同版本的Win版本中运行。</p>
+<blockquote>
+<p>微软商店中下载到的都属于UWP应用，在WinPhone&#x2F;Win10&#x2F;11中下载到的东西都是一样的。UI与功能都算是实现了一次开发，多处运行。</p>
+</blockquote>
+<p>.NET：这是一个比较大的话题了，是微软用来与Java体系竞争的，这么理解会容易点。Java、Kotlin&#x3D;C#、F#、VB；JVM&#x3D;CLR（Common Language Runtime）公共语言运行时。这里主要还是C#占大头<span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMWZ2NDExaDczSg==">.net Framework、Standard、Core都是些什么东西_哔哩哔哩_bilibili<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><p><code>.NET FramWork</code>是一种框架（旧版本），当时只能在Win中运行。</p>
+</li>
+<li><p><code>.NET Core</code>是上面框架<code>FramWork</code>的提升，可以跨平台，也是一堆API</p>
+</li>
+<li><p><code>.NET</code>上面FrameWork和Core的统一，从5.0开始，后面都是开源的</p>
+</li>
+<li><p><code>.NET Standard</code>规范，说通俗点就是统一后的API</p>
+</li>
+<li><p><code>ASP</code>是在<code>.NET</code>上实现的用于Web的框架&#x2F;库，类比于JavaWeb等。</p>
+</li>
+<li><p><code>ADO</code>用于在该平台上访问和操作数据的，类比于JDBC</p>
+</li>
+<li><p><code>WPF</code>、<code>WinForm</code>也是框架，用于Windows图形桌面应用的开发。<code>UWP</code>也可以用C#等语言开发</p>
+</li>
+<li><p><code>mono</code>早些FrameWork仅提供于win下，社区就自己开发了这个跨平台，目前已整合到.NET中</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>系统安全</category>
@@ -7356,8 +7389,31 @@ memcpy(ret, eax, size);
 <p>C语言默认cdecl，也可以gcc下<code>__attribute(())</code>设置</p>
 </blockquote>
 <h4 id="2-堆"><a href="#2-堆" class="headerlink" title="2. 堆"></a>2. 堆</h4><p>一般都是程序预先向操作系统申请一块大小适当的堆空间，之后由程序自己管理（运行库）这块空间，不够了再申请</p>
-<p><strong>堆结构</strong></p>
-<p>&#x2F;&#x2F;TODO</p>
+<p><strong>Windows堆结构</strong></p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjU1NTQ2Lmh0bQ==">Windows内存堆内容整理总结<i class="fa fa-external-link-alt"></i></span>，下面这里讲的都是传统的NT堆。</p>
+</blockquote>
+<p>在win中有一系列大小不一的堆块，一部分由程序自主管理，剩下的空白堆块由系统的堆表管理。每个堆块都有一个头，用来存储相关信息。</p>
+<p>堆表<code>_HEAP</code>有两种（不同堆表对应不同的堆块头<code>_HEAP_ENTRY</code>）：</p>
+<ul>
+<li>空闲双向链表freelist：一个128项的数组，其中的内容是指向堆块header的指针。从free[1]开始每个指针指向的是一个8*n大小的堆块，&gt;&#x3D;1024B的堆块都在free[0]中按照升序排列</li>
+<li>快速单向链表&#x2F;快表lookaside：同样是128项，每项是一个单向链表，链表长度不超过4。（PS：没说堆块大小！但一条链上的应该是相等的）</li>
+</ul>
+<p>注意这里的两种在内存中都有，配合使用。三种堆块分配方式</p>
+<ol>
+<li><p>查找快速单向链表，也就是进程要的大小正好能在这里找到对应的。</p>
+</li>
+<li><p>空闲双向链表中寻找，最小的但&gt;&#x3D;要求的堆结构。</p>
+<blockquote>
+<p>如果大于要求大小，则会将选择的堆块重新切割，多余的堆块继续插回到freelist中。当两个堆块彼此相邻时还会发生堆合并的操作，用于减小碎片，并插回freelist</p>
+</blockquote>
+</li>
+<li><p>0号空表，从freelist[0]队尾反向搜索</p>
+</li>
+</ol>
+<blockquote>
+<p>详细数据结构<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjc5NjE3Lmh0bQ==">Windows堆初探-二进制漏洞<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
 <p><strong>Linux下堆管理</strong>：</p>
 <ul>
 <li><code>int brk(void* end_data_segment)</code>系统调用设置进程数据段的结束地址，扩大的空间就可以被用作堆。Glibc中的封装<code>sbrk()</code></li>
@@ -7365,9 +7421,9 @@ memcpy(ret, eax, size);
 </ul>
 <p><strong>Windows进程堆管理</strong></p>
 <ul>
-<li><p><code>VirtualAlloc()</code>申请空间，函数可以干任何事，但大小必须是页的整数倍</p>
+<li><p><code>kernel32.dll</code>中的<code>VirtualAlloc()</code>申请空间，函数可以干任何事，但大小必须是页的整数倍</p>
 </li>
-<li><p>堆管理器根据上述API提供了相关API：<code>HeapCreate</code>创建堆；<code>HeapAlloc</code>堆中分配内存；<code>HeapFree</code>释放已分配内存；<code>HeapDestory</code>摧毁</p>
+<li><p>堆管理器根据上述API封装至<code>NTDLL</code>中的<code>RtlAllocHeap()</code>再向上提供了相关API：<code>HeapCreate</code>创建堆；<code>HeapAlloc</code>堆中分配内存；<code>HeapFree</code>释放已分配内存；<code>HeapDestory</code>摧毁</p>
 <blockquote>
 <p>这个堆管理器有两份：NTDLL.dll面向用户；Ntoskrnl.exe面向内核</p>
 </blockquote>
