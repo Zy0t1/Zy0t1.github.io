@@ -812,7 +812,7 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
 <li>启动开始函数；</li>
 </ol>
 <p>进程创建过程如下：</p>
-<p><img src="/pic/image-20231129121728036.png"></p>
+<p><img src="/../pic/image-20231129121728036.png"></p>
 <ul>
 <li>vfork函数：父进程会一直阻塞，直到子进程调用exit()或者exec()为止；且父子共享地址空间，如果子进程修改了某个变量，这将影响到父进程</li>
 <li>clone函数：不仅可以创建进程或者线程，还可以指定创建新的命名空间、有选择的继承父进程的内存、甚至可以将创建出来的进程变成父进程的兄弟进程等等</li>
@@ -823,7 +823,7 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
 <p><strong>1号进程</strong>&#x2F;init进程：由idle通过kernel_thread创建，在内核空间完成初始化函数start_kernel后, 加载init程序，完成系统的初始化</p>
 <p><strong>2号进程</strong>&#x2F;kthreadd进程：由idle通过kernel_thread创建，并始终运行在内核空间, 负责所有内核线程的调度和管理</p>
 <p>进程状态：创建态、就绪态、执行态、阻塞态、终止态；</p>
-<p><img src="/pic/image-20231129121814386.png" alt="image-20231129121814386"></p>
+<p><img src="/../pic/image-20231129121814386.png" alt="image-20231129121814386"></p>
 <p>进程终止：</p>
 <ul>
 <li>主动：main函数返回，链接程序自动添加exit()；主动调用exit()</li>
@@ -931,7 +931,7 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
 &#125;;
 </code></pre>
 <p><strong>块设备驱动</strong>：一般一块512B，有缓存，通常由文件系统调用；对应用层来说通常有如下两种访问方式；&#x2F;dev和文件系统挂载点，前者和字符设备一样，通常用于配置，后者在mount之后就可以通过文件系统直接访问一个块设备</p>
-<p><img src="/pic/image-20231129122729443.png"></p>
+<p><img src="/../pic/image-20231129122729443.png"></p>
 <p>I&#x2F;O操作类型：同步阻塞I&#x2F;O（发起后等待返回）、同步非阻塞I&#x2F;O（一直发直到返回）、异步阻塞I&#x2F;O、异步非阻塞I&#x2F;O、多路复用（多线程）</p>
 <p><strong>Linux驱动</strong>：模块可以扩充内核功能，驱动程序也算是一种模块。<code>insmod</code>将模块加入正在运行的内核，<code>rmmod</code>将其从内核删除；在内核启动时装载叫静态装载，运行时叫动态装载。</p>
 <p>在开发驱动时：不能访问C库，只能访问有限的系统调用或者使用汇编，此外还需要注意同步与并发。<code>module_init()</code>驱动代码的入口点，每当加载该模块时就会被调用，<code>module_exit()</code>当驱动在内核被卸载时自动调用</p>
@@ -1027,7 +1027,7 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
 <li>MLS：主体和对象均有安全层级</li>
 </ul>
 <p>LSM框架：其允许安全模块插入内核中，用于提高传统DAC安全性。当用户进程经过DAC检查后，会由LSM Hook与SElinux的相关模块进行检查</p>
-<p><img src="/pic/image-20231129123244430.png" alt="image-20231129123244430"></p>
+<p><img src="/../pic/image-20231129123244430.png" alt="image-20231129123244430"></p>
 <h3 id="10-Namespace及Cgroups机制"><a href="#10-Namespace及Cgroups机制" class="headerlink" title="10.Namespace及Cgroups机制"></a>10.Namespace及Cgroups机制</h3><p>两者在Linux用于隔离进程，前者负责信息隔离，后者负责进程资源大小限制。</p>
 <ul>
 <li>UTS NameSpace：提供了主机名和域名的隔离，使得每个容器就拥有了独立的主机名和域名，在网络上可以被视作一个独立的节点</li>
@@ -1095,13 +1095,13 @@ gcc hello.c -o hello或hello.out---------------------(一步到位)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">184k</span>
+    <span title="站点总字数">186k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:35</span>
+    <span title="站点阅读时长">5:39</span>
   </span>
 </div>
 <div class="busuanzi-count">
