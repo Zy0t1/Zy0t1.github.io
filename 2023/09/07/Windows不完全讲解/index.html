@@ -28,7 +28,6 @@
 <meta property="og:site_name" content="Zy0t1&#39;s blog">
 <meta property="og:description" content="摘要：基于Windows的内容，上至应用说明，下至文件分析">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129111902545.png">
 <meta property="og:image" content="https://zy0t1.github.io/pic/image-20231129111723275.png">
 <meta property="og:image" content="https://zy0t1.github.io/pic/c9cbR9Mu.png">
 <meta property="og:image" content="https://zy0t1.github.io/pic/KhlRKs1G.png">
@@ -46,7 +45,7 @@
 <meta property="article:tag" content="OS">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zy0t1.github.io/pic/image-20231129111902545.png">
+<meta name="twitter:image" content="https://zy0t1.github.io/pic/image-20231129111723275.png">
 
 
 <link rel="canonical" href="https://zy0t1.github.io/2023/09/07/Windows%E4%B8%8D%E5%AE%8C%E5%85%A8%E8%AE%B2%E8%A7%A3/">
@@ -174,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -185,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -279,14 +278,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>31k</span>
+      <span>29k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>56 分钟</span>
+      <span>52 分钟</span>
     </span>
 </div>
 
@@ -469,7 +468,6 @@
 <blockquote>
 <p>（在专业版中能GUI查看，家庭版命令net user可以进行管理）</p>
 </blockquote>
-<p><img src="/../pic/image-20231129111902545.png" alt="image-20231129111902545"></p>
 <p>用户组则是用于将相同类型的账号进行分类，每组权限不一，且不同组的共享资源是可以相互访问的。默认包括：Administrator组、Users组、Guest组。</p>
 <p>自己的账户，默认处于用户组和管理员组，只有相关操作时才会暂时升到管理员权限</p>
 <p><strong>常见进程</strong>：</p>
@@ -760,50 +758,8 @@ pause (暂停)
 <li><p>代码节.text或.code：PE文件均有，含有程序可执行代码</p>
 </li>
 <li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表。</p>
-<pre><code class="c++">typedef struct _IMAGE_EXPORT_DIRECTORY &#123;
-    DWORD   Characteristics;	//属性，一般为0
-    DWORD   TimeDateStamp;		//文件生成时间戳
-    WORD    MajorVersion;		//主版本号
-    WORD    MinorVersion;		//次版本号
-    DWORD   Name;		//指向的DLL名字
-    DWORD   Base;		//导出函数的起始序列号，与下面的序号y相加得到对应函数的导出序号
-    DWORD   NumberOfFunctions;		//所有导出函数的总数
-    DWORD   NumberOfNames;		//有名称的导出函数总数，都有序号
-    DWORD   AddressOfFunctions;     //指向函数地址数组，每个成员占4B，表示相应函数的RVA
-    DWORD   AddressOfNames;         //指向一个数组，里面装的是4B的地址，该地址下存放的是函数名字字符串，借此数组与我们需要的函数名称进行对比，我们可以找到目标的序号x
-    DWORD   AddressOfNameOrdinals;  //指向一个序号对应数组，由上面的序号x，查找得到需要的函数地址在AddressOfFunction中的序号y
-&#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;
-</code></pre>
 </li>
 <li><p>引入函数节.idata：<code>IMAGE_IMPORT_DESCRIPTOR</code>结构数组，每引入一个DLL，数组就多一项，最后一项全0表示结束。</p>
-<pre><code class="c++">typedef struct _IMAGE_IMPORT_DESCRIPTOR &#123;
-    union &#123;
-        DWORD   Characteristics;
-        DWORD   OriginalFirstThunk;
-    &#125; DUMMYUNIONNAME;		//IMAGE_THUNK_DATA数组的指针，在文件中与FirstThunk指向一样，内存中不同
-    DWORD   TimeDateStamp;		//文件建立时间戳
-    DWORD   ForwarderChain;		//引用的DLL的API，又引用了其他DLL的API，现在一般为0
-    DWORD   Name;		//指向的DLL名字
-    DWORD   FirstThunk;		//通常是一个RVA，指向IMAGE_THUNK_DATA结构（该结构说明函数的导入方式）
-&#125; IMAGE_IMPORT_DESCRIPTOR;
-typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
-</code></pre>
-<pre><code class="c++">typedef struct _IMAGE_THUNK_DATA32 &#123;
-    union &#123;
-        DWORD ForwarderString;      // PBYTE 
-        DWORD Function;             // PDWORD
-        DWORD Ordinal;
-        DWORD AddressOfData;        // PIMAGE_IMPORT_BY_NAME
-    &#125; u1;//双字最高位是1时，函数是以序号形式导入的，此时的低位就是函数序号
-    //最高位是0时，函数以字符串形式导入，此时双字=RVA地址，指向一个IMAGE_IMPORT_BY_NAME
-&#125; IMAGE_THUNK_DATA32;
-typedef IMAGE_THUNK_DATA32 * PIMAGE_THUNK_DATA32;
-
-typedef struct _IMAGE_IMPORT_BY_NAME &#123;
-    WORD    Hint;		//表示函数的序号
-    CHAR   Name[1];		//导入函数的名称字符串
-&#125; IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;
-</code></pre>
 </li>
 <li><p>已初始化数据节.data：编译时已经固定值的数据</p>
 </li>
@@ -816,13 +772,6 @@ typedef struct _IMAGE_IMPORT_BY_NAME &#123;
 <li><p>.drectve段：区别于GCC下的链接脚本，在VC中编译器通过该段来告诉链接器如何对本目标文件进行链接</p>
 </li>
 <li><p>重定位信息段.reloc：存放重定位信息</p>
-<pre><code class="c++">typedef struct _IMAGE_BASE_RELOCATION &#123;
-    DWORD   VirtualAddress;		//重定位数据开始的RVA地址-以页表为单位分配-4KB
-    DWORD   SizeOfBlock;		//重定位块大小
-    WORD    TypeOffset[1];		//重定向位数组，即地址偏移，大小不定(每项16位，高四位=0100时，低12位才有效)
-&#125; IMAGE_BASE_RELOCATION;
-typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
-</code></pre>
 </li>
 </ol>
 </li>
@@ -1825,13 +1774,13 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">203k</span>
+    <span title="站点总字数">230k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:09</span>
+    <span title="站点阅读时长">6:59</span>
   </span>
 </div>
 <div class="busuanzi-count">
