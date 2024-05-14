@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -265,7 +265,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>27 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -278,11 +278,13 @@
     <div class="post-body" itemprop="articleBody"><p>摘要：《加密与解密》-第四版，漏洞篇、脱壳篇、保护篇、重构篇；以及个人添加的恶意软件说明</p>
 <span id="more"></span>
 
-<h2 id="漏洞篇"><a href="#漏洞篇" class="headerlink" title="漏洞篇"></a>漏洞篇</h2><h4 id="二进制漏洞"><a href="#二进制漏洞" class="headerlink" title="二进制漏洞"></a>二进制漏洞</h4><ul>
+<h2 id="漏洞篇"><a href="#漏洞篇" class="headerlink" title="漏洞篇"></a>漏洞篇</h2><h4 id="二进制漏洞"><a href="#二进制漏洞" class="headerlink" title="二进制漏洞"></a>二进制漏洞</h4><p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出</p>
+<ul>
 <li><p>缓冲区溢出漏洞</p>
 <ul>
 <li>栈溢出：栈中保存了函数需要的重要信息，并在函数执行结束时被释放。程序借助栈将参数传递给子函数。其中也保存着局部变量、函数返回地址等。与栈帧结构密切相关</li>
 <li>堆溢出：由开发人员自行分配释放。堆向高地址扩展，是不连续的内存区域，由系统使用链表来管理空闲的内存块，链表的遍历由低地址向高地址进行</li>
+<li>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</li>
 </ul>
 </li>
 <li><p>整数溢出漏洞</p>
@@ -1046,6 +1048,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/05/14/Misc/" rel="next" title="Misc">
+                  Misc <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -1076,13 +1081,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">238k</span>
+    <span title="站点总字数">244k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:13</span>
+    <span title="站点阅读时长">7:24</span>
   </span>
 </div>
 <div class="busuanzi-count">

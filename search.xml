@@ -2,8 +2,8 @@
 <search>
   <entry>
     <title>Misc</title>
-    <url>/2023/08/27/Misc/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe）</p>
+    <url>/2024/05/14/Misc/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：涉及常见的编码与隐写术，关于数字取证与流量分析将会在以后进行补充（maybe，暂时更新一点安卓）</p>
 <span id="more"></span>
 
 <h3 id="0x01-编码与古典密码"><a href="#0x01-编码与古典密码" class="headerlink" title="0x01.编码与古典密码"></a>0x01.编码与古典密码</h3><p><strong>编码</strong>：将一定序列的二进制串赋予意义；ASCII码、GBK(GB2312&#x2F;18030)、UTF、ANSI；在早期还有专用的数字编码，即二-十进制编码（BCD码）：8421码、2421码、格雷码；为保证传输数据的准确性，再加入额外的可信性编码：奇偶校验码、海明码、ECC（椭圆曲线？）、Chipkill等；</p>
@@ -144,10 +144,238 @@ AVI:头41-56-49-20
 <li><p>磁盘取证：工具：winhex、x-way；</p>
 </li>
 </ul>
+<h3 id="0x04-Android"><a href="#0x04-Android" class="headerlink" title="0x04.Android"></a>0x04.Android</h3><p>首先需要查看一下安卓架构图，这里就不贴了，网上很多。从中我们不难看到，其使用的还是Linux内核，但是在其上面用的却是Java体系，可以说算是一种Java系统</p>
+<p>Java是一种虚拟机语言，但不同于传统的基于栈的JVM，Android（&lt;5.0）默认使用基于寄存器结构的Dalvik虚拟机，5.0以上使用ART虚拟机</p>
+<h4 id="Dalvik和ART"><a href="#Dalvik和ART" class="headerlink" title="Dalvik和ART"></a>Dalvik和ART</h4><p>Dalvik虚拟机中运行的是Dalvik字节码（文件格式.dex），语法较复杂，通过对其反汇编能够得到smali汇编代码，阅读会轻松不少。Dalvik&#x3D;机器码，smali&#x3D;汇编，Java&#x2F;Kotlin&#x3D;高级语言。</p>
+<p>其编译使用JIT技术，JIT&#x3D;即时编译&#x2F;动态编译：运行时将字节码翻译为机器码。包括两种字节码编译方式</p>
+<ul>
+<li>method：以函数或方法为单位编译</li>
+<li>trace：实际运行中多被运行的分支路径（热路径）能够被更快获取，将这些代码编译成本地机器相关的机器码，之后缓存起来</li>
+</ul>
+<p>Dalvik虚拟机运行机器码</p>
+<ol>
+<li>完成类的装载</li>
+<li>全局哈希表存储类（类被统一为ClassObject类型）</li>
+<li>字节码验证器对装入的代码校验</li>
+<li>虚拟机调用<code>FindClass()</code>查找并装载main方法类</li>
+<li>初始化解释器执行字节码流</li>
+</ol>
+<p>在Android5.0之后开始用ART虚拟机进行替代，Dalvik每次都需要将apk代码编译成机器码再运行，而ART只有首次启动时进行编译。此外ART虚拟机还添加了AOT，可以在安装apk时将.dex文件直接处理成可以直接供ART虚拟机使用的.oat文件，而且ART的垃圾回收机制更好</p>
+<h4 id="Android可执行文件"><a href="#Android可执行文件" class="headerlink" title="Android可执行文件"></a>Android可执行文件</h4><p>apk即压缩包，解压后其由资源与文件构成，每个apk必定对应一个classes.dex，该文件就是Dalvik虚拟机下的可执行文件。apk打包过程如下：</p>
+<ol>
+<li>aapt首先检查AndroidManifest.xml的合法性——》对res目录下的资源子目录处理（检查并添加资源表条目）——》编译res与asserts目录下的资源并生成resources.arsc文件——》生成.java——》对res目录下的xml文件进行编译+resources.arsc+加密过的AndroidMainfest.xml打包压缩成resources.ap__</li>
+<li>编译src目录下的java&#x2F;c&#x2F;cpp源码，生成相应的class文件</li>
+<li>dx转换所有的class文件生成classes.dex</li>
+<li>apkbuilder以ap__结尾的文件为基础生成apk文件——》向apk中添加res、assets目录中的资源——》添加libs目录下C&#x2F;Cpp生成的.so&#x2F;.bin依赖库</li>
+<li>对apk文件进行签名</li>
+<li>对签名后的apk文件进行对齐处理</li>
+</ol>
+<p>dex文件格式如下</p>
+<ul>
+<li><p>header：dex文件头，记录当前文件信息以及其他数据结构的文件偏移。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Magic value</td>
+<td>魔数，跟所有文件一样就是文件头用来表示该文件类型。占32位，换位ASCII码就是“dex.035.”</td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>检验和，用于判断文件是否被</td>
+</tr>
+<tr>
+<td>sha1签名</td>
+<td>整个dex文件使用SHA-1进行签名，占据20字节</td>
+</tr>
+<tr>
+<td>fileSize</td>
+<td>整个dex文件的大小</td>
+</tr>
+<tr>
+<td>headerSize</td>
+<td>文件头结构的大小</td>
+</tr>
+<tr>
+<td>endian_tag</td>
+<td>大端小端，默认都是小段</td>
+</tr>
+<tr>
+<td>link_size&amp;link_off</td>
+<td>指定了链接段的大小和文件偏移，通常情况下他们都是0，linkSize为0表示为静态链接</td>
+</tr>
+<tr>
+<td>mapoff</td>
+<td>表示DexMapList的文件偏移</td>
+</tr>
+<tr>
+<td>stringIdsSize&amp;stringIdsOff</td>
+<td>指定了dex文件中所有用到的字符串的个数和位置偏移，注意这里指的是位置偏移，而不是真正的字符串值</td>
+</tr>
+<tr>
+<td>typeIds&amp;typeIdsOff</td>
+<td>有了上面字符串保存的逻辑，这个就是类的类型的数量和位置偏移，也都是占用4个字节</td>
+</tr>
+<tr>
+<td>protoIdSize&amp;protoIdOff</td>
+<td>方法原型的个数和位置偏移</td>
+</tr>
+<tr>
+<td>fieldSize&amp;fieldOff</td>
+<td>java文件中字段的信息</td>
+</tr>
+<tr>
+<td>methodSize&amp;methodOff</td>
+<td>方法大小及其偏移</td>
+</tr>
+<tr>
+<td>classDefsSize&amp;classDefsOff</td>
+<td>类定义的相关信息，类的信息就比较多了，包括类的修饰符、父类、接口、注解、静态元素等等</td>
+</tr>
+<tr>
+<td>dataSize&amp;dataoff</td>
+<td>数据区的大小以及偏移</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>string_ids</code>、<code>type_ids</code>、<code>proto_ids</code>、<code>field_ids</code>、<code>method_ids</code>、<code>class_def</code>：字符串、类型信息、方法声明、字段信息、方法信息、类信息等的偏移量</p>
+</li>
+<li><p>data：数据区，存放上面所说内容</p>
+</li>
+<li><p>link_data：静态链接数据区</p>
+</li>
+<li><p>需要注意，和linux下elf一样，文件结构和在内存中的结构不大一样，内存中的结构保存的是各个结构的指针</p>
+</li>
+</ul>
+<p>上面仅仅是普通的Dalvik的dex格式，下面是一些其他的执行文件格式</p>
+<ul>
+<li><p>odex文件即优化的dex，该文件已经包含了dex文件需要的依赖库列表，方便Dalvik虚拟机检测加载。</p>
+<blockquote>
+<p>odex&#x3D;odex文件头+dex文件+依赖库+辅助数据</p>
+</blockquote>
+</li>
+<li><p>ART虚拟机中的oat文件中有完整的dex文件，也同时是一个ELF格式文件，内部多了oatdata、oatexec、oatlastword几个符号，oatdata和oatlastword分别指定了oat文件在elf文件中的头和尾的位置，符号oatexec指向可执行段的位置。</p>
+<blockquote>
+<p>ELF文件中的oat data section 中对应着真正的oat文件，而oat中包含着完整的dex</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="安卓相关流程"><a href="#安卓相关流程" class="headerlink" title="安卓相关流程"></a>安卓相关流程</h4><blockquote>
+<p>以Dalvik为例子</p>
+</blockquote>
+<p>安卓虚拟机启动大致过程：</p>
+<ol>
+<li>加载内核</li>
+<li>执行init进程，进行初始化工作</li>
+<li>读取inic.rc文件并启动<strong>孵化器进程Zygote</strong></li>
+<li>启动后先初始化Dalvik虚拟机</li>
+<li>启动system_server并进入Zygote模式，通过socket等候命令</li>
+</ol>
+<p>运行程序：</p>
+<ol>
+<li>system_server进程通过socket方式发送命令给Zygote</li>
+<li>Zygote收到命令fork自身创建一个Dalvik虚拟机来执行应用程序</li>
+<li>加载APK：首先Android系统会加载应用程序的 APK 文件，读取其中的 DEX 文件（Dalvik 虚拟机）或 OAT 文件（ART）  </li>
+<li>加载类和资源：随后，虚拟机将加载应用程序的类文件和资源文件，例如布局、图片等  </li>
+<li>执行字节码：接着，虚拟机将执行应用程序的字节码。在此过程中，虚拟机会根据字节码调用相应的系统 API，完成应用程序的功能  </li>
+<li>垃圾回收：在执行过程中，虚拟机会周期性地进行垃圾回收（GC），回收不再使用的内存。ART 采用了分代垃圾回收策略，进一步优化了内存管理</li>
+</ol>
+<p>Zygote的三种创建进程方式</p>
+<ul>
+<li>fork：创建Zygote进程，可以再向下fork</li>
+<li>forkAndSpecialze：创建一个非Zygote进程，不能fork</li>
+<li>forkSystemServer：创建一个系统服务进程，该进程终止后子进程也必须终止</li>
+</ul>
+<h4 id="ARM汇编"><a href="#ARM汇编" class="headerlink" title="ARM汇编"></a>ARM汇编</h4><ul>
+<li><p>命名：ARM7-9-11，之后就到了Cortex的命名方式，包括Cortex-A&#x2F;M&#x2F;R，目前常见的就是A系列，M系列针对微控制器，R系列面向深层嵌入式</p>
+</li>
+<li><p>架构：架构版本ARMv1-v10等，在v4之后，加入了16位指令模式，叫做thumb指令集，只具备通用功能。在v8开始，提供了32和64位两种执行状态</p>
+</li>
+<li><p>ARM处理器7种运行模式：用户模式、快速中断模式、外部中断模式、管理模式、数据访问终止模式、系统模式、未定义指令的终止模式（除了第一个都是特权模式，此时系统资源访问不受限）</p>
+<ul>
+<li>在用户模式下不分组寄存器R0-R7、分组寄存器R8-R14、程序计数器R15、当前状态寄存器CPSR</li>
+<li>用户状态工作状态：ARM状态（32位对齐）、Thumb状态（16位对齐）</li>
+</ul>
+</li>
+<li><p>ARM汇编支持的寻址方式：立即寻址、寄存器寻址、寄存器移位寻址（特有！操作前需要对源寄存器进行移位操作）、寄存器间接寻址、基址寻址、多寄存器寻址、堆栈寻址、块拷贝寻址、相对寻址</p>
+<blockquote>
+<p>还有用于多媒体编程的NEON指令集，用于浮点运算的VFP指令集等</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="分析！"><a href="#分析！" class="headerlink" title="分析！"></a>分析！</h4><p>NDK介绍：</p>
+<ul>
+<li><p>NDK类似于SDK即开发工具包，但是不同的是，NDK用于编写C&#x2F;Cpp程序，之后被编译为so库之后，与其他的Java代码一块被打包到Apk中，而Java等代码通过JNI来与我们编写的so库进行连接，从而使用原生的速度，而不需要再经过Dalvik虚拟机翻译。</p>
+<blockquote>
+<p>C代码总是要比同等级下Java代码更难逆向（而且会更难），因此so库，也就是Native层会逆向难度会较大</p>
+</blockquote>
+</li>
+<li><p>对于Cpp来说，其STL库、异常处理机制库等可以通过更改Application.mk中的链接库设置进行更改</p>
+</li>
+</ul>
+<p>虚拟机调试：</p>
+<ul>
+<li><p>Dalvik虚拟机实现JDWP（Java调试有线协议），每个Dalvik实例都会启动一个JDWP线程，该线程一直处于空闲状态，直到DDMS（Dalvik调试监控器服务）或者调试器连接，之后处理调试器发送过来的请求</p>
+<blockquote>
+<p>DDMS在AndroidSDK中有，可以进行文件浏览、输出软件运行时调试信息、跟踪程序的执行流程等</p>
+</blockquote>
+</li>
+</ul>
+<p>反编译apk：</p>
+<ul>
+<li><p>一个安卓程序由一个或多个Activity（页面）以及其他组件构成，有且仅有一个主Activity，也是第一个启动的。在Mainfest中“android:name&#x3D;’.MainActivity’ ”，找到后查看其所在类的OnCreate方法，也即程序代码入口</p>
+</li>
+<li><p>反编译后会在smali文件中生成相应的smali汇编，‘.class’指定类与访问权限；‘.super’指定当前类的父类；‘.source’指定当前类源文件</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.fields 权限 static</td>
+<td>静态字段</td>
+</tr>
+<tr>
+<td>.fields 权限</td>
+<td>实例字段</td>
+</tr>
+<tr>
+<td>.method</td>
+<td>类中方法</td>
+</tr>
+<tr>
+<td>.implements + 接口名</td>
+<td>类的接口</td>
+</tr>
+<tr>
+<td>.annotation</td>
+<td>注释</td>
+</tr>
+</tbody></table>
+<p>Tool：dex2jar（虚拟机字节码转为java代码）、JAD（java反汇编）、Frida（hook工具）、JEB（类似于ida）</p>
+<h4 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h4><p>两个不同进程没有办法互相访问彼此的内存地址来访问对方内部的函数或变量，在Android中就有了Binder机制， Binder是一种IPC（进程间通信）的具体实现，主要充当中间人的作用，将消息从A进程传递给B进程。</p>
+<p>Binder主要含有两部分Binder驱动和ServiceManager，如果加入通信双方就是BinderClient和BinderServer，也就是传统的C&#x2F;S模型。</p>
+<ul>
+<li>Client进程：使用服务的进程</li>
+<li>Server进程：提供服务的进程 </li>
+<li>ServiceManager进程：管理Service注册与查询，将字符形式的Binder名字转换成对Client中对该Binder的引用 </li>
+<li>Binder驱动：一种虚拟设备，是连接上述三者之间的桥梁。具体作用是：传递服务进程消息、通过内存映射传递进程间需要传递的数据、采用Binder线程池并由Binder驱动自身进行管理</li>
+</ul>
+<p>首先我们的ServerB作为服务端需要通过Binder驱动来向ServiceManager注册服务——》ServiceManager会为其进行注册，并分配相应名称。</p>
+<p>ClientA想要与ServerB通信，但是A并不知道B的具体地址，但是仅知道B对应的Binder名称，于是就到ServiceManager中查询——》ServiceManager返回B的对应内存地址——》A根据获得的地址通过Binder驱动来向B通信。  </p>
 ]]></content>
       <tags>
         <tag>CTF</tag>
         <tag>Misc</tag>
+        <tag>Android</tag>
       </tags>
   </entry>
   <entry>
@@ -3301,6 +3529,769 @@ HeapReAlloc(hHEAP,dwFlags,lpMem,dwBytes)
       </tags>
   </entry>
   <entry>
+    <title>《加密与解密》读书笔记2</title>
+    <url>/2024/05/03/%E5%8A%A0%E8%A7%A3%E5%AF%862/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：《加密与解密》-第四版，漏洞篇、脱壳篇、保护篇、重构篇；以及个人添加的恶意软件说明</p>
+<span id="more"></span>
+
+<h2 id="漏洞篇"><a href="#漏洞篇" class="headerlink" title="漏洞篇"></a>漏洞篇</h2><h4 id="二进制漏洞"><a href="#二进制漏洞" class="headerlink" title="二进制漏洞"></a>二进制漏洞</h4><p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出</p>
+<ul>
+<li><p>缓冲区溢出漏洞</p>
+<ul>
+<li>栈溢出：栈中保存了函数需要的重要信息，并在函数执行结束时被释放。程序借助栈将参数传递给子函数。其中也保存着局部变量、函数返回地址等。与栈帧结构密切相关</li>
+<li>堆溢出：由开发人员自行分配释放。堆向高地址扩展，是不连续的内存区域，由系统使用链表来管理空闲的内存块，链表的遍历由低地址向高地址进行</li>
+<li>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</li>
+</ul>
+</li>
+<li><p>整数溢出漏洞</p>
+<ul>
+<li>存储溢出：不同的数据类型存储造成，不完全覆盖或是高位截断</li>
+<li>运算溢出：在对整型数变量进行运算过程中没有考虑边界问题</li>
+<li>符号问题：有符号整型和无符号整型</li>
+</ul>
+</li>
+<li><p>UAF漏洞：堆被释放后又被使用。利用方法&#x3D;在堆被释放后赶紧申请内存，企图占据那块刚被释放的堆块，后面调用已被释放的位置指针指向的堆块就被控制了</p>
+</li>
+</ul>
+<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>shellcode是一段可独立执行的代码，用于实现对计算机端的控制。通常在缓冲区漏洞触发后，获取eip指针控制权，之后指向shellcode执行</p>
+<blockquote>
+<p>Poc证明样本可以导致程序崩溃；Exp主要是漏洞利用</p>
+</blockquote>
+<p>shellcode分为两个模块&#x3D;基本模块+功能模块</p>
+<ul>
+<li>基本模块<ul>
+<li>获取kernel32基址：常见的有暴力搜索、异常处理链表搜素、TEB搜索</li>
+<li>获取API地址：找到dll之后按照PE结构搜索EAT。可以通过计算字符串的hash值来对比，既减小了空间又不容易被看穿</li>
+</ul>
+</li>
+<li>功能模块<ul>
+<li>下载执行：从指定url下载exe并执行。常见于浏览器类漏洞</li>
+<li>捆绑：将捆绑在自身身上的exe数据释放到指定目录中。常见于office等漏洞</li>
+<li>反弹shell：获取一个远程shell以执行命令。多见于主动型远程溢出漏洞</li>
+</ul>
+</li>
+</ul>
+<p>编写shellcode：强大的汇编、winAPI等</p>
+<p>提取shellcode：一般是利用十六进制编译器直接提取编译生成的exe对应区段。当然可以使用代码自动化，提取为bin、C数组、unescape等格式</p>
+<p>调试shellcode：内联汇编编写时方便调式。如果是bin格式则需要自己编写loader</p>
+<p>shellcode变形：格式变化、字符串化、加密</p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>shellcode可能出现位置</p>
+<ul>
+<li>jmp esp&#x2F;call esp：保存在栈空间的shellcode一般都是用此来控制eip。jmp esp编码“0xFF 0xE4”</li>
+<li>jmp ebx&#x2F;call ebx：当栈溢出发生后，如果覆盖的是无效地址，那么系统就会进入到异常处理过程</li>
+<li>堆喷射：常见于UAF的利用，因为一般只能控制eip，而shellcode无法写入指定内存，所以一般采用脚本循环申请的方式连续填充内存，从而实现布局</li>
+</ul>
+<p>DEP保护：即数据执行保护，需要硬件页表机制的支持。该机制会将非代码段的页表属性设置为“不可执行”，这样写入的shellcode就不会得到运行</p>
+<p>绕过DEP：ROP编程—主要借助代码复用技术，即需要其他可执行位置上，比如已有的动态链接库和可执行文件等，从中找到符合要求的指令片段，这些片段以ret结尾，将其逻辑上拼接为我们的程序</p>
+<blockquote>
+<p>ROP通常操作是调用<code>VirtualProtect()</code>将shellcode区域设置为可执行，或是通过<code>VirtualAlloc()</code>来申请一段可执行的空间</p>
+</blockquote>
+<p>ASLR：对堆、栈、共享库等映射区域进行随机化处理，针对缓冲区溢出和ROP的安全保护技术。常见绕过就是在未启用ASLR的模块中寻找跳板</p>
+<h4 id="样本分析"><a href="#样本分析" class="headerlink" title="样本分析"></a>样本分析</h4><ol>
+<li><p>样本获取、环境搭建</p>
+</li>
+<li><p>静态分析：样本信息、查杀测试、搜索引擎、二进制分析</p>
+</li>
+<li><p>动态调试：运行测试、<strong>动态调试</strong></p>
+</li>
+<li><p>溯源：定位漏洞触发位置</p>
+</li>
+</ol>
+<h2 id="脱壳篇"><a href="#脱壳篇" class="headerlink" title="脱壳篇"></a>脱壳篇</h2><h4 id="壳介绍"><a href="#壳介绍" class="headerlink" title="壳介绍"></a>壳介绍</h4><p>外壳通过附加在原始程序上，通过加载器载入内存后，先于原始程序被执行，用以获得控制权，在执行过程中对原始程序进行解密还原，还原之后把控制权还给原始程序执行原来的代码</p>
+<ul>
+<li><p>压缩壳：用于减小软件的体积。UPX、ASPack、PECompact</p>
+</li>
+<li><p>加密壳：一些壳只保护程序，另一些会有额外的功能。ASPPotect、Armadillo、EXECryptor、Themida</p>
+</li>
+<li><p>虚拟机保护软件：虚拟机引擎由编译器、解释器和虚拟CPU环境组成，还会搭配一个或多个指令系统。VMProtect—一个利用伪指令虚拟机的保护软件，安全性高，但效率会变低</p>
+</li>
+</ul>
+<h4 id="壳的加载"><a href="#壳的加载" class="headerlink" title="壳的加载"></a>壳的加载</h4><ol>
+<li>加壳程序在初始化时保存各寄存器的值，外壳执行完后再恢复</li>
+<li>输入壳一般只有<code>GetProcAddress()</code>、<code>GetModuleHandle()</code>、<code>LoadLibrary()</code>三个API，或者平替功能的函数</li>
+<li>解密源程序各个区块的数据</li>
+<li>源程序的IAT初始化由壳进行填写</li>
+<li>重定位项预处理，exe会比dll少一个重定位表</li>
+<li>Hook-API，壳一般都会自己模仿win的工作流程，向输入表中填入自己的hook地址</li>
+<li>跳转到程序原入口点OEP，是源程序和壳的“分界线”</li>
+</ol>
+<blockquote>
+<p>OEP即原程序入口点，也就是壳执行完后将控制权还给解压后的程序，再跳入到原程序</p>
+</blockquote>
+<h4 id="EXE脱壳"><a href="#EXE脱壳" class="headerlink" title="EXE脱壳"></a>EXE脱壳</h4><ol>
+<li><p>寻找OEP</p>
+<ul>
+<li>根据跨段指令寻找OEP：加壳之后程序称为“RebPE”，外壳部分所在段会作为新的入口点，而非常见的代码段，之后动态调试，从壳开始处跟踪</li>
+<li>用内存访问断点寻找OEP：对代码段设置内存断点，当壳对断点指令进行读取时必定会发生中断</li>
+<li>根据栈平衡寻找OEP：壳在JMP OEP之前必定会<code>popad/popfd</code>来将初始化时保存的寄存器恢复</li>
+<li>根据编译语言特点寻找OEP：例如MSVC的入口点<code>mainCRTStartup</code>、<code>WinMainCRTStartup</code>等函数，据此来设置断点</li>
+</ul>
+</li>
+<li><p>抓取内存镜像</p>
+<ul>
+<li><p>也叫dump——转存，是指把内存指定地址的映像文件读出，用文件形式保存下来。当外壳来到OEP处进行dump才合适，否则程序运行时变量就会被初始化</p>
+<blockquote>
+<p>工具：LordPE、PETools。一般利用<code>Module32Next()</code>获取欲dump进程的信息<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3RsaGVscDMyL25mLXRsaGVscDMyLW1vZHVsZTMybmV4dA==">Module32Next 函数 (tlhelp32.h) - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+<li><p>反dump：</p>
+</li>
+<li><p>纠正SizeOfImage：在dump文件时，一些关键参数是通过MODULEENTRY32结构的快照获得的，一些壳会修改其中的参数使dump软件无法正常读取数据</p>
+</li>
+<li><p>修改内存属性：当进程某个地址不可读时就无法进行dump，此时就需要动态调试时将PE头设置为完整权限</p>
+</li>
+</ul>
+</li>
+<li><p>重建输入表</p>
+<ul>
+<li>当外壳代码完成了加载工作，此时源程序中的IAT填写的就是外壳的hook-API地址了，所以每次程序与系统打交道时都会让外壳的代码获取一次控制权。</li>
+<li>程序中每一个API函数在IAT中都会有自己的位置，通过动态调试，跟踪函数调用，从而来到IAT所在位置，IAT是一块连续排列的数据，以0结尾，据此特征查找。</li>
+<li>重启跳转到OEP处，将内存数据dump出来为一个单独的exe，之后整理字符串、偏移等结构。完成后再由windows加载器实现IAT地址的填充</li>
+<li>外壳对输入表的操作：</li>
+<li>保留原输入表，外壳加载时没有加密IAT：外壳解压数据时，完整的输入表会在内存中，dump下来即可。这种外壳一般都是用显式装载的方式来获得函数地址的。ASPack、PECompact</li>
+<li>保留原输入表，外壳装载时加密IAT：需要在外壳没加密之前进行dump，会直接跳过IAT加密代码段。tElock</li>
+<li>破坏原输入表，外壳装载时没有加密IAT：外壳刚解压的文件中（内存数据）的是输入函数的字符串，之后外壳用显式装载的方式获得这些函数地址。UPX</li>
+<li>破坏原输入表，装载时对IAT加密处理：综上。ASProtect</li>
+</ul>
+</li>
+</ol>
+<h4 id="DLL文件脱壳"><a href="#DLL文件脱壳" class="headerlink" title="DLL文件脱壳"></a>DLL文件脱壳</h4><p>比exe脱壳多了一个基址重定位表需要考虑</p>
+<ol>
+<li><p>寻找OEP：dll在映射和卸载时都会调用到<code>DllMain()</code>。因此可以在载入时&#x2F;退出时寻找OEP。借助<code>LoadLibrary()</code>与<code>FreeLibrary()</code>来映射卸载dll。</p>
+<blockquote>
+<p>应该也是可以使用rundll32.exe来跟踪执行</p>
+</blockquote>
+</li>
+<li><p>Dump：需要注意dll的重定位问题，如果是重定位后抓取需要将基址进行修正。</p>
+</li>
+<li><p>重建输入表：同上步骤&#x2F;工具</p>
+</li>
+<li><p>构造重定位表：外壳重定位相关数据时，会根据外壳转储的重定位表确定要重定位的RVA，用RVA+基址来完成重定位工作。因此重点就是将外壳中这些要重定位的RVA提取出来，重新生成一份重定位表</p>
+</li>
+</ol>
+<h4 id="PE文件优化"><a href="#PE文件优化" class="headerlink" title="PE文件优化"></a>PE文件优化</h4><ul>
+<li>输入表用工具重建后，默认是放在新增的区块，而一般是在.rdata区块的，在其中选一块地址存放</li>
+<li>资源重建：工具脱壳后，图标等内容因为不能被压缩，而被存放在外壳的代码中。工具freeRes、DT_ResFix。</li>
+<li>装配文件：删除不必要的区块数据。工具：LordPE、CEF Explorer</li>
+<li>修正PE文件头<ul>
+<li>EntryPoint：脱壳时的OEP，工具能自动修正</li>
+<li>BaseOfCode&#x2F;Data：代码段&#x2F;数据段起始地址</li>
+<li>SizeOfImage：装入文件从基址到最后一个块的大小</li>
+</ul>
+</li>
+</ul>
+<h2 id="保护篇"><a href="#保护篇" class="headerlink" title="保护篇"></a>保护篇</h2><h3 id="软件保护技术"><a href="#软件保护技术" class="headerlink" title="软件保护技术"></a>软件保护技术</h3><h4 id="防范算法求逆"><a href="#防范算法求逆" class="headerlink" title="防范算法求逆"></a>防范算法求逆</h4><p>验证用户合法性环节如下：</p>
+<ol>
+<li>用户向软件作者提交用户码U，申请注册</li>
+<li>软件作者经注册机计算出注册码 R&#x3D;f(U)，并返回R</li>
+<li>用户在注册界面输入用户码U和注册码R</li>
+<li>软件通过验证函数 F(U,R) 来判断上述值是否合法</li>
+</ol>
+<blockquote>
+<p>堡垒战术：MD5等hash进行身份验证+RSA等公钥加密算法</p>
+<p>游击战术：核心思想“化整为零”+“虚虚实实”+“战略转移”，将验证函数分解成不同的函数，并将其分别隐藏到程序中、加入干扰函数、软件给注册码反复换地方（写入注册表&#x2F;文件、多份备份等）</p>
+</blockquote>
+<h4 id="抵御静态分析"><a href="#抵御静态分析" class="headerlink" title="抵御静态分析"></a>抵御静态分析</h4><p>目前主要的反汇编算法：线性扫描算法（OD、windbg）、递归行进算法（OD、IDA）</p>
+<ul>
+<li>线性扫描算法：将模块中的每条指令都反汇编，遇到的机器码都作为代码处理</li>
+<li>递归行进算法：按照代码可能执行的顺序进行返汇编，对每条可能的路径进行扫描</li>
+</ul>
+<p>分析手段根据返汇编算法有如下几种</p>
+<ul>
+<li><p>花指令：无用的字节干扰返汇编工具对指令位置的判断</p>
+</li>
+<li><p>SMC技术：代码自修改技术。某段代码在执行之前进行加密——》程序执行时动态解密。可以与反跟踪、反断点跟踪相结合；设计出多层嵌套；设计一个比较复杂的解密函数；</p>
+</li>
+<li><p>信息隐藏：对关键信息，比如常用于定位的界面显示的字符串，进行隐藏处理</p>
+<blockquote>
+<p>病毒资料：<span class="exturl" data-url="aHR0cHM6Ly8xdngudWcvYXJjaGl2ZS9WeEhlYXZlbi8=">Welcome to VX Heaven! (1vx.ug)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="文件完整性检验"><a href="#文件完整性检验" class="headerlink" title="文件完整性检验"></a>文件完整性检验</h4><p>文件发布时用散列函数计算文件的散列值，并将其存放到某个位置，之后每次运行重新计算并比较</p>
+<ul>
+<li>磁盘文件校验：书中用的是CRC32检验码，可以将该校验码存放到文件中，或是单独文件</li>
+<li>校验和：PE可选映像头中有个“Checksum”字段，其中存储了文件的校验和。EXE的可以0，重要文件、系统dll、驱动不能为0。IMAGEHLP.dll下<code>MapFileAndCheckSumA()</code>可以来测试</li>
+<li>内存映像校验：可以对代码块计算，或选其中一小部分，因为此段在运行期间只读。需要注意断点设置，硬件断点不影响，而INT 3会改变原始代码</li>
+</ul>
+<h4 id="代码与数据结合"><a href="#代码与数据结合" class="headerlink" title="代码与数据结合"></a>代码与数据结合</h4><ol>
+<li>在软件中找一段密文C（可以是关键代码或是注册版下某个功能的关键数据）</li>
+<li>用户输入用户名和序列号之后，计算解密密钥K&#x3D;F(用户名，序列号)</li>
+<li>对密文进行解密M&#x3D;Decrypt(C, K)</li>
+<li>给解密的代码加上异常处理代码（K不对的话，得到的M就是不正常的）</li>
+<li>利用散列函数计算M的校验值，并检验</li>
+</ol>
+<h3 id="反跟踪技术"><a href="#反跟踪技术" class="headerlink" title="反跟踪技术"></a>反跟踪技术</h3><p>防调试器、防监控工具等</p>
+<ol>
+<li><p>BeingDebugged</p>
+<ul>
+<li>winapi<code>IsDebuggerPresent()</code>来判断自己是否处于调试状态</li>
+<li>段寄存器fs:[0]指向当前线程环境块TEB——》其中存储了进程环境块PEB的地址——》读取PEB的BeingDebugged标志</li>
+<li>系统在创建进程时设置“BeingDebugged&#x3D;TRUE”——》“NtGlobalFlag&#x3D;0x70”——》在为进程创建堆时，由于“NtGlobalFlag”的作用，堆的“Flags”被设计了标记——》“Flags”被填充到“ProcessHeap”的“Flags”和“ForceFlags”中——》堆内填充了许多“BA AD F0 0D”，检测出有调试器</li>
+</ul>
+</li>
+<li><p>Native用户态</p>
+<ul>
+<li><p><code>CheckRemoteDebuggerPresent()</code>也可以用于检测调试器，与<code>IsDebuggerPresent()</code>不同并不是检测“BeingDebugged”标志的</p>
+</li>
+<li><p>该函数调用——》<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbnRlcm5sL25mLXdpbnRlcm5sLW50cXVlcnlpbmZvcm1hdGlvbnByb2Nlc3M=">NtQueryInformationProcess 函数 (winternl.h)<i class="fa fa-external-link-alt"></i></span>——》根据其中不同的“ProcessInformationClass”查询进程对象信息，调试状态下就是“ProcessDebugPort”，该值用来与调试器通信的端口句柄（如果将调试端口设置为0，系统就不会向用户态调试器发送调试事件通知，调试器就无法正常工作）</p>
+</li>
+<li><p>可以使用<code>ZwSetInformationThread()</code>来防调试</p>
+<blockquote>
+<p>逆向网站<span class="exturl" data-url="aHR0cHM6Ly93d3cub3BlbnJjZS5vcmcvYWJvdXQv">OpenRCE的 — OpenRCE<i class="fa fa-external-link-alt"></i></span></p>
+<p>NativeAPI[<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMTEyMzQ4Lmh0bQ==">下载][分享]经我自己编辑过的《Windows NT 2000 Native API Reference.chm》-¥付费问答-看雪<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>windows调试机制</p>
+<ul>
+<li><p>调试器与被调试程序有两种途径建立关系：创建进程时设置DEBUG_PROCESS；调用DebugActiveProcess附加到某个已经运行的进程上</p>
+<blockquote>
+<p>[<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjY4OTg4Lmh0bQ==">原创]初探Windows调试原理和反附加手段-软件逆向-看雪<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>NativeAPI</p>
+<ul>
+<li><p>winNT对旧系统，其中有相应的支持子系统，各个子系统转入ntdll或内核中的ntoskrnl，最终在硬件抽象层HAL上实现。这样在设计子系统时对ntdll提供的接口封装即可或调用0x2e中断进入到ntoskrnl.exe内核态</p>
+</li>
+<li><p>SSDT-系统服务描述表&#x2F;SDT-服务描述表，其中存放了SST-系统服务表</p>
+</li>
+<li><p>在ntdll.dll中Zw和Nt都是导向ntoskrnl.exe的Stub函数</p>
+</li>
+<li><p>在ntoskrnl.exe中，Zw函数也是Stub函数，指向ntoskrnl.exe的相应Nt函数</p>
+</li>
+<li><p>在ntoskrnl.exe中，Nt函数时所有Stub函数的目的地</p>
+<blockquote>
+<p>stub函数：<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1MTQ3ODk3L2FydGljbGUvZGV0YWlscy83ODg1NTg2MA==">[浅谈白盒测试中桩函数的灵活应用_桩函数中if怎么实现-CSDN博客]<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>反调试技巧</p>
+<ul>
+<li>SoftICE内核级调试器：使用<code>CreateFileA()</code>或<code>_lopen()</code>来获得SoftICE驱动程序等的句柄；在winNT中，SoftICE是一个内核设备驱动类型的服务（叫NTICE）</li>
+<li>OD：检测OD的特征码；调试器一般使用微软的DBGHELP库来装载调试符号；查找窗口是否有od相关信息；枚举进程列表ollydbg.exe；</li>
+<li>调试器漏洞：利用调试器漏洞攻击</li>
+<li>防止调试器附加：Ring3调试器附加使用<code>DebugActiveProcess()</code>，在附加相关进程时会先执行ntdll.dll下的<code>ZwContinue()</code>，最后停留在ntdll.dll的DbgBreakPoint处，调试器在这里设置了一个INT 3断点，由调试器自己捕捉</li>
+<li>父进程检测：通过TEB或<code>GetCurrentProcessId()</code>获取当前进程PID——》通过<code>Process32First/Next</code>获取所有进程列表——》判断父进程PID是不是exploer.exe、cmd.exe、Services.exe，不是的话就可能正在被调试</li>
+<li>时间差：当程序运行被打断点的话，会经过CPU捕获异常发给调试器处理等步骤，耗时不合理就是被调试了。<code>RDTSC</code>指令用于获取CPU自开机运行起的时钟周期数（<code>kernel32!GetTickCount()</code>也可）</li>
+<li>通过TrapFlag检测：CPU符号位eflags中，有一位TF&#x3D;1时，CPU执行eip中的指令后会触发一个单步异常</li>
+<li>双进程保护：win下Ring3调试器和被调试程序，一对一关系，可以自己写一个调试器附加上去</li>
+</ul>
+</li>
+</ol>
+<h3 id="外壳编写基础"><a href="#外壳编写基础" class="headerlink" title="外壳编写基础"></a>外壳编写基础</h3><p>加壳工具&#x3D;主体程序（原文件读入内存并加工）+外壳部分（加壳后程序执行时的引导段，用于模拟PE装载器）</p>
+<h4 id="加壳主程序"><a href="#加壳主程序" class="headerlink" title="加壳主程序"></a>加壳主程序</h4><ol>
+<li>判断文件是否是PE格式：检测DOS+PE文件头的魔数——》校验FileHeader结构中的Characteristics字段来判断是exe还是dll</li>
+<li>文件基本数据读入：（也可直接按文件偏移方式读入）仿照装载器载入——》取得PE文件头SizeOfImage字段的值，并申请相应大小内存——》根据区块表中的VA和VirtualSize逐区读入</li>
+<li>附加数据的读取：需要在读取文件时单独读取并保留这些数据——》加密后追加到文件的最后</li>
+<li>输入表处理：加密进行时破坏源程序中的输入表，换一个形式存储——》在外壳对源程序初始化时，不把真正的函数入口写回输入表，而是写入外壳中的一段程序入口，从这些位置转到正确的函数入口</li>
+<li>重定位表处理：对于dll文件，外壳需要模拟PE装载器的重定位功能，将原始的重定位表换一个形式存储。对于exe一般就顶多减小体积而已</li>
+<li>文件的压缩：压缩引擎aPlib、LZMA、JCALG1。有些区块诸如资源块等需要特殊处理</li>
+<li>资源数据处理：找到资源目录和资源数据的分割点——》把不能压缩的资源类型从中提取，转移到一个不会被压缩的空间中——》修改资源目录中相应指针——》压缩资源区块中的资源数据</li>
+<li>区块的融合：各个区块长度必须是FileAlignment的倍数，不足部分00填充，将一些可以压缩的区块合并为一个区块——》根据区块名找到第一个不能被压缩的区块——》合并区块——》合并后的区块的RVA设置为融合的第一个区块的RVA——》VirtualSize设置为和——》没有融合的区块的区块表向前移动</li>
+</ol>
+<h4 id="汇编编写外壳部分"><a href="#汇编编写外壳部分" class="headerlink" title="汇编编写外壳部分"></a>汇编编写外壳部分</h4><ol>
+<li>外壳加载过程：保留程序入口参数——》dll加载时会多次进入DllMain()需要设计标志——》模拟PE装载器恢复输入表</li>
+<li>自建输入表：通过自建输入表和壳程序本身再将原输入表导入</li>
+<li>外壳引导段：通过call指令将下一句地址入栈，之后pop出地址放入edx，通过edx偏移取变量。该部分主要用于将真正的外壳代码在内存中解压，并初始化一些数据</li>
+<li>外壳第二部分：主要是还原和初始化源程序（主要就是解压和初始化输入表）</li>
+<li>外壳添加到源程序：可以给源程序增加一个独立的区块。需要注意区块的读写属性</li>
+</ol>
+<h3 id="虚拟机设计与VMProtect"><a href="#虚拟机设计与VMProtect" class="headerlink" title="虚拟机设计与VMProtect"></a>虚拟机设计与VMProtect</h3><p>虚拟机保护技术就是将基于x86汇编的代码转换为字节码指令系统的代码。当前主流虚拟机基于栈（字节码指令短，用到的指令少），或是基于寄存器。</p>
+<p>虚拟机启动框架和调用约定</p>
+<ul>
+<li>调度器：VStartVM将所有寄存器符号压栈，esi指向字节码起始地址、ebp指向真实栈、edi指向VMContext。之后生成一个VMDispatcher标签，当每个Handler执行完毕就跳回这里，形成循环</li>
+<li>VMContext：虚拟环境结构，一个结构体其中存放了需要使用的值</li>
+<li>Handler：在虚拟机里面指一小段程序或过程，由VM中的调度器来调用。包括辅助Handler和普通Handler，前者执行重要基本指令，后者用于执行普通x86指令</li>
+<li>标志位问题：应在Handler执行前保存标志位，在相关Handler执行完成后恢复标志位</li>
+<li>异常处理：需要对原有的系统异常处理进行劫持</li>
+</ul>
+<p>需要模拟的x86指令分类，按功能分为</p>
+<ul>
+<li>普通指令：算数、传输指令</li>
+<li>栈指令：push、pop</li>
+<li>流指令：jmp、call、retn等改变程序执行流程（修改esi寄存器）</li>
+<li>不可模拟指令：int 3、sysenter等（对于虚拟机一般只能先退出执行，之后再进入）</li>
+</ul>
+<p>VMProtect以基本块为单位，在原始引擎的代码中插入了无条件跳转和条件跳转，用于分割基本块和生成大量虚假副本</p>
+<table>
+<thead>
+<tr>
+<th>基本块名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VStartVM</td>
+<td>真实环境到虚拟环境的转换，开辟新的堆栈空间给虚拟机</td>
+</tr>
+<tr>
+<td>VMDispatcher</td>
+<td>虚拟指令调度分流</td>
+</tr>
+<tr>
+<td>VHandler</td>
+<td>不同功能的虚拟指令</td>
+</tr>
+<tr>
+<td>VCheckESP</td>
+<td>检查堆栈基本块</td>
+</tr>
+<tr>
+<td>VRet</td>
+<td>该指令将堆栈中压入的寄存器还原到物理寄存器中，之后退出虚拟机环境，切换回到真实的CPU环境</td>
+</tr>
+</tbody></table>
+<p>VStartVM执行完毕——》真实寄存器保存到VMP堆栈中——》转到VMDispatcher开始循环执行虚拟指令——》开始的几条虚拟指令将这些值弹出并放到VMContext中。真实CPU寄存器功能</p>
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ESI</td>
+<td>当前要执行的字节码位置，相当于VM.eip</td>
+</tr>
+<tr>
+<td>EDI</td>
+<td>指向VMContext结构</td>
+</tr>
+<tr>
+<td>EBX</td>
+<td>解码虚拟指令时，将执行虚拟基本块的第1条指令赋值给ebx</td>
+</tr>
+<tr>
+<td>EBP</td>
+<td>指向真实的esp</td>
+</tr>
+<tr>
+<td>ESP</td>
+<td>虚拟机使用的堆栈</td>
+</tr>
+</tbody></table>
+<p>VMP中指令五大类：元指令（与堆栈相关的指令）、算术运算指令、内存操作指令、系统指令、逻辑运算指令。vJmp—唯一的无条件跳转指令</p>
+<p>对于虚拟机无法处理的指令，VMP会生成推出虚拟机的指令并切换到真实的CPU环境中执行 or 拆分指令联合不同功能的基础指令进行</p>
+<p>虚拟机执行的死规矩</p>
+<ul>
+<li>只能从VMEntry开始执行</li>
+<li>特权指令被虚拟环境接管，模拟执行</li>
+<li>接管内存访问和写入，执行到与内存相关的指令时跳出模拟环境，判断空间是否允许访问</li>
+<li>堆栈操作指令和只能依赖通用寄存器的普通指令可以直接交给系统执行</li>
+</ul>
+<blockquote>
+<p>这里太难了（ToT），下面是VMP还原大致过程（就是目录）</p>
+<p>生成完整的字节码流程图——》给Handler命名并添加语义动作——》将字节码的低级描述转换为中级描述——》清楚无用的字节码——》用真值表花间逻辑指令——》从特征中建立部分寄存器映射信息——》其他无法确定的寄存器的图着色算法——》使用DAG匹配生成指令</p>
+</blockquote>
+<h2 id="软件重构篇"><a href="#软件重构篇" class="headerlink" title="软件重构篇"></a>软件重构篇</h2><h3 id="补丁技术"><a href="#补丁技术" class="headerlink" title="补丁技术"></a>补丁技术</h3><p>补丁分文件补丁和内存补丁两种，前者是修改文件本身的某个数据，后者则是在对正在运行的程序的数据进行修改</p>
+<p>文件补丁较为简单：<code>CreateProcess()</code>打开目标程序——》检查打开的文件是不是目标文件，并检查文件大小——》使用<code>SetFilePointer()</code>将文件指针移动到指定位置——》使用<code>WriteFile()</code>将数据写入到磁盘文件</p>
+<blockquote>
+<p>补丁文件如果有壳、压缩、完整性校验，则文件补丁没办法使用</p>
+</blockquote>
+<p><strong>内存补丁</strong></p>
+<ul>
+<li>跨进程内存存取机制：Loader载入待打补的程序，等待程序运行到需要打补丁的位置，通过<code>WriteProcessMemory()</code>将补丁代码写道目标进程的适当位置</li>
+<li>DebugAPI机制：进程A内部产生异常——》系统监控到异常，将异常信息包装到EXCEPTION_RECORD结构——》查找正在对A调试的进程，并将上一步包装的结构通过EXCEPTION_DEBUG_EVENT发送给找到的进程——》陷入循环的调试进程A收到调试信息，调试进程解析调试信号的信息并进行相应操作。下面是目标进程向调试进程发送调试信息的方法：<ul>
+<li>CreateProcess后目标进程设置为Single Step运行方式，使得每一条指令都要和调试程序通信一次。Intel-CPU中有一个Single Step标志位设置为1即可</li>
+<li>修改目标进程代码，将需要发送调试信息处的指令改为int 3指令</li>
+</ul>
+</li>
+<li>调试寄存器机制：DR0-DR7共8个调试寄存器，在0-3中的一个设置为目标补丁位置，在7中设定相应的控制位。当程序运行到相应位置后CPU就会向调试器发送异常信息，调试器捕获并处理</li>
+<li>dll注入+hook：替换系统dll后劫持输出函数，在自己的函数中进行打补丁操作。</li>
+</ul>
+<p><strong>SMC补丁</strong></p>
+<ul>
+<li><p>SMC即自修改代码，可以对加壳程序直接打补丁，相当于内存补丁</p>
+</li>
+<li><p>单层SMC补丁：当外壳代码完成解压后，让其先跳转到补丁代码处，之后再回到原指令处继续</p>
+<blockquote>
+<p>多层SMC补丁：用于多层嵌套的加密压缩中</p>
+</blockquote>
+</li>
+</ul>
+<p>补丁工具：CodeFusion、dUP等</p>
+<h3 id="代码二次开发"><a href="#代码二次开发" class="headerlink" title="代码二次开发"></a>代码二次开发</h3><p>二次开发就是在已有exe和dll基础上修改扩充PE结构，也叫PEDIY技术</p>
+<ul>
+<li>数据对齐</li>
+<li>增加空间：找空间存放代码<ul>
+<li>区块间隙</li>
+<li>手动构造区块（修正区块表、增加数据段、修正映像文件大小）</li>
+<li>工具辅助构造</li>
+</ul>
+</li>
+<li>获取函数调用信息<ul>
+<li>修改输入表结构增加相应的API函数</li>
+<li>显式链接调用dll相关函数</li>
+</ul>
+</li>
+<li>代码重定位<ul>
+<li>修改重定位表</li>
+<li>代码自定位：利用call指令将返回地址压栈，之后pop将该返回地址取出，实现自定位</li>
+</ul>
+</li>
+<li>增加输出函数：输出表中各输出函数名必须按照字母升序排列</li>
+<li>寻找消息循环<ul>
+<li>程序窗口创建之前必须用<code>RegisterClassA()</code>或<code>RegisterClassExA()</code>来注册窗口（WndProc）类</li>
+<li>用户单击菜单按钮时，系统调用<code>SendMessageA()</code>给应用程序发送WM_COMMAND消息</li>
+<li>用户点击菜单按钮时，会弹出对话框<code>MessageBox()</code>等，可以设置断点拦截</li>
+<li><code>GetWindowLongA()</code>可以获取本进程内窗口的过程</li>
+</ul>
+</li>
+<li>菜单扩展：需要在前面找到的消息循环WndProc中增加消息判断和事件代码，增加的菜单ID不得重复。工具：eXeScope、资源黑客</li>
+<li>DLL扩展：<ul>
+<li>扩展接口：自己写一个dll，在目标程序中输入表添加自己要加的函数，并在消息循环中添加相应的汇编调用代码</li>
+<li>扩展消息循环：在调用原WndProc前，先转到dll处理相关的事件，处理完之后再回去</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>.NET篇与取证篇略过</p>
+</blockquote>
+<h2 id="恶意代码篇？"><a href="#恶意代码篇？" class="headerlink" title="恶意代码篇？"></a>恶意代码篇？</h2><h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
+<ul>
+<li><p>分类</p>
+<ul>
+<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
+</li>
+<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
+</li>
+<li><p>木马：不能传播复制的计算机病毒</p>
+</li>
+<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
+</li>
+<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
+</li>
+<li><p>流氓软件：</p>
+<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
+</li>
+<li><p>僵尸：实现恶意控制的代码</p>
+<p>基于IRC协议、HTTP、P2P</p>
+</li>
+<li><p>Exploit：漏洞利用程序</p>
+<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
+</li>
+<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
+</li>
+</ul>
+</li>
+<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
+</li>
+<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
+</li>
+<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
+</li>
+</ul>
+<p><strong>计算机病毒</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
+</li>
+<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
+</li>
+<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
+</li>
+<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
+<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
+</li>
+<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
+</li>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
+</li>
+</ul>
+<p><strong>网络蠕虫-Worm</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
+</li>
+<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
+</li>
+<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
+</li>
+<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
+</li>
+<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
+<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
+</li>
+</ul>
+<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
+<ul>
+<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
+</li>
+<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
+</li>
+<li><p><strong>检测与防治</strong>：</p>
+<ol>
+<li><p>主机角度：及时修补补丁、防火墙、安软</p>
+</li>
+<li><p>网络角度：</p>
+<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
+<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>木马-Trojan</strong>：</p>
+<ul>
+<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
+</li>
+<li><p>按功能分：</p>
+<p>远程控制木马：上兴、灰鸽子</p>
+<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
+<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
+</li>
+<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
+</li>
+<li><p>客户端与受害者<strong>连接方式</strong>：</p>
+<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
+</li>
+<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
+</li>
+<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
+<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
+</li>
+</ul>
+<p><strong>Rootkit</strong>：</p>
+<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
+<ul>
+<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
+<ol>
+<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
+<li>内联钩子inlineHoooook</li>
+</ol>
+</li>
+<li><p>内核态HOOK</p>
+<ol>
+<li><p>IDT（中断描述符表）钩子</p>
+</li>
+<li><p>SSDT（系统服务调度表）钩子</p>
+<blockquote>
+<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
+</blockquote>
+</li>
+<li><p>过滤驱动程序</p>
+</li>
+<li><p>驱动程序钩子</p>
+</li>
+</ol>
+</li>
+<li><p>直接内核对象操作（DKOM）</p>
+</li>
+<li><p>检测工具：IceSword、XueTr</p>
+</li>
+</ul>
+<p><strong>手机恶意软件</strong>：</p>
+<ul>
+<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
+</li>
+<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
+</li>
+<li><p>隐私窃取：</p>
+<ol>
+<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
+<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
+<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
+<li><strong>病毒特征值检测技术</strong>：</li>
+</ul>
+<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
+<p>关键组件：病毒检测引擎、病毒特征库</p>
+<p>实现步骤：</p>
+<ol>
+<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
+<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
+<li>将特征值纳入特征数据库</li>
+</ol>
+<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
+<ul>
+<li><strong>校验和检测技术</strong>：</li>
+</ul>
+<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
+<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
+<p>常校验对象：</p>
+<ol>
+<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
+<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
+<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
+<li>文件校验和：文件内容的全部字节</li>
+</ol>
+<ul>
+<li><strong>虚拟机检测技术</strong>：</li>
+</ul>
+<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
+<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
+<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
+<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
+<p>虚拟机设计方案：</p>
+<ol>
+<li>自含代码虚拟机SCCE：like a full CPU</li>
+<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
+<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
+</ol>
+<ul>
+<li><strong>启发式扫描技术</strong>：</li>
+</ul>
+<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
+<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
+<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
+<p>注意需要进行加权，以降低误报</p>
+<ul>
+<li><strong>主动防御技术</strong>：</li>
+</ul>
+<p>又叫做行为实时监控技术</p>
+<p>常见病毒行为（不排除安全软件）：</p>
+<ol>
+<li>对可执行文件进行写操作</li>
+<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
+<li>加载驱动：Rootkit</li>
+<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
+</ol>
+<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
+<hr>
+<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
+<li><p>特征值检测对抗：</p>
+<ol>
+<li>代码加密混淆：加密，增加花指令等</li>
+<li>加壳：压缩壳、保护壳</li>
+<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
+</ol>
+</li>
+<li><p>虚拟机检测对抗：</p>
+<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
+<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
+</li>
+<li><p>启发式扫描对抗：</p>
+<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
+</li>
+<li><p>主动防御对抗：</p>
+<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
+</li>
+<li><p>对抗云查杀：</p>
+<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
+</li>
+<li><p>恶意程序的主动保护机制：</p>
+<ol>
+<li>消灭反病毒程序、防火墙等</li>
+<li>阻断并独占文件来防止检查</li>
+<li>修改hosts文件防止杀软升级</li>
+<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
+</ol>
+</li>
+<li><p>人工分析对抗：</p>
+<ol>
+<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
+<blockquote>
+<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
+</blockquote>
+</li>
+<li><p>动态分析对抗—检测是否处于调试状态</p>
+<ul>
+<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
+<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
+<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
+<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
+<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
+</ul>
+</li>
+<li><p>动态对抗—检测调试器软件是否存在</p>
+<ul>
+<li>查找进程或文件特征码、特定服务</li>
+<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
+<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
+</ul>
+</li>
+<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
+<ol>
+<li>保存入口参数</li>
+<li>获取壳自己需要的API地址</li>
+<li>解密原程序的各个区块</li>
+<li>重定位</li>
+<li>修复引入函数地址表</li>
+<li>跳转到程序入口点OEP</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>壳</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Upx、Neolite</td>
+<td>高效压缩，内置压缩和解压缩</td>
+</tr>
+<tr>
+<td>ASpack、Petite、PECompact、Shrinker</td>
+<td>有保护性的压缩，不内置解压缩</td>
+</tr>
+<tr>
+<td>幻影、PC_Guard、Krypton、Armadillo</td>
+<td>有保护性的加密壳</td>
+</tr>
+<tr>
+<td>ASProtect、tElock</td>
+<td>有高效保护性的加密压缩壳</td>
+</tr>
+</tbody></table>
+<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
+<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<hr>
+<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
+<p>分析过程：</p>
+<ol>
+<li><p>虚拟机环境准备</p>
+</li>
+<li><p>系统监控：</p>
+<ul>
+<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
+<p>工具-Process Explorer、PrcView等</p>
+</li>
+<li><p>文件监控：读写行为；工具FileMon</p>
+</li>
+<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
+</li>
+<li><p>网络连接分析：工具FPort、TcpView</p>
+</li>
+<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
+</li>
+<li><p>内核监控：工具PC_Hunter、IceSword</p>
+</li>
+<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
+</li>
+</ul>
+</li>
+<li><p>文件类型侦测：工具PEiD、FileInfo</p>
+</li>
+<li><p>PE文件格式分析：工具PEView、Study_PE</p>
+</li>
+<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
+</li>
+<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
+</li>
+<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>系统安全</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+        <tag>Re</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《加密与解密》读书笔记1</title>
     <url>/2024/04/27/%E5%8A%A0%E8%A7%A3%E5%AF%86/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：《加密与解密》-第四版，基础篇至系统篇笔记</p>
@@ -4450,1083 +5441,6 @@ VOID WINAPI SE_GetProcAddressLoad(PLDR_DATA_TABLE_ENTRY pLdrEntry);
 <li>避免重入，即套娃现象，待hook的函数在Detours中也要用到。</li>
 <li>x64下注意指针定义长度、内存对齐、PE格式的变动、调用约定的变化</li>
 </ul>
-]]></content>
-      <categories>
-        <category>系统安全</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-        <tag>Re</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>密码学及相关应用</title>
-    <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学及其应用的一些概念做阐释，不会涉及具体算法，就是单纯的概念；</p>
-<span id="more"></span>
-
-<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
-<li><p>密码学&#x3D;密码编制学（设计密码）+密码分析学（破译密码）</p>
-</li>
-<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
-</li>
-<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S&#x3D;{P,C,K,E,D}</p>
-</li>
-<li><p><strong>密码分析攻击方式</strong>：</p>
-<ul>
-<li><p>穷举攻击：暴力破解，所有可能尝试</p>
-</li>
-<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
-<blockquote>
-<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
-</blockquote>
-</li>
-<li><p>物理攻击：从设备下手</p>
-<blockquote>
-<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
-</blockquote>
-</li>
-</ul>
-<p>依据可利用资源来进行分类：</p>
-<ul>
-<li>仅知密文攻击：顾名思义，香菇无需多言</li>
-<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
-<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
-<li>选择密文攻击：能够直接获取密文对应的明文</li>
-</ul>
-</li>
-<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
-</li>
-<li><p><strong>密码学分类</strong>：</p>
-<p>按照发展时间：</p>
-<ul>
-<li>古典密码：以字符为基本加密单元</li>
-<li>现代密码：多以信息块为基本加密单元</li>
-</ul>
-<p>依据密码体制分类：</p>
-<ul>
-<li>对称密码体制：加密解密密钥相同</li>
-<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
-</ul>
-<p>明文处理方式分类：</p>
-<ul>
-<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
-<li>序列密码&#x2F;流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><p>具体算法有了之后，在实际中还要考虑每一个处理单元之间的关联，这就叫做工作模式。</p>
-<h4 id="电码本模式ECB"><a href="#电码本模式ECB" class="headerlink" title="电码本模式ECB"></a>电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}&#x3D;E(M_{i},K);i&#x3D;1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
-<blockquote>
-<p>E()为加密函数，C为密文，K为明文</p>
-</blockquote>
-<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
-<ol>
-<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
-<li>序列密码加密法：对短块用序列密码加密$C_{n}&#x3D;M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
-<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
-</ol>
-<h4 id="密文链接模式CBC"><a href="#密文链接模式CBC" class="headerlink" title="密文链接模式CBC"></a>密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
-<p>Z为初始化向量，对应解密：</p>
-<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
-<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
-<p>解密如下，但是错误传播无界：</p>
-<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
-<h4 id="X-CBC模式"><a href="#X-CBC模式" class="headerlink" title="X CBC模式"></a>X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
-<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K_{1}),i&#x3D;2…n-1 \<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
-<p>Pad（）为填充函数，如下：</p>
-<p>$Pad(X)&#x3D;\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
-<h4 id="输出反馈模式OFB"><a href="#输出反馈模式OFB" class="headerlink" title="输出反馈模式OFB"></a>输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
-<ol>
-<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
-<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
-<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
-<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
-</ol>
-<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
-<h4 id="密文反馈模式CFB"><a href="#密文反馈模式CFB" class="headerlink" title="密文反馈模式CFB"></a>密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
-<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
-<h4 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
-<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>C_{i}&#x3D;M_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>C_{n}&#x3D;M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
-<p>解密过程如下：</p>
-<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>M_{i}&#x3D;C_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>M_{n}&#x3D;C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
-<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
-<hr>
-<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
-<ul>
-<li>签名者事后不能抵赖自己的签名</li>
-<li>任何其他人并不能伪造签名</li>
-<li>签名能够被验证真伪</li>
-</ul>
-<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
-<p>函数必须满足的条件：</p>
-<ul>
-<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
-<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
-<li>收信者可以验证真伪</li>
-<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
-</ul>
-<p>可选成立：</p>
-<ul>
-<li>$VER(S,K_{e})&#x3D;VER(SIG(M,K_{d}),K_{e})&#x3D;M$</li>
-<li>$VER(SIG(M,K_{d}),K_{e})&#x3D;SIG(VER(M,K_{e}),K_{d})&#x3D;M$</li>
-</ul>
-<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
-<hr>
-<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
-<ul>
-<li>密钥建立协议：用于确定会话密钥</li>
-<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
-<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
-<li>电子商务协议：还注重公平性</li>
-</ul>
-<p>设计原则：</p>
-<ul>
-<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
-<li>消息前提准确原则：消息相关的先决条件需要确立</li>
-<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
-<li>加密目的原则：明确加密的目的，减少冗余</li>
-<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
-<li>随机数使用原则：随机性应符合要求</li>
-<li>时间戳的使用原则：不同系统的时钟同步</li>
-<li>编码原则：需要明确协议中消息的具体数据格式</li>
-<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
-</ul>
-<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
-<hr>
-<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证&#x2F;鉴别"></a>认证&#x2F;鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
-<ul>
-<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
-<li>认证仅允许双方验证，数字签名还可以有第三方</li>
-<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
-</ul>
-<p><strong>身份认证</strong>：</p>
-<ul>
-<li><p>口令：传统的用户输入密码，系统查表对照</p>
-<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
-<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
-<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
-</li>
-<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
-<blockquote>
-<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
-</blockquote>
-</li>
-<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
-</li>
-<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
-<blockquote>
-<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>站点认证</strong>：</p>
-<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
-<ol>
-<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
-<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
-<li>A对$f(R_{A})$进行验证</li>
-</ol>
-<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}&amp; K_{eB}K_{dB}$</p>
-<ol>
-<li>A产生随机数$R_{A}$发给B</li>
-<li>B用私钥签名发给A，A再拿B的公钥验证</li>
-</ol>
-<p>双向认证：符号如上不再多说，下面是传统密码</p>
-<ol>
-<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
-<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
-<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
-</ol>
-<p>公钥密码体制：</p>
-<ol>
-<li>A产生随机数$R_{A}$直接给B</li>
-<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
-<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
-<li>B用A的公钥$K_{eA}$进行验证</li>
-</ol>
-<p><strong>报文认证</strong>：</p>
-<ul>
-<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
-<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
-</li>
-<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
-<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
-</li>
-<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC&#x3D;C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
-<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
-</li>
-<li><p>报文时间性认证：序列号、时间戳、随机数</p>
-</li>
-</ul>
-<hr>
-<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
-<li>管理策略着重指导，机制侧重具体实现</li>
-<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
-<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
-<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
-<li>密钥分级原则：分为高低级密钥进行管理</li>
-<li>密钥更换原则：必须满足满足安全性指标</li>
-</ul>
-<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
-<p><strong>密钥的组织</strong>：</p>
-<ul>
-<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
-<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
-<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
-</ul>
-<p><strong>密钥产生</strong>：</p>
-<ul>
-<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
-<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
-<li>低级：高级密钥或中级密钥加密过的数</li>
-</ul>
-<blockquote>
-<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
-</blockquote>
-<p>存储形态：明文、密文、分量</p>
-<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
-<hr>
-<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><blockquote>
-<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
-</blockquote>
-<h4 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h4><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
-<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
-<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
-<ul>
-<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
-</li>
-<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
-</li>
-<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
-</li>
-<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
-</li>
-<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
-</li>
-<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
-<blockquote>
-<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
-</blockquote>
-</li>
-<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
-</li>
-<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
-</li>
-</ul>
-<h4 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h4><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
-<ul>
-<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
-<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
-<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
-<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
-<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
-<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
-<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
-<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
-<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
-</ul>
-<h3 id="可信计算"><a href="#可信计算" class="headerlink" title="可信计算"></a>可信计算</h3><p>重要概念理解</p>
-<ul>
-<li>可信：一个实体的行为总是以预期的方式，朝着预期的目标，那么认为他是可信的</li>
-<li>可信计算：计算运算的同时进行安全防护，计算全程可测可控，不被干扰，只有这样方能使计算结果总是与预期一样</li>
-</ul>
-<p>基本思想：在计算机中，首先创建一个安全信任根，再建立从硬件平台、OS到应用系统的信任链，在这条信任链上从根开始一级测量&#x2F;信任一级，依次扩展。</p>
-<blockquote>
-<p>信任链：A-&gt;B-&gt;C-&gt;D；直接信任：A-&gt;B；间接信任：A-&gt;C&amp;C-&gt;B&#x3D;A-&gt;B</p>
-</blockquote>
-<ul>
-<li>1.0时代：通过纯软件实现的容错、故障诊断等机制</li>
-<li>2.0时代：增加硬件实现的信任根TPM，构建信任链</li>
-<li>3.0时代：“宿主+可信”双节点主动免疫可信计算架构</li>
-</ul>
-<p>重要内容：</p>
-<ul>
-<li><p>信任链：RTM将完整性度量形成的信息传递给RTS，之后由RTS使用TPM平台的寄存器PCR存放度量扩展值，并使用TPM的密码学服务保护度量日志。</p>
-<p>RTR主要用于远程证明，向实体提供平台可信状态信息，主要包括平台配置信息、审计日志、身份密钥等。</p>
-<ol>
-<li>可信度量根RTM：即信任根，一般定义在扩展BIOS上，负责完整性度量，对外不暴露任何接口，理论上不可被篡改，因此可以无条件可信</li>
-<li>可信报告根RTR：负责报告信任根。由TPM平台的配置寄存器PCR和背书密钥EK组成</li>
-<li>可信存储根RTS：负责存储信任根。由TPM的PCR和存储根密钥SRK组成</li>
-</ol>
-</li>
-<li><p>可信平台模块TPM：可信计算平台依赖的核心，负责可信计算平台的安全控制和运算功能，以及存储基线和可信报告。（国产类似的有TCM和TPCM）。</p>
-<p>其中的支撑软件(栈)叫做TSS，主要用于为OS和应用提供使用TPM的接口。</p>
-<blockquote>
-<p>基线：指判断依据，静态度量下可以是操作系统、配置文件、代码、数据；动态度量下可以是流量、进程、行为等。通过监控上述行为来产生可信报告最后判定是否可信</p>
-</blockquote>
-</li>
-<li><p>度量：一个实体对另一个实体的可信评估；完整性度量即计算Hash值，之后与RTS中的校验值基准对比</p>
-</li>
-<li><p>静态信任链：系统启动时建立，信任链从RTM-&gt;BIOS-&gt;Bootloader-&gt;OS-&gt;应用</p>
-</li>
-<li><p>TNC可信网络连接：依据上面的RTR实现网络中的一级级验证，确保接入可信</p>
-</li>
-</ul>
-<p>在可信计算3.0中将RTM也置于了TPCM中，并先于CPU启动。</p>
-<ul>
-<li>可信软件基TSB：植入到操作系统内核，在TPCM支撑下实现对宿主系统中软件资源的度量和控制。先启动操作系统最小核之后TSB</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>密码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《加密与解密》读书笔记2</title>
-    <url>/2024/05/03/%E5%8A%A0%E8%A7%A3%E5%AF%862/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：《加密与解密》-第四版，漏洞篇、脱壳篇、保护篇、重构篇；以及个人添加的恶意软件说明</p>
-<span id="more"></span>
-
-<h2 id="漏洞篇"><a href="#漏洞篇" class="headerlink" title="漏洞篇"></a>漏洞篇</h2><h4 id="二进制漏洞"><a href="#二进制漏洞" class="headerlink" title="二进制漏洞"></a>二进制漏洞</h4><ul>
-<li><p>缓冲区溢出漏洞</p>
-<ul>
-<li>栈溢出：栈中保存了函数需要的重要信息，并在函数执行结束时被释放。程序借助栈将参数传递给子函数。其中也保存着局部变量、函数返回地址等。与栈帧结构密切相关</li>
-<li>堆溢出：由开发人员自行分配释放。堆向高地址扩展，是不连续的内存区域，由系统使用链表来管理空闲的内存块，链表的遍历由低地址向高地址进行</li>
-</ul>
-</li>
-<li><p>整数溢出漏洞</p>
-<ul>
-<li>存储溢出：不同的数据类型存储造成，不完全覆盖或是高位截断</li>
-<li>运算溢出：在对整型数变量进行运算过程中没有考虑边界问题</li>
-<li>符号问题：有符号整型和无符号整型</li>
-</ul>
-</li>
-<li><p>UAF漏洞：堆被释放后又被使用。利用方法&#x3D;在堆被释放后赶紧申请内存，企图占据那块刚被释放的堆块，后面调用已被释放的位置指针指向的堆块就被控制了</p>
-</li>
-</ul>
-<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>shellcode是一段可独立执行的代码，用于实现对计算机端的控制。通常在缓冲区漏洞触发后，获取eip指针控制权，之后指向shellcode执行</p>
-<blockquote>
-<p>Poc证明样本可以导致程序崩溃；Exp主要是漏洞利用</p>
-</blockquote>
-<p>shellcode分为两个模块&#x3D;基本模块+功能模块</p>
-<ul>
-<li>基本模块<ul>
-<li>获取kernel32基址：常见的有暴力搜索、异常处理链表搜素、TEB搜索</li>
-<li>获取API地址：找到dll之后按照PE结构搜索EAT。可以通过计算字符串的hash值来对比，既减小了空间又不容易被看穿</li>
-</ul>
-</li>
-<li>功能模块<ul>
-<li>下载执行：从指定url下载exe并执行。常见于浏览器类漏洞</li>
-<li>捆绑：将捆绑在自身身上的exe数据释放到指定目录中。常见于office等漏洞</li>
-<li>反弹shell：获取一个远程shell以执行命令。多见于主动型远程溢出漏洞</li>
-</ul>
-</li>
-</ul>
-<p>编写shellcode：强大的汇编、winAPI等</p>
-<p>提取shellcode：一般是利用十六进制编译器直接提取编译生成的exe对应区段。当然可以使用代码自动化，提取为bin、C数组、unescape等格式</p>
-<p>调试shellcode：内联汇编编写时方便调式。如果是bin格式则需要自己编写loader</p>
-<p>shellcode变形：格式变化、字符串化、加密</p>
-<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>shellcode可能出现位置</p>
-<ul>
-<li>jmp esp&#x2F;call esp：保存在栈空间的shellcode一般都是用此来控制eip。jmp esp编码“0xFF 0xE4”</li>
-<li>jmp ebx&#x2F;call ebx：当栈溢出发生后，如果覆盖的是无效地址，那么系统就会进入到异常处理过程</li>
-<li>堆喷射：常见于UAF的利用，因为一般只能控制eip，而shellcode无法写入指定内存，所以一般采用脚本循环申请的方式连续填充内存，从而实现布局</li>
-</ul>
-<p>DEP保护：即数据执行保护，需要硬件页表机制的支持。该机制会将非代码段的页表属性设置为“不可执行”，这样写入的shellcode就不会得到运行</p>
-<p>绕过DEP：ROP编程—主要借助代码复用技术，即需要其他可执行位置上，比如已有的动态链接库和可执行文件等，从中找到符合要求的指令片段，这些片段以ret结尾，将其逻辑上拼接为我们的程序</p>
-<blockquote>
-<p>ROP通常操作是调用<code>VirtualProtect()</code>将shellcode区域设置为可执行，或是通过<code>VirtualAlloc()</code>来申请一段可执行的空间</p>
-</blockquote>
-<p>ASLR：对堆、栈、共享库等映射区域进行随机化处理，针对缓冲区溢出和ROP的安全保护技术。常见绕过就是在未启用ASLR的模块中寻找跳板</p>
-<h4 id="样本分析"><a href="#样本分析" class="headerlink" title="样本分析"></a>样本分析</h4><ol>
-<li><p>样本获取、环境搭建</p>
-</li>
-<li><p>静态分析：样本信息、查杀测试、搜索引擎、二进制分析</p>
-</li>
-<li><p>动态调试：运行测试、<strong>动态调试</strong></p>
-</li>
-<li><p>溯源：定位漏洞触发位置</p>
-</li>
-</ol>
-<h2 id="脱壳篇"><a href="#脱壳篇" class="headerlink" title="脱壳篇"></a>脱壳篇</h2><h4 id="壳介绍"><a href="#壳介绍" class="headerlink" title="壳介绍"></a>壳介绍</h4><p>外壳通过附加在原始程序上，通过加载器载入内存后，先于原始程序被执行，用以获得控制权，在执行过程中对原始程序进行解密还原，还原之后把控制权还给原始程序执行原来的代码</p>
-<ul>
-<li><p>压缩壳：用于减小软件的体积。UPX、ASPack、PECompact</p>
-</li>
-<li><p>加密壳：一些壳只保护程序，另一些会有额外的功能。ASPPotect、Armadillo、EXECryptor、Themida</p>
-</li>
-<li><p>虚拟机保护软件：虚拟机引擎由编译器、解释器和虚拟CPU环境组成，还会搭配一个或多个指令系统。VMProtect—一个利用伪指令虚拟机的保护软件，安全性高，但效率会变低</p>
-</li>
-</ul>
-<h4 id="壳的加载"><a href="#壳的加载" class="headerlink" title="壳的加载"></a>壳的加载</h4><ol>
-<li>加壳程序在初始化时保存各寄存器的值，外壳执行完后再恢复</li>
-<li>输入壳一般只有<code>GetProcAddress()</code>、<code>GetModuleHandle()</code>、<code>LoadLibrary()</code>三个API，或者平替功能的函数</li>
-<li>解密源程序各个区块的数据</li>
-<li>源程序的IAT初始化由壳进行填写</li>
-<li>重定位项预处理，exe会比dll少一个重定位表</li>
-<li>Hook-API，壳一般都会自己模仿win的工作流程，向输入表中填入自己的hook地址</li>
-<li>跳转到程序原入口点OEP，是源程序和壳的“分界线”</li>
-</ol>
-<blockquote>
-<p>OEP即原程序入口点，也就是壳执行完后将控制权还给解压后的程序，再跳入到原程序</p>
-</blockquote>
-<h4 id="EXE脱壳"><a href="#EXE脱壳" class="headerlink" title="EXE脱壳"></a>EXE脱壳</h4><ol>
-<li><p>寻找OEP</p>
-<ul>
-<li>根据跨段指令寻找OEP：加壳之后程序称为“RebPE”，外壳部分所在段会作为新的入口点，而非常见的代码段，之后动态调试，从壳开始处跟踪</li>
-<li>用内存访问断点寻找OEP：对代码段设置内存断点，当壳对断点指令进行读取时必定会发生中断</li>
-<li>根据栈平衡寻找OEP：壳在JMP OEP之前必定会<code>popad/popfd</code>来将初始化时保存的寄存器恢复</li>
-<li>根据编译语言特点寻找OEP：例如MSVC的入口点<code>mainCRTStartup</code>、<code>WinMainCRTStartup</code>等函数，据此来设置断点</li>
-</ul>
-</li>
-<li><p>抓取内存镜像</p>
-<ul>
-<li><p>也叫dump——转存，是指把内存指定地址的映像文件读出，用文件形式保存下来。当外壳来到OEP处进行dump才合适，否则程序运行时变量就会被初始化</p>
-<blockquote>
-<p>工具：LordPE、PETools。一般利用<code>Module32Next()</code>获取欲dump进程的信息<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3RsaGVscDMyL25mLXRsaGVscDMyLW1vZHVsZTMybmV4dA==">Module32Next 函数 (tlhelp32.h) - Win32 apps | Microsoft Learn<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-<li><p>反dump：</p>
-</li>
-<li><p>纠正SizeOfImage：在dump文件时，一些关键参数是通过MODULEENTRY32结构的快照获得的，一些壳会修改其中的参数使dump软件无法正常读取数据</p>
-</li>
-<li><p>修改内存属性：当进程某个地址不可读时就无法进行dump，此时就需要动态调试时将PE头设置为完整权限</p>
-</li>
-</ul>
-</li>
-<li><p>重建输入表</p>
-<ul>
-<li>当外壳代码完成了加载工作，此时源程序中的IAT填写的就是外壳的hook-API地址了，所以每次程序与系统打交道时都会让外壳的代码获取一次控制权。</li>
-<li>程序中每一个API函数在IAT中都会有自己的位置，通过动态调试，跟踪函数调用，从而来到IAT所在位置，IAT是一块连续排列的数据，以0结尾，据此特征查找。</li>
-<li>重启跳转到OEP处，将内存数据dump出来为一个单独的exe，之后整理字符串、偏移等结构。完成后再由windows加载器实现IAT地址的填充</li>
-<li>外壳对输入表的操作：</li>
-<li>保留原输入表，外壳加载时没有加密IAT：外壳解压数据时，完整的输入表会在内存中，dump下来即可。这种外壳一般都是用显式装载的方式来获得函数地址的。ASPack、PECompact</li>
-<li>保留原输入表，外壳装载时加密IAT：需要在外壳没加密之前进行dump，会直接跳过IAT加密代码段。tElock</li>
-<li>破坏原输入表，外壳装载时没有加密IAT：外壳刚解压的文件中（内存数据）的是输入函数的字符串，之后外壳用显式装载的方式获得这些函数地址。UPX</li>
-<li>破坏原输入表，装载时对IAT加密处理：综上。ASProtect</li>
-</ul>
-</li>
-</ol>
-<h4 id="DLL文件脱壳"><a href="#DLL文件脱壳" class="headerlink" title="DLL文件脱壳"></a>DLL文件脱壳</h4><p>比exe脱壳多了一个基址重定位表需要考虑</p>
-<ol>
-<li><p>寻找OEP：dll在映射和卸载时都会调用到<code>DllMain()</code>。因此可以在载入时&#x2F;退出时寻找OEP。借助<code>LoadLibrary()</code>与<code>FreeLibrary()</code>来映射卸载dll。</p>
-<blockquote>
-<p>应该也是可以使用rundll32.exe来跟踪执行</p>
-</blockquote>
-</li>
-<li><p>Dump：需要注意dll的重定位问题，如果是重定位后抓取需要将基址进行修正。</p>
-</li>
-<li><p>重建输入表：同上步骤&#x2F;工具</p>
-</li>
-<li><p>构造重定位表：外壳重定位相关数据时，会根据外壳转储的重定位表确定要重定位的RVA，用RVA+基址来完成重定位工作。因此重点就是将外壳中这些要重定位的RVA提取出来，重新生成一份重定位表</p>
-</li>
-</ol>
-<h4 id="PE文件优化"><a href="#PE文件优化" class="headerlink" title="PE文件优化"></a>PE文件优化</h4><ul>
-<li>输入表用工具重建后，默认是放在新增的区块，而一般是在.rdata区块的，在其中选一块地址存放</li>
-<li>资源重建：工具脱壳后，图标等内容因为不能被压缩，而被存放在外壳的代码中。工具freeRes、DT_ResFix。</li>
-<li>装配文件：删除不必要的区块数据。工具：LordPE、CEF Explorer</li>
-<li>修正PE文件头<ul>
-<li>EntryPoint：脱壳时的OEP，工具能自动修正</li>
-<li>BaseOfCode&#x2F;Data：代码段&#x2F;数据段起始地址</li>
-<li>SizeOfImage：装入文件从基址到最后一个块的大小</li>
-</ul>
-</li>
-</ul>
-<h2 id="保护篇"><a href="#保护篇" class="headerlink" title="保护篇"></a>保护篇</h2><h3 id="软件保护技术"><a href="#软件保护技术" class="headerlink" title="软件保护技术"></a>软件保护技术</h3><h4 id="防范算法求逆"><a href="#防范算法求逆" class="headerlink" title="防范算法求逆"></a>防范算法求逆</h4><p>验证用户合法性环节如下：</p>
-<ol>
-<li>用户向软件作者提交用户码U，申请注册</li>
-<li>软件作者经注册机计算出注册码 R&#x3D;f(U)，并返回R</li>
-<li>用户在注册界面输入用户码U和注册码R</li>
-<li>软件通过验证函数 F(U,R) 来判断上述值是否合法</li>
-</ol>
-<blockquote>
-<p>堡垒战术：MD5等hash进行身份验证+RSA等公钥加密算法</p>
-<p>游击战术：核心思想“化整为零”+“虚虚实实”+“战略转移”，将验证函数分解成不同的函数，并将其分别隐藏到程序中、加入干扰函数、软件给注册码反复换地方（写入注册表&#x2F;文件、多份备份等）</p>
-</blockquote>
-<h4 id="抵御静态分析"><a href="#抵御静态分析" class="headerlink" title="抵御静态分析"></a>抵御静态分析</h4><p>目前主要的反汇编算法：线性扫描算法（OD、windbg）、递归行进算法（OD、IDA）</p>
-<ul>
-<li>线性扫描算法：将模块中的每条指令都反汇编，遇到的机器码都作为代码处理</li>
-<li>递归行进算法：按照代码可能执行的顺序进行返汇编，对每条可能的路径进行扫描</li>
-</ul>
-<p>分析手段根据返汇编算法有如下几种</p>
-<ul>
-<li><p>花指令：无用的字节干扰返汇编工具对指令位置的判断</p>
-</li>
-<li><p>SMC技术：代码自修改技术。某段代码在执行之前进行加密——》程序执行时动态解密。可以与反跟踪、反断点跟踪相结合；设计出多层嵌套；设计一个比较复杂的解密函数；</p>
-</li>
-<li><p>信息隐藏：对关键信息，比如常用于定位的界面显示的字符串，进行隐藏处理</p>
-<blockquote>
-<p>病毒资料：<span class="exturl" data-url="aHR0cHM6Ly8xdngudWcvYXJjaGl2ZS9WeEhlYXZlbi8=">Welcome to VX Heaven! (1vx.ug)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-</ul>
-<h4 id="文件完整性检验"><a href="#文件完整性检验" class="headerlink" title="文件完整性检验"></a>文件完整性检验</h4><p>文件发布时用散列函数计算文件的散列值，并将其存放到某个位置，之后每次运行重新计算并比较</p>
-<ul>
-<li>磁盘文件校验：书中用的是CRC32检验码，可以将该校验码存放到文件中，或是单独文件</li>
-<li>校验和：PE可选映像头中有个“Checksum”字段，其中存储了文件的校验和。EXE的可以0，重要文件、系统dll、驱动不能为0。IMAGEHLP.dll下<code>MapFileAndCheckSumA()</code>可以来测试</li>
-<li>内存映像校验：可以对代码块计算，或选其中一小部分，因为此段在运行期间只读。需要注意断点设置，硬件断点不影响，而INT 3会改变原始代码</li>
-</ul>
-<h4 id="代码与数据结合"><a href="#代码与数据结合" class="headerlink" title="代码与数据结合"></a>代码与数据结合</h4><ol>
-<li>在软件中找一段密文C（可以是关键代码或是注册版下某个功能的关键数据）</li>
-<li>用户输入用户名和序列号之后，计算解密密钥K&#x3D;F(用户名，序列号)</li>
-<li>对密文进行解密M&#x3D;Decrypt(C, K)</li>
-<li>给解密的代码加上异常处理代码（K不对的话，得到的M就是不正常的）</li>
-<li>利用散列函数计算M的校验值，并检验</li>
-</ol>
-<h3 id="反跟踪技术"><a href="#反跟踪技术" class="headerlink" title="反跟踪技术"></a>反跟踪技术</h3><p>防调试器、防监控工具等</p>
-<ol>
-<li><p>BeingDebugged</p>
-<ul>
-<li>winapi<code>IsDebuggerPresent()</code>来判断自己是否处于调试状态</li>
-<li>段寄存器fs:[0]指向当前线程环境块TEB——》其中存储了进程环境块PEB的地址——》读取PEB的BeingDebugged标志</li>
-<li>系统在创建进程时设置“BeingDebugged&#x3D;TRUE”——》“NtGlobalFlag&#x3D;0x70”——》在为进程创建堆时，由于“NtGlobalFlag”的作用，堆的“Flags”被设计了标记——》“Flags”被填充到“ProcessHeap”的“Flags”和“ForceFlags”中——》堆内填充了许多“BA AD F0 0D”，检测出有调试器</li>
-</ul>
-</li>
-<li><p>Native用户态</p>
-<ul>
-<li><p><code>CheckRemoteDebuggerPresent()</code>也可以用于检测调试器，与<code>IsDebuggerPresent()</code>不同并不是检测“BeingDebugged”标志的</p>
-</li>
-<li><p>该函数调用——》<span class="exturl" data-url="aHR0cHM6Ly9sZWFybi5taWNyb3NvZnQuY29tL3poLWNuL3dpbmRvd3Mvd2luMzIvYXBpL3dpbnRlcm5sL25mLXdpbnRlcm5sLW50cXVlcnlpbmZvcm1hdGlvbnByb2Nlc3M=">NtQueryInformationProcess 函数 (winternl.h)<i class="fa fa-external-link-alt"></i></span>——》根据其中不同的“ProcessInformationClass”查询进程对象信息，调试状态下就是“ProcessDebugPort”，该值用来与调试器通信的端口句柄（如果将调试端口设置为0，系统就不会向用户态调试器发送调试事件通知，调试器就无法正常工作）</p>
-</li>
-<li><p>可以使用<code>ZwSetInformationThread()</code>来防调试</p>
-<blockquote>
-<p>逆向网站<span class="exturl" data-url="aHR0cHM6Ly93d3cub3BlbnJjZS5vcmcvYWJvdXQv">OpenRCE的 — OpenRCE<i class="fa fa-external-link-alt"></i></span></p>
-<p>NativeAPI[<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMTEyMzQ4Lmh0bQ==">下载][分享]经我自己编辑过的《Windows NT 2000 Native API Reference.chm》-¥付费问答-看雪<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>windows调试机制</p>
-<ul>
-<li><p>调试器与被调试程序有两种途径建立关系：创建进程时设置DEBUG_PROCESS；调用DebugActiveProcess附加到某个已经运行的进程上</p>
-<blockquote>
-<p>[<span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjY4OTg4Lmh0bQ==">原创]初探Windows调试原理和反附加手段-软件逆向-看雪<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>NativeAPI</p>
-<ul>
-<li><p>winNT对旧系统，其中有相应的支持子系统，各个子系统转入ntdll或内核中的ntoskrnl，最终在硬件抽象层HAL上实现。这样在设计子系统时对ntdll提供的接口封装即可或调用0x2e中断进入到ntoskrnl.exe内核态</p>
-</li>
-<li><p>SSDT-系统服务描述表&#x2F;SDT-服务描述表，其中存放了SST-系统服务表</p>
-</li>
-<li><p>在ntdll.dll中Zw和Nt都是导向ntoskrnl.exe的Stub函数</p>
-</li>
-<li><p>在ntoskrnl.exe中，Zw函数也是Stub函数，指向ntoskrnl.exe的相应Nt函数</p>
-</li>
-<li><p>在ntoskrnl.exe中，Nt函数时所有Stub函数的目的地</p>
-<blockquote>
-<p>stub函数：<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1MTQ3ODk3L2FydGljbGUvZGV0YWlscy83ODg1NTg2MA==">[浅谈白盒测试中桩函数的灵活应用_桩函数中if怎么实现-CSDN博客]<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>反调试技巧</p>
-<ul>
-<li>SoftICE内核级调试器：使用<code>CreateFileA()</code>或<code>_lopen()</code>来获得SoftICE驱动程序等的句柄；在winNT中，SoftICE是一个内核设备驱动类型的服务（叫NTICE）</li>
-<li>OD：检测OD的特征码；调试器一般使用微软的DBGHELP库来装载调试符号；查找窗口是否有od相关信息；枚举进程列表ollydbg.exe；</li>
-<li>调试器漏洞：利用调试器漏洞攻击</li>
-<li>防止调试器附加：Ring3调试器附加使用<code>DebugActiveProcess()</code>，在附加相关进程时会先执行ntdll.dll下的<code>ZwContinue()</code>，最后停留在ntdll.dll的DbgBreakPoint处，调试器在这里设置了一个INT 3断点，由调试器自己捕捉</li>
-<li>父进程检测：通过TEB或<code>GetCurrentProcessId()</code>获取当前进程PID——》通过<code>Process32First/Next</code>获取所有进程列表——》判断父进程PID是不是exploer.exe、cmd.exe、Services.exe，不是的话就可能正在被调试</li>
-<li>时间差：当程序运行被打断点的话，会经过CPU捕获异常发给调试器处理等步骤，耗时不合理就是被调试了。<code>RDTSC</code>指令用于获取CPU自开机运行起的时钟周期数（<code>kernel32!GetTickCount()</code>也可）</li>
-<li>通过TrapFlag检测：CPU符号位eflags中，有一位TF&#x3D;1时，CPU执行eip中的指令后会触发一个单步异常</li>
-<li>双进程保护：win下Ring3调试器和被调试程序，一对一关系，可以自己写一个调试器附加上去</li>
-</ul>
-</li>
-</ol>
-<h3 id="外壳编写基础"><a href="#外壳编写基础" class="headerlink" title="外壳编写基础"></a>外壳编写基础</h3><p>加壳工具&#x3D;主体程序（原文件读入内存并加工）+外壳部分（加壳后程序执行时的引导段，用于模拟PE装载器）</p>
-<h4 id="加壳主程序"><a href="#加壳主程序" class="headerlink" title="加壳主程序"></a>加壳主程序</h4><ol>
-<li>判断文件是否是PE格式：检测DOS+PE文件头的魔数——》校验FileHeader结构中的Characteristics字段来判断是exe还是dll</li>
-<li>文件基本数据读入：（也可直接按文件偏移方式读入）仿照装载器载入——》取得PE文件头SizeOfImage字段的值，并申请相应大小内存——》根据区块表中的VA和VirtualSize逐区读入</li>
-<li>附加数据的读取：需要在读取文件时单独读取并保留这些数据——》加密后追加到文件的最后</li>
-<li>输入表处理：加密进行时破坏源程序中的输入表，换一个形式存储——》在外壳对源程序初始化时，不把真正的函数入口写回输入表，而是写入外壳中的一段程序入口，从这些位置转到正确的函数入口</li>
-<li>重定位表处理：对于dll文件，外壳需要模拟PE装载器的重定位功能，将原始的重定位表换一个形式存储。对于exe一般就顶多减小体积而已</li>
-<li>文件的压缩：压缩引擎aPlib、LZMA、JCALG1。有些区块诸如资源块等需要特殊处理</li>
-<li>资源数据处理：找到资源目录和资源数据的分割点——》把不能压缩的资源类型从中提取，转移到一个不会被压缩的空间中——》修改资源目录中相应指针——》压缩资源区块中的资源数据</li>
-<li>区块的融合：各个区块长度必须是FileAlignment的倍数，不足部分00填充，将一些可以压缩的区块合并为一个区块——》根据区块名找到第一个不能被压缩的区块——》合并区块——》合并后的区块的RVA设置为融合的第一个区块的RVA——》VirtualSize设置为和——》没有融合的区块的区块表向前移动</li>
-</ol>
-<h4 id="汇编编写外壳部分"><a href="#汇编编写外壳部分" class="headerlink" title="汇编编写外壳部分"></a>汇编编写外壳部分</h4><ol>
-<li>外壳加载过程：保留程序入口参数——》dll加载时会多次进入DllMain()需要设计标志——》模拟PE装载器恢复输入表</li>
-<li>自建输入表：通过自建输入表和壳程序本身再将原输入表导入</li>
-<li>外壳引导段：通过call指令将下一句地址入栈，之后pop出地址放入edx，通过edx偏移取变量。该部分主要用于将真正的外壳代码在内存中解压，并初始化一些数据</li>
-<li>外壳第二部分：主要是还原和初始化源程序（主要就是解压和初始化输入表）</li>
-<li>外壳添加到源程序：可以给源程序增加一个独立的区块。需要注意区块的读写属性</li>
-</ol>
-<h3 id="虚拟机设计与VMProtect"><a href="#虚拟机设计与VMProtect" class="headerlink" title="虚拟机设计与VMProtect"></a>虚拟机设计与VMProtect</h3><p>虚拟机保护技术就是将基于x86汇编的代码转换为字节码指令系统的代码。当前主流虚拟机基于栈（字节码指令短，用到的指令少），或是基于寄存器。</p>
-<p>虚拟机启动框架和调用约定</p>
-<ul>
-<li>调度器：VStartVM将所有寄存器符号压栈，esi指向字节码起始地址、ebp指向真实栈、edi指向VMContext。之后生成一个VMDispatcher标签，当每个Handler执行完毕就跳回这里，形成循环</li>
-<li>VMContext：虚拟环境结构，一个结构体其中存放了需要使用的值</li>
-<li>Handler：在虚拟机里面指一小段程序或过程，由VM中的调度器来调用。包括辅助Handler和普通Handler，前者执行重要基本指令，后者用于执行普通x86指令</li>
-<li>标志位问题：应在Handler执行前保存标志位，在相关Handler执行完成后恢复标志位</li>
-<li>异常处理：需要对原有的系统异常处理进行劫持</li>
-</ul>
-<p>需要模拟的x86指令分类，按功能分为</p>
-<ul>
-<li>普通指令：算数、传输指令</li>
-<li>栈指令：push、pop</li>
-<li>流指令：jmp、call、retn等改变程序执行流程（修改esi寄存器）</li>
-<li>不可模拟指令：int 3、sysenter等（对于虚拟机一般只能先退出执行，之后再进入）</li>
-</ul>
-<p>VMProtect以基本块为单位，在原始引擎的代码中插入了无条件跳转和条件跳转，用于分割基本块和生成大量虚假副本</p>
-<table>
-<thead>
-<tr>
-<th>基本块名称</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>VStartVM</td>
-<td>真实环境到虚拟环境的转换，开辟新的堆栈空间给虚拟机</td>
-</tr>
-<tr>
-<td>VMDispatcher</td>
-<td>虚拟指令调度分流</td>
-</tr>
-<tr>
-<td>VHandler</td>
-<td>不同功能的虚拟指令</td>
-</tr>
-<tr>
-<td>VCheckESP</td>
-<td>检查堆栈基本块</td>
-</tr>
-<tr>
-<td>VRet</td>
-<td>该指令将堆栈中压入的寄存器还原到物理寄存器中，之后退出虚拟机环境，切换回到真实的CPU环境</td>
-</tr>
-</tbody></table>
-<p>VStartVM执行完毕——》真实寄存器保存到VMP堆栈中——》转到VMDispatcher开始循环执行虚拟指令——》开始的几条虚拟指令将这些值弹出并放到VMContext中。真实CPU寄存器功能</p>
-<table>
-<thead>
-<tr>
-<th>寄存器</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ESI</td>
-<td>当前要执行的字节码位置，相当于VM.eip</td>
-</tr>
-<tr>
-<td>EDI</td>
-<td>指向VMContext结构</td>
-</tr>
-<tr>
-<td>EBX</td>
-<td>解码虚拟指令时，将执行虚拟基本块的第1条指令赋值给ebx</td>
-</tr>
-<tr>
-<td>EBP</td>
-<td>指向真实的esp</td>
-</tr>
-<tr>
-<td>ESP</td>
-<td>虚拟机使用的堆栈</td>
-</tr>
-</tbody></table>
-<p>VMP中指令五大类：元指令（与堆栈相关的指令）、算术运算指令、内存操作指令、系统指令、逻辑运算指令。vJmp—唯一的无条件跳转指令</p>
-<p>对于虚拟机无法处理的指令，VMP会生成推出虚拟机的指令并切换到真实的CPU环境中执行 or 拆分指令联合不同功能的基础指令进行</p>
-<p>虚拟机执行的死规矩</p>
-<ul>
-<li>只能从VMEntry开始执行</li>
-<li>特权指令被虚拟环境接管，模拟执行</li>
-<li>接管内存访问和写入，执行到与内存相关的指令时跳出模拟环境，判断空间是否允许访问</li>
-<li>堆栈操作指令和只能依赖通用寄存器的普通指令可以直接交给系统执行</li>
-</ul>
-<blockquote>
-<p>这里太难了（ToT），下面是VMP还原大致过程（就是目录）</p>
-<p>生成完整的字节码流程图——》给Handler命名并添加语义动作——》将字节码的低级描述转换为中级描述——》清楚无用的字节码——》用真值表花间逻辑指令——》从特征中建立部分寄存器映射信息——》其他无法确定的寄存器的图着色算法——》使用DAG匹配生成指令</p>
-</blockquote>
-<h2 id="软件重构篇"><a href="#软件重构篇" class="headerlink" title="软件重构篇"></a>软件重构篇</h2><h3 id="补丁技术"><a href="#补丁技术" class="headerlink" title="补丁技术"></a>补丁技术</h3><p>补丁分文件补丁和内存补丁两种，前者是修改文件本身的某个数据，后者则是在对正在运行的程序的数据进行修改</p>
-<p>文件补丁较为简单：<code>CreateProcess()</code>打开目标程序——》检查打开的文件是不是目标文件，并检查文件大小——》使用<code>SetFilePointer()</code>将文件指针移动到指定位置——》使用<code>WriteFile()</code>将数据写入到磁盘文件</p>
-<blockquote>
-<p>补丁文件如果有壳、压缩、完整性校验，则文件补丁没办法使用</p>
-</blockquote>
-<p><strong>内存补丁</strong></p>
-<ul>
-<li>跨进程内存存取机制：Loader载入待打补的程序，等待程序运行到需要打补丁的位置，通过<code>WriteProcessMemory()</code>将补丁代码写道目标进程的适当位置</li>
-<li>DebugAPI机制：进程A内部产生异常——》系统监控到异常，将异常信息包装到EXCEPTION_RECORD结构——》查找正在对A调试的进程，并将上一步包装的结构通过EXCEPTION_DEBUG_EVENT发送给找到的进程——》陷入循环的调试进程A收到调试信息，调试进程解析调试信号的信息并进行相应操作。下面是目标进程向调试进程发送调试信息的方法：<ul>
-<li>CreateProcess后目标进程设置为Single Step运行方式，使得每一条指令都要和调试程序通信一次。Intel-CPU中有一个Single Step标志位设置为1即可</li>
-<li>修改目标进程代码，将需要发送调试信息处的指令改为int 3指令</li>
-</ul>
-</li>
-<li>调试寄存器机制：DR0-DR7共8个调试寄存器，在0-3中的一个设置为目标补丁位置，在7中设定相应的控制位。当程序运行到相应位置后CPU就会向调试器发送异常信息，调试器捕获并处理</li>
-<li>dll注入+hook：替换系统dll后劫持输出函数，在自己的函数中进行打补丁操作。</li>
-</ul>
-<p><strong>SMC补丁</strong></p>
-<ul>
-<li><p>SMC即自修改代码，可以对加壳程序直接打补丁，相当于内存补丁</p>
-</li>
-<li><p>单层SMC补丁：当外壳代码完成解压后，让其先跳转到补丁代码处，之后再回到原指令处继续</p>
-<blockquote>
-<p>多层SMC补丁：用于多层嵌套的加密压缩中</p>
-</blockquote>
-</li>
-</ul>
-<p>补丁工具：CodeFusion、dUP等</p>
-<h3 id="代码二次开发"><a href="#代码二次开发" class="headerlink" title="代码二次开发"></a>代码二次开发</h3><p>二次开发就是在已有exe和dll基础上修改扩充PE结构，也叫PEDIY技术</p>
-<ul>
-<li>数据对齐</li>
-<li>增加空间：找空间存放代码<ul>
-<li>区块间隙</li>
-<li>手动构造区块（修正区块表、增加数据段、修正映像文件大小）</li>
-<li>工具辅助构造</li>
-</ul>
-</li>
-<li>获取函数调用信息<ul>
-<li>修改输入表结构增加相应的API函数</li>
-<li>显式链接调用dll相关函数</li>
-</ul>
-</li>
-<li>代码重定位<ul>
-<li>修改重定位表</li>
-<li>代码自定位：利用call指令将返回地址压栈，之后pop将该返回地址取出，实现自定位</li>
-</ul>
-</li>
-<li>增加输出函数：输出表中各输出函数名必须按照字母升序排列</li>
-<li>寻找消息循环<ul>
-<li>程序窗口创建之前必须用<code>RegisterClassA()</code>或<code>RegisterClassExA()</code>来注册窗口（WndProc）类</li>
-<li>用户单击菜单按钮时，系统调用<code>SendMessageA()</code>给应用程序发送WM_COMMAND消息</li>
-<li>用户点击菜单按钮时，会弹出对话框<code>MessageBox()</code>等，可以设置断点拦截</li>
-<li><code>GetWindowLongA()</code>可以获取本进程内窗口的过程</li>
-</ul>
-</li>
-<li>菜单扩展：需要在前面找到的消息循环WndProc中增加消息判断和事件代码，增加的菜单ID不得重复。工具：eXeScope、资源黑客</li>
-<li>DLL扩展：<ul>
-<li>扩展接口：自己写一个dll，在目标程序中输入表添加自己要加的函数，并在消息循环中添加相应的汇编调用代码</li>
-<li>扩展消息循环：在调用原WndProc前，先转到dll处理相关的事件，处理完之后再回去</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>.NET篇与取证篇略过</p>
-</blockquote>
-<h2 id="恶意代码篇？"><a href="#恶意代码篇？" class="headerlink" title="恶意代码篇？"></a>恶意代码篇？</h2><h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
-<ul>
-<li><p>分类</p>
-<ul>
-<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
-</li>
-<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
-</li>
-<li><p>木马：不能传播复制的计算机病毒</p>
-</li>
-<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
-</li>
-<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
-</li>
-<li><p>流氓软件：</p>
-<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
-</li>
-<li><p>僵尸：实现恶意控制的代码</p>
-<p>基于IRC协议、HTTP、P2P</p>
-</li>
-<li><p>Exploit：漏洞利用程序</p>
-<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
-</li>
-<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
-</li>
-</ul>
-</li>
-<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
-</li>
-<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
-</li>
-<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
-</li>
-</ul>
-<p><strong>计算机病毒</strong>：</p>
-<ul>
-<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
-</li>
-<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
-</li>
-<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
-</li>
-<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
-<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
-</li>
-<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号&#x2F;主板号；</p>
-</li>
-<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
-</li>
-</ul>
-<p><strong>网络蠕虫-Worm</strong>：</p>
-<ul>
-<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
-</li>
-<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
-</li>
-<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
-</li>
-<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
-</li>
-<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
-<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
-</li>
-</ul>
-<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
-<ul>
-<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
-</li>
-<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
-</li>
-<li><p><strong>检测与防治</strong>：</p>
-<ol>
-<li><p>主机角度：及时修补补丁、防火墙、安软</p>
-</li>
-<li><p>网络角度：</p>
-<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
-<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
-</li>
-</ol>
-</li>
-</ul>
-<p><strong>木马-Trojan</strong>：</p>
-<ul>
-<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
-</li>
-<li><p>按功能分：</p>
-<p>远程控制木马：上兴、灰鸽子</p>
-<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
-<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
-</li>
-<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
-</li>
-<li><p>客户端与受害者<strong>连接方式</strong>：</p>
-<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
-</li>
-<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
-</li>
-<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
-<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
-</li>
-</ul>
-<p><strong>Rootkit</strong>：</p>
-<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
-<ul>
-<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
-<ol>
-<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
-<li>内联钩子inlineHoooook</li>
-</ol>
-</li>
-<li><p>内核态HOOK</p>
-<ol>
-<li><p>IDT（中断描述符表）钩子</p>
-</li>
-<li><p>SSDT（系统服务调度表）钩子</p>
-<blockquote>
-<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
-</blockquote>
-</li>
-<li><p>过滤驱动程序</p>
-</li>
-<li><p>驱动程序钩子</p>
-</li>
-</ol>
-</li>
-<li><p>直接内核对象操作（DKOM）</p>
-</li>
-<li><p>检测工具：IceSword、XueTr</p>
-</li>
-</ul>
-<p><strong>手机恶意软件</strong>：</p>
-<ul>
-<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C&#x2F;C++开发</p>
-</li>
-<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
-</li>
-<li><p>隐私窃取：</p>
-<ol>
-<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
-<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
-<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
-<li><strong>病毒特征值检测技术</strong>：</li>
-</ul>
-<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
-<p>关键组件：病毒检测引擎、病毒特征库</p>
-<p>实现步骤：</p>
-<ol>
-<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
-<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
-<li>将特征值纳入特征数据库</li>
-</ol>
-<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
-<ul>
-<li><strong>校验和检测技术</strong>：</li>
-</ul>
-<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
-<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
-<p>常校验对象：</p>
-<ol>
-<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
-<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
-<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
-<li>文件校验和：文件内容的全部字节</li>
-</ol>
-<ul>
-<li><strong>虚拟机检测技术</strong>：</li>
-</ul>
-<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
-<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
-<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
-<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
-<p>虚拟机设计方案：</p>
-<ol>
-<li>自含代码虚拟机SCCE：like a full CPU</li>
-<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
-<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
-</ol>
-<ul>
-<li><strong>启发式扫描技术</strong>：</li>
-</ul>
-<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
-<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
-<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
-<p>注意需要进行加权，以降低误报</p>
-<ul>
-<li><strong>主动防御技术</strong>：</li>
-</ul>
-<p>又叫做行为实时监控技术</p>
-<p>常见病毒行为（不排除安全软件）：</p>
-<ol>
-<li>对可执行文件进行写操作</li>
-<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
-<li>加载驱动：Rootkit</li>
-<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
-</ol>
-<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
-<hr>
-<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
-<li><p>特征值检测对抗：</p>
-<ol>
-<li>代码加密混淆：加密，增加花指令等</li>
-<li>加壳：压缩壳、保护壳</li>
-<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
-</ol>
-</li>
-<li><p>虚拟机检测对抗：</p>
-<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
-<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
-</li>
-<li><p>启发式扫描对抗：</p>
-<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
-</li>
-<li><p>主动防御对抗：</p>
-<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
-</li>
-<li><p>对抗云查杀：</p>
-<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
-</li>
-<li><p>恶意程序的主动保护机制：</p>
-<ol>
-<li>消灭反病毒程序、防火墙等</li>
-<li>阻断并独占文件来防止检查</li>
-<li>修改hosts文件防止杀软升级</li>
-<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
-</ol>
-</li>
-<li><p>人工分析对抗：</p>
-<ol>
-<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
-<blockquote>
-<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
-</blockquote>
-</li>
-<li><p>动态分析对抗—检测是否处于调试状态</p>
-<ul>
-<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
-<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
-<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
-<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
-<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
-</ul>
-</li>
-<li><p>动态对抗—检测调试器软件是否存在</p>
-<ul>
-<li>查找进程或文件特征码、特定服务</li>
-<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
-<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
-</ul>
-</li>
-<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
-</li>
-</ol>
-</li>
-</ul>
-<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
-<ol>
-<li>保存入口参数</li>
-<li>获取壳自己需要的API地址</li>
-<li>解密原程序的各个区块</li>
-<li>重定位</li>
-<li>修复引入函数地址表</li>
-<li>跳转到程序入口点OEP</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>壳</th>
-<th>介绍</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Upx、Neolite</td>
-<td>高效压缩，内置压缩和解压缩</td>
-</tr>
-<tr>
-<td>ASpack、Petite、PECompact、Shrinker</td>
-<td>有保护性的压缩，不内置解压缩</td>
-</tr>
-<tr>
-<td>幻影、PC_Guard、Krypton、Armadillo</td>
-<td>有保护性的加密壳</td>
-</tr>
-<tr>
-<td>ASProtect、tElock</td>
-<td>有高效保护性的加密压缩壳</td>
-</tr>
-</tbody></table>
-<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
-<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
-<hr>
-<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
-<p>分析过程：</p>
-<ol>
-<li><p>虚拟机环境准备</p>
-</li>
-<li><p>系统监控：</p>
-<ul>
-<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
-<p>工具-Process Explorer、PrcView等</p>
-</li>
-<li><p>文件监控：读写行为；工具FileMon</p>
-</li>
-<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
-</li>
-<li><p>网络连接分析：工具FPort、TcpView</p>
-</li>
-<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
-</li>
-<li><p>内核监控：工具PC_Hunter、IceSword</p>
-</li>
-<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
-</li>
-</ul>
-</li>
-<li><p>文件类型侦测：工具PEiD、FileInfo</p>
-</li>
-<li><p>PE文件格式分析：工具PEView、Study_PE</p>
-</li>
-<li><p>静态反汇编：工具IDA、Hoppe、C32ASM</p>
-</li>
-<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg（可内核调试）</p>
-</li>
-<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>系统安全</category>
@@ -7311,9 +7225,707 @@ d15=100011110101100
       </tags>
   </entry>
   <entry>
+    <title>密码学及相关应用</title>
+    <url>/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对密码学及其应用的一些概念做阐释，不会涉及具体算法，就是单纯的概念；</p>
+<span id="more"></span>
+
+<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
+<li><p>密码学&#x3D;密码编制学（设计密码）+密码分析学（破译密码）</p>
+</li>
+<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
+</li>
+<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S&#x3D;{P,C,K,E,D}</p>
+</li>
+<li><p><strong>密码分析攻击方式</strong>：</p>
+<ul>
+<li><p>穷举攻击：暴力破解，所有可能尝试</p>
+</li>
+<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
+<blockquote>
+<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
+</blockquote>
+</li>
+<li><p>物理攻击：从设备下手</p>
+<blockquote>
+<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
+</blockquote>
+</li>
+</ul>
+<p>依据可利用资源来进行分类：</p>
+<ul>
+<li>仅知密文攻击：顾名思义，香菇无需多言</li>
+<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
+<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
+<li>选择密文攻击：能够直接获取密文对应的明文</li>
+</ul>
+</li>
+<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
+</li>
+<li><p><strong>密码学分类</strong>：</p>
+<p>按照发展时间：</p>
+<ul>
+<li>古典密码：以字符为基本加密单元</li>
+<li>现代密码：多以信息块为基本加密单元</li>
+</ul>
+<p>依据密码体制分类：</p>
+<ul>
+<li>对称密码体制：加密解密密钥相同</li>
+<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
+</ul>
+<p>明文处理方式分类：</p>
+<ul>
+<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
+<li>序列密码&#x2F;流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><p>具体算法有了之后，在实际中还要考虑每一个处理单元之间的关联，这就叫做工作模式。</p>
+<h4 id="电码本模式ECB"><a href="#电码本模式ECB" class="headerlink" title="电码本模式ECB"></a>电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}&#x3D;E(M_{i},K);i&#x3D;1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
+<blockquote>
+<p>E()为加密函数，C为密文，K为明文</p>
+</blockquote>
+<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
+<ol>
+<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
+<li>序列密码加密法：对短块用序列密码加密$C_{n}&#x3D;M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
+<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
+</ol>
+<h4 id="密文链接模式CBC"><a href="#密文链接模式CBC" class="headerlink" title="密文链接模式CBC"></a>密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>Z为初始化向量，对应解密：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K),i&#x3D;2…n<br>\end{cases}$</p>
+<p>解密如下，但是错误传播无界：</p>
+<p>$M_{i}&#x3D;\begin{cases}<br>D(C_{i},K),i&#x3D;1   \<br>D(C_{i},K)\oplus C_{i-1},i&#x3D;2…n<br>\end{cases}$</p>
+<h4 id="X-CBC模式"><a href="#X-CBC模式" class="headerlink" title="X CBC模式"></a>X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
+<p>$C_{i}&#x3D;\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i&#x3D;1   \<br>E(M_{i}\oplus C_{i-1},K_{1}),i&#x3D;2…n-1 \<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
+<p>Pad（）为填充函数，如下：</p>
+<p>$Pad(X)&#x3D;\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
+<h4 id="输出反馈模式OFB"><a href="#输出反馈模式OFB" class="headerlink" title="输出反馈模式OFB"></a>输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
+<ol>
+<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
+<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
+<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
+<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
+</ol>
+<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
+<h4 id="密文反馈模式CFB"><a href="#密文反馈模式CFB" class="headerlink" title="密文反馈模式CFB"></a>密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
+<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
+<h4 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>C_{i}&#x3D;M_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>C_{n}&#x3D;M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>解密过程如下：</p>
+<p>$\begin{cases}<br>O_{i}&#x3D;E(T_{i},K),i&#x3D;1,2…n   \<br>M_{i}&#x3D;C_{i}\oplus O_{i},i&#x3D;1,2…n-1 \<br>M_{n}&#x3D;C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
+<hr>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
+<ul>
+<li>签名者事后不能抵赖自己的签名</li>
+<li>任何其他人并不能伪造签名</li>
+<li>签名能够被验证真伪</li>
+</ul>
+<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
+<p>函数必须满足的条件：</p>
+<ul>
+<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
+<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
+<li>收信者可以验证真伪</li>
+<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
+</ul>
+<p>可选成立：</p>
+<ul>
+<li>$VER(S,K_{e})&#x3D;VER(SIG(M,K_{d}),K_{e})&#x3D;M$</li>
+<li>$VER(SIG(M,K_{d}),K_{e})&#x3D;SIG(VER(M,K_{e}),K_{d})&#x3D;M$</li>
+</ul>
+<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
+<hr>
+<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
+<ul>
+<li>密钥建立协议：用于确定会话密钥</li>
+<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
+<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
+<li>电子商务协议：还注重公平性</li>
+</ul>
+<p>设计原则：</p>
+<ul>
+<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
+<li>消息前提准确原则：消息相关的先决条件需要确立</li>
+<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
+<li>加密目的原则：明确加密的目的，减少冗余</li>
+<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
+<li>随机数使用原则：随机性应符合要求</li>
+<li>时间戳的使用原则：不同系统的时钟同步</li>
+<li>编码原则：需要明确协议中消息的具体数据格式</li>
+<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
+</ul>
+<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
+<hr>
+<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证&#x2F;鉴别"></a>认证&#x2F;鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
+<ul>
+<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
+<li>认证仅允许双方验证，数字签名还可以有第三方</li>
+<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
+</ul>
+<p><strong>身份认证</strong>：</p>
+<ul>
+<li><p>口令：传统的用户输入密码，系统查表对照</p>
+<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
+<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
+<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
+</li>
+<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
+<blockquote>
+<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
+</blockquote>
+</li>
+<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
+</li>
+<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
+<blockquote>
+<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>站点认证</strong>：</p>
+<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
+<ol>
+<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
+<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
+<li>A对$f(R_{A})$进行验证</li>
+</ol>
+<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}&amp; K_{eB}K_{dB}$</p>
+<ol>
+<li>A产生随机数$R_{A}$发给B</li>
+<li>B用私钥签名发给A，A再拿B的公钥验证</li>
+</ol>
+<p>双向认证：符号如上不再多说，下面是传统密码</p>
+<ol>
+<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
+<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
+<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
+</ol>
+<p>公钥密码体制：</p>
+<ol>
+<li>A产生随机数$R_{A}$直接给B</li>
+<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
+<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
+<li>B用A的公钥$K_{eA}$进行验证</li>
+</ol>
+<p><strong>报文认证</strong>：</p>
+<ul>
+<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
+<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
+</li>
+<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
+<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
+</li>
+<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC&#x3D;C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
+<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
+</li>
+<li><p>报文时间性认证：序列号、时间戳、随机数</p>
+</li>
+</ul>
+<hr>
+<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
+<li>管理策略着重指导，机制侧重具体实现</li>
+<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
+<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
+<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
+<li>密钥分级原则：分为高低级密钥进行管理</li>
+<li>密钥更换原则：必须满足满足安全性指标</li>
+</ul>
+<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
+<p><strong>密钥的组织</strong>：</p>
+<ul>
+<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
+<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
+<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
+</ul>
+<p><strong>密钥产生</strong>：</p>
+<ul>
+<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
+<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
+<li>低级：高级密钥或中级密钥加密过的数</li>
+</ul>
+<blockquote>
+<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
+</blockquote>
+<p>存储形态：明文、密文、分量</p>
+<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
+<hr>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h4 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h4><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
+<ul>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥&#x3D;私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
+</li>
+<li><p><strong>去中心化&#x2F;账本管理协会&#x2F;分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+</li>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容&#x2F;更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;&#x3D;，那么Nonce++，直到算出合适的Nonce（即计算次数&#x2F;挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+<blockquote>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—哈希率）相比于GPU低</p>
+</blockquote>
+</li>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥&#x3D;地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥&#x3D;助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
+</li>
+</ul>
+<h4 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h4><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<ul>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+</ul>
+<h3 id="可信计算"><a href="#可信计算" class="headerlink" title="可信计算"></a>可信计算</h3><p>重要概念理解</p>
+<ul>
+<li>可信：一个实体的行为总是以预期的方式，朝着预期的目标，那么认为他是可信的</li>
+<li>可信计算：计算运算的同时进行安全防护，计算全程可测可控，不被干扰，只有这样方能使计算结果总是与预期一样</li>
+</ul>
+<p>基本思想：在计算机中，首先创建一个安全信任根，再建立从硬件平台、OS到应用系统的信任链，在这条信任链上从根开始一级测量&#x2F;信任一级，依次扩展。</p>
+<blockquote>
+<p>信任链：A-&gt;B-&gt;C-&gt;D；直接信任：A-&gt;B；间接信任：A-&gt;C&amp;C-&gt;B&#x3D;A-&gt;B</p>
+</blockquote>
+<ul>
+<li>1.0时代：通过纯软件实现的容错、故障诊断等机制</li>
+<li>2.0时代：增加硬件实现的信任根TPM，构建信任链</li>
+<li>3.0时代：“宿主+可信”双节点主动免疫可信计算架构</li>
+</ul>
+<p>重要内容：</p>
+<ul>
+<li><p>信任链：RTM将完整性度量形成的信息传递给RTS，之后由RTS使用TPM平台的寄存器PCR存放度量扩展值，并使用TPM的密码学服务保护度量日志。</p>
+<p>RTR主要用于远程证明，向实体提供平台可信状态信息，主要包括平台配置信息、审计日志、身份密钥等。</p>
+<ol>
+<li>可信度量根RTM：即信任根，一般定义在扩展BIOS上，负责完整性度量，对外不暴露任何接口，理论上不可被篡改，因此可以无条件可信</li>
+<li>可信报告根RTR：负责报告信任根。由TPM平台的配置寄存器PCR和背书密钥EK组成</li>
+<li>可信存储根RTS：负责存储信任根。由TPM的PCR和存储根密钥SRK组成</li>
+</ol>
+</li>
+<li><p>可信平台模块TPM：可信计算平台依赖的核心，负责可信计算平台的安全控制和运算功能，以及存储基线和可信报告。（国产类似的有TCM和TPCM）。</p>
+<p>其中的支撑软件(栈)叫做TSS，主要用于为OS和应用提供使用TPM的接口。</p>
+<blockquote>
+<p>基线：指判断依据，静态度量下可以是操作系统、配置文件、代码、数据；动态度量下可以是流量、进程、行为等。通过监控上述行为来产生可信报告最后判定是否可信</p>
+</blockquote>
+</li>
+<li><p>度量：一个实体对另一个实体的可信评估；完整性度量即计算Hash值，之后与RTS中的校验值基准对比</p>
+</li>
+<li><p>静态信任链：系统启动时建立，信任链从RTM-&gt;BIOS-&gt;Bootloader-&gt;OS-&gt;应用</p>
+</li>
+<li><p>TNC可信网络连接：依据上面的RTR实现网络中的一级级验证，确保接入可信</p>
+</li>
+</ul>
+<p>在可信计算3.0中将RTM也置于了TPCM中，并先于CPU启动。</p>
+<ul>
+<li>可信软件基TSB：植入到操作系统内核，在TPCM支撑下实现对宿主系统中软件资源的度量和控制。先启动操作系统最小核之后TSB</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>密码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库与云</title>
+    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
+<span id="more"></span>
+
+<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
+<ul>
+<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
+</li>
+<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
+</li>
+<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
+</li>
+<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
+</li>
+<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
+</li>
+<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
+</li>
+<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
+</li>
+<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
+</li>
+</ul>
+<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
+<table>
+<thead>
+<tr>
+<th>体系结构分类</th>
+<th>规模&#x2F;应用层次分类</th>
+<th>结构分类</th>
+<th>用途分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86服务器(RISC)</td>
+<td>入门级</td>
+<td>塔式服务器</td>
+<td>通用型</td>
+</tr>
+<tr>
+<td>非x86服务器(CISC)</td>
+<td>工作组级</td>
+<td>机架式服务器</td>
+<td>专用型</td>
+</tr>
+<tr>
+<td></td>
+<td>部门级</td>
+<td>刀片式服务器</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>企业级</td>
+<td>机柜式服务器</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Web服务器</strong>：</p>
+<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
+<p><strong>DB服务器</strong>：</p>
+<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
+<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>SQL server</th>
+<th>Oracle</th>
+<th>PostgreSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源、简单、小；字符客户端mysql</td>
+<td>微软、可免费；图形化客户端ADS</td>
+<td>顶级；字符客户端sqlplus</td>
+<td>开源；字符客户端pesql</td>
+</tr>
+<tr>
+<td>数据量大时不太行</td>
+<td>windows专属</td>
+<td>收费</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>非关系型数据库：</p>
+<ul>
+<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
+<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
+<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
+<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
+<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
+</ul>
+<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
+<p>发展阶段：人工管理—文件系统—数据库系统。</p>
+<blockquote>
+<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>人工管理</th>
+<th>文件系统</th>
+<th>数据库系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不保存数据</td>
+<td>可以长期保存</td>
+<td>结构化</td>
+</tr>
+<tr>
+<td>没有相应软件</td>
+<td>有专门软件</td>
+<td>数据由DBMS统一管理</td>
+</tr>
+<tr>
+<td>不共享</td>
+<td>共享性差</td>
+<td>共享性好，冗余度低</td>
+</tr>
+<tr>
+<td>数据之间不独立</td>
+<td>独立性差</td>
+<td>高度物理独立性，一定逻辑独立性</td>
+</tr>
+</tbody></table>
+<h4 id="DataBase"><a href="#DataBase" class="headerlink" title="DataBase"></a>DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
+<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>数据结构</th>
+<th>查询效率</th>
+<th>数据独立性</th>
+<th>DML操作方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>层次、网状</td>
+<td>链表</td>
+<td>低</td>
+<td>差</td>
+<td>过程性</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>二维表</td>
+<td>高</td>
+<td>高</td>
+<td>非过程性</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
+</li>
+<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
+</li>
+<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
+</li>
+</ul>
+<h4 id="数据库系统结构"><a href="#数据库系统结构" class="headerlink" title="数据库系统结构"></a>数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
+<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
+<h4 id="DBMS"><a href="#DBMS" class="headerlink" title="DBMS"></a>DBMS</h4><ul>
+<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
+<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
+<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
+</ul>
+<h4 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
+<ol>
+<li><p><strong>关系数据结构</strong></p>
+<ul>
+<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
+<p>关系的6条性质：</p>
+<ul>
+<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
+</li>
+<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
+</li>
+<li><p>每个分量都是原子值，不能进一步拆分；</p>
+</li>
+</ul>
+</li>
+<li><p>关系模式:表的名字；</p>
+<ul>
+<li>形式化:R(U，D，DOM，F)</li>
+<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
+</ul>
+</li>
+<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
+</li>
+<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
+</li>
+<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
+</li>
+<li><p>分量:交叉点；</p>
+</li>
+</ul>
+</li>
+<li><p><strong>关系的完整性</strong></p>
+<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
+<ul>
+<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
+</li>
+<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
+<blockquote>
+<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>关系操作</strong></p>
+<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
+<ul>
+<li><p>并union：A+B（可用差表示）</p>
+<blockquote>
+<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
+</blockquote>
+</li>
+<li><p>差difference：A-B</p>
+</li>
+<li><p>交intersection：A·B</p>
+</li>
+<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
+</li>
+<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
+</li>
+<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
+</li>
+<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
+<blockquote>
+<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
+</blockquote>
+</li>
+<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
+<blockquote>
+<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
+</blockquote>
+</li>
+<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
+<blockquote>
+<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="0x03-Redis"><a href="#0x03-Redis" class="headerlink" title="0x03.Redis"></a>0x03.Redis</h3><ul>
+<li>字符串</li>
+</ul>
+<pre><code>SET 键 值	//键需要区分大小写
+GET 键	//返回值
+DEL 键	//成功则返回1
+EXISTS 键	//有则返回1否则0
+KEYS 匹配模式	//查找所有匹配的键
+FLUSHALL	//清除所有键值
+当存入中文时，要想显现redis-cli --raw
+TTL 键	//返回-1则是无过期时间（秒）-2表示过期
+EXPIRE 键	//设置生存时间
+SETEX 键 时 值	//设置带时间的键值对
+SETNX 键 值	//键不存在时更新值否则不动
+</code></pre>
+<ul>
+<li>列表</li>
+</ul>
+<pre><code>LPUSH 键 值	//给列表左侧添加值
+LRANGE 键 开始 终止	//栈，左闭右闭
+RPUSH 键 开始 终止	//队列
+L/RPOP 键 [数]	//从列表左/右开始数删除第n个
+LLEN 键	//列表的长度
+LTRIM 键 开始 结束	//只保留开始-结束之间的东西
+</code></pre>
+<ul>
+<li>集合</li>
+</ul>
+<pre><code>SADD 键 值[值]	//向集合中添加一个或多个值，返回1成功，0失败
+SMEMBERS 键	//列出集合中所有的值
+SISMEMBER 键 值	//判断集合中是否有该值，有1无0
+SREM 键 值[值]	//删除集合中的元素
+SINTER/SUNION/SDIFF	键[键]	//交集/并集/差
+SCARD 键	//集合的成员数
+</code></pre>
+<ul>
+<li>有序集合</li>
+</ul>
+<pre><code>ZADD 名 键 值[键 值]	//默认递增
+ZRABNGE 集合 开始 结束[WITHSCORES]	//显示键
+ZSCORE 集合 键	//返回对应值
+ZRANK 集合 键	//返回该键的排名
+</code></pre>
+<ul>
+<li>哈希</li>
+</ul>
+<pre><code class="sql">HSET 名 键 值[键 值]	//一个名下可以有多个键值对
+HGET 名 键	//返回对应值
+HGETALL 名	//返回名下所有键值对
+HDEL 名 键	//删除
+HEXISTS 名 键	//是否存在该键
+HKEYS 名	//返回所有的键
+HLEN 名	//返回键数
+</code></pre>
+<ul>
+<li>订阅模式</li>
+</ul>
+<pre><code>subscribe 频道名 [名]	//订阅该频道
+publish 名 消息	//向该消息频道发送消息
+</code></pre>
+<ul>
+<li>消息队列</li>
+</ul>
+<pre><code class="redis">XADD 消息名 * 键 值
+XLEN 名	//返回后面的键值对数
+XRANGE 名 - +	//列出所有ID对应的消息
+XDEL 名 ID	//删除ID对应的消息
+XTRIM 名 MAXLEN 数
+XREAD count e（一次读取个数） block e（没有则阻塞多少毫秒） streams 名 $（从最新的开始读取）
+XGROUP CREATE 消息名 组名 ID
+XINFO GROUPS 消息名	//返回消费者组的信息
+XGROUP CREATECONSUMER 消息名 组名 消费者名	//向该组中添加消费者
+</code></pre>
+<ul>
+<li>事务</li>
+</ul>
+<pre><code>MULTI 开启事务
+EXEC/DISCARD 执行事务（某一事务失败后不影响后续，与mysql不一样）
+</code></pre>
+<ul>
+<li>持久化：基于内存speed &gt; mysql</li>
+</ul>
+<p>RDB：规定时间内有多少修改才保存</p>
+<p>ADF：将命令以日志形式存到ADF文件中</p>
+<ul>
+<li>主从复制：主节点为master。从节点slave，只读</li>
+</ul>
+<h3 id="0x04-云计算"><a href="#0x04-云计算" class="headerlink" title="0x04.云计算"></a>0x04.云计算</h3><p>简单来说就是通过网络按需提供可动态伸缩的廉价计算服务。类似于网盘网页的资源存储，提供远程的计算&#x2F;存储功能。</p>
+<h4 id="云基本知识"><a href="#云基本知识" class="headerlink" title="云基本知识"></a>云基本知识</h4><p><strong>云计算部署模式</strong></p>
+<ul>
+<li>公有云：放在公共地方，即付即用，由厂商负责管理。</li>
+<li>私有云：内部部署于DMZ区，或者外部托管给其他厂商，仅自己使用。</li>
+<li>社区云：面向一个社区或者服务专用的云，音乐网盘、存储网盘等</li>
+<li>混合云：融合公有和私有云的优点，目前各大云服务商就是此类模式</li>
+</ul>
+<p><strong>云计算服务类型</strong></p>
+<p>传统来说，由用户管理【网络、存储、服务器、虚拟化、OS、中间件、运行环境、数据、应用程序】</p>
+<ul>
+<li>IaaS&#x2F;基础设施即服务：自虚拟化及以下由厂商管理，即提供基础设施；用户申请后能够部署运行任意软件；例如AWS、Google Engine</li>
+<li>PaaS&#x2F;平台即服务：将软件研发的平台作为服务，运行环境及以下都由厂商管理；说白了就拿最经典的微软的Azure做栗子，其服务中通常都是用的自家的windows与.NET</li>
+<li>SaaS&#x2F;软件即服务：厂商为用户已经提供了完整的软件功能，不需要自己再额外安装东西，即买即用；例如Office365</li>
+</ul>
+<p><strong>云计算特点</strong></p>
+<ul>
+<li>超大规模：集群更大（服务器更多）</li>
+<li>虚拟化：用户无需关注硬件实体，除非买的裸金属服务器</li>
+<li>按需分配服务：云计算&#x3D;资源池，用户按照自己需要购买相应服务</li>
+<li>广泛网络访问：API、VPN、浏览器、SSH等访问资源，无关地理，有简单的连接设备即可</li>
+<li>高可靠：厂商做的都有备份、容错、镜像恢复、受灾方案等</li>
+<li>服务可度量：为服务商和消费者提供透明的使用情况统计和实时结算等服务</li>
+<li>可动态伸缩：通过虚拟化技术将一台服务器虚拟成多台服务器，对计算资源进行虚拟化和管理，可以实现服务器虚拟化、存储虚拟化、网络虚拟化和桌面虚拟化。</li>
+</ul>
+<p>其核心技术有：分布式存储、虚拟化技术、分布式资源管理、智能管理平台和编程模型。</p>
+<h4 id="虚拟化技术"><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h4><p>在计算机上创建一个抽象层即VMM，将单台计算机硬件元素虚拟地分成多个，每个虚拟机VM都有自己的OS。</p>
+<p>根据VMM在虚拟化平台的位置，分为三类：</p>
+<ul>
+<li>裸机虚拟化模型：虚拟机监控器直接运行在没有操作系统的裸机上，具有最高特权级，管理底层所有的硬件资源。【VMwareESXi、Xen】</li>
+<li>宿主机虚拟化模型：虚拟机监控器作为一个应用程序运行在宿主机操作系统（Host OS）上，而Guest OS运行于虚拟机监控器之上。【VMware、VirtualBox】</li>
+<li>混合模型：虚拟机监控器作为OS上的一个特权级运行，在此之上可以建立其他的VM。【WSL、KVM】</li>
+</ul>
+<blockquote>
+<p>虚拟化和容器化是不同的内容，容器侧重于打包，虚拟侧重于分割。此外虚拟机依赖于宿主设备架构，在x86上虚拟出来的仍是x86，而模拟器可以实现其他的硬件级别的模拟【qemu、bochs】</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>后端</tag>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OS</title>
     <url>/2024/02/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：基于《25王道》</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：基于25王道，后续可能会进行补充</p>
 <span id="more"></span>
 
 <h3 id="0x01-计算机系统概述"><a href="#0x01-计算机系统概述" class="headerlink" title="0x01.计算机系统概述"></a>0x01.计算机系统概述</h3><h4 id="1-操作系统基本概念"><a href="#1-操作系统基本概念" class="headerlink" title="1. 操作系统基本概念"></a>1. 操作系统基本概念</h4><p>什么是操作系统：首先操作系统是一种软件（系统软件），OS负责管理各种计算机硬件，是处在用户和硬件之间的中间层，为应用程序提供基础，OS控制并协调应用程序对硬件的使用与分配。</p>
@@ -7882,388 +8494,6 @@ void release()&#123;
       <tags>
         <tag>基础知识</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据库与云</title>
-    <url>/2023/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：对服务器做一个大概了解，同时也会对数据库做一些理论知识说明。</p>
-<span id="more"></span>
-
-<h3 id="0x01-什么是服务器"><a href="#0x01-什么是服务器" class="headerlink" title="0x01.什么是服务器"></a>0x01.什么是服务器</h3><h4 id="服务器介绍"><a href="#服务器介绍" class="headerlink" title="服务器介绍"></a>服务器介绍</h4><p>与平时的计算机类似，但是相对比较专业化，具有更强大的计算处理能力，其硬件也相对更好；目前市面术语介绍：</p>
-<ul>
-<li><p>服务器：24小时全端口开放的电脑，有公网IP，一般不要GUI，通过ssh发送命令。操作系统相较于普通桌面较为不同，常用滴有Unix、Linux、Windows server、Netware</p>
-</li>
-<li><p>物理服务器-独立服务器：存在于身边摸得着的，与之对应的是云服务器。</p>
-</li>
-<li><p>裸金属：完全属于自己的服务器，但是在云上</p>
-</li>
-<li><p>VDS：虚拟专用服务器，全虚拟化，比VPS更加接近独服，虚拟硬件</p>
-</li>
-<li><p>VPS&#x2F;小鸡：虚拟私人服务器，使用虚拟化技术或容器技术，仅虚拟软件，相当于租一个没装修的房子，宿主叫母鸡；可装OS（阿里ECS、腾讯CVM、百度BCC同理）</p>
-</li>
-<li><p>NAT VPS&#x2F;NAT鸡：介于虚拟主机和VPS之间，能使用端口有范围，共享IP；</p>
-</li>
-<li><p>虚拟主机：共享主机，虚拟主机就是合租，但已经配置好了；性能不好</p>
-</li>
-<li><p>存储型服务器：专用于备份，类似于NAS，相当于在虚拟主机的基础上将功能进行阉割，与轻量应用服务器类似</p>
-</li>
-</ul>
-<h4 id="服务器分类"><a href="#服务器分类" class="headerlink" title="服务器分类"></a>服务器分类</h4><p>根据在服务器上的软件，我们可以分为应用服务器、数据库（DB）服务器、web&#x2F;网页服务器、邮件服务器等；下面是其他的分类</p>
-<table>
-<thead>
-<tr>
-<th>体系结构分类</th>
-<th>规模&#x2F;应用层次分类</th>
-<th>结构分类</th>
-<th>用途分类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>x86服务器(RISC)</td>
-<td>入门级</td>
-<td>塔式服务器</td>
-<td>通用型</td>
-</tr>
-<tr>
-<td>非x86服务器(CISC)</td>
-<td>工作组级</td>
-<td>机架式服务器</td>
-<td>专用型</td>
-</tr>
-<tr>
-<td></td>
-<td>部门级</td>
-<td>刀片式服务器</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>企业级</td>
-<td>机柜式服务器</td>
-<td></td>
-</tr>
-</tbody></table>
-<p><strong>Web服务器</strong>：</p>
-<p>即在网络环境下，为客户提供服务的专用计算机，也叫做www服务器（网页浏览器的交流对象）;与应用服务器没有非常大的区别，本来web服务器是一种应用服务器，仅仅处理的是网页的静态内容，但随着服务器端脚本的发展，使得web服务器也同样能够像应用服务器一样处理动态内容；主流的web服务器（装的软件）有：Apache、IIS、Nginx、Zeus（Unix系统下）、Tomcat</p>
-<p><strong>DB服务器</strong>：</p>
-<p>在某台服务器上安装了提供数据库服务的软件（即数据库管理系统），使该台服务器专用于数据处理等任务；数据库按照支持的模型可以分为关系型数据库RDBMS（大多使用或兼容SQL语言、但注意关系型数据库并不是SQL）、非关系型数据库NRDBMS（NoSQL语言，NotOnlySQL）</p>
-<p>关系型数据库：将复杂数据变化为二元表格的形式；</p>
-<table>
-<thead>
-<tr>
-<th>MySQL</th>
-<th>SQL server</th>
-<th>Oracle</th>
-<th>PostgreSQL</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>开源、简单、小；字符客户端mysql</td>
-<td>微软、可免费；图形化客户端ADS</td>
-<td>顶级；字符客户端sqlplus</td>
-<td>开源；字符客户端pesql</td>
-</tr>
-<tr>
-<td>数据量大时不太行</td>
-<td>windows专属</td>
-<td>收费</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>非关系型数据库：</p>
-<ul>
-<li>键值型数据库：类似于py的字典，具有将数据化为键与值（可有多个）的形式；常见的有Redis</li>
-<li>列存储数据库：与关系型数据库类似，仅仅是存储形式的差异，前者以行为单位存储，后置以列为单位；常见的有Hbase</li>
-<li>文档型数据库：存放并获取文档，与键值DB类似，将文件作为值；MongDB等；集合collection&#x3D;表table、文档document&#x3D;行row、字段field&#x3D;列column</li>
-<li>图形数据库：在处理复杂图形关系时，相比于关系型数据库容易；Neo4J等</li>
-<li>搜索引擎数据库：搜索引擎会爬取大量的内容，需要以特定的形式存储；Solr等</li>
-</ul>
-<h3 id="0x02-数据库理论"><a href="#0x02-数据库理论" class="headerlink" title="0x02.数据库理论"></a>0x02.数据库理论</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>许多<strong>数据</strong>（data）构成<strong>数据库</strong>（database），组织数据的存储与管理的叫<strong>数据库管理系统</strong>（DataBaseManagementSystem）,由以上说明的东西构成的整个体系叫做<strong>数据库系统</strong>，当然该系统也包括<strong>数据管理员</strong>（DBAdministrator）与用户在内。</p>
-<p>发展阶段：人工管理—文件系统—数据库系统。</p>
-<blockquote>
-<p> 用户通过SQL（StructureQueryLanguage，非过程语言）与数据库管理系统进行交互，非过程即不需要在乎更底层的具体实现；SQL包括四类，数据<strong>查询</strong>语言<em>DQL</em>、数据<strong>操纵</strong>语言<em>DML</em>、数据<strong>定义</strong>语言<em>DDL</em>、数据<strong>控制</strong>语言<em>DCL</em>；</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>人工管理</th>
-<th>文件系统</th>
-<th>数据库系统</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>不保存数据</td>
-<td>可以长期保存</td>
-<td>结构化</td>
-</tr>
-<tr>
-<td>没有相应软件</td>
-<td>有专门软件</td>
-<td>数据由DBMS统一管理</td>
-</tr>
-<tr>
-<td>不共享</td>
-<td>共享性差</td>
-<td>共享性好，冗余度低</td>
-</tr>
-<tr>
-<td>数据之间不独立</td>
-<td>独立性差</td>
-<td>高度物理独立性，一定逻辑独立性</td>
-</tr>
-</tbody></table>
-<h4 id="DataBase"><a href="#DataBase" class="headerlink" title="DataBase"></a>DataBase</h4><p><strong>数据模型</strong>&#x3D;数据结构+数据操作+数据约束条件；</p>
-<p>大体包括两类：概念模型（用户角度）和数据模型（计算机角度；层次模型、网状模型、关系模型）</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>数据结构</th>
-<th>查询效率</th>
-<th>数据独立性</th>
-<th>DML操作方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>层次、网状</td>
-<td>链表</td>
-<td>低</td>
-<td>差</td>
-<td>过程性</td>
-</tr>
-<tr>
-<td>关系</td>
-<td>二维表</td>
-<td>高</td>
-<td>高</td>
-<td>非过程性</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p><strong>层次模型</strong>：基本结构：树，一个根节点，每个节点一个父节点，一对多联系；借助冗余结点法（互相指）OR虚拟节点法（都指向一个共同虚拟节点）可以实现多对多联系；存储结构有邻接法（数组）AND链接法（链表）；</p>
-</li>
-<li><p><strong>网状模型</strong>：基本结构：可以没有父节点，类似于图；存储结构常用链接法，此外有指针阵列法、二进制阵列、索引法；</p>
-</li>
-<li><p><strong>关系模型</strong>：基本结构：二维表，关系模式+关系+元组+属性+主码+域+分量。关系就是这张表、元组即一行、属性即一列、属性中的序号即为主码，用来确定一行、域即是一列的所有可能取值集合、分量是一个元组中的属性值；</p>
-</li>
-</ul>
-<h4 id="数据库系统结构"><a href="#数据库系统结构" class="headerlink" title="数据库系统结构"></a>数据库系统结构</h4><p>从DBMS看为三级模式结构，由<strong>外模式</strong>（也叫子模式&#x2F;用户模式，用户看到的）+<strong>模式</strong>（相同的数据在交给不同应用之前都是相同）+<strong>内模式</strong>（也叫存储模式，即数据在DB中的表示形式）构成，在三层中间插入二层映像：<strong>”外模式&#x2F;模式映像“</strong>和<strong>“模式&#x2F;内模式映像”</strong>；</p>
-<p>从最终用户角度看，包括单用户结构、主从式结构、分布式结构、客户-服务器结构、云结构；</p>
-<h4 id="DBMS"><a href="#DBMS" class="headerlink" title="DBMS"></a>DBMS</h4><ul>
-<li><strong>主要功能</strong>：数据定义+数据操纵+数据库运行管理+数据组织、存储、管理+数据库的建立和维护+数据通信接口；数据控制功能：数据安全性+数据完整性+并发控制+恢复</li>
-<li><strong>构成</strong>：数据定义语言及其翻译处理程序+数据操纵语言及其编译&#x2F;解释程序+数据库运行控制程序+实用程序；</li>
-<li><strong>工作过程</strong>：应用A向DBMS发送请求—》DBMS进行检查—》调用外模式，确定A需要的数据—》调用内模式，定位以及确定格式—》向操作系统发送请求—》OS将数据从存储区调到缓冲区—》DBMS导出A所需格式，并发送给A，以及return状态；</li>
-</ul>
-<h4 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h4><p>关系模型&#x3D;关系数据结构（二维表）+关系操作+完整性约束</p>
-<ol>
-<li><p><strong>关系数据结构</strong></p>
-<ul>
-<li><p>关系:表格中除了第一行之外的所有元素；是域的笛卡尔积的子集；</p>
-<p>关系的6条性质：</p>
-<ul>
-<li><p>列是同质的，即来自同一个域；不同列可来自同一个域，但每列的属性名不同；顺序无所谓；</p>
-</li>
-<li><p>任意两个元组不能完全相同；顺序无所谓；</p>
-</li>
-<li><p>每个分量都是原子值，不能进一步拆分；</p>
-</li>
-</ul>
-</li>
-<li><p>关系模式:表的名字；</p>
-<ul>
-<li>形式化:R(U，D，DOM，F)</li>
-<li>U为组成关系R的属性名集合，D:组成U的属性的域，DOM:属性-域的映像（即二元关系中的函数）<br>元组:一行。其个数叫“基数”；</li>
-</ul>
-</li>
-<li><p>域domain:对应属性下的所有可能取值；具有相同数据类型；</p>
-</li>
-<li><p>属性:一列。个数叫“关系的度&#x2F;目”；</p>
-</li>
-<li><p>候选码:能唯一确定一个元组的属性码；选定的其中一个叫“主码&#x2F;主键”，其中的属性不能为空值；如果所有的属性组均是候选码，则叫做“全码”；</p>
-</li>
-<li><p>分量:交叉点；</p>
-</li>
-</ul>
-</li>
-<li><p><strong>关系的完整性</strong></p>
-<p>完整性就是约束；包括实体完整性（必）、参照完整性（必）、用户定义的完整性；</p>
-<ul>
-<li><p>实体完整性规则：属性A是基本关系R的主属性，则属性A不能为空值；</p>
-</li>
-<li><p>参照完整性规则：属性组F是基本关系R的外码，F中的分量取值要么为空值，要么等于关系S中的主码值</p>
-<blockquote>
-<p>两张表之间，R的外码是引用另一张表S的属性，S叫‘’被参照关系‘’，R叫“参照关系”</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>关系操作</strong></p>
-<p>关系操作&#x3D;查询+修改，两部分；CRUD-增删改查；其中的查询操作有基于关系运算的查询&amp;基于谓词的查询；查询语言即关系语言因此分为：关系代数语言（ISBL）、关系演算语言（元组关系QUEL、APLHA；域关系QBE）、以及具有以上两者特点的SQL（除了查询还能操作、定义等）；下面仅介绍关系代数的操作</p>
-<ul>
-<li><p>并union：A+B（可用差表示）</p>
-<blockquote>
-<p>外并：即B表接在A表下面，并横向扩展属性，多出来的格子用NULL填充</p>
-</blockquote>
-</li>
-<li><p>差difference：A-B</p>
-</li>
-<li><p>交intersection：A·B</p>
-</li>
-<li><p>广义笛卡尔积：RxS，运算后共有|R|x|S|个元组</p>
-</li>
-<li><p>选择selection&#x2F;限制restriction：在R中选取满足条件F()&#x3D;true的元组</p>
-</li>
-<li><p>投影projection：从关系R中选出部分属性列组成新的表</p>
-</li>
-<li><p>连接join&#x2F;θ连接（可用笛卡尔积、选择、投影）：从RxS中选取满足条件的元组并构成表，统叫条件连接</p>
-<blockquote>
-<p>常用的连接有，等值连接和自然连接。等值连接：指定两个属性列相等条件；自然连接就是在等值连接的基础上去掉相同的两列的其中一列；</p>
-</blockquote>
-</li>
-<li><p>外连接：在自然连接的基础上，仅保存拥有相同列的那行元组；相同列并不删除；匹配不了的给NULL</p>
-<blockquote>
-<p>左外连接：生成以连接左侧行数为基准的结果；右外连接：以右侧行数为准；全外连接：左+右</p>
-</blockquote>
-</li>
-<li><p>除division（投影、笛卡尔积、选择）：R&#x2F;S&#x3D;选出R中包含关系S的元组，并对相同内容进行删减（先投影再除）</p>
-<blockquote>
-<p>对关系R中元组的某些属性求其象集&#x3D;在该元组中去除这些属性后剩下的属性，A<del>n</del>的象集与关系S相同，则选出A<del>n</del>构成新表；</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="0x03-Redis"><a href="#0x03-Redis" class="headerlink" title="0x03.Redis"></a>0x03.Redis</h3><ul>
-<li>字符串</li>
-</ul>
-<pre><code>SET 键 值	//键需要区分大小写
-GET 键	//返回值
-DEL 键	//成功则返回1
-EXISTS 键	//有则返回1否则0
-KEYS 匹配模式	//查找所有匹配的键
-FLUSHALL	//清除所有键值
-当存入中文时，要想显现redis-cli --raw
-TTL 键	//返回-1则是无过期时间（秒）-2表示过期
-EXPIRE 键	//设置生存时间
-SETEX 键 时 值	//设置带时间的键值对
-SETNX 键 值	//键不存在时更新值否则不动
-</code></pre>
-<ul>
-<li>列表</li>
-</ul>
-<pre><code>LPUSH 键 值	//给列表左侧添加值
-LRANGE 键 开始 终止	//栈，左闭右闭
-RPUSH 键 开始 终止	//队列
-L/RPOP 键 [数]	//从列表左/右开始数删除第n个
-LLEN 键	//列表的长度
-LTRIM 键 开始 结束	//只保留开始-结束之间的东西
-</code></pre>
-<ul>
-<li>集合</li>
-</ul>
-<pre><code>SADD 键 值[值]	//向集合中添加一个或多个值，返回1成功，0失败
-SMEMBERS 键	//列出集合中所有的值
-SISMEMBER 键 值	//判断集合中是否有该值，有1无0
-SREM 键 值[值]	//删除集合中的元素
-SINTER/SUNION/SDIFF	键[键]	//交集/并集/差
-SCARD 键	//集合的成员数
-</code></pre>
-<ul>
-<li>有序集合</li>
-</ul>
-<pre><code>ZADD 名 键 值[键 值]	//默认递增
-ZRABNGE 集合 开始 结束[WITHSCORES]	//显示键
-ZSCORE 集合 键	//返回对应值
-ZRANK 集合 键	//返回该键的排名
-</code></pre>
-<ul>
-<li>哈希</li>
-</ul>
-<pre><code class="sql">HSET 名 键 值[键 值]	//一个名下可以有多个键值对
-HGET 名 键	//返回对应值
-HGETALL 名	//返回名下所有键值对
-HDEL 名 键	//删除
-HEXISTS 名 键	//是否存在该键
-HKEYS 名	//返回所有的键
-HLEN 名	//返回键数
-</code></pre>
-<ul>
-<li>订阅模式</li>
-</ul>
-<pre><code>subscribe 频道名 [名]	//订阅该频道
-publish 名 消息	//向该消息频道发送消息
-</code></pre>
-<ul>
-<li>消息队列</li>
-</ul>
-<pre><code class="redis">XADD 消息名 * 键 值
-XLEN 名	//返回后面的键值对数
-XRANGE 名 - +	//列出所有ID对应的消息
-XDEL 名 ID	//删除ID对应的消息
-XTRIM 名 MAXLEN 数
-XREAD count e（一次读取个数） block e（没有则阻塞多少毫秒） streams 名 $（从最新的开始读取）
-XGROUP CREATE 消息名 组名 ID
-XINFO GROUPS 消息名	//返回消费者组的信息
-XGROUP CREATECONSUMER 消息名 组名 消费者名	//向该组中添加消费者
-</code></pre>
-<ul>
-<li>事务</li>
-</ul>
-<pre><code>MULTI 开启事务
-EXEC/DISCARD 执行事务（某一事务失败后不影响后续，与mysql不一样）
-</code></pre>
-<ul>
-<li>持久化：基于内存speed &gt; mysql</li>
-</ul>
-<p>RDB：规定时间内有多少修改才保存</p>
-<p>ADF：将命令以日志形式存到ADF文件中</p>
-<ul>
-<li>主从复制：主节点为master。从节点slave，只读</li>
-</ul>
-<h3 id="0x04-云计算"><a href="#0x04-云计算" class="headerlink" title="0x04.云计算"></a>0x04.云计算</h3><p>简单来说就是通过网络按需提供可动态伸缩的廉价计算服务。类似于网盘网页的资源存储，提供远程的计算&#x2F;存储功能。</p>
-<h4 id="云基本知识"><a href="#云基本知识" class="headerlink" title="云基本知识"></a>云基本知识</h4><p><strong>云计算部署模式</strong></p>
-<ul>
-<li>公有云：放在公共地方，即付即用，由厂商负责管理。</li>
-<li>私有云：内部部署于DMZ区，或者外部托管给其他厂商，仅自己使用。</li>
-<li>社区云：面向一个社区或者服务专用的云，音乐网盘、存储网盘等</li>
-<li>混合云：融合公有和私有云的优点，目前各大云服务商就是此类模式</li>
-</ul>
-<p><strong>云计算服务类型</strong></p>
-<p>传统来说，由用户管理【网络、存储、服务器、虚拟化、OS、中间件、运行环境、数据、应用程序】</p>
-<ul>
-<li>IaaS&#x2F;基础设施即服务：自虚拟化及以下由厂商管理，即提供基础设施；用户申请后能够部署运行任意软件；例如AWS、Google Engine</li>
-<li>PaaS&#x2F;平台即服务：将软件研发的平台作为服务，运行环境及以下都由厂商管理；说白了就拿最经典的微软的Azure做栗子，其服务中通常都是用的自家的windows与.NET</li>
-<li>SaaS&#x2F;软件即服务：厂商为用户已经提供了完整的软件功能，不需要自己再额外安装东西，即买即用；例如Office365</li>
-</ul>
-<p><strong>云计算特点</strong></p>
-<ul>
-<li>超大规模：集群更大（服务器更多）</li>
-<li>虚拟化：用户无需关注硬件实体，除非买的裸金属服务器</li>
-<li>按需分配服务：云计算&#x3D;资源池，用户按照自己需要购买相应服务</li>
-<li>广泛网络访问：API、VPN、浏览器、SSH等访问资源，无关地理，有简单的连接设备即可</li>
-<li>高可靠：厂商做的都有备份、容错、镜像恢复、受灾方案等</li>
-<li>服务可度量：为服务商和消费者提供透明的使用情况统计和实时结算等服务</li>
-<li>可动态伸缩：通过虚拟化技术将一台服务器虚拟成多台服务器，对计算资源进行虚拟化和管理，可以实现服务器虚拟化、存储虚拟化、网络虚拟化和桌面虚拟化。</li>
-</ul>
-<p>其核心技术有：分布式存储、虚拟化技术、分布式资源管理、智能管理平台和编程模型。</p>
-<h4 id="虚拟化技术"><a href="#虚拟化技术" class="headerlink" title="虚拟化技术"></a>虚拟化技术</h4><p>在计算机上创建一个抽象层即VMM，将单台计算机硬件元素虚拟地分成多个，每个虚拟机VM都有自己的OS。</p>
-<p>根据VMM在虚拟化平台的位置，分为三类：</p>
-<ul>
-<li>裸机虚拟化模型：虚拟机监控器直接运行在没有操作系统的裸机上，具有最高特权级，管理底层所有的硬件资源。【VMwareESXi、Xen】</li>
-<li>宿主机虚拟化模型：虚拟机监控器作为一个应用程序运行在宿主机操作系统（Host OS）上，而Guest OS运行于虚拟机监控器之上。【VMware、VirtualBox】</li>
-<li>混合模型：虚拟机监控器作为OS上的一个特权级运行，在此之上可以建立其他的VM。【WSL、KVM】</li>
-</ul>
-<blockquote>
-<p>虚拟化和容器化是不同的内容，容器侧重于打包，虚拟侧重于分割。此外虚拟机依赖于宿主设备架构，在x86上虚拟出来的仍是x86，而模拟器可以实现其他的硬件级别的模拟【qemu、bochs】</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>计算机基础</category>
-      </categories>
-      <tags>
-        <tag>基础知识</tag>
-        <tag>后端</tag>
       </tags>
   </entry>
   <entry>
@@ -9742,6 +9972,858 @@ net localgroup administrators temp /add
       </tags>
   </entry>
   <entry>
+    <title>网络基础</title>
+    <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一些关于网络与Web的知识，尽量不向网络中的底层涉及，侧重于实际用到的</p>
+<span id="more"></span>
+
+<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
+</code></pre>
+<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
+<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
+<blockquote>
+<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
+</blockquote>
+<ul>
+<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
+</li>
+<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
+</li>
+<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
+<blockquote>
+<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20、21</td>
+<td>FTP（20连接、21传输）</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>80&#x2F;443</td>
+<td>HTTP&#x2F;S</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
+<blockquote>
+<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
+<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
+</blockquote>
+</li>
+<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
+</li>
+<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
+</li>
+</ul>
+<hr>
+<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
+<ul>
+<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
+</li>
+<li><p>应用层协议，运行在UDP上，53号端口。</p>
+</li>
+<li><p>DNS域名解析过程如下:</p>
+<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
+</li>
+</ul>
+<blockquote>
+<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
+</blockquote>
+<ul>
+<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>顶级域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.com &#x2F; .net  &#x2F;.org</td>
+<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
+</tr>
+<tr>
+<td>.gov</td>
+<td>政府机构</td>
+</tr>
+<tr>
+<td>.edu</td>
+<td>教育机构</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>军事机构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A&#x2F;AAAA</td>
+<td>主机名</td>
+<td>IPv4&#x2F;6地址</td>
+</tr>
+<tr>
+<td>NS</td>
+<td>域</td>
+<td>具体主机名</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>别名</td>
+<td>规范主机名</td>
+</tr>
+<tr>
+<td>MX</td>
+<td>邮件服务器别名</td>
+<td>规范主机名</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>DNS报文：查询回答报文格式相同；</p>
+<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>问题区</td>
+<td>正在查询的主机名字+问题类型</td>
+</tr>
+<tr>
+<td>回答区</td>
+<td>存RR</td>
+</tr>
+<tr>
+<td>权威区</td>
+<td>TLD</td>
+</tr>
+<tr>
+<td>附加信息区</td>
+<td>else</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
+<ul>
+<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
+<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
+<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围（左闭右开）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0.0.0.0~128.0.0.0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>128.0.0.0~192.0.0.0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.0.0.0~224.0.0.0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224.0.0.0~240.0.0.0</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240.0.0.0~248.0.0.0</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
+<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
+</li>
+<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
+</li>
+<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
+</li>
+<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
+<p><strong>报头格式</strong>：</p>
+<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
+<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
+<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
+</li>
+<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
+<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
+</li>
+</ul>
+<blockquote>
+<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
+</blockquote>
+<hr>
+<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
+<ul>
+<li><p>特点：</p>
+<ol>
+<li>无连接：每次一个请求。</li>
+<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
+<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
+</ol>
+</li>
+<li><p>发展：</p>
+<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
+<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
+<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
+<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
+<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
+</li>
+<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
+</li>
+</ul>
+<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
+头部字段名：值--------------------------------请求头部/消息报头
+空行
+（请求正文）
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>方法（共8种）</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get</td>
+<td>向特定资源发送请求</td>
+</tr>
+<tr>
+<td>post</td>
+<td>请求处理数据，此时含有请求正文</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>消息报头（可由服务端自定义其他的）</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>客户端能够接收的文件类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>支持的字符集编码</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>浏览器可支持的内容压缩编码类型</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>浏览器可接受的语言</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Http授权的证书类型</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>请求响应过程遵循的缓存机制</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>表明是否需要持久连接的</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>包含在请求URL域名下的所有有关cookie值</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>MIME</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
+</blockquote>
+<ul>
+<li><strong>响应报文</strong>：</li>
+</ul>
+<pre><code>http版本+状态码+英文（not found？）-------------------状态行
+响应首部------------------------消息报头
+空行
+主体------------------响应正文
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>栗子</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx(正在处理)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2xx(成功)</td>
+<td>200(ok)、204(no content)</td>
+<td>请求成功；服务器正常处理，但就是没返回内容</td>
+</tr>
+<tr>
+<td>3xx(重定向，即需要附加操作)</td>
+<td>301、302</td>
+<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
+</tr>
+<tr>
+<td>4xx(客户端错误)</td>
+<td>400、401、403、404</td>
+<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
+</tr>
+<tr>
+<td>5xx(服务端错误)</td>
+<td>500、501、503</td>
+<td>服务器内部错误；不支持请求功能；超载</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
+<ul>
+<li><p>过程如下：</p>
+<p>客户端发送一个post请求到服务器，将自己的用户名密码都给封装进去——》服务器收到后创建一个session对象，其中有唯一的会话ID——》服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——》客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——》服务器返回响应数据</p>
+</li>
+</ul>
+<ul>
+<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
+<ul>
+<li>NAME：cookie的名字；也就是下面要讲的session_ID</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；<ul>
+<li>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</li>
+</ul>
+</li>
+<li>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</li>
+</ul>
+<blockquote>
+<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
+<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
+</blockquote>
+<ul>
+<li><p>Size：Cookie文件大小；</p>
+</li>
+<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
+</li>
+<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
+</li>
+</ul>
+<ul>
+<li>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端。自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。但因为cookie有时间限制，时间过了之后就会被浏览器删除，用户需要再次登录</li>
+</ul>
+<ul>
+<li><p>JWT：Json Web Token，用户第一次登陆后输入用户名和密码给服务器，接下来由服务器生成JWT并发送给客户端，而服务端只保存JWT签名过的密文，在客户端JWT以cookie或其他形式存储，每次请求时都会发送JWT（一般就叫token）。整个体系由header.payload.signature构成。</p>
+<p>header表明算法，payload表明数据（不是cookie！），两者首先经过base64编码拼接后，与服务端存储的密码经过header算法之后与signature对照验证</p>
+</li>
+</ul>
+<blockquote>
+<p>session存储于服务器，cookie作为数据传输载体将session传递给客户端。token同样产生于服务器但由客户端保管，可以放在cookie中</p>
+</blockquote>
+<hr>
+<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
+<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
+<ul>
+<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
+<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
+<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
+</ul>
+<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
+<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
+<ul>
+<li><p><strong>TLS具体过程</strong>：</p>
+<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
+<ol>
+<li>Bob打招呼并发送第一随机数</li>
+<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
+<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
+<li>Server接收到后，用私钥解密，得到预主密钥</li>
+<li>双方用三个随机数共同加密生成最终会话密钥</li>
+<li>之后进行对称加密进行交流</li>
+</ol>
+</li>
+<li><p><strong>CT</strong>（证书透明度）框架：</p>
+<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
+</li>
+</ul>
+<hr>
+<h3 id="0x07-UDP"><a href="#0x07-UDP" class="headerlink" title="0x07.UDP"></a>0x07.UDP</h3><p>用户数据报协议，位于传输层；多用于应用层的DNS、TFTP（简单文件）、SNMP（简单网络管理）等</p>
+<ul>
+<li>无连接：客户端只需将数据包送走即可，不用提前与目标机器商量</li>
+<li>无拥塞控制：不会探测路是否堵车</li>
+<li>不保证可靠交付：不一定送达</li>
+<li>面向报文：不拆分不合并，仅加头</li>
+<li>首部开销小</li>
+</ul>
+<p>数据报格式如下：</p>
+<pre><code>16bit源端口号 + 16bit目的端口号
+16位知指明本UDP包长度 + 16bit校验和
+数据~~~~
+</code></pre>
+<p>在计算校验和时，先将其全部置0，之后添加一个12Byte的伪首部（伪首部与TCP包的相同，但是协议号为17-UDP），之后按照16bit的倍数进行0填充，再2B一组对其反码进行求和，将和再求反码填入校验和；（伪首部和填充0并不发送）</p>
+<blockquote>
+<p>原码-常规表示；正数反码&#x3D;原码、负数反码&#x3D;原码除符号位外取反；补码&#x3D;反码+1</p>
+</blockquote>
+<hr>
+<h3 id="0x08-TCP"><a href="#0x08-TCP" class="headerlink" title="0x08.TCP"></a>0x08.TCP</h3><p>建立链接，用于提供端口，来确定两个IP地址中不同进程之间的通信。使用该协议的应用层协议有：HTTP&#x2F;S、FTP、SMTP、TELNET、SSH等</p>
+<p><strong>报文格式</strong>：</p>
+<p>TCP报文段&#x3D;TCP首部20字节+TCP数据；首部通常为20字节，有时具有可选字段+填充（32bit倍数）</p>
+<p>源端口+目的端口+seq序号+ack确认序号+数据偏移+保留+标志位+窗口+检验和+紧急指针</p>
+<ul>
+<li><p>源端口和目的端口：各占2字节，端口范围0-65535</p>
+<blockquote>
+<p>0-1023公认端口、1024-49151注册端口(有些软件绑定)、其余动态或私有端口；按协议也可以分为TCP、UDP、保留端口</p>
+</blockquote>
+</li>
+<li><p>序号4B：用于说明本报文段第一个字节的序号；达到最大之后再次从0开始</p>
+</li>
+<li><p>确认序号4B：表明期望收到的下一个数据包中的第一个字节的序号，是本机收到的上一个序号+1；只有ACK标志&#x3D;1时，确认序号才有效</p>
+</li>
+<li><p>数据偏移4b：表明头的长度，1bit&#x3D;4B的偏移，最大154B偏移，也就是TCP头最大只能154B</p>
+</li>
+<li><p>保留与标志位：各6bit，前者目前均为0，后者详细如下</p>
+<blockquote>
+<p>URG：&#x3D;1时表明该报文应尽快，而不需要按次序传送，用来与紧急指针配合使用，即紧急指针指向的字节前面的，不用太在意顺序</p>
+<p>ACK：&#x3D;1时，确认序号字段有效</p>
+<p>PSH：&#x3D;1时，需要接收方将本报文段<strong>尽快</strong>送给应用层</p>
+<p>RST：&#x3D;1时，表明<strong>连接错误</strong>，需要重连；还可以用来拒绝非法报文段</p>
+<p>SYN：&#x3D;1时&amp;&amp;ACK&#x3D;1时，表明请求建立一个连接；该标志&#x3D;1的报文段叫做<strong>同步报文段</strong></p>
+<p>FIN：&#x3D;1时，表明发送端完成发送任务</p>
+</blockquote>
+</li>
+<li><p>窗口4B：滑动窗口，用于实现流量控制；在服务端发送报文上可以理解为对客户端的数据报缓冲区大小，在客户端中该值&#x3D;min(拥塞窗口cwnd，接收端窗口大小)，其中的cwnd会随着网络的拥堵程度改变</p>
+</li>
+<li><p>检验和4B：发送端检验存储，由就手段进行验证</p>
+</li>
+<li><p>紧急指针4B：URG&#x3D;1时该偏移量才有效，通过与序号字段中的值相加再-1&#x3D;紧急数据的序号</p>
+</li>
+</ul>
+<p><strong>三次握手</strong>：</p>
+<ol>
+<li>客户端，发送报文标志位SYN&#x3D;1开启，表明想要连接，并产生一个随机序号A；</li>
+<li>服务端返回标志位SYN&#x3D;1&amp;ACK&#x3D;1，表明确认连接请求；确认序号&#x3D;序号A+1，并生成自己的随机序号B；</li>
+<li>客户端检查发送过来的确认序号是否&#x3D;A+1；正确则，将标志位ACK&#x3D;1，序号&#x3D;服务端确认号，确认号&#x3D;B+1，发送给服务端；服务端检查确认序号与ACK标志位，无误连接成功</li>
+</ol>
+<p><strong>四次挥手</strong>：</p>
+<ol>
+<li>客户端发送报文标志位FIN+ACK置1，表明发送结束；</li>
+<li>服务端收到客户端的FIN，并发送ACK确认收到FIN；</li>
+<li>之后再由服务端发送FIN报文段，请求断开连接；</li>
+<li>客户端收到服务端的FIN后，发送ACK，服务端收到并断开连接；客户端等待两个最大存活时间后，如果没有回复，则关闭连接</li>
+</ol>
+<p><strong>拥塞控制</strong>：</p>
+<p>开环控制：设计之前敲定不能变、闭环控制：动态反馈（监测+传送+调整）</p>
+<p>TCP采用闭环控制，基于滑动窗口，由发送方维护一个cwnd拥塞窗口，真正的发送窗口值wnd&#x3D;min(cwnd，rwnd)</p>
+<p>四种拥塞控制算法：慢开始、拥塞避免、快重传、快恢复</p>
+<ul>
+<li>慢开始：每收到一个确认，就把拥塞窗口+1，正常的话就是<strong>2的指数级别</strong>增长；当cwnd&gt;SSTH即慢开始门限时执行拥塞避免</li>
+<li>拥塞避免：每经过一个RTT，<strong>cwnd+&#x3D;1</strong>，线性增长。当出现拥塞时即重传定时器超时，**ssthres&#x3D;max(cwnd&#x2F;2，2)**，并让cwnd&#x3D;1开始执行慢开始算法</li>
+<li>快重传FR：收到<strong>三个连续重复ACK</strong>（加上第一次正经的共四个相同ACK），发送方就立即进行重传，执行快恢复算法</li>
+<li>快恢复：<strong>ssthres&#x3D;cwnd&#x2F;2</strong>，之后执行拥塞避免算法</li>
+</ul>
+<hr>
+<h3 id="0x09-Browser"><a href="#0x09-Browser" class="headerlink" title="0x09.Browser"></a>0x09.Browser</h3><p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p><strong>导航过程</strong>：</p>
+<ol>
+<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
+</li>
+<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
+<blockquote>
+<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
+</blockquote>
+</li>
+<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
+</li>
+<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
+</li>
+<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
+</li>
+</ol>
+<p><strong>搜索引擎</strong>：</p>
+<ul>
+<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
+<blockquote>
+<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
+</blockquote>
+</li>
+<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
+</li>
+<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
+</li>
+</ul>
+<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
+<ul>
+<li>Geocko：火狐浏览器；开源；</li>
+<li>Trident：IE浏览器、世界之窗；</li>
+<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
+<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
+</ul>
+<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
+<ol>
+<li><p>解析HTML，生成HTML DOM树：</p>
+<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
+</li>
+<li><p>碰到CSS，生成CSSOM树：同上</p>
+<blockquote>
+<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
+</blockquote>
+</li>
+<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
+</li>
+<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
+<blockquote>
+<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
+<p><img src="/../pic/box.png" alt="Boxmod"></p>
+</blockquote>
+</li>
+<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
+</li>
+</ol>
+<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
+<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
+<ul>
+<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
+<li>Chakra：微软开发，用于IE；</li>
+<li>JavaScriptCore：用于webkit，Apple开发；</li>
+<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
+<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
+</ul>
+<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
+<ul>
+<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
+<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
+<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
+</li>
+<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
+</li>
+<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
+</li>
+<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
+<blockquote>
+<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="WASM"><a href="#WASM" class="headerlink" title="WASM"></a>WASM</h4><p>全称是WebAssembly，即在web上的汇编，准确来说wasm就是一套专门用在浏览器上的汇编语言，目的当然就是加快运行速率咯。</p>
+<p>我们知道python和js都是JIT（just in time）编译方式的，也就是在运行时再将代码转换为机器码运行，因此对比于C&#x2F;C++等AOT（ahead of time）这种提前写好机器码的语言会更慢一点。</p>
+<p>为了加快浏览器上js的执行速度，因此wasm这种汇编就出现了。</p>
+<p>可以C&#x2F;C++&#x2F;Go等编译型语言来生成相关wasm文件以此代替js文件。浏览器引擎在收到wasm文件后可以直接对应查表转换为引擎对应字节码加以执行。</p>
+<p>一般都是将js和wasm配合使用，用js编写较为复杂的函数功能来供给wasm调用</p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ldmlhbi16aGFuZy5naXRodWIuaW8vd2FzbS10dXRvcmlhbC8=">引言 - WASM 汇编入门教程 (evian-zhang.github.io)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<hr>
+<h3 id="0x0A-CDN"><a href="#0x0A-CDN" class="headerlink" title="0x0A.CDN"></a>0x0A.CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
+<ul>
+<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
+</li>
+<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
+</li>
+<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
+</li>
+</ul>
+<p>CDN服务器安置原则：</p>
+<ol>
+<li>在ISP（互联网服务提供商）处架设CDN集群</li>
+<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
+<li>根据地理位置和地区流量检测选择布置</li>
+</ol>
+<hr>
+<h3 id="0x0B-P2P"><a href="#0x0B-P2P" class="headerlink" title="0x0B.P2P"></a>0x0B.P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
+<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
+<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
+<ol>
+<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
+<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
+<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
+<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
+</ol>
+<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
+<ul>
+<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
+<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
+<li>3-4、4-4常规方法无法打洞</li>
+</ul>
+<blockquote>
+<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<p><strong>BitTorrent</strong>：</p>
+<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
+<ul>
+<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
+</li>
+<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
+</li>
+<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
+<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
+</li>
+<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
+</li>
+<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
+</li>
+<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
+</li>
+</ul>
+<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
+<hr>
+<h3 id="0x0C-VPN"><a href="#0x0C-VPN" class="headerlink" title="0x0C.VPN"></a>0x0C.VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
+<p>从两端类型来说分为：</p>
+<ul>
+<li><p>站点对站点VPN：两端的地点相对固定；</p>
+</li>
+<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
+</li>
+</ul>
+<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
+<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
+<ul>
+<li><p><strong>IPsec VPN</strong>：</p>
+<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
+<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
+</li>
+<li><p><strong>SSL VPN</strong>：</p>
+<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
+<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
+</li>
+</ul>
+<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
+<ul>
+<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
+</li>
+<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
+<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
+</li>
+</ul>
+<hr>
+<h3 id="0x0D-FireWall"><a href="#0x0D-FireWall" class="headerlink" title="0x0D.FireWall"></a>0x0D.FireWall</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
+<ul>
+<li><p>两种分段模型：</p>
+<ul>
+<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
+</li>
+<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
+</li>
+</ul>
+</li>
+<li><p>过滤标准：源IP、目标IP、内容、协议</p>
+</li>
+<li><p><strong>工作模式</strong>：</p>
+<ul>
+<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
+<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
+<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
+</ul>
+</li>
+<li><p><strong>FireWall类型</strong>：</p>
+<ul>
+<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
+<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
+<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
+<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
+<li>混合型：不多bb</li>
+</ul>
+</li>
+</ul>
+<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
+<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
+<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
+<h4 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h4><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
+<ul>
+<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
+<ol>
+<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
+</li>
+<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
+</li>
+<li><p>事件数据库：存储各种事件</p>
+</li>
+<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
+</li>
+</ol>
+</li>
+<li><p><strong>根据数据源的分类</strong>：</p>
+<ol>
+<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
+<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
+<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
+</ol>
+</li>
+<li><p><strong>根据检测方法的分类</strong>：</p>
+<ol>
+<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
+<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
+<li>混合检测系统：不多bb</li>
+</ol>
+</li>
+<li><p>根据响应方式分类：实时监测、非实时检测</p>
+</li>
+<li><p><strong>误用检测分析方法</strong>：</p>
+<ol>
+<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
+<li>专辑系统：专家知识库，形成IF-THEN规则</li>
+<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
+<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
+</ol>
+</li>
+<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
+</li>
+</ul>
+<blockquote>
+<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
+</blockquote>
+<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
+<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
+<ul>
+<li>核心组件如下：<ul>
+<li>签名库：存放已知攻击特征</li>
+<li>异常检测引擎：检测未知攻击和异常行为</li>
+<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
+<li>管理控制台：配置管理IPS</li>
+<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
+<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
+<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
+<blockquote>
+<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
+</blockquote>
+<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
+<h4 id="BH"><a href="#BH" class="headerlink" title="BH"></a>BH</h4><p>堡垒机（BastionHost），也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
+<ul>
+<li><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</li>
+<li><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</li>
+<li><strong>模块</strong>：<ol>
+<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
+<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
+<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
+<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
+<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
+</ol>
+</li>
+<li><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</li>
+<li><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</li>
+<li><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</li>
+</ul>
+<hr>
+<h3 id="0x0E-Network-of-VM"><a href="#0x0E-Network-of-VM" class="headerlink" title="0x0E.Network of VM"></a>0x0E.Network of VM</h3><ul>
+<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
+<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
+</li>
+<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
+</li>
+<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
+</li>
+<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
+</li>
+<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
+</li>
+</ul>
+<hr>
+<h3 id="0x0F-MIMT-Dos"><a href="#0x0F-MIMT-Dos" class="headerlink" title="0x0F.MIMT &amp; Dos"></a>0x0F.MIMT &amp; Dos</h3><h4 id="MIMT"><a href="#MIMT" class="headerlink" title="MIMT"></a>MIMT</h4><p>中间人攻击，即在两台正常通信的计算机中间塞入攻击者这个”中介”，包括但不限于DNS欺骗、ARP污染等。大多都用于监听，不会造成真正意义上损伤</p>
+<ul>
+<li>ARP污染&#x2F;欺骗：</li>
+</ul>
+<p>每一台安装了TCP&#x2F;IP协议的主机都有ARP缓存表，包含动态的和静态的，前者有时限，后者没有，需要注意，网关和终端设备基本都会有该缓存表，初始化时广播查找；</p>
+<p>ARP欺骗原理：接受新条目时，并不会区别真假，而是将已有的IP更换为新的MAC地址，攻击者借此给目标和目标所在网关发送两份假信息，实现中间人攻击；将受害者的目标IP转移到攻击者特定的MAC地址上。工具：Cain、Ettercap、NetFuke。</p>
+<pre><code>arp -a	//查看缓存表
+    -s + IP MAC	//改为静态
+    -d (+ IP)	//删除全部或某一条
+</code></pre>
+<p>防御措施：进行静态绑定、使用ARP防火墙</p>
+<ul>
+<li>DNS欺骗：攻击者冒充域名服务器，受害者所有上网过程（除非直接搞IP）均经过攻击者的审查</li>
+<li>SSL劫持：当浏览器网站需要重定向时，由于攻击者在网页代码中插入了挂马网站的链接，导致最终用户进入到该网站</li>
+<li>电子邮件劫持：如果攻击者能够访问受信任机构的邮箱，或电子邮件服务器，就可以截获客户的电子邮件，甚至以机构的身份发送钓鱼邮件</li>
+<li>IP欺骗、Wi-Fi欺骗、HTTPS欺骗</li>
+</ul>
+<hr>
+<h4 id="Dos"><a href="#Dos" class="headerlink" title="Dos"></a>Dos</h4><p>又叫拒绝服务攻击，旨在使目标计算机无法处理正常流量。多基于物联网设备loT，形成DDOS（分布式Dos，能够很好的隐藏自己）；</p>
+<p>主要手段有如下：</p>
+<ul>
+<li>Ping of Death：利用ICMP协议，向目标端口发送大量的大尺寸ICMP包，由于尺寸过大导致目标的缓冲区溢出，从而使系统崩溃或挂起<code>ping -c 1 -s 65535 IP</code>。类似的还有IGMP Flood</li>
+<li>UDP Flood：伪造与目标之间的UDP通信，回复地址指向开着echo服务的服务器，则充满足够多数据流。</li>
+<li>SYN Flood：半连接状态的TCP连接，填满TCP的请求队列。Land攻击（在此基础上，构造该包的源地址和目的地址均为目标靶机IP）</li>
+<li>Smurf攻击：将ICMP应答数据包中的回复地址设置为受害网络的广播地址，让所有主机对此回应，进行消息淹没。Fraggle攻击（在此基础上，采用UDP协议发送伪造消息）</li>
+</ul>
+<p>根据攻击方式有以下分类</p>
+<ul>
+<li>弱点攻击&#x2F;资源层攻击：以适当顺序发送一定数量的定制报文，攻击目标主机的程序&#x2F;OS</li>
+<li>带宽泛洪&#x2F;容量耗尽：发送大量无用分组</li>
+<li>连接泛洪&#x2F;协议攻击：在攻击目标上创建大量全开&#x2F;半开的TCP连接（针对协议）</li>
+<li>针对中间件或者系统的攻击</li>
+</ul>
+<p>也可以根据网络层次进行分类：</p>
+<ul>
+<li><p>网络层：主要消耗网络带宽资源，常见ICMP洪水攻击、ARP洪水攻击、IP分片攻击</p>
+</li>
+<li><p>传输层：主要使目标服务器过载，常见SYN洪水攻击、ACK洪水攻击、UDP流量攻击</p>
+</li>
+<li><p>应用层：主要使用户无法正常使用，常见DNS解析攻击、HTTP GET&#x2F;POST攻击、CC攻击</p>
+<blockquote>
+<p>CC：挑战黑洞，就是攻击者借助代理不停发送大量数据包给服务器造成资源耗尽</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>计算机基础</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《程序员自我修养——链接、装载与库》读书笔记</title>
     <url>/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：主要依托于Linux平台，记录有关链接装载过程</p>
@@ -11175,811 +12257,6 @@ memcpy(ret, eax, size);
 ]]></content>
       <categories>
         <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>基础知识</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络基础</title>
-    <url>/2023/08/30/%E7%BD%91%E7%BB%9C%E4%B8%8EWeb/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>摘要：一些关于网络与Web的知识，尽量不向网络中的底层涉及，侧重于实际用到的</p>
-<span id="more"></span>
-
-<h3 id="0x01-URL"><a href="#0x01-URL" class="headerlink" title="0x01.URL"></a>0x01.URL</h3><pre><code>https://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#anchor
-</code></pre>
-<p>首先介绍一下格式：协议 &#x2F;&#x2F; 主机 ：端口&#x2F;路径 .html ? 查询参数 # 锚点</p>
-<p>URI （统一资源标识符）一种概念—实现方式：URL（统一资源定位符）、URN（统一资源命名符）</p>
-<blockquote>
-<p>URN需要解析器对该目标文件的独一无二的、不变的字符串进行解密来推出当前所在位置</p>
-</blockquote>
-<ul>
-<li><p>协议：就是网络协议，在计算机网络中有具有规定信息交流的作用；包括http和https（超文本传输协议；网页），后者是前者的加密版本，具有更高的安全性（但目前http用的还是多）这样的协议还有FTP（文件传输协议；下载文件）、SMTP（电子邮件传输协议；发送接收电子邮件）</p>
-</li>
-<li><p>主机：就是我们所需要的网页文件等在哪台服务器上，上述例子中的主机段写（包括平常写的<code>www.xxxxxx.com</code>）是该网站所在的服务器的域名，在经过DNS服务器之后，会转换为IP地址（比如192.168.1.1等）；简单说就是该网站所存在的服务器的地址 （PS：如果记得IP地址的话，也可以用IP替换域名输入）</p>
-</li>
-<li><p>端口：首先说明端口是干什么的：确定你所需要的服务，然后从这个门（端口）进去。平时在浏览网站时很少会见到这个东西，因为端口大多都是默认的（有对应关系）；端口还分为物理意义上的端口和逻辑意义上的端口，我们这里介绍的是逻辑意义上的端口，物理端口指的就是集线器，HUB，路由等；</p>
-<blockquote>
-<p>逻辑意义上的接口范围是0~65535（TCP&#x2F;UDP都有65535个端口），其中公认端口（每个端口有明确的服务）0—1023，动态端口（不固定服务）1024—65535</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>端口号</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>20、21</td>
-<td>FTP（20连接、21传输）</td>
-</tr>
-<tr>
-<td>25</td>
-<td>SMTP</td>
-</tr>
-<tr>
-<td>53</td>
-<td>DNS</td>
-</tr>
-<tr>
-<td>22</td>
-<td>SSH</td>
-</tr>
-<tr>
-<td>80&#x2F;443</td>
-<td>HTTP&#x2F;S</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>路径：简单来说就是我们计算机上的文件的位置，网页文件（.html）在服务器上也有相应的存储路径。下面再来介绍一下相对路径和绝对路径</p>
-<blockquote>
-<p>绝对路径：这个最简单理解，就是 E:\学习资料\Asia 这样的，后面可以跟上具体的 文件名字.文件格式 animal_video01.mp4</p>
-<p>相对路径：就是以当前的文件位置为基准，比如选取上面的Asia中的一个文件时可以直接输入animal_video02.mp4；如果我想要换成Europe（在学习资料目录下，与Asia同等级）就输入..&#x2F;Europe&#x2F;animal_video01.mp4；如果是想要在当前目录继续向下就是2022&#x2F;AKT01.mp4。总结一下就是，向上一级..&#x2F; ，向下一级 &#x2F;文件名</p>
-</blockquote>
-</li>
-<li><p>查询参数：举个例子吧，在网上找百度网盘的资源时，会让你输入提取码，从URL上面来看 就是？后面会跟着一个password&#x3D;xxxxxx，当你输入密码的时候，后面的xxxxxx就会变成你所输入的密码，也就是所说的参数；当然参数也不止这点功能，根据参数的不同，调用出来的界面也不一定相同（就像百度网盘提取码输入错误和正确，肯定是两个不同的界面）</p>
-</li>
-<li><p>锚点：显示当前网页内部的定位符号，类似于一键返回顶端这个功能。需要注意的是，服务器并不会处理锚点，走到预定位置是浏览器实现的</p>
-</li>
-</ul>
-<hr>
-<h3 id="0x02-DNS"><a href="#0x02-DNS" class="headerlink" title="0x02.DNS"></a>0x02.DNS</h3><p>域名系统，作用就是将难记的IP地址转换为相对简单的网址，DNS服务器中存储的信息就是前面所说对应关系。</p>
-<ul>
-<li><p>功能：域名到IP的转换、设置主机别名、邮件服务器别名、负载分配</p>
-</li>
-<li><p>应用层协议，运行在UDP上，53号端口。</p>
-</li>
-<li><p>DNS域名解析过程如下:</p>
-<p>浏览器输入目标域名——本地hosts文件检查，有就调用——查找本地DNS解析器<strong>缓存</strong>——查找首选DNS服务器——根DNS——顶级域名DNS——权威服务器——返回本地DNS服务器</p>
-</li>
-</ul>
-<blockquote>
-<p>在该过程中，上级服务器给自己一个DNS，自己再去查，叫做递归查询；如果是上级服务器直接查找到目标，然后再返回给自己叫迭代查询</p>
-</blockquote>
-<ul>
-<li>域名等级：<code>.com</code>顶级域名，<code>bilibili.com</code>一级域名，<code>www.bilibili.com</code>二级域名；需要注意的是，如果需要使用二级域名，首先必须注册对应的一级域名。下面是一些常见的顶级域名：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>顶级域名</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>.com &#x2F; .net  &#x2F;.org</td>
-<td>目前来说使用没有限制（商业&#x2F;网络服务商&#x2F;非营利组织）</td>
-</tr>
-<tr>
-<td>.gov</td>
-<td>政府机构</td>
-</tr>
-<tr>
-<td>.edu</td>
-<td>教育机构</td>
-</tr>
-<tr>
-<td>.mil</td>
-<td>军事机构</td>
-</tr>
-</tbody></table>
-<ul>
-<li>DNS资源记录（RR）：提供了主机名到IP地址的映射，每条记录均是4元组：(Name,Value,Type,TTL)；TTL记录该条记录的剩余存活时间，替他三项依据Type而定（由表可见，邮件服务与Web服务可在一台服务器上）：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A&#x2F;AAAA</td>
-<td>主机名</td>
-<td>IPv4&#x2F;6地址</td>
-</tr>
-<tr>
-<td>NS</td>
-<td>域</td>
-<td>具体主机名</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>别名</td>
-<td>规范主机名</td>
-</tr>
-<tr>
-<td>MX</td>
-<td>邮件服务器别名</td>
-<td>规范主机名</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>DNS报文：查询回答报文格式相同；</p>
-<p>12B的首部区域&#x3D;标识符2B + 标志4b + 问题数+回答RR数+权威RR数+附加RR数</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>区域</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>问题区</td>
-<td>正在查询的主机名字+问题类型</td>
-</tr>
-<tr>
-<td>回答区</td>
-<td>存RR</td>
-</tr>
-<tr>
-<td>权威区</td>
-<td>TLD</td>
-</tr>
-<tr>
-<td>附加信息区</td>
-<td>else</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="0x03-IP"><a href="#0x03-IP" class="headerlink" title="0x03.IP"></a>0x03.IP</h3><p>标识本机在网络中的地址，目前分为IPv4和IPv6地址，位于OSI模型的网络层；</p>
-<ul>
-<li><p><strong>IPv4</strong>：一共分为A、B、C、D、E五类，IPv4地址共有4个字段，也就是说32bit，每8bit用十进制表示；</p>
-<p>IPv4地址由两部分构成-网络地址和主机地址，网络地址用于著名在哪个网络中，主机地址用于表明在这个网络中的位置；</p>
-<p>这里是各个等级对应的范围（其中全0，全1的IP地址保留不用）下面从二进制来看一下ABC三类地址的构造</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>范围（左闭右开）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-<td>0.0.0.0~128.0.0.0</td>
-</tr>
-<tr>
-<td>B</td>
-<td>128.0.0.0~192.0.0.0</td>
-</tr>
-<tr>
-<td>C</td>
-<td>192.0.0.0~224.0.0.0</td>
-</tr>
-<tr>
-<td>D</td>
-<td>224.0.0.0~240.0.0.0</td>
-</tr>
-<tr>
-<td>E</td>
-<td>240.0.0.0~248.0.0.0</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>CIDR</strong>：消除了上述IPV4的A、B、C类网络的概念，因为实在是不公平，对于低类网络来说，基数大，但是能有主机号少，而等级高的其实也用不了那么多，因此采用CIDR技术，来消除上述不等；举ge例子<code>192.168.1.1/20</code>表示，前20位是网络号，后面的12位就是主机号。</p>
-<p><strong>子网掩码</strong>：出于CIDR的使用而产生用来区分网络号与主机号，在IPV4中，子网掩码与其长度相同，均为32位。其转换为二进制时，1必须是连续的，有多少个1，就代表IP地址前几位是网络号（即网络地址），后面的则是主机号，可以通过IP地址与子网掩码的与运算确定网络地址。</p>
-</li>
-<li><p><strong>WAN</strong>指广域网（互联网），<strong>MAN</strong>指城域网，<strong>SAN</strong>存储区域网络（仅用于存储访问），<strong>CAN</strong>校园网，<strong>LAN</strong>指局域网（家庭、打印店组网），<strong>WLAN</strong>无线局域网（只是不用光缆的局域网），<strong>VLAN</strong>虚拟局域网，<strong>PAN</strong>指个人区域网络（USB、蓝牙等）；以上仅指明范围，与IP无关。</p>
-</li>
-<li><p><strong>Socket</strong>：IP:端口&#x3D;套接字socket，服务端端口通常在1024以下，客户端用1025~1624，相互形成客户—服务器通信；其他策略有远程程序套用（RPC）、管道。</p>
-</li>
-<li><p><strong>IPV6</strong>：也叫做IPng，相比于IPv4具有更多的地址数量、还能提高网络性能（精简了数据包）。共128位&#x3D;8组x4个十六进制数，<code>/</code>后面跟着前缀长度or掩码n，表示前n位是网络地址，后128-n位为主机号；支持內嵌IPV4。</p>
-<p><strong>报头格式</strong>：</p>
-<p>4bit表示IP版本+8bit流量分类+20bit流标签</p>
-<p>16bit有效载荷的长度+8bit处理选项字段+8bit最大跳数</p>
-<p>128bit源IP地址+128bit目标IP地址&#x3D;40Byte，后面跟扩展报头</p>
-</li>
-<li><p><strong>Mac地址</strong>：物理地址，一张网卡一个，没有重复的，共48位；在OSI模型的数据链路层。</p>
-<p><strong>ARP</strong>：地址解析协议，负责将IP地址转换为MAC地址，用于在物理层面上传输信息；在同一个网段时，通过查表对应MAC地址，否则进行广播查询（一般来说新设备接网后表上就有记录）。在不同网段时，先发送给网关，由网关再广播查询。</p>
-</li>
-</ul>
-<blockquote>
-<p>表单叫ARP表，包括动态和静态表项。动态表项会随着时间而删除，通常很短，如果有使用就延长；静态ARP表项可以指定通信时固定的MAC与IP的绑定，防止由动态造成的ARP污染</p>
-</blockquote>
-<hr>
-<h3 id="0x04-HTTP"><a href="#0x04-HTTP" class="headerlink" title="0x04.HTTP"></a>0x04.HTTP</h3><p>HTTP超文本传输协议，基于TCP&#x2F;IP协议，默认端口80，用于传输网页。服务端接收到信息后与CGI交互，解释处理表单内容，产生处理；</p>
-<ul>
-<li><p>特点：</p>
-<ol>
-<li>无连接：每次一个请求。</li>
-<li>媒体独立：传任何类型数据（content-type规定主体内容格式）。</li>
-<li>无状态：对于客户没有记忆能力（搭配cookie使用以保持登陆状态）。</li>
-</ol>
-</li>
-<li><p>发展：</p>
-<p>HTTP&#x2F;0.9：请求仅包含一个get方法和URL，响应仅含有HTML文档，如果没找到，则返回有关服务器错误代码。</p>
-<p>HTTP&#x2F;1.0：有了现在的完整请求行和部分请求报头，响应有了状态码的返回，可以支持除HTML文档以外的类型。</p>
-<p>HTTP&#x2F;1.1：完善了Http&#x2F;1.0，请求报头中增加Host，在传送报文上使用pipe技术，连接可以复用。</p>
-<p>HTTP&#x2F;2：基于SPDY协议，是一种二进制协议而非之前的文本协议，多路复用。</p>
-<p>HTTP&#x2F;3：在传输使用QUIC协议，多路复用协议，延迟更低；在http2中使用单个TCP连接传输，而3中的QUIC使用UDP运行多个流，一旦有错误，仅错误的那条进行重新传输。</p>
-</li>
-<li><p><strong>请求报文</strong>：客户端向服务端首次发送</p>
-</li>
-</ul>
-<pre><code>请求方法+空格+请求URL+空+Http版本---------------------------------------请求行
-头部字段名：值--------------------------------请求头部/消息报头
-空行
-（请求正文）
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>方法（共8种）</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>get</td>
-<td>向特定资源发送请求</td>
-</tr>
-<tr>
-<td>post</td>
-<td>请求处理数据，此时含有请求正文</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>消息报头（可由服务端自定义其他的）</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Accept</td>
-<td>客户端能够接收的文件类型</td>
-</tr>
-<tr>
-<td>Accept-Charset</td>
-<td>支持的字符集编码</td>
-</tr>
-<tr>
-<td>Accept-Encoding</td>
-<td>浏览器可支持的内容压缩编码类型</td>
-</tr>
-<tr>
-<td>Accept-Language</td>
-<td>浏览器可接受的语言</td>
-</tr>
-<tr>
-<td>Authorization</td>
-<td>Http授权的证书类型</td>
-</tr>
-<tr>
-<td>Cache-Control</td>
-<td>请求响应过程遵循的缓存机制</td>
-</tr>
-<tr>
-<td>Connection</td>
-<td>表明是否需要持久连接的</td>
-</tr>
-<tr>
-<td>Cookie</td>
-<td>包含在请求URL域名下的所有有关cookie值</td>
-</tr>
-<tr>
-<td>Content-Length</td>
-<td>请求的内容长度</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>MIME</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>MIME：媒体类型，是一种用在响应头中的，表示文件的性质与格式；<code>type(图片还是文本)/格式(png,html)</code></p>
-</blockquote>
-<ul>
-<li><strong>响应报文</strong>：</li>
-</ul>
-<pre><code>http版本+状态码+英文（not found？）-------------------状态行
-响应首部------------------------消息报头
-空行
-主体------------------响应正文
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>栗子</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1xx(正在处理)</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2xx(成功)</td>
-<td>200(ok)、204(no content)</td>
-<td>请求成功；服务器正常处理，但就是没返回内容</td>
-</tr>
-<tr>
-<td>3xx(重定向，即需要附加操作)</td>
-<td>301、302</td>
-<td>请求资源换URL，并返回新家地址；暂时搬走、</td>
-</tr>
-<tr>
-<td>4xx(客户端错误)</td>
-<td>400、401、403、404</td>
-<td>请求报文有错误；需要身份验证；拒绝；未找到</td>
-</tr>
-<tr>
-<td>5xx(服务端错误)</td>
-<td>500、501、503</td>
-<td>服务器内部错误；不支持请求功能；超载</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="0x05-Cookie"><a href="#0x05-Cookie" class="headerlink" title="0x05.Cookie"></a>0x05.Cookie</h3><p>Cookie即服务器分发的身份证明。</p>
-<ul>
-<li><p>过程如下：</p>
-<p>客户端发送一个post请求到服务器，将自己的用户名密码都给封装进去——》服务器收到后创建一个session对象，其中有唯一的会话ID——》服务器发送一个HttpResponse响应到客户端，其中包含Set-Cookie的头部——》客户端保存cookie，之后向服务器发送请求时，HttpRequest请求中会包含一个Cookie的头部——》服务器返回响应数据</p>
-</li>
-</ul>
-<ul>
-<li><p>Cookie的组成：NAME&#x3D;value；Expires&#x3D;date；Path&#x3D;path；Domain&#x3D;domain_name；Size；Secure；HttpOnly；</p>
-<ul>
-<li>NAME：cookie的名字；也就是下面要讲的session_ID</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Expires：该cookie的过期时间（登录好几次之后就又得重新登陆就是因为这个）；<ul>
-<li>Path：在这里的作用并不是路径，而是说再同一网站之中都可以使用这个cookie。举个栗子：根目录为 &#x2F; ，当你进入b站的任何界面都会发现右上角依然有你的登录信息；</li>
-</ul>
-</li>
-<li>Domain决定该cookie在那些域是有效的，下面是关于Domain的不同设置</li>
-</ul>
-<blockquote>
-<p>设为一级域名 <code>.baidu.com</code>，则这个域名下的所有二级域名都可以读取该 Cookie；</p>
-<p>设为二级域名 <code>image.baidu.com</code>，则该 Cookie 只对设置的域名有效</p>
-</blockquote>
-<ul>
-<li><p>Size：Cookie文件大小；</p>
-</li>
-<li><p>Secure：Cookie的安全属性，只有true和false两个值，为true时则浏览器只会在HTTPS和SSL等安全协议中传输cookie，而在其他的诸如HTTP中则不会传递；</p>
-</li>
-<li><p>HttpOnly同上只有true or false两个值当设置为true时，cookie是不允许JS脚本来改变的；</p>
-</li>
-</ul>
-<ul>
-<li>Session：会话，这个东西是存在于服务器的内存中，当用户第一次访问网站时，服务器生成一个session对象，并把该对象的唯一的session_ID作为cookie的一部分发送给客户端。自己设置登出时，就是请求结束对话，会指示服务器把相应的session_ID给删除，本地的cookie并不影响。但因为cookie有时间限制，时间过了之后就会被浏览器删除，用户需要再次登录</li>
-</ul>
-<ul>
-<li><p>JWT：Json Web Token，用户第一次登陆后输入用户名和密码给服务器，接下来由服务器生成JWT并发送给客户端，而服务端只保存JWT签名过的密文，在客户端JWT以cookie或其他形式存储，每次请求时都会发送JWT（一般就叫token）。整个体系由header.payload.signature构成。</p>
-<p>header表明算法，payload表明数据（不是cookie！），两者首先经过base64编码拼接后，与服务端存储的密码经过header算法之后与signature对照验证</p>
-</li>
-</ul>
-<blockquote>
-<p>session存储于服务器，cookie作为数据传输载体将session传递给客户端。token同样产生于服务器但由客户端保管，可以放在cookie中</p>
-</blockquote>
-<hr>
-<h3 id="0x06-HTTPS"><a href="#0x06-HTTPS" class="headerlink" title="0x06.HTTPS"></a>0x06.HTTPS</h3><p>超文本传输安全协议，比HTTP多出了Secure，运行于443端口上。</p>
-<p>在HTTP的基础上，经由SSL&#x2F;TLS协议来进行非对称加密（协议层下面还是TCP），形成客户端、服务端、CA机构三方。TLS前身为SSL，下文所说证书均为TLS证书。下面是一些需要注意的Word：</p>
-<ul>
-<li><strong>CA</strong>：证书授权中心；有证书就表明CA对该服务器信任。</li>
-<li><strong>证书</strong>：包含网址、服务器公钥、所有者信息，还有最重要的数字签名</li>
-<li><strong>数字签名</strong>：CA对服务器提交内容，用自己的私钥加密，用以让客户端验证。而CA公钥一般在浏览器中内置</li>
-</ul>
-<p><strong>服务端与CA</strong>：服务端向CA申请证书，提交各种信息及证明还有钱钱，之后拿到具有数字签名的证书。当客户端请求服务端时，会将该证书发送给客户端。</p>
-<p><strong>客户端与服务端</strong>：客户端收到来自服务端的证书后，先结合保存在本地的CA公钥对证书上的信息进行验算，与数字签名对比，如果不对则表明中间被篡改过；无误后，浏览器使用该证书上写的服务端的公钥进行加密并发送，服务端用自己的私钥对该信息解密。</p>
-<ul>
-<li><p><strong>TLS具体过程</strong>：</p>
-<p>由于非对称加密成本较高，故TLS采用，非对称加密来传递对称加密的密钥：</p>
-<ol>
-<li>Bob打招呼并发送第一随机数</li>
-<li>Server接收，生成第二随机数，返回第二随机数、证书等（客户端验证）</li>
-<li>Bob接收后，生成第三随机数（预主密钥），并用服务端公钥加密后返回给Server</li>
-<li>Server接收到后，用私钥解密，得到预主密钥</li>
-<li>双方用三个随机数共同加密生成最终会话密钥</li>
-<li>之后进行对称加密进行交流</li>
-</ol>
-</li>
-<li><p><strong>CT</strong>（证书透明度）框架：</p>
-<p>解决了对于CA的信任问题。CA对服务端验证后，向区块链上提交CT日志，然后返回一个SCT（证书签署时间戳），将此SCT与证书啥的一同返回给服务端，服务端也会将此信息也返回给客户端；客户端验证服务器、CA、区块链日志，都符合后即可。由于区块链的特性，所以可信度极大地提高。</p>
-</li>
-</ul>
-<hr>
-<h3 id="0x07-UDP"><a href="#0x07-UDP" class="headerlink" title="0x07.UDP"></a>0x07.UDP</h3><p>用户数据报协议，位于传输层；多用于应用层的DNS、TFTP（简单文件）、SNMP（简单网络管理）等</p>
-<ul>
-<li>无连接：客户端只需将数据包送走即可，不用提前与目标机器商量</li>
-<li>无拥塞控制：不会探测路是否堵车</li>
-<li>不保证可靠交付：不一定送达</li>
-<li>面向报文：不拆分不合并，仅加头</li>
-<li>首部开销小</li>
-</ul>
-<p>数据报格式如下：</p>
-<pre><code>16bit源端口号 + 16bit目的端口号
-16位知指明本UDP包长度 + 16bit校验和
-数据~~~~
-</code></pre>
-<p>在计算校验和时，先将其全部置0，之后添加一个12Byte的伪首部（伪首部与TCP包的相同，但是协议号为17-UDP），之后按照16bit的倍数进行0填充，再2B一组对其反码进行求和，将和再求反码填入校验和；（伪首部和填充0并不发送）</p>
-<blockquote>
-<p>原码-常规表示；正数反码&#x3D;原码、负数反码&#x3D;原码除符号位外取反；补码&#x3D;反码+1</p>
-</blockquote>
-<hr>
-<h3 id="0x08-TCP"><a href="#0x08-TCP" class="headerlink" title="0x08.TCP"></a>0x08.TCP</h3><p>建立链接，用于提供端口，来确定两个IP地址中不同进程之间的通信。使用该协议的应用层协议有：HTTP&#x2F;S、FTP、SMTP、TELNET、SSH等</p>
-<p><strong>报文格式</strong>：</p>
-<p>TCP报文段&#x3D;TCP首部20字节+TCP数据；首部通常为20字节，有时具有可选字段+填充（32bit倍数）</p>
-<p>源端口+目的端口+seq序号+ack确认序号+数据偏移+保留+标志位+窗口+检验和+紧急指针</p>
-<ul>
-<li><p>源端口和目的端口：各占2字节，端口范围0-65535</p>
-<blockquote>
-<p>0-1023公认端口、1024-49151注册端口(有些软件绑定)、其余动态或私有端口；按协议也可以分为TCP、UDP、保留端口</p>
-</blockquote>
-</li>
-<li><p>序号4B：用于说明本报文段第一个字节的序号；达到最大之后再次从0开始</p>
-</li>
-<li><p>确认序号4B：表明期望收到的下一个数据包中的第一个字节的序号，是本机收到的上一个序号+1；只有ACK标志&#x3D;1时，确认序号才有效</p>
-</li>
-<li><p>数据偏移4b：表明头的长度，1bit&#x3D;4B的偏移，最大154B偏移，也就是TCP头最大只能154B</p>
-</li>
-<li><p>保留与标志位：各6bit，前者目前均为0，后者详细如下</p>
-<blockquote>
-<p>URG：&#x3D;1时表明该报文应尽快，而不需要按次序传送，用来与紧急指针配合使用，即紧急指针指向的字节前面的，不用太在意顺序</p>
-<p>ACK：&#x3D;1时，确认序号字段有效</p>
-<p>PSH：&#x3D;1时，需要接收方将本报文段<strong>尽快</strong>送给应用层</p>
-<p>RST：&#x3D;1时，表明<strong>连接错误</strong>，需要重连；还可以用来拒绝非法报文段</p>
-<p>SYN：&#x3D;1时&amp;&amp;ACK&#x3D;1时，表明请求建立一个连接；该标志&#x3D;1的报文段叫做<strong>同步报文段</strong></p>
-<p>FIN：&#x3D;1时，表明发送端完成发送任务</p>
-</blockquote>
-</li>
-<li><p>窗口4B：滑动窗口，用于实现流量控制；在服务端发送报文上可以理解为对客户端的数据报缓冲区大小，在客户端中该值&#x3D;min(拥塞窗口cwnd，接收端窗口大小)，其中的cwnd会随着网络的拥堵程度改变</p>
-</li>
-<li><p>检验和4B：发送端检验存储，由就手段进行验证</p>
-</li>
-<li><p>紧急指针4B：URG&#x3D;1时该偏移量才有效，通过与序号字段中的值相加再-1&#x3D;紧急数据的序号</p>
-</li>
-</ul>
-<p><strong>三次握手</strong>：</p>
-<ol>
-<li>客户端，发送报文标志位SYN&#x3D;1开启，表明想要连接，并产生一个随机序号A；</li>
-<li>服务端返回标志位SYN&#x3D;1&amp;ACK&#x3D;1，表明确认连接请求；确认序号&#x3D;序号A+1，并生成自己的随机序号B；</li>
-<li>客户端检查发送过来的确认序号是否&#x3D;A+1；正确则，将标志位ACK&#x3D;1，序号&#x3D;服务端确认号，确认号&#x3D;B+1，发送给服务端；服务端检查确认序号与ACK标志位，无误连接成功</li>
-</ol>
-<p><strong>四次挥手</strong>：</p>
-<ol>
-<li>客户端发送报文标志位FIN+ACK置1，表明发送结束；</li>
-<li>服务端收到客户端的FIN，并发送ACK确认收到FIN；</li>
-<li>之后再由服务端发送FIN报文段，请求断开连接；</li>
-<li>客户端收到服务端的FIN后，发送ACK，服务端收到并断开连接；客户端等待两个最大存活时间后，如果没有回复，则关闭连接</li>
-</ol>
-<p><strong>拥塞控制</strong>：</p>
-<p>开环控制：设计之前敲定不能变、闭环控制：动态反馈（监测+传送+调整）</p>
-<p>TCP采用闭环控制，基于滑动窗口，由发送方维护一个cwnd拥塞窗口，真正的发送窗口值wnd&#x3D;min(cwnd，rwnd)</p>
-<p>四种拥塞控制算法：慢开始、拥塞避免、快重传、快恢复</p>
-<ul>
-<li>慢开始：每收到一个确认，就把拥塞窗口+1，正常的话就是<strong>2的指数级别</strong>增长；当cwnd&gt;SSTH即慢开始门限时执行拥塞避免</li>
-<li>拥塞避免：每经过一个RTT，<strong>cwnd+&#x3D;1</strong>，线性增长。当出现拥塞时即重传定时器超时，**ssthres&#x3D;max(cwnd&#x2F;2，2)**，并让cwnd&#x3D;1开始执行慢开始算法</li>
-<li>快重传FR：收到<strong>三个连续重复ACK</strong>（加上第一次正经的共四个相同ACK），发送方就立即进行重传，执行快恢复算法</li>
-<li>快恢复：<strong>ssthres&#x3D;cwnd&#x2F;2</strong>，之后执行拥塞避免算法</li>
-</ul>
-<hr>
-<h3 id="0x09-Browser"><a href="#0x09-Browser" class="headerlink" title="0x09.Browser"></a>0x09.Browser</h3><p>目前的浏览器基本均为多进程浏览器，即将许多功能单独分离出来，包括但不限于：浏览器主进程、插件进程、渲染进程、GPU进程、网络进程等，各个进程之间采用IPC进行通信。<span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80NzQwNzM5OA==">图解浏览器的基本工作原理 - 知乎 (zhihu.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p><strong>导航过程</strong>：</p>
-<ol>
-<li><p>处理用户输入：浏览器进程中的UI线程负责判断其内容是地址还是其他东西，并决定是否发起网络请求</p>
-</li>
-<li><p>页面资源请求：浏览器主进程通过IPC把URL请求发送给网络进程，发起真正的URL请求</p>
-<blockquote>
-<p>先查找本地缓存资源，没有的话就先查找Host文件，没有目标再发送DNS请求等其他过程</p>
-</blockquote>
-</li>
-<li><p>响应数据处理：网络线程根据接收到的<code>Content-Type</code>来判断返回值类型，并进行安全检查之后再根据此项发送给渲染进程等其他进程</p>
-</li>
-<li><p>准备渲染过程：绝大多数返回内容都是页面，交给渲染进程处理</p>
-</li>
-<li><p>页面处理：渲染引擎与JS引擎共同处理页面并将结果呈现</p>
-</li>
-</ol>
-<p><strong>搜索引擎</strong>：</p>
-<ul>
-<li><p>搜索引擎结构：搜索器（蜘蛛）—分析器（NLP处理）—索引器（建立索引）—检索器（查找文档）—用户接口</p>
-<blockquote>
-<p>爬虫抓取策略：DFS、BFS、最佳优先搜索（贪心取优先相关度高）、反向链接搜索（由其他网站指向）、OPIC策略、大站优先策略等</p>
-</blockquote>
-</li>
-<li><p>工作流程：爬行抓取—建立索引（常用倒排索引）—搜索词处理—排序</p>
-</li>
-<li><p>常见的类别：元搜索引擎（将搜索请求发送给其他搜索引擎，之后再综合排序；dogpile、All4one、webcrawler）、全文搜索引擎（baidu、google等在web内容及标题中搜索）、目录搜索引擎（逐级向下选择）、垂直搜索引擎（专注特定领域）</p>
-</li>
-</ul>
-<p><strong>渲染引擎</strong>：用于获取网页的内容（HTML等），整理排版（CSS），然后显示；目前的浏览器引擎主要指的就是渲染引擎，而JS引擎通常作为渲染引擎的一部分，下面是一些常见的渲染引擎：</p>
-<ul>
-<li>Geocko：火狐浏览器；开源；</li>
-<li>Trident：IE浏览器、世界之窗；</li>
-<li>Webkit：Safari浏览器；基于KHTML研发，开源；</li>
-<li>Blink：google，edge，Opera浏览器；Google基于webkit研发；开源；</li>
-</ul>
-<p><strong>渲染过程</strong>：<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTAzODc3MzE0MTAxMjU1">10分钟看懂浏览器的渲染过程及优化 - 掘金 (juejin.cn)<i class="fa fa-external-link-alt"></i></span></p>
-<ol>
-<li><p>解析HTML，生成HTML DOM树：</p>
-<p>编码转换——标签令牌化——生成节点对象——节点对象构建成树形结构</p>
-</li>
-<li><p>碰到CSS，生成CSSOM树：同上</p>
-<blockquote>
-<p>碰到JS代码时会暂停进行，转交给JS引擎解析加载代码，有可能会改变DOM树结构</p>
-</blockquote>
-</li>
-<li><p>合并生成Render tree，即渲染树：将前面两者结合</p>
-</li>
-<li><p>Layout，遍历渲染树，计算盒子模型详细信息，即每个节点在浏览器窗口的确切位置与大小</p>
-<blockquote>
-<p>盒子模型：Content（内容）—&gt;Padding（内边距）—&gt;Border（边框）—&gt;Margin（外边框）</p>
-<p><img src="/../pic/box.png" alt="Boxmod"></p>
-</blockquote>
-</li>
-<li><p>Paint，绘制页面，绘制时间与CSS复杂度成正比</p>
-</li>
-</ol>
-<p>渲染引擎通常以一个进程的形式存在，其下面还包括许多线程，其中的常驻线程有：GUI渲染线程、JS引擎线程、事件触发线程、定时器线程、HTTP请求线程等</p>
-<p><strong>JS引擎</strong>：解析JS（翻译为机器语言）来实现网页的动态效果，可以理解为浏览器中的虚拟机</p>
-<ul>
-<li>SpiderMonkey：鼻祖；后更新为TraceMonkey、JaegerMonkey</li>
-<li>Chakra：微软开发，用于IE；</li>
-<li>JavaScriptCore：用于webkit，Apple开发；</li>
-<li>V8：google基于C++开发，Node.js基于V8引擎开发；</li>
-<li>流程：JS代码解析为抽象语法树（ATS）——基于AST解释器将其转换为虚拟机字节码——优化编译器将部分函数优化为本地机器指令执行</li>
-</ul>
-<p><strong>安全机制</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vc2VjdG9vbC8zMDM1NTEuaHRtbA==">WEB安全-浏览器的几种防护策略 - FreeBuf网络安全行业门户<i class="fa fa-external-link-alt"></i></span></p>
-<ul>
-<li><p>同源策略：防止A站的JS修改B站的页面，对于js来说只有同一IP、同一端口、同一协议才能够算作是同源。</p>
-<p>不受限制的内容：页面中的链接、重定向、表单提交、跨域资源的引入</p>
-<p>进行跨域：<strong>JSONP</strong>（服务端有专门的JSONP请求接口，可以接受JSON格式的参数，并返回该参数的执行结果）、<strong>CORS</strong>（允许浏览器向跨源服务器发出XMLHttpRequest请求）、<strong>Nginx</strong>反向代理可以跨域访问</p>
-</li>
-<li><p>内容安全策略CSP：开发者在规定浏览器对于危险资源不能加载执行，即有漏洞，但是在该客户端上不被允许执行</p>
-</li>
-<li><p>沙箱机制：至少会有两个进程出现，一个代理进程一个目标进程，前者与后者之间建立IPC通道并接受各种请求，待病毒特性充分暴露之后会进行回滚机制，将病毒的痕迹和动作抹去</p>
-</li>
-<li><p>恶意网站拦截：拦截的大多为挂马网站、诈骗钓鱼网站等。目前大多的浏览器采用的大多基于黑名单制度，该项黑名单定期会从服务器获取。<span class="exturl" data-url="aHR0cHM6Ly9waGlzaHRhbmsub3JnL2luZGV4LnBocA==">PhishTank | Join the fight against phishing<i class="fa fa-external-link-alt"></i></span></p>
-<blockquote>
-<p>EV SSL证书，拥有该证书的网站会在浏览器地址栏中显示为绿色，拥有特别标注</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="WASM"><a href="#WASM" class="headerlink" title="WASM"></a>WASM</h4><p>全称是WebAssembly，即在web上的汇编，准确来说wasm就是一套专门用在浏览器上的汇编语言，目的当然就是加快运行速率咯。</p>
-<p>我们知道python和js都是JIT（just in time）编译方式的，也就是在运行时再将代码转换为机器码运行，因此对比于C&#x2F;C++等AOT（ahead of time）这种提前写好机器码的语言会更慢一点。</p>
-<p>为了加快浏览器上js的执行速度，因此wasm这种汇编就出现了。</p>
-<p>可以C&#x2F;C++&#x2F;Go等编译型语言来生成相关wasm文件以此代替js文件。浏览器引擎在收到wasm文件后可以直接对应查表转换为引擎对应字节码加以执行。</p>
-<p>一般都是将js和wasm配合使用，用js编写较为复杂的函数功能来供给wasm调用</p>
-<blockquote>
-<p><span class="exturl" data-url="aHR0cHM6Ly9ldmlhbi16aGFuZy5naXRodWIuaW8vd2FzbS10dXRvcmlhbC8=">引言 - WASM 汇编入门教程 (evian-zhang.github.io)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<hr>
-<h3 id="0x0A-CDN"><a href="#0x0A-CDN" class="headerlink" title="0x0A.CDN"></a>0x0A.CDN</h3><p>内容分发网络，是一种网络模型。通过设置下属缓冲服务器，也叫边缘服务器，即接近用户的服务器（区别于镜像服务器，只有部分内容，有额外操作），来缓解用户对主服务器的流量请求；</p>
-<ul>
-<li><p><strong>过程</strong>：源服务器通过HTTP包中的<code>cache-control</code>字段来决定内容的缓存形式（是否保存，多长时间等）。对于静态内容来说：初始时源服务器将内容push给CDN服务器，之后用户向CDN请求，如果CDN中没有用户索要内容，则先向源服务器pull内容，之后再分发；而对于动态内容来说，只有一小部分能够设置成由CDN提供</p>
-</li>
-<li><p><strong>防御DDOS</strong>：为防止某一个服务器流量过高时，会将其部分流量转移到其他服务器上（负载均衡）。在这之中有的采用任播技术，将所有的CDN服务器都共享一个IP，这样其中一个出问题了，就会请求地理上最近的其他CDN，需要专门的负载均衡系统</p>
-</li>
-<li><p><strong>用处</strong>：CDN会对包进行处理，去除不必要内容，来减少包大小，加速用户；减少传输距离，即降低了网络带宽费用，降低服务器方费用</p>
-</li>
-</ul>
-<p>CDN服务器安置原则：</p>
-<ol>
-<li>在ISP（互联网服务提供商）处架设CDN集群</li>
-<li>在关键的IXP（因特网交换点）先放置CDN，之后邀请ISP入驻</li>
-<li>根据地理位置和地区流量检测选择布置</li>
-</ol>
-<hr>
-<h3 id="0x0B-P2P"><a href="#0x0B-P2P" class="headerlink" title="0x0B.P2P"></a>0x0B.P2P</h3><p>peer to peer，即点对点技术，又叫做互联网络对等技术。每个结点即能充当服务器又能充当客户，基本不存在带宽问题；为实现跨内网交流，要将内网IP更换为公网IP（NAT），从而到达另一个内网；</p>
-<p><strong>NAT</strong>：网络地址转换技术，是一种将数据包中IP地址更换为其他IP地址的功能，常由路由器或防火墙实现；目前代指动态NAT（即NAPT），不仅会改IP地址，还能改变数据报的TCP&#x2F;UDP端口</p>
-<p>术语：内部Tuple、外部Tuple、目标Tuple、打洞hole punch；Tuple&#x3D;IP+Port</p>
-<ol>
-<li>完全锥形NAT：传统NAT，内部Tuple单独占一个外部Tuple</li>
-<li>地址限制型锥型NAT：在锥型基础上，只有之前内部主机联系过的IP才能借助之前的外部Tuple联系，只能发送UDP报文</li>
-<li>端口限制圆锥型NAT：在地址限制型基础上，外部机器B想要与A联系，就要用A之前联系B时的目标Tuple（Ip+端口）向外部Tuple通信</li>
-<li>对称型NAT：内外交流双方构成的【内部Tuple-目标Tuple】对，单独占用NAT后的一个外部Tuple；而外部IP也只能通过该固定的<strong>外部Tuple</strong>来访问内部；即不仅限制了外部的IP和端口，也限制了内部的IP和端口</li>
-</ol>
-<p><strong>NAT穿透&#x2F;打洞</strong>：有了NAT技术之后，任意两个在内网的客户端想要通信，就要建立隧道&#x2F;打洞</p>
-<ul>
-<li>1-1、1-2、1-3、1-4打洞：中间服务器C把A和B的外部Turple相互告诉，任意外部都可联系内部</li>
-<li>2-2、2-3、2-4、3-3打洞：先同上，由于IP地址受限，因此需要A直接先向B发送连接（A开了一个针对B的口），之后A通过C向B发送邀请（B此时是没有与A连接的，因为B之前没有连过A），让B也直接向A发送邀请（B开了一个针对A的口，两端成功连接）；根据类型指定IP或Port</li>
-<li>3-4、4-4常规方法无法打洞</li>
-</ul>
-<blockquote>
-<p>更多细节参考<span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODQ0OTA0MDk4NTcyMDA5NDg1">NAT基本原理及穿透详解(打洞)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<p><strong>BitTorrent</strong>：</p>
-<p>一种用于文件分发的流行P2P协议，会将文件划分为大小相等的n块</p>
-<ul>
-<li><p><strong>洪流(torrent）</strong>：是参与一个特定文件分发的集合，每个个体叫对等方，以等长文件块（256KB）为单位</p>
-</li>
-<li><p><strong>追踪器（tracker）</strong>：划分洪流，登记新来的对等方，将对等方的IP发送给新来的（杂p2p，并不是非常的对等，因为tracker也需要服务器）</p>
-</li>
-<li><p><strong>种子</strong>：制作<code>.torrent</code>文件，其中包含Tracker服务器地址、文件大小、文件名、块大小等</p>
-<p>在拿到之后，会先连接Tracker服务器，之后验证缺少信息并交换信息</p>
-</li>
-<li><p><strong>磁力链接</strong>：格式<code>magnet:?xt=urn:bith:~~~~</code>后面跟一串40位16进制的数字；<code>magnet</code>协议名，<code>xt</code>表示资源定位点，<code>urn:bith</code>表示Hash名，采用URN来定位资源，Hash值即为资源的唯一命名</p>
-</li>
-<li><p><strong>最稀缺优先</strong>：具有该洪流中的块列表，资源数最少的块，最先互传；</p>
-</li>
-<li><p><strong>一报还一报</strong>：向我传送速率最高的对等方获得我方的优先权，规定n个疏通，剩余的阻塞</p>
-</li>
-</ul>
-<p>P2P应用：分布式计算（区块链）、文件共享、流媒体、IP层语音通信（VoIP）、游戏平台</p>
-<hr>
-<h3 id="0x0C-VPN"><a href="#0x0C-VPN" class="headerlink" title="0x0C.VPN"></a>0x0C.VPN</h3><p>虚拟专用网络VPN，旨在提供一种安全连接到网络服务器的方式。其核心是隧道技术，使用该技术的数据可以是不同协议的数据帧或包，因为隧道协议会将其重新封装后并发出（该过程也叫做挖隧道）。</p>
-<p>从两端类型来说分为：</p>
-<ul>
-<li><p>站点对站点VPN：两端的地点相对固定；</p>
-</li>
-<li><p>客户端对站点VPN&#x2F;远程登陆VPN：全隧道模式（所有数据都通过）+半隧道模式（部分数据通过）；</p>
-</li>
-</ul>
-<p>加密方式：AES256+3DES；保护完整性：Hash；认证：PSK+RSA</p>
-<p>根据使用的协议：目前较多的IPsec VPN和SSL&#x2F;TLS VPN，还有Socks5、PPTP、L2F、L2TP协议等</p>
-<ul>
-<li><p><strong>IPsec VPN</strong>：</p>
-<p>IPsec协议位于网络层，多用于站点对站点传输；其VPN有两个主要模式：传输模式（也叫半隧道模式）与隧道模式，在传输模式种并非所有的数据都会经过加密，而后者则会全部加密甚至是IP头。</p>
-<p>需要网络中设备安装相应软件并经过身份验证、使得网络管理可见性更广（更底层）</p>
-</li>
-<li><p><strong>SSL VPN</strong>：</p>
-<p>SSL&#x2F;TLS位于应用层与传输层之间，多用于客户端对站点传输；其VPN模式：门户模式（特定网页或Web应用）和隧道模式（甚至可以访问非Web应用）；</p>
-<p>SSL协议广泛应用于浏览器中（多亏HTTPS）因此部署成本较低，只需开放443端口、可以部署在内网中的任一个节点上，移动性强、缺少身份验证可能有安全问题、管理繁琐，需要管理员设置模式</p>
-</li>
-</ul>
-<p><strong>Tor</strong>：洋葱网络&#x2F;路由，一种“代理节点快速动态变化的加密三重代理”，相当于多重VPN；默认情况下Tor通过3个中继器进行跳转：Guard中继器、Middle中继器、Exit中继器。</p>
-<ul>
-<li><p><strong>中继器</strong>：当Alice想要访问Bob时，会在Tor服务器中选择上述三种中继器各一个，而且会定时重组选择新的中继器。为了防止所有的Tor中继器被阻塞，每次只会给用户一小部分的中继器信息。</p>
-</li>
-<li><p><strong>加密过程</strong>：Alice与Guard中继器借助Curve25519椭圆曲线生成一个对称密钥key1，之后Alice使用Guard中继器作为加密跳板来与Middle中继器继续生成key2，以此类推。</p>
-<p>最后Alice有了3把key，每当Alice想要访问Bob时，会依次使用key1、key2、key3对数据包进行加密，每经过一个中继器就解一次密，也就是Exit中继器能看到最终传输内容</p>
-</li>
-</ul>
-<hr>
-<h3 id="0x0D-FireWall"><a href="#0x0D-FireWall" class="headerlink" title="0x0D.FireWall"></a>0x0D.FireWall</h3><p>Firewall，作用：限制外来用户、限定用户访问特定站点。可以在单独的硬件上，也可以作为软件；作为硬件一般叫做网络防火墙，需要针对广泛的连接进行配置，而后者又叫软件&#x2F;主机防火墙，可以针对单独的机器设备进行定制。</p>
-<ul>
-<li><p>两种分段模型：</p>
-<ul>
-<li><p>外部网络—屏蔽主机防火墙—内部网络；</p>
-</li>
-<li><p>外部网络—屏蔽路由器—边界网络&#x3D;DMZ隔离区—屏蔽路由器—内部网络</p>
-</li>
-</ul>
-</li>
-<li><p>过滤标准：源IP、目标IP、内容、协议</p>
-</li>
-<li><p><strong>工作模式</strong>：</p>
-<ul>
-<li>路由&#x2F;网关模式：将防火墙当作路由器使用，内外接口处于不同的子网之中，需要更改网络拓扑</li>
-<li>透明模式&#x2F;桥模式：将防火墙当作交换机，类似于路由器中的仅接内部网，可以互相通信，无IP</li>
-<li>混合模式：防火墙1网关模式，防火墙2桥模式，之后连接防火墙，防火墙1启动VRRP（虚拟路由器冗余协议）进行备份</li>
-</ul>
-</li>
-<li><p><strong>FireWall类型</strong>：</p>
-<ul>
-<li>静态包过滤&#x2F;无状态检测防火墙：运行于OSI的网络层；类似于HTTP的无状态，每一个数据包都需要检查，因此对手动创建的接入控制列表要求较高</li>
-<li>电路级网关防火墙：运行在会话层；连接一段时间后仍无异样，就停止监视</li>
-<li>动态包过滤&#x2F;状态检测防火墙：作用域传输层及以上；能够监控持续的连接</li>
-<li>代理防火墙&#x2F;应用层防火墙：运行在应用层；相当于有代理作用的防火墙</li>
-<li>混合型：不多bb</li>
-</ul>
-</li>
-</ul>
-<p><strong>WAF</strong>：Web应用防火墙，过滤监视HTTP通信来保护Web应用程序；应用层防御；负安全模型（黑名单）&#x2F;肯安全模型（白名单）；预防SQL注入、XSS、文件上传、第七层Dos攻击等</p>
-<p>基于网络的WAF—基于主机的WAF：专门的硬件—作为软件集成，消耗本地资源</p>
-<p>基于云的WAF：云服务商将对去到服务器的流量进行检测</p>
-<h4 id="IDS"><a href="#IDS" class="headerlink" title="IDS"></a>IDS</h4><p>入侵检测系统；对攻击、恶意流量、木马进行检测并发出警告；旁路部署在需要关注的链路上；</p>
-<ul>
-<li><p><strong>CIDF体系</strong>：为IDS通用模型，包括事件产生器+事件数据库+事件分析器+响应单元</p>
-<ol>
-<li><p>事件产生器搜集信息数据，并将其转换为GIDO（通用入侵检测对象）标准格式转交给其他组件</p>
-</li>
-<li><p>事件分析器：接受GIDO，并判断是否构成威胁</p>
-</li>
-<li><p>事件数据库：存储各种事件</p>
-</li>
-<li><p>响应单元：根据GIDO作出反应，终止进程、切断链接、报警等</p>
-</li>
-</ol>
-</li>
-<li><p><strong>根据数据源的分类</strong>：</p>
-<ol>
-<li>HIDS：基于主机，数据来源有系统&#x2F;应用日志、审计日志、端口调用情况等</li>
-<li>NIDS：基于网络，对网络中的数据包进行监测分析</li>
-<li>DIDS：分布式，高层次IDS接受低层次的IDS信息</li>
-</ol>
-</li>
-<li><p><strong>根据检测方法的分类</strong>：</p>
-<ol>
-<li>误用检测系统：根据已有库中的攻击模式，对外来入侵判断类型，进行特征模式匹配或借助专家系统判断；误报率低、要求不高、只针对已知攻击</li>
-<li>异常检测系统：设定标准与阈值，当超过该标准时就警报；误报率不易控制、大量信息特征采集</li>
-<li>混合检测系统：不多bb</li>
-</ol>
-</li>
-<li><p>根据响应方式分类：实时监测、非实时检测</p>
-</li>
-<li><p><strong>误用检测分析方法</strong>：</p>
-<ol>
-<li>模式匹配：依赖于模式库，模式库中存储入侵特征</li>
-<li>专辑系统：专家知识库，形成IF-THEN规则</li>
-<li>状态转换：状态转换图，将入侵过程看作一个行为序列进行分析</li>
-<li>基于信誉检测：检测IP、DNS等是否上过黑名单</li>
-</ol>
-</li>
-<li><p><strong>异常检测方法</strong>：贝叶斯统计、机器学习、神经网络</p>
-</li>
-</ul>
-<blockquote>
-<p>HIDS基于主机的入侵检测系统，特征检测，部署于内网服务器中；NIDS基于网络入侵检测系统，异常检测，部署于内网节点中</p>
-</blockquote>
-<p><strong>IPS</strong>：入侵防御系统，区别于IDS，在检测到威胁时，能够自动阻止攻击并采取行动。由于需要流量经过因此需要串行部署。检测方法与IDS相似，这里不多冗余</p>
-<p>根据安装的宿主分为：网络入侵防御系统NIPS、主机入侵防御系统HIPS，前者检测分析流量，后者监测文件进程</p>
-<ul>
-<li>核心组件如下：<ul>
-<li>签名库：存放已知攻击特征</li>
-<li>异常检测引擎：检测未知攻击和异常行为</li>
-<li>阻止引擎：根据检测到的类型及威胁等级来才需相应的措施</li>
-<li>管理控制台：配置管理IPS</li>
-<li>日志报告系统：记录IPS活动，生成报告并分析数据</li>
-</ul>
-</li>
-</ul>
-<p><strong>蜜罐</strong>：模拟若干个容易受攻击的主机或服务吸引攻击者，用于捕获病毒、恶意代码样本等，在攻防对抗中也能够有效地浪费敌方时间。</p>
-<p>交互程度：低交互（系统及服务的全模拟，但最安全）、中交互（最模拟OS）、高交互（有真实的OS）</p>
-<p>技术分类：牺牲型（提供真实的目标，但较为危险）、外观型（模拟）、测量型（真实、难以绕过、不易被当做跳板）</p>
-<blockquote>
-<p><strong>蜜网</strong>是由多个蜜罐+防火墙+IDS+监控报警系统等组成的体系结构；<strong>蜜标</strong>是一种特殊的蜜罐诱饵，它不是任何的主机节点，而是一种带标记的数字实体；<strong>蜜场</strong>是通过代理的方式扩展诱饵节点部署范围的蜜罐系统形态</p>
-</blockquote>
-<p>蜜罐系统主要包括：数据捕获（监控病毒等的行为）、交互仿真（模拟与攻击者的交互）、安全防护（防止蜜罐被破坏）三部分。又可以划分为：诱饵层（散布诱饵信息-面包屑）、探针层（监测恶意访问将其定向到蜜罐）、蜜罐层（仿真系统，并采集信息）、分析层（分析信息，生成威胁情报）</p>
-<h4 id="BH"><a href="#BH" class="headerlink" title="BH"></a>BH</h4><p>堡垒机（BastionHost），也叫做运维审计系统，是一台具备强大防御功能和安全审计功能的服务器，说人话就是控制账户及权限，并记录干了什么的东西。</p>
-<ul>
-<li><strong>核心功能&#x2F;理念4A</strong>：认证Authen、账号Account、授权Authorize、审计Audit</li>
-<li><strong>目标5W</strong>：What、Which、Where、Who、When即谁在什么时候，在哪个位置，能够干什么，并且它干了什么</li>
-<li><strong>模块</strong>：<ol>
-<li>运维平台：RDP&#x2F;VNC运维；SSH&#x2F;Telnet运维；SFTP&#x2F;FTP运维；数据库运维；Web系统运维；远程应用运维；</li>
-<li>管理平台：三权分立；身份鉴别；主机管理；密码托管；运维监控；电子工单</li>
-<li>自动化平台：自动改密；自动运维；自动收集；自动授权；自动备份；自动告警</li>
-<li>控制平台：IP防火墙；命令防火墙；访问控制；传输控制；会话阻断；运维审批</li>
-<li>审计平台：命令记录；文字记录；SQL记录；文件保存；全文检索；审计报表</li>
-</ol>
-</li>
-<li><strong>身份认证方式</strong>：本地认证（直接账密）、远程认证（远程账密）、双因子认证（验证码）、第三方认证（其他绑定的账密）</li>
-<li><strong>运维方式</strong>：B&#x2F;S（借浏览器部署控制）、C&#x2F;S（客户端）、H5（页面登录控制）、网关</li>
-<li><strong>部署方式</strong>：单机（旁挂在交换机旁）、HA高可靠部署（比前者多一个备份，且共用一个IP）、异地同步部署（多地多台）、集群部署（抽两个堡垒机当总的，一主一备）</li>
-</ul>
-<h3 id="0x0E-Network-of-VM"><a href="#0x0E-Network-of-VM" class="headerlink" title="0x0E.Network of VM"></a>0x0E.Network of VM</h3><ul>
-<li><p><strong>NAT</strong>（默认）：内部设置分配私有地址，外网无法访问；在每个虚拟机中虚拟机软件会创建一个默认网关（IP固定），之后虚拟机上网流量必定经过本网关，再到宿主机，因此各个虚拟机之间无法交流；</p>
-<p>宿主相对于虚拟机来说是外网，虚拟机可以访问宿主，但不能反过来</p>
-</li>
-<li><p><strong>NAT网络&#x2F;模式</strong>：虚拟机之间可以相互连接，相较于NAT来说，有一个虚拟网关、DHCP、交换机将各个虚拟机存放在同一个网络之中，可以访问互联网；搭建靶场！！！</p>
-</li>
-<li><p><strong>桥接</strong>：虚拟机与宿主机平级，会占用多个宿主网关的分配地址，之间可以互ping</p>
-</li>
-<li><p><strong>内部网络</strong>：虚拟机可以互通，但是无法与宿主交流，相当于虚拟机们自己在一个独立的网络中；如果要互ping，需要提前配置网络</p>
-</li>
-<li><p><strong>仅主机模式</strong>：相较于内部网络，会自动分配IP地址（有DHCP），而且可以与宿主互ping，但是不能上网</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>计算机基础</category>
       </categories>
       <tags>
         <tag>基础知识</tag>
