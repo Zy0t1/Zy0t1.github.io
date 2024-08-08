@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OS疑难杂症 | Zy0t1's blog</title><meta name="author" content="Zy0t1"><meta name="copyright" content="Zy0t1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="主要用于记录在复习OS时思考到的一些问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS疑难杂症">
+<meta property="og:url" content="http://zy0t1.github.io/2024/07/03/os%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="主要用于记录在复习OS时思考到的一些问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp">
+<meta property="article:published_time" content="2024-07-03T14:51:23.439Z">
+<meta property="article:modified_time" content="2024-08-07T09:21:32.052Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="408">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp"><link rel="shortcut icon" href="/img/web.png"><link rel="canonical" href="http://zy0t1.github.io/2024/07/03/os%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OS疑难杂症',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-07 17:21:32'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OS疑难杂症</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-03T14:51:23.439Z" title="发表于 2024-07-03 22:51:23">2024-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T09:21:32.052Z" title="更新于 2024-08-07 17:21:32">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%80%83%E7%A0%94/">考研</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OS疑难杂症"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="任务、作业与进程、线程"><a href="#任务、作业与进程、线程" class="headerlink" title="任务、作业与进程、线程"></a>任务、作业与进程、线程</h3><p>结论：作业下面多个任务，任务下面多个进程，进程下面多个线程。任务/作业面向用户的抽象概念，进程/线程面向CPU实体概念</p>
+<p>作业简单理解为批处理系统的一次运行，这次运行有多个任务，完成每个任务又需要多个进程协同工作。在没有被真正运行时，作业在外存的等待队列中等待执行</p>
+<p>就拿bash脚本来说，一整个脚本是一个作业，这个作业里面我需要用word打开文档、又需要打开音乐、需要浏览器打开指定格式参考文本，这就包括了三个任务，每个任务下可能又需要打开多个进程</p>
+<blockquote>
+<p>个人认为作业算是批处理系统中老概念了，相当于现在的程序就行</p>
+<p>协程：一种轻量级的线程，与线程最大区别就是，状态存放在堆中，可以暂停。详细参考<a target="_blank" rel="noopener" href="https://zplutor.github.io/2022/03/25/cpp-coroutine-beginner/">C++20协程入门教程 | Zplutor’s</a>写的非常好</p>
+</blockquote>
+<h3 id="同步互斥问题"><a href="#同步互斥问题" class="headerlink" title="同步互斥问题"></a>同步互斥问题</h3><p>首先区别一下同步和互斥</p>
+<ul>
+<li>同步：是指两个进程在并发运行的条件下仍要按照一定顺序访问资源。相当于入口必须先A进后B进</li>
+<li>互斥：指的是两个进程要访问同一个资源，但是该资源只能被一个进程访问。相当于入口只能通过一人</li>
+</ul>
+<p>互斥原则：空闲让进、忙则等待、有限等待、让权等待（非必要）</p>
+<p>同步互斥实现方式：</p>
+<ul>
+<li><p>软件实现：peterson算法</p>
+</li>
+<li><p>硬件：关中断、借助硬件实现的原语操作（TestAndSet、Swap）</p>
+</li>
+<li><p>互斥锁</p>
+</li>
+<li><p>信号量：即PV操作，需要记住P—，V++，将相应代码对应</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">wait</span><span class="params">(semaphore S)</span>&#123;</span><br><span class="line">	S.value--;</span><br><span class="line">	<span class="keyword">if</span>(S.value &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		add this process to S.L;</span><br><span class="line">		block(S.L);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">signal</span><span class="params">(semaphore S)</span>&#123;</span><br><span class="line">	S.value++;</span><br><span class="line">	<span class="keyword">if</span>(S.value &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">		remove a process P from S.L;</span><br><span class="line">		wakeup(P);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>管程：和之前的进、线、协程都不同，管程专门用于同步互斥，是一个抽象的数据结构。以面向对象来说，管程就是一个类，其中封装了互斥资源，而且对该资源的相关操作也都封装在该类中，同时只能由一个实体访问</p>
+</li>
+</ul>
+<h3 id="段式内存管理和程序中段的关系"><a href="#段式内存管理和程序中段的关系" class="headerlink" title="段式内存管理和程序中段的关系"></a>段式内存管理和程序中段的关系</h3><blockquote>
+<p> 需要先明确的一点是目前基本都是页式内存管理（个人OS）</p>
+</blockquote>
+<p>程序中的段我们以ELF文件为例</p>
+<ul>
+<li>当ELF在外存时分的代码段、数据段、共享段等等（也可以叫节，这里用于区分）</li>
+<li>加载到内存时，这些段会<strong>根据各自的属性</strong>，重新合并，来放置到不同的物理页（下面的page）中</li>
+<li>这些合并后的段，在内存上都不算是连续的，因为一页一般不会占满（页内碎片）</li>
+</ul>
+<p>而段式管理中的段则对应于上面的物理页，则可以推出这两个段不是一个东西</p>
+<h3 id="内存映射过程（段页式为例"><a href="#内存映射过程（段页式为例" class="headerlink" title="内存映射过程（段页式为例"></a>内存映射过程（段页式为例</h3><ol>
+<li><p>CPU拿到逻辑地址A，取出前几位为段号S</p>
+<blockquote>
+<p>如果是二级页表，将段表过程换位一级页表即可</p>
+</blockquote>
+</li>
+<li><p>判断段号是否越界，如果S&gt;=段表长度M，则产生越界中断</p>
+<blockquote>
+<p>这里的段表长度M来自相应界地址寄存器，下面的段表起始位置来自相应的基地址寄存器</p>
+<p>还有判断的方法就是直接在寄存器中给出上下限地址寄存器</p>
+</blockquote>
+</li>
+<li><p>在段表中拿着段号S找到对应的段表项，取出对应页表地址</p>
+<blockquote>
+<p>在仅有页式管理时，单级页表的位置由页表寄存器PTR指出，多级页表的话，对应的一级页表寄存器叫做页目录基址寄存器</p>
+</blockquote>
+</li>
+<li><p>逻辑地址A后再取页号K，同样判断是否越界</p>
+</li>
+<li><p>之后根据K在页表中查找对应页表项，获取其中的物理块号</p>
+</li>
+<li><p>拼接最终得到物理地址</p>
+</li>
+</ol>
+<blockquote>
+<p>目前常用的就是页式管理，采用多级页表+TLB的方式</p>
+</blockquote>
+<h3 id="基本页式内存管理和请求页式管理区别"><a href="#基本页式内存管理和请求页式管理区别" class="headerlink" title="基本页式内存管理和请求页式管理区别"></a>基本页式内存管理和请求页式管理区别</h3><ul>
+<li><p>基本页式、基本段式、基本段页式中进程的所有页/段一次性都装载到内存上，因而不存在置换、请求等操作</p>
+</li>
+<li><p>请求式分页、分段、段页式中进程的页并不会一次性全部加载到内存，而是加载到虚拟内存中（内存+外存交换区），当需要交换区中的页时，就进行请求调页，内存驻留集有空就直接给，否则就进行页面置换（交换区足够放置进程所需东西）</p>
+<blockquote>
+<p>交换区不够的话，则不会被修改的文件将直接从文件区加载</p>
+<p>unix系统中，未运行过的页都在外存文件区，只有从内存上换下来的才会放到交换区。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="内存映射文件"><a href="#内存映射文件" class="headerlink" title="内存映射文件"></a>内存映射文件</h3><p>将一个文件映射到进程的虚拟地址空间中，而非通过文件I/O操作访问，这时访问该文件就相当于访问内存中的一块大号连续字符，不会像I/O操作一样将文件全部读入，而是需要那一页时再单独读入，并利用关闭映射时的回写操作从而实现写文件</p>
+<p>共享内存基于上述原理实现，一个文件被映射到了多个进程的虚拟地址空间中（页表项），当进程A在映射到这个文件上的操作时，另一进程B由于实际上看的是同一份，这时就能立刻看到上一个进程的操作</p>
+<p>COW：copy on write，父子进程共享相同的页面工作，然后子进程修改页面时标记写时复制，此时系统就会创建该页面的副本给子进程写，而父进程还使用原先的页面。</p>
+<blockquote>
+<p>在这个过程中子进程需要一个新的页，除了申请之外，还可以借助页面池分配。</p>
+<p>什么是池，简单来讲就是提前初始化过的东西，需要就拿，用完就放回，省去了一些步骤</p>
+</blockquote>
+<h3 id="工作集、抖动、驻留集相关概念"><a href="#工作集、抖动、驻留集相关概念" class="headerlink" title="工作集、抖动、驻留集相关概念"></a>工作集、抖动、驻留集相关概念</h3><p>概念区别</p>
+<ul>
+<li><p>驻留集是一个进程在内存中被分配的页框数目，因为不需要全部一次装进。比如此时驻留集分了两块，其中放了进程的第2、3块</p>
+<blockquote>
+<p>虚拟内存中的叫页块，真实内存的是页框</p>
+</blockquote>
+</li>
+<li><p>工作集是一个进程在一段时间内需要用到的页块集合，需要注意的是这是一个序列，不存在指明内存还是交换区的问题。工作集序列2、3、5、4</p>
+</li>
+<li><p>抖动就是刚放入驻留集的页块（因为页面置换）又要被马上换出来，或者刚换出来的马上又要用到而放驻留集中</p>
+</li>
+</ul>
+<p>驻留集和缺页过程</p>
+<ul>
+<li><p>驻留集是进程在内存中的页框集合。</p>
+</li>
+<li><p>进程的页表中页号应该是全的，但是因为驻留集的存在导致部分页号对应的页框号为空（这部分位于外存的交换区，而非内存中），因此需要通过页面置换算法来从驻留集中选一个页框出来，选出来的页框来存放新的东西</p>
+<blockquote>
+<p>这里想要说明的是，题目中一旦给定驻留集中的所有页框号，之后该进程所有的页号，都会存在于这几个页框号中</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="基本IO操作"><a href="#基本IO操作" class="headerlink" title="基本IO操作"></a>基本IO操作</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * pathname, <span class="type">int</span> flags)</span>;</span><br><span class="line">fd = open(<span class="string">&quot;flag.txt&quot;</span>,O_RDONLY);</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> * buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line">read(fd,&amp;ch,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">write</span> <span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> * buf, <span class="type">size_t</span> count)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">close</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br></pre></td></tr></table></figure>
+<p>需要说明的是，当open打开文件时，该文件并不会被加载到内存中，而是该文件对应的文件记录块FCB会被加载到内存中。（参考下面的VFS）</p>
+<blockquote>
+<p>内存中有个系统的打开文件表、进程的打开文件表，各自的打开表中都会添加该文件相关条目</p>
+</blockquote>
+<p>具体open如何运行有待后续进一步学习</p>
+<h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><p>磁盘初始化过程</p>
+<ol>
+<li><p>低级格式化/物理格式化：一般是由厂商操作，将其分成一个个扇区，包括头部、数据区、尾部，并利用CRC字段对扇区进行校验，其中的坏块也会被标记不进行使用</p>
+</li>
+<li><p>分区：将每个分区的起始扇区和大小都记录到磁盘主引导记录的分区表中</p>
+</li>
+<li><p>逻辑格式化/高级格式化：这里开始安装文件系统，各个分区都可以有自己的文件系统</p>
+<blockquote>
+<p>文件系统安装后，因为默认扇区通常是512KB，为提升效率，现在的OS经常会将几个扇区给合并到一起，windows中的簇，linux中的块</p>
+</blockquote>
+</li>
+</ol>
+<p>引导过程：</p>
+<ol>
+<li>激活CPU，读取ROM中的boot程序，执行BIOS</li>
+<li>构建中断向量表，进行硬件自检</li>
+<li>加载硬盘，找到引导硬盘后，读取其开头的MBR主引导记录</li>
+<li>MBR中的小程序将从MBR后的分区表中找到引导分区（即OS启动程序所在分区）</li>
+<li>读取引导分区中的第一个扇区，即引导扇区，运行OS启动程序</li>
+</ol>
+<h3 id="成组链接法过程"><a href="#成组链接法过程" class="headerlink" title="成组链接法过程"></a>成组链接法过程</h3><blockquote>
+<p>内容分属于文件系统中，空闲空间管理，其他还有，空闲表法、空闲链表法、位图法等。FAT表中的也算是一种</p>
+<p>当然与空闲空间管理对应的有文件的空间管理（也叫文件的物理结构），顺序存储、链式存储、索引存储等</p>
+<p>（也可以将空闲空间当作文件管理，感觉没啥毛病</p>
+</blockquote>
+<p>现在假设每组10块，第一块中存放着&lt;本组空闲块数目，下一组开头块&gt;，其它的都指向空闲块，第一组存放在内存专用栈——空闲盘块号栈。</p>
+<ul>
+<li><p>分配时：从第10块（栈顶），向上开始分配，分配到第一块时，将下一组内容内容读入该栈，同时将下一组内容读入栈</p>
+</li>
+<li><p>回收时：回收的盘块至于栈顶，当数量到达一组最大时，表示栈满，将目前栈中的10个指针存入新回收的盘块，并将这个新回收的盘块号作为新栈底</p>
+<blockquote>
+<p>注意移动栈顶时，本组空闲块数目对应++/—；手画一边过程方便理解</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="VFS及四大对象"><a href="#VFS及四大对象" class="headerlink" title="VFS及四大对象"></a>VFS及四大对象</h3><p>VFS即虚拟文件系统，因为每个分区都可以有不同的文件系统，而我们不可能在不同的分区有不同的操作，<code>ntfs_read</code>、<code>fat_read</code>等，于是乎VFS层就是相当于屏蔽了这层差异，给上面的使用者提供了统一的接口<code>read</code>。</p>
+<p>VFS只存在于内存中，并不实际存在于外存。四大数据结构如下</p>
+<ul>
+<li><p>超级块：superblock，一个超级块对应一个文件系统，用于描述文件系统的信息。各个超级块对象都用双向循环链表链接起来</p>
+</li>
+<li><p>索引节点：inode，保存文件的元数据（也就是属性）。需要区分inode在外存和内存上的形式，当文件打开后，其索引节点会被复制到内存中，并添加额外的信息，比如“访问计数”、“逻辑设备号”等内容。</p>
+<blockquote>
+<p>这里可以引申到软链接和硬链接内容</p>
+</blockquote>
+</li>
+<li><p>文件：file，又一个结构体，并非是文件本身，其中保存了文件读写指针、锁变量、文件<strong>路径</strong>等内容。每当打开一个文件，该结构体就会插入到系统打开文件表中（双链表形式），而用户则会有用户打开文件表来管理所有的file结构体。</p>
+</li>
+<li><p>目录：dentry，linux中一切皆文件，目录也是目录文件，当然也对应着一个inode。与inode一样外存到内存会有些许不同</p>
+<blockquote>
+<p>区分VFS仅在内存中这句话，外存上的inode/dentry结构不算是VFS</p>
+</blockquote>
+</li>
+</ul>
+<p>Linux中管理进程的结构体是task_struct，其中有个变量指向用户打开文件表，根据文件描述符可以找到对应的file结构体，获取文件的路径，找到目录，找到inode索引节点，从而获取文件</p>
+<blockquote>
+<p>常说的文件描述符其实就是这个文件在用户打开文件表中的下标</p>
+<p>不同于现在的面向对象，这里面的四大对象都是通过其中的一个operation指针来指向对应的操作结构体，其中存放一系列操作函数。并非都挤在一个struct中</p>
+</blockquote>
+<h3 id="IO软件层次结构过程"><a href="#IO软件层次结构过程" class="headerlink" title="IO软件层次结构过程"></a>IO软件层次结构过程</h3><p>从上到下：用户层软件、设备独立性软件、设备驱动软件、中断处理软件、硬件</p>
+<blockquote>
+<p>要注意这里的设备独立性软件和前面的VFS有异曲同工之妙，都是用于屏蔽下面的差异</p>
+</blockquote>
+<p>大致过程scanf()</p>
+<ol>
+<li>scanf函数调用系统调用封装函数read()，其中有一条陷阱指令，借此进入内核</li>
+<li>内核调出read对应的sys_read系统调用服务例程进行执行，在设备无关层进行若干调用</li>
+<li>最终来到设备驱动层处理，设备驱动程序对本次IO进行初始化，阻塞用户进程P，CPU执行其他进程</li>
+<li>用户在键盘上输入字符后，外设向CPU发出中断请求</li>
+<li>CPU响应中断后，启动键盘中断处理通用驱动程序对中断进行通用处理后，唤醒具体的处理键盘输入的驱动程序</li>
+<li>上述专用驱动程序将字符从键盘控制器读入系统缓冲区</li>
+<li>传输完成后，唤醒P并插入就绪队列，进行中断返回，进程P也从系统调用返回</li>
+</ol>
+<blockquote>
+<p>设备独立性软件主要是对各种设备之间的统一的操作，比如打开关闭等</p>
+<p>设备驱动软件则是对应具体种类，具体硬件的操作，比如磁盘当中的地址转为磁面、磁道、扇区</p>
+<p>中断处理相当于是通知机制，硬件的驱动运行完成后，借助中断告知内核</p>
+</blockquote>
+<h3 id="IO设备分配过程"><a href="#IO设备分配过程" class="headerlink" title="IO设备分配过程"></a>IO设备分配过程</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LUT逻辑设备表</td>
+<td>逻辑设备名——》物理设备名+驱动程序入口</td>
+</tr>
+<tr>
+<td>SDT系统设备表</td>
+<td>系统一张一个设备对应一个条目；物理设备名——》DCT+驱动程序入口</td>
+</tr>
+<tr>
+<td>DCT设备控制表</td>
+<td>每个设备都有一张，说明属性；DCT——》COCT</td>
+</tr>
+<tr>
+<td>COCT控制器控制表</td>
+<td>每个设备控制器有一张，每个都由一个通道控制，；COCT——》CHCT</td>
+</tr>
+<tr>
+<td>CHCT通道控制表</td>
+<td>CHCT——》COCT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><p>LUT逻辑设备表，每个表项中有三项&lt;逻辑设备名，物理设备名，设备驱动程序入口地址&gt;。进程根据I/O请求中的逻辑设备名来获取物理设备名</p>
+<blockquote>
+<p>该表可以整个系统中设置一张，也可以每个用户一张，这样不同的用户就可以使用相同的逻辑设备名</p>
+</blockquote>
+</li>
+<li><p>进程根据上一步的物理设备名查找SDT，从中找到对应设备的DCT，从而了解该设备状态</p>
+<blockquote>
+<p>如果忙，则将进程的PCB挂到DCT下对应的等待队列；否则就分配</p>
+</blockquote>
+</li>
+<li><p>设备分配后，来到对应的COCT，同样也是根据状态来是否分配</p>
+</li>
+<li><p>分配好控制器后，来到CHCT，查询状态据此分配</p>
+</li>
+<li><p>只有当设备、控制器、通道依次分配成功后，才可以启动设备进行数据传送</p>
+</li>
+</ol>
+<h3 id="中断的详细过程"><a href="#中断的详细过程" class="headerlink" title="中断的详细过程"></a>中断的详细过程</h3><p>每个中断源都有各自的中断请求标记触发器，这些触发器共同组成中断请求标记寄存器。中断异常由硬件进行检测</p>
+<p>当：有中断请求、没有关闭中断、指令执行完成后，CPU开始响应中断</p>
+<ol>
+<li><p>关中断，令中断允许触发器IF=0</p>
+</li>
+<li><p>保存当前断点位置（x86的保存PC和PSW，MIPS的保存PC到特殊寄存器）</p>
+</li>
+<li><p>进行中断识别，一般是中断向量，即通过中断类型号，在中断向量表中找到对应中断向量，从而定位中断服务程序</p>
+<blockquote>
+<p>此前的都属于中断隐指令，由硬件实现；后面都属于中断程序范畴，软件实现</p>
+</blockquote>
+</li>
+<li><p>保存现场和屏蔽字</p>
+<blockquote>
+<p>各个中断源的屏蔽触发器共同构成屏蔽字寄存器，该寄存器用于多重中断</p>
+</blockquote>
+</li>
+<li><p>执行中断服务程序</p>
+</li>
+<li><p>恢复现场和屏蔽字</p>
+</li>
+<li><p>开中断，中断返回</p>
+</li>
+</ol>
+<p>如果允许多重中断的话，需要在第五步前后，加一个开中断和关中断</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/408/">408</a><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/30/408/" title="408梳理"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">408梳理</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/14/Misc/" title="Misc"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Misc</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E3%80%81%E4%BD%9C%E4%B8%9A%E4%B8%8E%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">任务、作业与进程、线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">同步互斥问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%92%8C%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%AE%B5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">3.</span> <span class="toc-text">段式内存管理和程序中段的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E8%BF%87%E7%A8%8B%EF%BC%88%E6%AE%B5%E9%A1%B5%E5%BC%8F%E4%B8%BA%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">内存映射过程（段页式为例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%A1%B5%E5%BC%8F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%92%8C%E8%AF%B7%E6%B1%82%E9%A1%B5%E5%BC%8F%E7%AE%A1%E7%90%86%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">基本页式内存管理和请求页式管理区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="toc-number">6.</span> <span class="toc-text">内存映射文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%9B%86%E3%80%81%E6%8A%96%E5%8A%A8%E3%80%81%E9%A9%BB%E7%95%99%E9%9B%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">7.</span> <span class="toc-text">工作集、抖动、驻留集相关概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%ACIO%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">基本IO操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">9.</span> <span class="toc-text">磁盘分区格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E7%BB%84%E9%93%BE%E6%8E%A5%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="toc-number">10.</span> <span class="toc-text">成组链接法过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VFS%E5%8F%8A%E5%9B%9B%E5%A4%A7%E5%AF%B9%E8%B1%A1"><span class="toc-number">11.</span> <span class="toc-text">VFS及四大对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E8%BD%AF%E4%BB%B6%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E8%BF%87%E7%A8%8B"><span class="toc-number">12.</span> <span class="toc-text">IO软件层次结构过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO%E8%AE%BE%E5%A4%87%E5%88%86%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="toc-number">13.</span> <span class="toc-text">IO设备分配过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B"><span class="toc-number">14.</span> <span class="toc-text">中断的详细过程</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

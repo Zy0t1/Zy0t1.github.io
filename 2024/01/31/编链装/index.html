@@ -1,0 +1,721 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《程序员自我修养——链接、装载与库》读书笔记 | Zy0t1's blog</title><meta name="author" content="Zy0t1"><meta name="copyright" content="Zy0t1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="主要依托于Linux平台，记录有关链接装载过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《程序员自我修养——链接、装载与库》读书笔记">
+<meta property="og:url" content="http://zy0t1.github.io/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="主要依托于Linux平台，记录有关链接装载过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp">
+<meta property="article:published_time" content="2024-01-31T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-07T09:33:23.002Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="Re">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp"><link rel="shortcut icon" href="/img/web.png"><link rel="canonical" href="http://zy0t1.github.io/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《程序员自我修养——链接、装载与库》读书笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-07 17:33:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《程序员自我修养——链接、装载与库》读书笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-31T14:00:00.000Z" title="发表于 2024-01-31 22:00:00">2024-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T09:33:23.002Z" title="更新于 2024-08-07 17:33:23">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">11.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《程序员自我修养——链接、装载与库》读书笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+<h3 id="0x01-计算机体系简介"><a href="#0x01-计算机体系简介" class="headerlink" title="0x01.计算机体系简介"></a>0x01.计算机体系简介</h3><p>从下向上：硬件—操作系统—运行时库—应用程序，其中间交互的作用的就是接口，仅下对上，可以理解为一个中间层，用于对下面那层的包装和扩展。</p>
+<ul>
+<li><p>运行时库提供给应用程序：应用程序编程接口API。什么样的运行时库提供什么样的API，Linux下Glibc库提供的符合POSIX标准的API，Windows运行库提供的Windows API</p>
+</li>
+<li><p>运行时库使用OS提供的：系统调用接口。其实现往往以软件中断提供，Linux中的0x80号中断，windows传统的0x2E中断（新的CPU有32位<code>sysenter</code>指令与64位<code>syscall</code>快速调用）<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-223023.htm">Windows系统调用</a></p>
+<p>系统调用原理：系统调用一般都运行在内核态，os通过中断来从用户态切换到内核态。根据接收到的中断号跑到中断向量表中查询，拿到指针后跳转到对应的中断处理程序。</p>
+</li>
+<li><p>硬件与OS之间有硬件规格，由硬件生产厂商提供，之后由操作系统与驱动程序开发者根据硬件规格通过硬件编程接口标准来编写OS和驱动程序</p>
+<blockquote>
+<p>驱动程序可以视为OS的一部分，跟操作系统一样运行在特权级，驱动等于是对硬件的抽象，使得开发者能够忽视具体硬件细节而能借助统一的操纵实现对不同硬件的操控。一般来说由OS厂商提供一系列接口和框架，之后由硬件生产厂商按照这些标准来为自己的硬件设备开发驱动程序。</p>
+</blockquote>
+</li>
+</ul>
+<p>进程线程与任务：</p>
+<ul>
+<li><p>在Windows中标准的线程与进程，每个线程中私有的内容有：局部变量、函数的参数、TLS（线程局部存储）数据；线程之间共享的内容：全局变量、堆上的数据、函数里面的静态变量、程序代码。Windows中有专门的API可以操作进程与线程，也有<code>SetThreadPriority()</code>来设置线程优先级</p>
+</li>
+<li><p>在Linux中，并不存在进程与线程的区别，都作为任务运行（一种单线程的进程），不同的任务之间可以选择共享内存空间，因此也在某种意义上构成了线程。</p>
+</li>
+</ul>
+<h3 id="0x02-如何从代码到程序"><a href="#0x02-如何从代码到程序" class="headerlink" title="0x02.如何从代码到程序"></a>0x02.如何从代码到程序</h3><p>从HelloWorld源代码到“hello world!”：首先编写hello.c源代码，之后经过预处理器对源代码文件进行简单替换得到hello.i，进入到编译器进行编译（最复杂的一部分）得到中间代码hello.s，之后再由汇编器进行简单的替换生成可以重定位的代码hello.o，最后借助链接器将需要的库与我们的文件绑定在一起生成hello.out，点击执行由装载器把程序所需内容放入内存，最后在屏幕上显示“hello world！”。</p>
+<h4 id="1-预处理"><a href="#1-预处理" class="headerlink" title="1. 预处理"></a>1. 预处理</h4><ul>
+<li>所有的<code>#define</code>删除并展开，处理条件预编译指令<code>#if</code>等，将<code>#include</code>包含的文件插入到预编译指令的位置</li>
+<li>删除注释，添加行号与文件名标识（便于编译器处理）</li>
+<li>保留所有的<code>#pragma</code>编译器指令，用来告诉编译器特定操作</li>
+</ul>
+<h4 id="2-编译"><a href="#2-编译" class="headerlink" title="2. 编译"></a>2. 编译</h4><p>主要包括</p>
+<p>编译器结构：词法分析器\得到符号流——语法分析器\语法树——语义分析器\语法树——中间代码生成器\中间表示——代码优化器\优化中间表示——代码生成器\目标机器语言，上述所有过程都可能要与符号表管理程序、错误检查和处理程序打交道。</p>
+<blockquote>
+<p>符号表：记录源程序的变量名字、属性信息包括存储分配、类型、作用域等、参数数量、返回类型</p>
+</blockquote>
+<p>这里我们简单说明一下：词法分析—语法分析—语义分析—代码生成—目标代码优化这几个步骤</p>
+<ul>
+<li><p>词法分析：又叫扫描，源代码被输入到扫描器中，使用一种有限状态机算法产生词法单元（token）<code>&lt;token_name,attritube_value&gt;</code>作为输出，并将标识符存储到符号表，数字字符串等放到文字表。<code>lex</code>程序可以实现此功能。</p>
+<blockquote>
+<p>第一个是抽象出来的对象，当作id就可，后面的指的是在符号表中对应的位置，<code>&lt;id,1&gt;</code>就是指的比如变量<code>a</code>，在程序中第几个出现后面数字就是几。</p>
+</blockquote>
+</li>
+<li><p>语法分析：又叫解析，语法分析器对上面的词法单元采用上下文无关语法分析产生语法树（其他的还可以有BNF范式）。<code>yacc</code>工具</p>
+<blockquote>
+<p>语法树包括传统的与AST（抽象语法分析树）,传统语法分析树的只有根节点是词法单元，其他节点均为<code>表达式</code>，而在AST中，符号作为非叶子结点，变量等作为叶子节点。</p>
+</blockquote>
+</li>
+<li><p>语义分析：由语义分析器执行静态语义（即编译期间可以确定的语义）分析，包括声明和类型匹配转换等。此后会对语法树作出相应的插入调整，并给表达式表示类型</p>
+</li>
+<li><p>中间代码生成：将语法树转换为中间代码，常见的有：三地址码、P-代码。也是从这里开始，可以将编译器分为前后端，前端负责产生无关机器的中间代码，后端负责将中间代码转换成目标机器代码。</p>
+</li>
+<li><p>目标代码生成与优化：包括代码生成器和目标代码优化器，前者将中间代码转换成目标机器代码（高度依赖于目标机器）。之后再由目标代码优化器进行优化，比如选择合适的寻址方式、使用位移来代替乘法运算、删除多余的指令等。</p>
+</li>
+</ul>
+<p><strong>编译器的前后端</strong>：由源程序得到中间代码的部分叫，编译器的前端，主要与源语言有关；中间代码到目标机器语言部分叫，后端，主要与目标语言/机器有关。借助前后端分离可以更方便地移植代码</p>
+<p><strong>编译器分类</strong>：一趟/一遍，就是读入并产生一个输出，前端可以是一趟，后端可以是一趟；当然合起来也可以只有一趟，这样的编译器叫做单趟扫描编译程序，否则叫做多趟扫描编译程序</p>
+<p><strong>编译器编写方式</strong>：机器语言+汇编；高级语言（例如py解释器）；自编译方式+自展；编译程序产生器</p>
+<blockquote>
+<p>自编译程序：最基本的用机器等编写，之后再以该底层函数基本库，编写其他更高级的东西；自展即在前者基础上滚雪球，用L0写L1，再用L1写L2等。</p>
+</blockquote>
+<h4 id="3-汇编"><a href="#3-汇编" class="headerlink" title="3. 汇编"></a>3. 汇编</h4><p>将会汇编代码转换为机器可以执行的指令，简单理解为就是查对照表替换。此时的.o（对应win下的.obj文件）文件从结构上来说和可执行文件一样，但是有些地址没有确定，因此也暂且叫做目标文件</p>
+<ul>
+<li><code>as hello.s -o hello.o</code>或<code>gcc -c hello.s -o hello.o</code>或<code>gcc -c hello.c -o hello.o</code></li>
+</ul>
+<h4 id="4-链接"><a href="#4-链接" class="headerlink" title="4. 链接"></a>4. 链接</h4><p>将用到的.o文件全部都放在一起，确定前面所说的地址信息。因为即使是<code>printf()</code>，我们自己并没有实现，而操作系统中有相应的库根据系统API已经实现好了，这一步需要的就是让我们的程序拿到这个库中的函数实现</p>
+<p>在Windows/Linux下的可执行文件【.exe&amp;.out】、目标文件【.obj&amp;.o】、动态链接库【.dll&amp;.so】、静态链接库【.lib&amp;.a】都是按照可执行文格式存储，分别按照PE-COFF格式和ELF格式</p>
+<blockquote>
+<p>在Linux中.a和.o被归为可重定位文件。无论是PE还是ELF都是基于COFF格式发展过来的。</p>
+</blockquote>
+<h3 id="0x03-静态链接"><a href="#0x03-静态链接" class="headerlink" title="0x03.静态链接"></a>0x03.静态链接</h3><p>人机交互的API，在c语言中其<code>printf</code>函数在Linux上最终来到<code>write</code>系统调用，在win上来到<code>WriteConsole</code>系统API。静态链接库则用于程序和机器之间交互，这个库就是对上面所说的API的包装。所谓的库可以理解为一堆提前写好的API的.o文件的打包，在Linux下用<code>ar</code>来打包或者查看.a，对应win下的<code>lib.exe</code></p>
+<blockquote>
+<p>通常来说库中的每个目标文件只有自己的一个函数实现，主要用于减少额外空间浪费</p>
+</blockquote>
+<h4 id="1-什么是符号"><a href="#1-什么是符号" class="headerlink" title="1. 什么是符号"></a>1. 什么是符号</h4><p>为了方便说明，我们需要改变一下对变量和函数名称的概念理解：</p>
+<ul>
+<li><p>符号：符号都是一个内容的别名，通过符号我们可以方便设计，而不用去关心具体变量或函数在哪个位置。变量和函数就是符号，函数名或变量名就是符号名。链接就是将存在于不同模块（文件）中的符号互相拼接起来的操作。</p>
+</li>
+<li><p>符号表：每个目标文件都会有一个相应的符号表，每个定义的符号都有一个对应的值，也就是地址。除了变量和函数，那些全局符号(global)、引用的外部符号(extern)、段名、行号等信息都可以在符号表中</p>
+</li>
+<li><p>特殊符号：当使用ld时会自动产生，<code>executable_start</code>程序起始地址、<code>__etext</code>代码段结束地址、<code>_edata</code>数据段结束地址、<code>_end</code>程序结束地址。</p>
+</li>
+</ul>
+<h4 id="2-链接的过程"><a href="#2-链接的过程" class="headerlink" title="2. 链接的过程"></a>2. 链接的过程</h4><p>地址和空间分配、符号决议/符号绑定/名称绑定、重定位（修正之前代码中的目标地址，这个要修改的位置也叫做重定位入口）等。因此静态链接也就是常说的链接时重定位</p>
+<blockquote>
+<p><code>ld a.o b.o -e main -o ab</code>(-e指定程序入口，默认<code>_start</code>，修改的就是ELF文件头的e_entry项)。</p>
+</blockquote>
+<ul>
+<li><p>空间地址分配：扫描所有的输入文件，将各个段进行合并（还有各个目标文件的符号表合成一张全局符号表），并计算长度与位置建立映射关系。在形成最终文件之前，目标文件内各段的VMA虚拟地址一般为0，合并之后由链接器分配相应虚拟地址（Linux下ELF可执行文件默认从0x08048000开始分配）</p>
+</li>
+<li><p>符号解析与重定位：读取文件中段的信息，进行符号解析、重定位计算、调整代码地址等。例如在目标文件中，一般都使用偏移定位，在这步由于上面已经给定了各段的虚拟地址，于是乎变量函数等的偏移地址会改为虚拟地址</p>
+<blockquote>
+<p>链接器通过重定位表来中的内容来更改相应的地址，<code>objdump -r a.o</code>查看重定位表</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>符号重定义问题：</p>
+<ul>
+<li><p>为了防止库中的符号与程序编写的符号冲突，C语言源文件代码中的全局变量和函数经过编译后会在相应的符号前加上下划线“_”（windows下保存，Linux下没有此机制），与此类似作用的还有CPP中的命名空间。</p>
+</li>
+<li><p>关于不同目标文件中符号重复定义的问题：编译器默认函数和初始化的全局变量都是强符号，未初始化的全局变量为弱符号。gcc下<code>__attritube__((weak))</code>可以用来改为弱符号</p>
+<ul>
+<li>强符号在不同的目标文件中不能有同名，多个强符号则会报错</li>
+<li>在多个目标文件中，有强则强，全弱则选占空间最大的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>链接过程中的外部引用问题：强引用如果没有找到该符号则报错，对于弱引用如果没有该定义则不报错<code>__attritube__((weakref))</code>。一般作用于库，使得程序可以使用自己定义的相关函数</p>
+</li>
+</ul>
+<h4 id="3-如何控制链接过程"><a href="#3-如何控制链接过程" class="headerlink" title="3. 如何控制链接过程"></a>3. 如何控制链接过程</h4><p>一般来说链接器会有默认的链接规则对目标文件进行链接，但是在开发OS、驱动等东西时，则需要我们自己亲自指定相关的规则，包括但不限于：使用哪些文件、输出文件的格式、段的有关信息等。一般有以下三种方法：</p>
+<ul>
+<li>命令行给定参数</li>
+<li>链接指令存放在目标文件里（编译器常用操作）</li>
+<li>链接控制脚本（<code>ld -verbose</code>查看默认链接脚本，<code>usr/lib/ldscripts/</code>下存储）</li>
+</ul>
+<p>因为修改编译器和链接器成本是巨大的，而目前在用的ELF变种较多（也包括大小端与位数），因此出现了BFD库。GCC与链接器还有<a target="_blank" rel="noopener" href="https://blog.csdn.net/A642960662/article/details/123078067">Binutils</a>工具集等通过BFD库来进一步分析不同变种的ELF格式，也就省去了修改编译器等的工作。</p>
+<h3 id="0x04-装载"><a href="#0x04-装载" class="headerlink" title="0x04.装载"></a>0x04.装载</h3><p>所谓装载就是程序变成进程的过程，也就将磁盘中不会动的程序，放到内存中让它变成执行ing的进程，为此在内存中也需要有空间留给OS和用户进程。以32位CPU为例子，寻址空间4GB，在Linux中按照1-3分，1GB留给操作系统，剩下的3GB留到进程空间中；windows则是默认2-2，可以在Boot.ini下修改。</p>
+<blockquote>
+<p>硬件上来说，Intel后面修改了处理器的页映射方式，32位地址线扩展至36位，这种扩展方式也被叫做PAE。对于操作系统来说，一般都是需要用到时再交换进去，理解为交换区。对应windows下的AWE与Linux下的mmap机制</p>
+</blockquote>
+<h4 id="1-装载入内存的方法"><a href="#1-装载入内存的方法" class="headerlink" title="1. 装载入内存的方法"></a>1. 装载入内存的方法</h4><ul>
+<li><p>静态装入：不多bb，直接梭哈全都放内存</p>
+</li>
+<li><p>动态装入：最常用的部分驻留在内存中，不太常用的放在磁盘里面。经典的有覆盖装入和页映射</p>
+<ul>
+<li><p>覆盖装入：常用于虚拟存储出现之前。将内存分布的工作交给开发者，开发者通过编写一个“覆盖管理器”，来管理其他模块应该何时驻留在内存中，何时被替换掉。</p>
+<blockquote>
+<p>栗子：模块A与B互不干扰，因此在需要A的时候分配A的大小并调入内存，需要B时再将B调入到原有的A的空间即可。复杂的需要采取树状管理（禁止跨树调用、调用路径上的模块必须都在内存中）</p>
+</blockquote>
+</li>
+<li><p>页映射：伴随着虚拟内存而出现，内存、磁盘都按照页为单位分配。也就是OS中说到的页面置换算法，因为分配的内存已满而又需要从外部调入数据，因此需要选择一个页进行替换。</p>
+<blockquote>
+<p>常见的算法：OPT最佳置换算法、FIFO先进先出算法、LRU最近最少使用算法、LFU最少使用置换算法、PBA页面缓冲算法</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-装载过程"><a href="#2-装载过程" class="headerlink" title="2. 装载过程"></a>2. 装载过程</h4><ul>
+<li><p>创建独立的虚拟地址空间：在32位Linux下分配一个页目录即可，实现的是物理内存与虚拟空间之间的映射</p>
+</li>
+<li><p>读取可执行文件头，并建立虚拟空间与可执行文件的映射关系：在系统创建进程/任务时，会有专门的内核空间中的结构体对该程序的虚拟空间做记录，记录程序中段的偏移与其应该加载到内存中的位置</p>
+<blockquote>
+<p>这一块块虚拟内存空间在Linux下叫做虚拟内存<strong>区域</strong>VMA，Windows中叫做虚拟段。特别强调，这个结构体属于OS的内存管理，并非可执行文件的段页头表</p>
+</blockquote>
+</li>
+<li><p>将CPU的指令寄存器设置成可执行文件的入口地址：涉及内核堆栈与用户堆栈的切换以及CPU执行权限等的切换，将可执行文件头中的程序入口地址载入即可</p>
+</li>
+<li><p>页错误：此时对应空间地址有了，但是该空间下并没有内容，也就是引发页错误。于是根据第二步的数据结构，计算代码段在文件中的位置，之后将其加载到内存对应位置上。最后权限返回给进程开始执行。</p>
+</li>
+</ul>
+<p><strong>链接与执行视图</strong>：根据上面页错误过程，因为交换时都是以4KB为单位的，不可能每一个段都这么分配，于是在装载到内存的时候，部分属性相同的段会被放在一起，比如根据可读可执行、可读可写、只读段，之后按照这种属性将其都分配到同一个VMA中，也就是为什么有段，节之分。</p>
+<blockquote>
+<p>这里不对”Section”和”Segment”做区分，段和节换着用，内容理解即可。<code>readelf -S xxx.elf</code>读取文件的节区头表（程序时）。<code>readelf -l xxx.elf</code>读取文件的程序头表（运行时）</p>
+</blockquote>
+<p>在真正装载到内存之后，还有其他的VMA/虚拟段（由于不存在于文件中，需要加个”匿名的“前缀）被分配用来作为程序的堆栈，以及与操作系统的交流空间（Linux下的vdso区-内核空间）</p>
+<h4 id="3-Linux内核装载ELF文件"><a href="#3-Linux内核装载ELF文件" class="headerlink" title="3. Linux内核装载ELF文件"></a>3. Linux内核装载ELF文件</h4><ol>
+<li><p>终端bash中输入命令，用户层面bash进程调用fork()创建一个新进程，新进程调用execve()系统调用执行指定的ELF文件，原先的父bash返回等待输入</p>
+</li>
+<li><p>exeve调用后进入到内核，其入口是<code>sys_execve()</code>用于检查参数。之后来到<code>do_execve()</code>，首先查找被执行文件并读取前128字节。</p>
+<blockquote>
+<p>ELF：0x7E、E、L、F。Java：c、a、f、e。脚本：#!/bin/sh、#!/usr/bin/python</p>
+</blockquote>
+</li>
+<li><p>之后根据读取到的文件头调用<code>search_bnary_handler()</code>来查找相应可执行文件的装载处理过程</p>
+<blockquote>
+<p>ELF文件<code>load_binary_handle()</code>；Unix下的a.out文件<code>load_aout_binary()</code>；脚本程序<code>load_script()</code></p>
+</blockquote>
+</li>
+<li><p><code>load_elf_binary()</code>：首先对文件头检查，之后寻找动态链接的.interp段设置动态连接器路径，接下来根据其文件描述对ELF文件进行映射，然后初始化ELF进程环境，最后将系统调用返回地址修改为可执行文件的入口点</p>
+<blockquote>
+<p>对于入口点，静态链接的话指的就是ELF文件头中的e_entry；动态链接的话就是动态链接器</p>
+</blockquote>
+</li>
+<li><p>第四步执行完后返回到<code>do_execve()</code>再返回到<code>sys_execve()</code>，从内核态变回用户态，EIP寄存器跳转到了ELF程序入口地址，新程序执行。</p>
+</li>
+</ol>
+<h4 id="4-Windows装载PE文件"><a href="#4-Windows装载PE文件" class="headerlink" title="4. Windows装载PE文件"></a>4. Windows装载PE文件</h4><p>由于PE文件中有RVA、VA等概念，所以PE文件可以装载到任意位置。此外相比于ELF来说PE文件的段较少，也就没有所谓的段和节的概念，而是在内存中尽可能的合并</p>
+<ol>
+<li>读取文件第一个页，其中包含了DOS头、NT头和段表</li>
+<li>检查进程地址空间中目标地址是否可用，不可用则另选一个装载地址。</li>
+<li>根据段表信息将PE中的段映射到地址空间中</li>
+<li>装载地址如果不是目标地址则Rebasing</li>
+<li>装载所需dll</li>
+<li>对PE文件中的导入符号进行解析</li>
+<li>根据PE头指定的参数建立初始化堆栈</li>
+<li>建立主线程并启动进程</li>
+</ol>
+<h3 id="0x05-动态链接"><a href="#0x05-动态链接" class="headerlink" title="0x05.动态链接"></a>0x05.动态链接</h3><p>前面我们介绍了静态链接，他有如下几个缺点：内存中多个进程都要用到相同的代码，也就是静态链接了同一个文件到多个进程中；静态库更新成本巨大。于是有了动态链接，所谓的动态就是将链接过程放在了装载时进行。</p>
+<blockquote>
+<p>通俗来讲就是装载主模块的时候再将目标文件装载到内存中并由动态链接器链接，供给一个或者多个进程使用。插件一般都是这么来的，也完美诠释了模块化的思想。</p>
+</blockquote>
+<p>Linux下ELF动态链接文件称为“动态共享对象”/“共享对象”一般以.so结尾。在windows中被叫做动态链接库.dll。Linux下glibc的动态链接形式在/lib下的<code>libc.so</code></p>
+<p>当然因为需要在装载时额外开费时间装载动态链接库，因此性能上会稍有下降。</p>
+<h4 id="1-Linux下动态链接"><a href="#1-Linux下动态链接" class="headerlink" title="1. Linux下动态链接"></a>1. Linux下动态链接</h4><p><code>gcc -shared</code>用于指定输出为共享对象。需要注意的是，虽然是在主程序装载时，才需要链接该共享对象，但是在编译生成主程序时依然需要指定共享对象，否则编译器无法知道其中的外部函数究竟怎么操作<code>gcc -o xx a.c ./b.so</code>，so库中含有完整的符号信息</p>
+<blockquote>
+<p>静态链接库中的函数则需要重定位；动态链接库中的函数则对相应符号做一个动态链接的标记，暂时不重定位，装载时再进行</p>
+</blockquote>
+<p>在主程序运行时，除了上述共享对象外，还会有<code>ld.so</code>—动态链接器的存在。运行主模块之前系统会先将控制权交给<code>ld.so</code>，其在内存中随机地址装载共享对象，完成所有工作后返回控制权给主模块。</p>
+<blockquote>
+<p>动态链接器不一定是<code>ld.so</code>，ELF的.interp段可以决定，该段就是个字符串用于存放链接器路径。在Linux中这个东西还可以直接执行，因为结构和可执行文件类似，而内核也只是按照程序头表里的描述装载执行。windows下同理<code>rundll32.exe</code>就可以将一个DLL当做可执行文件运行</p>
+</blockquote>
+<p><strong>动态链接步骤</strong></p>
+<ul>
+<li><p>动态链接器自举：ld本身不能使用任何其他共享对象，其次ld本身所需全局和静态变量的重定位工作自己完成，且不能调用函数</p>
+<blockquote>
+<p>以自举代码开始，首先找到自身的GOT，并借此获取.dynamic段的信息，之后获得ld的重定位表和符号表，从而完成自身的重定位</p>
+</blockquote>
+</li>
+<li><p>装载共享对象：共享对象被装载时，他的符号表会被合并到全局符号表中。一般采用广搜来装载共享对象，如果有符号相同的（共享对象全局符号介入），则在符号表中以第一个符号为准</p>
+</li>
+<li><p>重定位和初始化：重新遍历所有的重定位表，将GOT/PLT中需要重定位的位置进行修正。接下来ld执行共享对象中的.init段来实现其特有的初始化过程，进程的.init由程序自己执行</p>
+</li>
+</ul>
+<p><strong>ELF有关段</strong></p>
+<ul>
+<li>.dynamic段保存了依赖哪些共享对象、动态链接符号表位置、重定位表的位置、共享对象的初始化代码地址等。结构如下，由前面类型值决定后面含义。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Elf32_Sword d_tag;</span><br><span class="line">    <span class="class"><span class="keyword">union</span>&#123;</span></span><br><span class="line">        Elf32_Word d_val;</span><br><span class="line">        Elf32_Addr d_ptr;</span><br><span class="line">    &#125; d_un;</span><br><span class="line">&#125;Elf32_Dyn;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>.dynsym动态链接符号表，其中只存放了与动态链接相关的符号；</p>
+<p>.symtab符号表则是保存了所有符号；</p>
+<p>.strtab是静态链接时的符号字符串表；</p>
+<p>.dynstr则是动态链接符号字符串表；</p>
+<p>.hash即符号哈希表，为了加快查找过程；</p>
+</li>
+<li><p>静态链接中有专门的重定位段，.rel.text表示代码段的重定位表，.rel.data表示数据段的重定位表。</p>
+<p>动态链接中，.rel.dyn是对数据引用的修正，修正的东西位于.got和数据段，.rel.plt是对函数引用的修正，修正的东西位于.got.plt</p>
+</li>
+</ul>
+<p>链接时重定位：多用于静态链接中，链接时固定虚拟内存地址</p>
+<p>装载时重定位：装载时发现目标位置有东西，再额外更换地方（win下叫做地址重置）</p>
+<p>装载时重定位目前有个问题，就是对于那些需要修改地址的东西不方便，当A进程需要用共享对象S时，A是和S关联的，也就是地址上相联系，此时的B进程就用不了捏。</p>
+<p><strong>PIC地址无关代码</strong></p>
+<p>基本思想是将需要修改的部分分离出来与数据部分放置在一起，这样对于不同的进程来说就可以有一个单独的副本进行操作。也就解决了上面说的一个共享对象不能共享</p>
+<p>在gcc下<code>-fPIC</code>用于为共享对象设置，也可以用于可执行文件<code>-fpie</code>（比装载时重定位更慢）</p>
+<blockquote>
+<p>GCC判断一个so是否用了PIC技术——没有<code>TEXTREL</code>即代码重定位</p>
+</blockquote>
+<ul>
+<li><p>本共享模块内部的函数调用：相对地址调用即可</p>
+</li>
+<li><p>模块内数据调用：数据必定在代码后，只要相对于当前指令的地址加上固定的偏移量就可以访问模块内部数据了</p>
+</li>
+<li><p>模块间的数据访问：主进程数据段中建立一个GOT表（全局偏移表），用于指向副本中的这些共享数据</p>
+<blockquote>
+<p>GOT表在装载时可以修改，每个进程都有独特的一份。模块间指的是一个内共享对象的多个模块或者是多个共享对象内部的多个模块</p>
+</blockquote>
+</li>
+<li><p>与其他模块间的函数调用：同上也在GOT表中</p>
+</li>
+</ul>
+<blockquote>
+<p>VC中的<code>__declspec(dllimport)</code>就是用来表示一个符号是模块内部还是模块外部</p>
+</blockquote>
+<p><strong>延迟绑定PLT</strong>：用于提高动态链接效率，就是当函数被使用时才去进行符号查找、重定位。有一个PLT表，每个函数都有一个对应的项（Key为函数指针），这个函数在第一次执行时，通过压入目标符号在重定位表中的下标&amp;模块ID，之后调用<code>_dl_runtime_resolve()</code>来将目标符号的真正地址填入到GOT表中，之后再次执行该函数因为就会根据GOT表项跳转到相应目标函数位置</p>
+<p><strong>显式运行时链接</strong>：一种特殊的动态链接，也叫运行时加载，顾名思义就是需要时再由程序本身在运行时根据需要借助动态链接器的相关API来实现动态装载库的装载与卸载等工作。</p>
+<blockquote>
+<p>打开动态库<code>dlopen</code>、关闭动态库<code>dlclose</code>；头文件<code>&lt;dlfcn.h&gt;</code></p>
+</blockquote>
+<p><strong>动态库查找顺序</strong>：</p>
+<ol>
+<li>.dynamic中有指定绝对路径</li>
+<li>查找有环境变量<code>LD_LIBRARY_PATH</code>指定的一系列目录</li>
+<li>由<code>/etc/ld.so.cache</code>指定的共享库路径</li>
+<li>先<code>/lib</code>-系统关键共享库，后<code>/usr/lib</code>-非系统关键共享库最后<code>/use/local/lib</code>-与系统无关共享库</li>
+</ol>
+<p><strong>共享对象的版本号</strong>：<code>ooxx.so.x.y.z</code>【x-主版本号-有重大升级；y-次版本号-库的增量升级；z-发布版本号-错误修正等】</p>
+<blockquote>
+<p> SO-NAME即只保留主版本号，因为Linux中对共享对象采用软连接，由此可以方便连接到更高版本来兼容低版本。当系统更新共享库时<code>ldconfig</code>来更新所有的软链接，并更新<code>ld.so.cache</code></p>
+</blockquote>
+<p>操作：</p>
+<ul>
+<li><code>gcc -shared -fPIC -Wl,-soname,libooxx.so.1 -o libooxx.so.1.0.0 linoo.c libxx.c</code></li>
+<li><code>ld -rpath /home/mylib -o ooxx.out ooxx.o -lsomelib</code>指定共享库</li>
+<li><code>strip libooxx.so</code>去掉符号信息，ld的<code>-s</code>，<code>-S</code>参数，gcc的<code>-Wl，-s</code>和<code>-Wl,-S</code></li>
+<li><code>ldconfig -n shared_lib_dir</code>指定共享库位置</li>
+</ul>
+<h4 id="2-Windows下动态链接"><a href="#2-Windows下动态链接" class="headerlink" title="2.Windows下动态链接"></a>2.Windows下动态链接</h4><p>DLL即动态链接库，其扩展名不一定是.dll，.ocx或.cpl都是一种DLL文件，与EXE文件一样都是PE格式文件。在win下DLL常用于运行时加载，相关WINAPI：<code>LoadLibrary</code>、<code>GetProcAddress</code>、<code>FreeLibrary</code></p>
+<p><strong>有关概念</strong></p>
+<ul>
+<li>基地址：PE文件被装载时，其进程空间的起始地址，ImageBase，EXE默认0x400000；DLL默认0x10000000</li>
+<li>相对地址：当基地址有东西时，PE装载器就会选用其他空闲地址。也就有了RVA，即相对于基地址的偏移</li>
+</ul>
+<p><strong>dll生成</strong>：编译生成DLL文件时，会生成<code>xx.obj xx.dll xx.lib xx.exp</code>，</p>
+<ul>
+<li>其中的lib用于描述dll的导出符号，后缀是静态链接库，但本身不包含实际代码，只是对dll的符号说明，也因此叫做导入库。</li>
+<li>exp文件是第一遍扫描时产生的全局符号表，但是以标准PE格式存在，之后第二遍再与其他目标文件链接形成dll</li>
+</ul>
+<p><strong>PE有关节</strong></p>
+<ul>
+<li><p>引出函数节.edata：一般在DLL中，本文件向其他文件提供的可调用函数列表。导出表指向三个重要内容，导出地址表EAT、符号名表、名字序号对应表。名字序号对应表项数和符号名表相同，一个名字对应一个序号，当使用函数名作为导入导出方式时，动态链接器首先根据目标符号在符号名表中的位置，将其作为下标查找名字序号对应表，之后减去dll的默认序号Base值（一般都是1）得到EAT目标地址下标。</p>
+<blockquote>
+<p>仅供内部使用的导出函数只有序号没有函数名。而且因为序号容易改变，一般不借助序号导入</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_IMAGE_EXPORT_DIRECTORY</span> &#123;</span><br><span class="line">     DWORD   Characteristics;	<span class="comment">//属性，一般为0</span></span><br><span class="line">     DWORD   TimeDateStamp;		<span class="comment">//文件生成时间戳</span></span><br><span class="line">     WORD    MajorVersion;		<span class="comment">//主版本号</span></span><br><span class="line">     WORD    MinorVersion;		<span class="comment">//次版本号</span></span><br><span class="line">     DWORD   Name;		<span class="comment">//指向的DLL名字</span></span><br><span class="line">     DWORD   Base;		<span class="comment">//导出函数的起始序列号，与下面的序号y相加得到对应函数的导出序号</span></span><br><span class="line">     DWORD   NumberOfFunctions;		<span class="comment">//所有导出函数的总数</span></span><br><span class="line">     DWORD   NumberOfNames;		<span class="comment">//有名称的导出函数总数，都有序号</span></span><br><span class="line">     DWORD   AddressOfFunctions;     <span class="comment">//指向函数地址数组，每个成员占4B，表示相应函数的RVA</span></span><br><span class="line">     DWORD   AddressOfNames;         <span class="comment">//指向一个数组，里面装的是4B的地址，该地址下存放的是函数名字字符串，借此数组与我们需要的函数名称进行对比，我们可以找到目标的序号x</span></span><br><span class="line">     DWORD   AddressOfNameOrdinals;  <span class="comment">//指向一个序号对应数组，由上面的序号x，查找得到需要的函数地址在AddressOfFunction中的序号y</span></span><br><span class="line"> &#125; IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>导入表<code>IMAGE_IMPORT_DESCRIPTOR</code>结构体数组，一个表对应一个被导入的dll.</p>
+<p>其中的<code>FirstThunk</code>指向IAT即导入地址数组，IAT每个元素对应一个被导入的符号：元素的值在不同情况下有不同含义。动态链接器刚完成映射还没开始重定位和符号解析时IAT中元素值表示对应符号的序号，完成全部链接过程后该值就会被改写为符号真正的地址。</p>
+<blockquote>
+<p>动态链接器属于内核部分，会更改原本只读的导出表，更改完成后再变回去。而ELF中.got则可以随意修改</p>
+</blockquote>
+<p>指针<code>OriginalFirstThunk</code>指向INT，在装载之前其内容和IAT一样。在装入内存之后就变成了导入函数的地址，而非名字</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">_IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        DWORD   Characteristics;</span><br><span class="line">        DWORD   OriginalFirstThunk;</span><br><span class="line">    &#125; DUMMYUNIONNAME;		<span class="comment">//IMAGE_THUNK_DATA数组的指针，在文件中与FirstThunk指向一样，内存中不同</span></span><br><span class="line">    DWORD   TimeDateStamp;		<span class="comment">//文件建立时间戳</span></span><br><span class="line">    DWORD   ForwarderChain;		<span class="comment">//引用的DLL的API，又引用了其他DLL的API，现在一般为0</span></span><br><span class="line">    DWORD   Name;		<span class="comment">//指向的DLL名字</span></span><br><span class="line">    DWORD   FirstThunk;		<span class="comment">//通常是一个RVA，指向IMAGE_THUNK_DATA结构（该结构说明函数的导入方式）</span></span><br><span class="line">&#125; IMAGE_IMPORT_DESCRIPTOR;</span><br><span class="line"><span class="keyword">typedef</span> IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+<p><strong>PE&amp;ELFの区别</strong></p>
+<ul>
+<li><p>ELF的共享库默认导出所有的全局符号，但在DLL中默认不导出，需要告诉编译器<code>__declspec(dllexport/dllimport)</code>，这两个关键字非常重要用于声明导入导出以及解决符号引用问题，也可以使用.def文件（类似ld的链接脚本文件）</p>
+</li>
+<li><p>DLL与ELF的代码段地址无关不同，采用的是装载时重定位的方法，重定位信息存放在.reloc段中。一个DLL如果被多个进程共享，则每个进程都需要有一份单独的DLL代码段副本。系统DLL一般位于0x70000000~0x80000000</p>
+<blockquote>
+<p>DLL的基地址也是可以指定的<code>link /BASE:0x10010000,0x1000 /DLL ooxx.obj</code>，减少后续重定位花费时间。<code>editbin</code>更改已有DLL的基地址</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>导入函数绑定</strong>：也叫DLL绑定。当EXE和DLL准备运行时，都要首先解析导入导出函数，之后再装载。在这个过程中DLL一般都以相同顺序装载到同样的内存地址，所以为了省事，就提前通过<code>editbin</code>将这些导入函数地址绑定到EXE的INT中</p>
+<blockquote>
+<p>前提：DLL的导出函数地址不变，并且在装载时没有发生重定位。一般通过在PE的导入表中保存每个DLL的时间戳和校验和，在运行时由OS核对被装载的DLL和绑定时的DLL是否相同</p>
+</blockquote>
+<h3 id="0x06-内存"><a href="#0x06-内存" class="headerlink" title="0x06.内存"></a>0x06.内存</h3><p>在32位中，Linux默认高1GB给内核，Windows则是默认高2GB。剩下的空间都叫内存空间，默认有如下区域：（Linux）</p>
+<ul>
+<li>栈0xc0000000：维护函数调用上下文；位于用户空间最高处，向低地址方向生长</li>
+<li>动态链接库映射区0x40000000：装载共享库</li>
+<li>堆：应用程序动态分配的内存区域；由低向高地址生长</li>
+<li>可执行文件映像：由装载器将可执行文件读取至该位置</li>
+<li>保留区：多个区域的统称，因为受到内存保护而不能访问</li>
+</ul>
+<h4 id="1-栈"><a href="#1-栈" class="headerlink" title="1. 栈"></a>1. 栈</h4><p>在i386上，栈顶由esp寄存器保存，栈底由ebp保存，因为是高地址向低生长的，故压栈使栈顶减小（sub esp）</p>
+<p><strong>堆栈帧</strong>：也叫活动记录，用于保存一个函数调用所需要的维护信息，内容如下</p>
+<ul>
+<li>函数的返回地址和参数</li>
+<li>临时变量：包括函数的非静态局部变量以及编译器自动生成的其他临时变量</li>
+<li>保存的上下文：包括在函数调用前后保持不变的寄存器</li>
+</ul>
+<p><strong>函数调用过程</strong>：</p>
+<ol>
+<li><p>对于调用者：</p>
+<ul>
+<li>将所有或者部分参数压栈，或者使用特定寄存器进行</li>
+<li>把当前指令的下一条指令地址压入栈中，跳转到函数体执行（call指令一起执行）</li>
+</ul>
+</li>
+<li><p>对于被调用的函数：</p>
+<ul>
+<li><code>push ebp</code>：保存旧的栈底</li>
+<li><code>mov ebp,esp</code>：设置当前esp为栈底</li>
+<li>【可选】<code>sub esp,XXX</code>：在栈上分配xxx字节临时空间，一般就是函数内部变量。未初始化的局部变量会有默认值，由编译器决定</li>
+<li>【可】<code>push xxx</code>：保存寄存器</li>
+</ul>
+</li>
+</ol>
+<p>此时的活动记录一般来说就是：参数——返回地址——旧栈底——局部变量</p>
+<ol>
+<li>函数返回：<ul>
+<li>【可选】<code>pop xxx</code>：有必要的话恢复寄存器</li>
+<li><code>mov esp,ebp</code>：恢复esp并同时回收局部变量</li>
+<li><code>pop ebp</code>：恢复旧的栈底</li>
+<li><code>ret</code>：栈中取得返回地址并返回调用者</li>
+</ul>
+</li>
+</ol>
+<p><strong>函数返回值</strong>：eax寄存器不够就再加上ebx，eax放置低4字节，ebx存放高的四字节。如果比8字节还大</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">big_struct ret = func();</span><br></pre></td></tr></table></figure>
+<p>设置一个临时变量temp（<code>sub esp</code>的值变大），之后将其作为隐藏参数传递给被调用函数func，之后将函数执行结果复制到该temp，并返回temp的地址为eax，最后再复制给接收变量ret。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">big_struct temp;</span><br><span class="line">func(&amp;temp);</span><br><span class="line"><span class="built_in">memcpy</span>(ret, eax, size);</span><br></pre></td></tr></table></figure>
+<p><strong>调用惯例</strong>：函数调用方和被调用方都遵守相同的约定，函数才能被正确调用</p>
+<ul>
+<li>函数参数的传递方式：一般都是栈传递（左向右or右向左），有些是寄存器（哪些寄存器）</li>
+<li>栈的维护方式：函数调用前后，使栈在前后保持一致的工作（前面的函数返回部分中的栈操作）</li>
+<li>名字修饰：使用不同的调用惯例的函数有不同的名字来区分规则</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>调用惯例</th>
+<th>出栈方</th>
+<th>参数传递</th>
+<th>名字修饰</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cdecl</td>
+<td>调用者</td>
+<td>右向左</td>
+<td>_func</td>
+</tr>
+<tr>
+<td>stdcall</td>
+<td>被调的函数</td>
+<td>右向左</td>
+<td>_func@参数字节数</td>
+</tr>
+<tr>
+<td>fastcall</td>
+<td>被调的函数</td>
+<td>左开始头两个≤4B的放入寄存器，其他的从右到左压栈</td>
+<td>@func@参数字节数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>C语言默认cdecl，也可以gcc下<code>__attribute(())</code>设置</p>
+</blockquote>
+<h4 id="2-堆"><a href="#2-堆" class="headerlink" title="2. 堆"></a>2. 堆</h4><p>一般都是程序预先向操作系统申请一块大小适当的堆空间，之后由程序自己管理（运行库）这块空间，不够了再申请</p>
+<p><strong>Windows堆结构</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-255546.htm">Windows内存堆内容整理总结</a>，下面这里讲的都是传统的NT堆。</p>
+</blockquote>
+<p>在win中有一系列大小不一的堆块，一部分由程序自主管理，剩下的空白堆块由系统的堆表管理。每个堆块都有一个头，用来存储相关信息。</p>
+<p>堆表<code>_HEAP</code>有两种（不同堆表对应不同的堆块头<code>_HEAP_ENTRY</code>）：</p>
+<ul>
+<li>空闲双向链表freelist：一个128项的数组，其中的内容是指向堆块header的指针。从free[1]开始每个指针指向的是一个8*n大小的堆块，&gt;=1024B的堆块都在free[0]中按照升序排列</li>
+<li>快速单向链表/快表lookaside：同样是128项，每项是一个单向链表，链表长度不超过4。（PS：没说堆块大小！但一条链上的应该是相等的）</li>
+</ul>
+<p>注意这里的两种在内存中都有，配合使用。三种堆块分配方式</p>
+<ol>
+<li><p>查找快速单向链表，也就是进程要的大小正好能在这里找到对应的。</p>
+</li>
+<li><p>空闲双向链表中寻找，最小的但&gt;=要求的堆结构。</p>
+<blockquote>
+<p>如果大于要求大小，则会将选择的堆块重新切割，多余的堆块继续插回到freelist中。当两个堆块彼此相邻时还会发生堆合并的操作，用于减小碎片，并插回freelist</p>
+</blockquote>
+</li>
+<li><p>0号空表，从freelist[0]队尾反向搜索</p>
+</li>
+</ol>
+<blockquote>
+<p>详细数据结构<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-279617.htm">Windows堆初探-二进制漏洞</a></p>
+</blockquote>
+<p><strong>Linux下堆管理</strong>：</p>
+<ul>
+<li><code>int brk(void* end_data_segment)</code>系统调用设置进程数据段的结束地址，扩大的空间就可以被用作堆。Glibc中的封装<code>sbrk()</code></li>
+<li><code>void *mmap(void *start,ize_t length, int prot, int flags, int fd, off_t offst)</code>向操作系统申请一段虚拟地址空间，可以映射到文件，也可以不映射这样就叫做匿名空间，匿名空间可以作为堆。对应Glibc中的malloc</li>
+</ul>
+<p><strong>Windows进程堆管理</strong></p>
+<ul>
+<li><p><code>kernel32.dll</code>中的<code>VirtualAlloc()</code>申请空间，函数可以干任何事，但大小必须是页的整数倍</p>
+</li>
+<li><p>堆管理器根据上述API封装至<code>NTDLL</code>中的<code>RtlAllocHeap()</code>再向上提供了相关API：<code>HeapCreate</code>创建堆；<code>HeapAlloc</code>堆中分配内存；<code>HeapFree</code>释放已分配内存；<code>HeapDestory</code>摧毁</p>
+<blockquote>
+<p>这个堆管理器有两份：NTDLL.dll面向用户；Ntoskrnl.exe面向内核</p>
+</blockquote>
+</li>
+<li><p>默认进程都会给1MB大小，链接器<code>/HEAP</code>参数可以通过<code>VirtualAlloc</code>申请</p>
+</li>
+</ul>
+<p><strong>堆分配算法</strong>：</p>
+<ul>
+<li>空闲链表：堆里的每个空闲空间，开头记录上一个空闲块地址，结尾记录下一个</li>
+<li>位图：堆划分为块，有头/主体/空闲三种状态，两位表示一个块的使用情况，头表示开始-主体表示已分配</li>
+<li>对象池：整个堆空间划分为大量不同大小的块，需要的时候请求对应大小</li>
+</ul>
+<h3 id="0x07-函数执行"><a href="#0x07-函数执行" class="headerlink" title="0x07.函数执行"></a>0x07.函数执行</h3><ol>
+<li>操作系统创建进程后，控制权交给程序入口（PE/ELF文件中某一项），该入口一般是运行库中某个函数</li>
+<li>入口函数完成运行库和程序运行环境初始化（堆、IO、线程等）</li>
+<li>入口函数初始化后调用main</li>
+<li>main执行完成后返回到入口函数进行清理工作</li>
+</ol>
+<p>Linux下：<code>_start</code>（汇编）-&gt;<code>__libc_start_main</code>-&gt; <code>exit</code> -&gt; <code>_exit</code>（汇编）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __libc_start_main(</span><br><span class="line">	<span class="type">int</span> (*main)(<span class="type">int</span>, <span class="type">char</span>**, <span class="type">char</span>**),</span><br><span class="line">    <span class="type">int</span> argc,</span><br><span class="line">    <span class="type">char</span>* __unbounded* __unbounder ubp_av,<span class="comment">//也就是argv，即环境变量</span></span><br><span class="line">    __typeof (main) init,<span class="comment">//main调用前的初始化工作</span></span><br><span class="line">    <span class="type">void</span> (*fini)(<span class="type">void</span>),<span class="comment">//main结束后的</span></span><br><span class="line">    <span class="type">void</span> (*rtld_fini)(<span class="type">void</span>),<span class="comment">//和动态加载有关的收尾动作</span></span><br><span class="line">    <span class="type">void</span>* __unbounded stack_end<span class="comment">//表明栈底地址</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>MSVC CRT：<code>mainCRTStart</code></p>
+<ol>
+<li>初始化和OS版本有关的全局变量</li>
+<li>初始化堆<code>_heap_init</code>和I/O<code>_ioinit</code></li>
+<li>获取命令行参数和环境变量<code>_setargv</code>&amp;<code>_setenv</code></li>
+<li>初始化C库的一些数据<code>_cinit</code></li>
+<li>调用main并记录返回值<code>mainret = main(__argc,__argv,_environ)</code></li>
+<li>检查错误并将main的返回值返回</li>
+</ol>
+<h3 id="0x08-复杂的CPP"><a href="#0x08-复杂的CPP" class="headerlink" title="0x08.复杂的CPP"></a>0x08.复杂的CPP</h3><p><strong>标准库</strong></p>
+<p>ANSI对c的标准叫做标准库，glibc和MSVC CRT都是依赖于不同OS上的扩展后运行库</p>
+<p><strong>cpp符号名修饰</strong></p>
+<p>在CPP的命名空间中有函数签名机制，不同的编译器使用不同的名称修饰方法，使得每个函数签名对应一个修饰后的名称，也就是最终的符号名。为了向后兼容C，<code>extern &quot;C&quot;&#123;&#125;</code>中可以直接当做C代码处理，也就是不会用上面所说的修饰方法，而是根据编译器来判定是否有下划线</p>
+<p><strong>cpp重复代码消除</strong></p>
+<p>产生因素：模板、外部内联函数、虚函数表都有可能在不同的编译单元里面生成相同的代码。</p>
+<p>以模板为例，目前主流编辑器思路是将一个模板实例单独存放在一个段中，当别的编译单元实例化模板之后也会生成同样的名字，方便在最终链接的时候区分。虚函数表和外部内联函数类似</p>
+<blockquote>
+<p>函数级别链接：将函数都保存为一个段中，其他目标文件需要时就单独合并。虽然减小了文件空间，但是需要链接器计算函数之间的依赖关系，且段的数目极大的增加。在VC和GCC中都有实现</p>
+</blockquote>
+<p><strong>cpp全局构造与析构</strong></p>
+<p>在main函数开始之前，需要先进行进程执行环境初始化，也就是代码的真正开始（Linux下Glibc的<code>_start</code>），在这个过程中全局对象构造函数执行，其析构函数在main之后被执行。于是乎在ELF文件中会见到.init段和.fint段，也就是整个程序的开始与结束，而非程序员编写的开始结束。</p>
+<p><strong>cpp与ABI</strong></p>
+<p>ABI即应用程序二进制接口，区别于API的源代码级别也就是哪个函数，ABI则更加底层。符号修饰标准、变量内存布局（C的四区，CPP的五区）、函数调用方式等都属于ABI的一部分，在不同指令集架构机器上ABI一般都不同，因为在不同的架构集上堆栈分布与参数细节都不一样。因此对于不同的编译器来说即使都认识双方的可执行文件格式，也可能因此无法编译到对方的机器上。</p>
+<p>对于C来说的二进制层面兼容部分：</p>
+<ul>
+<li>内置类型的大小和放置方式（大小端与对齐方式）</li>
+<li>组合类型的存储方式和内存分布</li>
+<li>外部符号与用户定义的符号间的命名和解析方式</li>
+<li>函数调用方式</li>
+<li>堆栈的分布方式</li>
+<li>寄存器使用约定</li>
+</ul>
+<p>对于CPP来说又多了许多：继承类体系的内存分布、指向成员函数的指针的内存分布、如何调用虚函数、模板如何实例化等。这也就是为什么有时候用户的编译器型号与库的编译器版本不对应时就会产生不兼容，目前的主要还是微软与GCC两个标准。</p>
+<p><strong>cpp与动态链接</strong></p>
+<p>因为CPP并没有规定二进制层面的约定，巨硬为了解决其这方面的问题，提出了COM（组件对象模型）的工作，其主要内容如下：</p>
+<ul>
+<li>所有接口函数都应该是抽象的，方法都应该是纯虚的</li>
+<li>所有全局函数都赢使用<code>extern &quot;C&quot;</code>防止名字的修饰，并使用<code>__stdcall</code>调用规范</li>
+<li>不使用标准库STL、异常、虚析构函数、重载</li>
+<li>不在DLL中申请内存并且在DLL外释放</li>
+</ul>
+<p><strong>cpp的调用惯例</strong>：对于传统的c的调用惯例有所改变，也有独特的thiscall，会随着编译器的不同而改变</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/OS/">OS</a><a class="post-meta__tags" href="/tags/Re/">Re</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="OS of 王道"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS of 王道</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" title="密码学及相关应用"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">密码学及相关应用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">0x01.计算机体系简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E5%A6%82%E4%BD%95%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">0x02.如何从代码到程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">1. 预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%BC%96%E8%AF%91"><span class="toc-number">2.2.</span> <span class="toc-text">2. 编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B1%87%E7%BC%96"><span class="toc-number">2.3.</span> <span class="toc-text">3. 汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%93%BE%E6%8E%A5"><span class="toc-number">2.4.</span> <span class="toc-text">4. 链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">0x03.静态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">1. 什么是符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%93%BE%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">2. 链接的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text">3. 如何控制链接过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-%E8%A3%85%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">0x04.装载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A3%85%E8%BD%BD%E5%85%A5%E5%86%85%E5%AD%98%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">1. 装载入内存的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A3%85%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">2. 装载过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Linux%E5%86%85%E6%A0%B8%E8%A3%85%E8%BD%BDELF%E6%96%87%E4%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">3. Linux内核装载ELF文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Windows%E8%A3%85%E8%BD%BDPE%E6%96%87%E4%BB%B6"><span class="toc-number">4.4.</span> <span class="toc-text">4. Windows装载PE文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">0x05.动态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Linux%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.1.</span> <span class="toc-text">1. Linux下动态链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Windows%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.2.</span> <span class="toc-text">2.Windows下动态链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-%E5%86%85%E5%AD%98"><span class="toc-number">6.</span> <span class="toc-text">0x06.内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A0%88"><span class="toc-number">6.1.</span> <span class="toc-text">1. 栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A0%86"><span class="toc-number">6.2.</span> <span class="toc-text">2. 堆</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x07-%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C"><span class="toc-number">7.</span> <span class="toc-text">0x07.函数执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x08-%E5%A4%8D%E6%9D%82%E7%9A%84CPP"><span class="toc-number">8.</span> <span class="toc-text">0x08.复杂的CPP</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

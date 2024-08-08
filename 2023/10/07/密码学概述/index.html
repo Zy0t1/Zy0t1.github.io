@@ -1,0 +1,518 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>密码学及相关应用 | Zy0t1's blog</title><meta name="author" content="Zy0t1"><meta name="copyright" content="Zy0t1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="对密码学及其应用的一些概念做阐释，不会涉及具体算法，就是单纯的概念；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学及相关应用">
+<meta property="og:url" content="http://zy0t1.github.io/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="对密码学及其应用的一些概念做阐释，不会涉及具体算法，就是单纯的概念；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp">
+<meta property="article:published_time" content="2023-10-07T12:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-07T09:44:00.149Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="密码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp"><link rel="shortcut icon" href="/img/web.png"><link rel="canonical" href="http://zy0t1.github.io/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '密码学及相关应用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-07 17:44:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">密码学及相关应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-07T12:00:00.000Z" title="发表于 2023-10-07 20:00:00">2023-10-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T09:44:00.149Z" title="更新于 2024-08-07 17:44:00">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81/">密码</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="密码学及相关应用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+<h3 id="密码学概述"><a href="#密码学概述" class="headerlink" title="密码学概述"></a>密码学概述</h3><ul>
+<li><p>密码学=密码编制学（设计密码）+密码分析学（破译密码）</p>
+</li>
+<li><p><strong>基本特性</strong>：机密性（不为人知）；完整性（传输过程防篡改）；可用性（随时可访问）；认证性（确保来源）；不可否认性（不能抵赖）</p>
+</li>
+<li><p><strong>构成</strong>：密码系统由明文空间P、密文空间C、密钥空间K、加E解D密算法构成的集合，即S={P,C,K,E,D}</p>
+</li>
+<li><p><strong>密码分析攻击方式</strong>：</p>
+<ul>
+<li><p>穷举攻击：暴力破解，所有可能尝试</p>
+</li>
+<li><p>数学攻击：现代密码基于数学难题，破解密码就是破解这些难题</p>
+<blockquote>
+<p>以差分分析为主（下面还包括：高阶、截断、不可能差分等）</p>
+</blockquote>
+</li>
+<li><p>物理攻击：从设备下手</p>
+<blockquote>
+<p>侧信道攻击着重于交互过程，包括：功耗分析、时间分析、故障分析</p>
+</blockquote>
+</li>
+</ul>
+<p>依据可利用资源来进行分类：</p>
+<ul>
+<li>仅知密文攻击：顾名思义，香菇无需多言</li>
+<li>已知明文攻击：除密文外，还知道部分明文-密文对</li>
+<li>选择明文攻击：能够直接获取所有明文对应的密文</li>
+<li>选择密文攻击：能够直接获取密文对应的明文</li>
+</ul>
+</li>
+<li><p><strong>密钥交换</strong>：box中放上需要传输的密钥，A加密box传给B，B收到后用自己的加密回送给A，A解密后再发给B，B解密得到密钥（常用于对称加密）</p>
+</li>
+<li><p><strong>密码学分类</strong>：</p>
+<p>按照发展时间：</p>
+<ul>
+<li>古典密码：以字符为基本加密单元</li>
+<li>现代密码：多以信息块为基本加密单元</li>
+</ul>
+<p>依据密码体制分类：</p>
+<ul>
+<li>对称密码体制：加密解密密钥相同</li>
+<li>非对称密码体制：加密解密密钥不同，公钥对外，私钥对内</li>
+</ul>
+<p>明文处理方式分类：</p>
+<ul>
+<li>分组密码：一个密钥对一块数据的加密，输出固定长度</li>
+<li>序列密码/流密码：明文与密钥长度一致，基本每一个明文字符对应一个密钥字符</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="分组密码工作模式"><a href="#分组密码工作模式" class="headerlink" title="分组密码工作模式"></a>分组密码工作模式</h3><p>具体算法有了之后，在实际中还要考虑每一个处理单元之间的关联，这就叫做工作模式。</p>
+<h4 id="电码本模式ECB"><a href="#电码本模式ECB" class="headerlink" title="电码本模式ECB"></a>电码本模式ECB</h4><p>最纯粹的模式，直接使用明文与密钥进行分组加密算法运算。$C_{i}=E(M_{i},K);i=1,2…n$；缺点在于分组的长度必须是加密算法要求的分组长度整倍数，对于那些多出来的需要以其他方式进行处理。</p>
+<blockquote>
+<p>E()为加密函数，C为密文，K为明文</p>
+</blockquote>
+<p><strong>短块加密</strong>：（适用于所有有短块的工作模式）</p>
+<ol>
+<li>填充法：填充随机数据，将最后的8位作为填充指示符</li>
+<li>序列密码加密法：对短块用序列密码加密$C_{n}=M_{n}\oplus MSB_{u}(E(C_{n-1},K))$；其中$MSB_{u}(X)$是取X的高u位；当要加密明文本身即是短块时，选定初始化向量Z代替$C_{n-1}$</li>
+<li>密文挪用技术：在对短块加密之前，先从密文$C_{n-1}$中挪出刚好够填充的位数，将其填充到$M_{n}$中，之后再对$M_{n}$进行加密；当明文本身即为短块时，同样选定初始化向量Z</li>
+</ol>
+<h4 id="密文链接模式CBC"><a href="#密文链接模式CBC" class="headerlink" title="密文链接模式CBC"></a>密文链接模式CBC</h4><p><strong>明密文链接模式</strong>：错误传播无界（当有一位发生错误，此后的密文全错）</p>
+<p>$C_{i}=\begin{cases}<br>E(M_{i}\oplus Z,K),i=1   \\<br>E(M_{i}\oplus M_{i-1}\oplus C_{i-1},K),i=2…n<br>\end{cases}$</p>
+<p>Z为初始化向量，对应解密：</p>
+<p>$M_{i}=\begin{cases}<br>D(C_{i},K),i=1   \\<br>D(C_{i},K)\oplus M_{i-1}\oplus C_{i-1},i=2…n<br>\end{cases}$</p>
+<p><strong>密文链接模式</strong>：错误传播有界（多用于磁盘文件加密）</p>
+<p>$C_{i}=\begin{cases}<br>E(M_{i}\oplus Z,K),i=1   \\<br>E(M_{i}\oplus C_{i-1},K),i=2…n<br>\end{cases}$</p>
+<p>解密如下，但是错误传播无界：</p>
+<p>$M_{i}=\begin{cases}<br>D(C_{i},K),i=1   \\<br>D(C_{i},K)\oplus C_{i-1},i=2…n<br>\end{cases}$</p>
+<h4 id="X-CBC模式"><a href="#X-CBC模式" class="headerlink" title="X CBC模式"></a>X CBC模式</h4><p>不同于前两者，该模式可以处理任意长度的数据明文，但是需要使用三个密钥$K_{1},K_{2},K_{3}$，还以Z作为初始化向量。</p>
+<p>$C_{i}=\begin{cases}<br>E(M_{i}\oplus Z,K_{1}),i=1   \\<br>E(M_{i}\oplus C_{i-1},K_{1}),i=2…n-1 \\<br>\begin{cases}<br>E(M_{n}\oplus C_{n-1}\oplus K_{2},K_{1}),M_{n}不是短块  \\<br>E(Pad(M_{n}\oplus C_{n-1}\oplus K_{3},K_{1})),M_{n}是短块<br>\end{cases}<br>\end{cases}$</p>
+<p>Pad（）为填充函数，如下：</p>
+<p>$Pad(X)=\begin{cases}X,当X不是短块\\ X10…0,当X是短块  \end{cases}$</p>
+<h4 id="输出反馈模式OFB"><a href="#输出反馈模式OFB" class="headerlink" title="输出反馈模式OFB"></a>输出反馈模式OFB</h4><p>在该模式中，通过密钥序列产生器来产生一个流密钥串，使得分组密码按照流密码的方式进行加解密。具体流程如下：</p>
+<ol>
+<li>R为移位寄存器，赋予初始值（种子）$I_{0}$</li>
+<li>将R中的内容作为明文进行加密，$E(R,K)$</li>
+<li>将得到的加密串最右边的s位与明文进行异或实现序列加密</li>
+<li>后s位再次反馈到R中，即让R中内容左移s位，用于填充，之后再进行下一轮</li>
+</ol>
+<p>适合语音图像等，冗余度加大的数据，但是对于错误传播而难以检测</p>
+<h4 id="密文反馈模式CFB"><a href="#密文反馈模式CFB" class="headerlink" title="密文反馈模式CFB"></a>密文反馈模式CFB</h4><p>基本类似于上述方法，区别的是：</p>
+<p>在第四步中反馈给R的后s位，来自加密后的明文的右s位（即第三部结果的右s位）</p>
+<h4 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h4><p>与上述两种工作模式一样，将分组密码转换为序列密码，属于对合运算。其中的T是给定的计数序列，且必须是时变的。具体过程如下：$MSB_{u}$代表高u位，u&lt;分组长度</p>
+<p>$\begin{cases}<br>O_{i}=E(T_{i},K),i=1,2…n   \\<br>C_{i}=M_{i}\oplus O_{i},i=1,2…n-1 \\<br>C_{n}=M_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>解密过程如下：</p>
+<p>$\begin{cases}<br>O_{i}=E(T_{i},K),i=1,2…n   \\<br>M_{i}=C_{i}\oplus O_{i},i=1,2…n-1 \\<br>M_{n}=C_{n}\oplus MSB_{u}(O_{n})<br>\end{cases}$</p>
+<p>由于没有错误传播，所以不适合用于数据完整性认证</p>
+<hr>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>三个基本条件：</p>
+<ul>
+<li>签名者事后不能抵赖自己的签名</li>
+<li>任何其他人并不能伪造签名</li>
+<li>签名能够被验证真伪</li>
+</ul>
+<p>签名产生算法$SIG$，签名验证算法$VER$，产生签名应当用私密钥$K_{d}$，公开验证时用公密钥$K_{e}$。</p>
+<p>函数必须满足的条件：</p>
+<ul>
+<li>当$M’\ne M$时，有$SIG(M,K_{d})\ne SIG(M’,K_{d})$，即$S\ne S’$</li>
+<li>签名$S$只能由签名者产生，否则别人可以伪造，就会存在抵赖</li>
+<li>收信者可以验证真伪</li>
+<li>签名纠纷发生时，应当能够公开解决（私密钥不能泄露）</li>
+</ul>
+<p>可选成立：</p>
+<ul>
+<li>$VER(S,K_{e})=VER(SIG(M,K_{d}),K_{e})=M$</li>
+<li>$VER(SIG(M,K_{d}),K_{e})=SIG(VER(M,K_{e}),K_{d})=M$</li>
+</ul>
+<p>即验证算法时使用的公密钥对密文处理时，不一定非要是明文，只要能够得到$K_{d}$和$K_{e}$之间的关系即可</p>
+<hr>
+<h3 id="密码协议"><a href="#密码协议" class="headerlink" title="密码协议"></a>密码协议</h3><p>大致按照功能分类如下：</p>
+<ul>
+<li>密钥建立协议：用于确定会话密钥</li>
+<li>认证协议：包括不限于身份认证协议、通信站点认证协议、报文认证协议</li>
+<li>身份验证和密钥建立协议：前两者的结合，先验证在确定密钥</li>
+<li>电子商务协议：还注重公平性</li>
+</ul>
+<p>设计原则：</p>
+<ul>
+<li>消息独立完整性原则：无二义性，且无需借助上下文</li>
+<li>消息前提准确原则：消息相关的先决条件需要确立</li>
+<li>主体身份标识原则：消息中或隐或显的附在消息中，如果需要的话</li>
+<li>加密目的原则：明确加密的目的，减少冗余</li>
+<li>签名原则：如果需要同时签名和加密，应先签名（对数据Hash签）再加密</li>
+<li>随机数使用原则：随机性应符合要求</li>
+<li>时间戳的使用原则：不同系统的时钟同步</li>
+<li>编码原则：需要明确协议中消息的具体数据格式</li>
+<li>最少安全假设原则：验证协议时需要尽可能减少安全假设，假设越多证明实际越危险</li>
+</ul>
+<p>协议安全分析：形式逻辑分析、模型检测方法、定理证明方法</p>
+<hr>
+<h3 id="认证-鉴别"><a href="#认证-鉴别" class="headerlink" title="认证/鉴别"></a>认证/鉴别</h3><p>与数字签名不同，认证是在双方诚实的前提下，提供的一种验证信心来源真假的手段；具体区别如下：</p>
+<ul>
+<li>认证基于双方共享的保密数据，数字签名的签名验证属于公开信息</li>
+<li>认证仅允许双方验证，数字签名还可以有第三方</li>
+<li>数字签名发送方不能抵赖、接收方不能伪造，能在公众面前解决纠纷的能力，认证不行</li>
+</ul>
+<p><strong>身份认证</strong>：</p>
+<ul>
+<li><p>口令：传统的用户输入密码，系统查表对照</p>
+<p>传统方案缺点：口令表直接获取、传输线路截取、用户无法验证系统</p>
+<p>改进措施：单向函数加密、数字签名验证口令、口令双向验证、一次性口令</p>
+<p>Good口令：多种字符、足够长、尽量随机、定期更换</p>
+</li>
+<li><p>磁卡（仅数据存储）、IC卡（嵌有单片机芯片）、USB-Key（有USB接口的单片机）</p>
+<blockquote>
+<p>PIN个人识别号，必须牢记，用来防治上述物品丢失直接导致信息泄露</p>
+</blockquote>
+</li>
+<li><p>生理特征识别：DNA、掌纹、指纹、面孔、虹膜、骨架、发音</p>
+</li>
+<li><p>零知识证明：最简单的A向B说出只有A知道的特征，进一步就是让B知道“A知道“该特征而不用泄露</p>
+<blockquote>
+<p>Feige-Giat-Shamir身份认证方案、Guillou-Quisquater方案</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>站点认证</strong>：</p>
+<p>单向认证：A发送方，B接收方，若共享一个会话密钥$K_{s}$</p>
+<ol>
+<li>A先产生随机数$R_{A}$，用密钥加密后发给B，并进行$f(R_{A})$</li>
+<li>B用会话密钥对报文解密，得到$R_{A}$之后再用f变换，$f(R_{A})$使用密钥加密发给A</li>
+<li>A对$f(R_{A})$进行验证</li>
+</ol>
+<p>若使用公钥密码体制：双方公私钥为$K_{eA}K_{dA}\&amp; K_{eB}K_{dB}$</p>
+<ol>
+<li>A产生随机数$R_{A}$发给B</li>
+<li>B用私钥签名发给A，A再拿B的公钥验证</li>
+</ol>
+<p>双向认证：符号如上不再多说，下面是传统密码</p>
+<ol>
+<li>A产生随机数$R_{A}$，用$K_{s}$加密后发给B</li>
+<li>B用$K_{s}$解密后得到$R_{A}$，自己也产生随机数$R_{B}$并与$R_{A}$拼接，再用$K_{s}$加密后发送</li>
+<li>A解密后对比$R_{A}$，确定B为目标，并将$R_{B}$加密后发给B，来让B确认A</li>
+</ol>
+<p>公钥密码体制：</p>
+<ol>
+<li>A产生随机数$R_{A}$直接给B</li>
+<li>B自己产生随机数$R_{B}$，拼在$R_{A}$后面，并用$K_{dB}$签名后给A</li>
+<li>A用$K_{eB}$验证签名，将得到的$R_{A}$对比，确定B为目标后，再用$K_{dA}$对$R_{B}$签名发送</li>
+<li>B用A的公钥$K_{eA}$进行验证</li>
+</ol>
+<p><strong>报文认证</strong>：</p>
+<ul>
+<li><p>报文源认证：对于传统密码$A\to B:E(ID_{A}||M,K_{s})$，$ID_{A}$代表A的标识</p>
+<p>公开密钥密码$A\to B:D(ID_{A}||M,K_{dA})$</p>
+</li>
+<li><p>报文宿认证：传统密码$A\to B:E(ID_{B}||M,K_{s})$</p>
+<p>公开密钥密码$A\to B:E(ID_{B}||M,K_{eB})$</p>
+</li>
+<li><p>报文内容的认证：通过验证MAC（消息认证码）的正确性来实现；$MAC=C(M,K)$，K为共享密钥（前提），输出固定长度的短数据块。目前C函数多基于Hash函数或分组密码实现</p>
+<p>A向B发送报文M和对应的MAC，B收到后同样用K计算M的MAC值，相等则确保：报文没被修改、报文发送方确定正确</p>
+</li>
+<li><p>报文时间性认证：序列号、时间戳、随机数</p>
+</li>
+</ul>
+<hr>
+<h3 id="密钥管理"><a href="#密钥管理" class="headerlink" title="密钥管理"></a>密钥管理</h3><ul>
+<li>管理策略着重指导，机制侧重具体实现</li>
+<li>全程安全原则：密钥的产生、存储、分配、组织、使用、停用、更换、销毁过程必须确保妥善的安全管理</li>
+<li>最小权力原则：应当只分配给用户进行某一项事务处理的最小密钥集合</li>
+<li>责任分离原则：一个密钥一种功能，切忌多个账号一个密码！</li>
+<li>密钥分级原则：分为高低级密钥进行管理</li>
+<li>密钥更换原则：必须满足满足安全性指标</li>
+</ul>
+<p>KMC——密钥管理中心；KDC——密钥分配中心；PKI——公开密钥基础设施；CA——证书签发机构；RA——等级证书机构；PKDB——公钥库；PKC——公钥证书</p>
+<p><strong>密钥的组织</strong>：</p>
+<ul>
+<li>初级密钥：初级通信密钥$K_{c}$、会话密钥$K_{s}$、初级文件密钥$K_{f}$</li>
+<li>中级密钥：保护初级，中级通信密钥$K_{NC}$、中级文件密钥$K_{NF}$</li>
+<li>高级密钥（主密钥）：对下两级进行保护$K_{M}$，生存周期最长</li>
+</ul>
+<p><strong>密钥产生</strong>：</p>
+<ul>
+<li>高级：高质量<strong>真随机</strong>序列；常采用物理噪声源的方法（基于力学、电子学、量子学的噪声源）</li>
+<li>中级：可借用高级密钥和一个强的密码算法产生，纯随机最好</li>
+<li>低级：高级密钥或中级密钥加密过的数</li>
+</ul>
+<blockquote>
+<p>伪随机数产生：基于强密码算法、ANSI X9.17伪随机数产生算法、BBS伪随机数生成器</p>
+</blockquote>
+<p>存储形态：明文、密文、分量</p>
+<p>备份：不同设备、不同地点、日志记录并审计、应当方便恢复、备份密钥一视同仁</p>
+<hr>
+<h3 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h3><blockquote>
+<p>区块链就是一个全网不断增加的大账本，每一个节点都有完整的区块链。该账本由区块（记录交易）和链（区块中的一个哈希值，用来指向上一个区块）组成的有序链表。伪造区块链至少需要全网51%的算力，因为每个区块本身的区块哈希需要上一个区块的哈希计算，区块越多越难更改。我们以比特币为区块链1.0进行介绍，将以太坊作为区块链2.0作为引入</p>
+</blockquote>
+<h4 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h4><p>用到的分布式数据存储、点对点传输、共识机制、加密算法，统称为区块链技术</p>
+<p>比特币使用区块链技术实现了数字货币的可信支付，本质就是个账本系统，由中本聪最先发行，通过P2P网络（peer to peer）进行发行流通，又称为“点对点的电子现金系统”。其有价值的原因是全球都具有该共同的账本，价值为大家共同的信任。由hash对交易双方的信息进行加密处理</p>
+<p>特点：1.高度自治，无需中心。2.无国界贸易。 3.不可篡改，且能防伪造，数量一定。4.隐私安全</p>
+<ul>
+<li><p><strong>数字签名</strong>：交易时使用，自己生成一对密钥=私钥+公钥；通过私钥对消息进行签名（加密）上传，其他人可以通过公钥对该签名进行验证，防伪造（私钥只有自己知道）、防篡改（原始消息被改后，对签名的验证将失败）、防抵赖（签名正确验证前提下，发出人不能说自己没有发布该条信息）。常用的算法有：RSA、DSA、ECDSA（比特币采用）算法</p>
+</li>
+<li><p><strong>去中心化/账本管理协会/分布式账本</strong>：部分机器可以参与进来作为记账先生，由于贡献了算力，所以可以有一定的奖励（有条件），这种获得奖励的方法叫“工作量证明”机制。理论上来说，如果能够有全网51%算力，就可以更改该账本的内容，简称算力攻击。由账本管理协会通过广播向全网传递已经（hash处理加密过的）算好的大账本，同时由于hash的不同x不同y的性质，可以按照此hash进行对照</p>
+</li>
+<li><p><strong>双花</strong>：同一个人的同一样东西与不同的人交易，导致账本会出现两条链，为解决该问题，比特币系统选定最长链为可信任的账本；要想伪造假链就需要记账的人中一半以上都来伪造该假链，即算力的51%。</p>
+</li>
+<li><p><strong>分叉</strong>：通常由不同矿工使用不同版本的比特币系统挖矿导致分叉；分为硬分叉和软分叉；比特币系统扩容/更新，即区块的容量增大，使得记账效率提高，新矿工（大区块）包容旧矿工（小区快），由于存在旧矿工同样进行记账，于是产生硬分叉（无法合并），更新的链条叫比特币现金，未扩容的链条叫比特币现金；篡改数据结果即是软分叉，可合并，由系统操作。</p>
+</li>
+<li><p><strong>PoW</strong>（工作量证明机制）： 区块数据与Nonce进行hash函数运算得到的结果&lt;系统给出的目标hash值，则获得记账权（有奖励），如果&gt;=，那么Nonce++，直到算出合适的Nonce（即计算次数/挖矿次数），这样才获得奖励</p>
+</li>
+<li><p><strong>挖矿</strong>：利用GPU做hash函数（条件），许多机器同时做，又快又准的计算出结果的获得记账权（工作量证明机制—POW），将交易信息写入新的区块然后广播，获得奖励，贡献算力当记账先生，这样的机器叫做矿工；由于不容易，所以就有矿池（多亿个矿工）出现，矿池拿到奖励后按照算力将奖励分配给下属矿工</p>
+<blockquote>
+<p>不用CPU是因为，CPU对这样无意义的hash函数试错功能并不如GPU高，即算力（计算hash的速率—-哈希率）相比于GPU低</p>
+</blockquote>
+</li>
+<li><p><strong>DeFi</strong>：去中心化金融。基于上述区块链技术发展出来的金融体系，具有传统金融的各种功能，但是没有了集中管理结构。具有：透明、匿名、任意时间、周转快等特点。</p>
+</li>
+<li><p><strong>虚拟钱包</strong>：用于管理资产，就算换个钱包，地址什么的都知道，仍然能用该笔钱。公钥=地址—你的银行卡账号（别人可以仅通过地址就向你转钱）；私钥=助记词—银行卡+密码（由于私钥难记，就换成了单词组成的助记词）；Keystore：加密过的私钥，加密需要用到自定义的密码</p>
+</li>
+</ul>
+<h4 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h4><p>相较于比特币来说，以太坊并不仅仅只是一种虚拟货币，它是一个巨大的去中心化的、分布式的平台，世界各地的计算机通过安装特定软件，来加入到这个巨大的网络中。目的是为了创造一个无法停止、抗屏蔽、自我维持的去中心化计算机世界，其中可以运行灰常多个程序。</p>
+<ul>
+<li><strong>EVM</strong>：以太坊虚拟机，区别于传统的JVM虚拟机，EVM虚拟机中的内容由许多正在运行相同以太坊客户端共同计算维护（不同软件不同平台，这里仅仅拿以太坊作为例子），类似于云。用于处理智能合约，还是将代码—操作码（汇编）—01字节码</li>
+<li><strong>DAPP</strong>：部署在上述平台上的应用程序就叫做DAPP（去中心化的APP）；这里包括应用使用的前端与后端。由于上传到链中，所以DAPP在部署之后非常难以维护、更新；适合于不受主观因素影响的业务，不适合经常改变规则的业务</li>
+<li><strong>智能合约</strong>：DAPP的后端（在EVM上），和现实中的合约类似，但是会有强制执行的特性，当条件满足时，预定好的行为会自动执行。就像自动售货机一样，用户输入所选物品并付钱，之后售货机自动弹出目标。目前链上的大多数攻击都针对的是智能合约的漏洞，就比如交易依赖攻击：攻击者没有根据合约规定顺序进行交易，导致不同输出，从而间接操作合约。</li>
+<li><strong>Gas</strong>：由于由于每笔以太坊交易都需要计算资源才能执行，每笔交易都需要付费。 燃料是指在以太坊上执行交易所需的费用，不论交易成功与否，此外他还一定程度上防止了恶意应用的出现。不同币不同油费与单位</li>
+<li><strong>PoS</strong>（权益证明机制）：在每个区块挖取时，选择下注（以太币），保证金出的多，胜出可能性高，但是该保证金会被冻结一段时间。</li>
+<li><strong>以太币</strong>（ETH）：以太币作为以太坊的原生货币，具有一些独特的功能，就像上面的Gas。除此之外在以太坊中还有一些其他的代币，可以由任何人创建，就比如代表以太坊上物品所有权的代币NFT</li>
+<li><strong>DAO</strong>（去中心化自治组织）：加入该组织就相当于加入了董事会，只是没有了董事长什么的高低之分，完全平等。董事会内部具有智能合约限制，需要投票表决通过某些决策，只要票数超过规定，决策自动执行。不同的自治组织加入方法不同：投代币就可以参加投票、设定信誉积分等等</li>
+<li><strong>Ghost</strong>：一种协议，旨在减少分叉；每个区块最多两笔招安合并奖励（$\frac{7}{8}$ 出块奖励，往后再一个块则降为$\frac{3}{4}$出块奖励），越早合并奖励越高（&lt;1x出块奖励）</li>
+<li><strong>NFT</strong>：非同质化代币；独一无二的“数字藏品”，不可能有第二份相同的；一般与发行方自己的币绑定，通过发放这种独一无二的藏品，来让客户支持本项目的开发。</li>
+</ul>
+<h3 id="可信计算"><a href="#可信计算" class="headerlink" title="可信计算"></a>可信计算</h3><p>重要概念理解</p>
+<ul>
+<li>可信：一个实体的行为总是以预期的方式，朝着预期的目标，那么认为他是可信的</li>
+<li>可信计算：计算运算的同时进行安全防护，计算全程可测可控，不被干扰，只有这样方能使计算结果总是与预期一样</li>
+</ul>
+<p>基本思想：在计算机中，首先创建一个安全信任根，再建立从硬件平台、OS到应用系统的信任链，在这条信任链上从根开始一级测量/信任一级，依次扩展。</p>
+<blockquote>
+<p>信任链：A-&gt;B-&gt;C-&gt;D；直接信任：A-&gt;B；间接信任：A-&gt;C&amp;C-&gt;B=A-&gt;B</p>
+</blockquote>
+<ul>
+<li>1.0时代：通过纯软件实现的容错、故障诊断等机制</li>
+<li>2.0时代：增加硬件实现的信任根TPM，构建信任链</li>
+<li>3.0时代：“宿主+可信”双节点主动免疫可信计算架构</li>
+</ul>
+<p>重要内容：</p>
+<ul>
+<li><p>信任链：RTM将完整性度量形成的信息传递给RTS，之后由RTS使用TPM平台的寄存器PCR存放度量扩展值，并使用TPM的密码学服务保护度量日志。</p>
+<p>RTR主要用于远程证明，向实体提供平台可信状态信息，主要包括平台配置信息、审计日志、身份密钥等。</p>
+<ol>
+<li>可信度量根RTM：即信任根，一般定义在扩展BIOS上，负责完整性度量，对外不暴露任何接口，理论上不可被篡改，因此可以无条件可信</li>
+<li>可信报告根RTR：负责报告信任根。由TPM平台的配置寄存器PCR和背书密钥EK组成</li>
+<li>可信存储根RTS：负责存储信任根。由TPM的PCR和存储根密钥SRK组成</li>
+</ol>
+</li>
+<li><p>可信平台模块TPM：可信计算平台依赖的核心，负责可信计算平台的安全控制和运算功能，以及存储基线和可信报告。（国产类似的有TCM和TPCM）。</p>
+<p>其中的支撑软件(栈)叫做TSS，主要用于为OS和应用提供使用TPM的接口。</p>
+<blockquote>
+<p>基线：指判断依据，静态度量下可以是操作系统、配置文件、代码、数据；动态度量下可以是流量、进程、行为等。通过监控上述行为来产生可信报告最后判定是否可信</p>
+</blockquote>
+</li>
+<li><p>度量：一个实体对另一个实体的可信评估；完整性度量即计算Hash值，之后与RTS中的校验值基准对比</p>
+</li>
+<li><p>静态信任链：系统启动时建立，信任链从RTM-&gt;BIOS-&gt;Bootloader-&gt;OS-&gt;应用</p>
+</li>
+<li><p>TNC可信网络连接：依据上面的RTR实现网络中的一级级验证，确保接入可信</p>
+</li>
+</ul>
+<p>在可信计算3.0中将RTM也置于了TPCM中，并先于CPU启动。</p>
+<ul>
+<li>可信软件基TSB：植入到操作系统内核，在TPCM支撑下实现对宿主系统中软件资源的度量和控制。先启动操作系统最小核之后TSB</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%86%E7%A0%81/">密码</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/" title="《程序员自我修养——链接、装载与库》读书笔记"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《程序员自我修养——链接、装载与库》读书笔记</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/06/%E8%AE%A1%E7%BD%91/" title="计网"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计网</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">密码学概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">分组密码工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B5%E7%A0%81%E6%9C%AC%E6%A8%A1%E5%BC%8FECB"><span class="toc-number">2.1.</span> <span class="toc-text">电码本模式ECB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E6%96%87%E9%93%BE%E6%8E%A5%E6%A8%A1%E5%BC%8FCBC"><span class="toc-number">2.2.</span> <span class="toc-text">密文链接模式CBC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#X-CBC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">X CBC模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8FOFB"><span class="toc-number">2.4.</span> <span class="toc-text">输出反馈模式OFB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E6%96%87%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8FCFB"><span class="toc-number">2.5.</span> <span class="toc-text">密文反馈模式CFB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CTR%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.6.</span> <span class="toc-text">CTR模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">3.</span> <span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%8D%8F%E8%AE%AE"><span class="toc-number">4.</span> <span class="toc-text">密码协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81-%E9%89%B4%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">认证&#x2F;鉴别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">密钥管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="toc-number">7.</span> <span class="toc-text">区块链</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81"><span class="toc-number">7.1.</span> <span class="toc-text">比特币</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A"><span class="toc-number">7.2.</span> <span class="toc-text">以太坊</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97"><span class="toc-number">8.</span> <span class="toc-text">可信计算</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>

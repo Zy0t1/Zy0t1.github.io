@@ -1,0 +1,972 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《加密与解密》读书笔记2 | Zy0t1's blog</title><meta name="author" content="Zy0t1"><meta name="copyright" content="Zy0t1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《加密与解密》第四版完结,以及个人添加的恶意软件说明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《加密与解密》读书笔记2">
+<meta property="og:url" content="http://zy0t1.github.io/2024/05/03/%E5%8A%A0%E8%A7%A3%E5%AF%862/index.html">
+<meta property="og:site_name" content="Zy0t1&#39;s blog">
+<meta property="og:description" content="《加密与解密》第四版完结,以及个人添加的恶意软件说明">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp">
+<meta property="article:published_time" content="2024-05-03T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-07T09:54:40.216Z">
+<meta property="article:author" content="Zy0t1">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Re">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp"><link rel="shortcut icon" href="/img/web.png"><link rel="canonical" href="http://zy0t1.github.io/2024/05/03/%E5%8A%A0%E8%A7%A3%E5%AF%862/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《加密与解密》读书笔记2',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-07 17:54:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《加密与解密》读书笔记2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-03T04:00:00.000Z" title="发表于 2024-05-03 12:00:00">2024-05-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T09:54:40.216Z" title="更新于 2024-08-07 17:54:40">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>31分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《加密与解密》读书笔记2"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+<h2 id="漏洞篇"><a href="#漏洞篇" class="headerlink" title="漏洞篇"></a>漏洞篇</h2><h4 id="二进制漏洞"><a href="#二进制漏洞" class="headerlink" title="二进制漏洞"></a>二进制漏洞</h4><p>C语言中<code>strcat()</code>、<code>strcpy()</code>、<code>sprintf()</code>、<code>vsprintf()</code>、<code>bcopy()</code>、<code>gets()</code>、<code>scanf()</code>等函数的不当使用（主要是指针数组的越界保护）都会造成溢出</p>
+<ul>
+<li><p>缓冲区溢出漏洞</p>
+<ul>
+<li>栈溢出：栈中保存了函数需要的重要信息，并在函数执行结束时被释放。程序借助栈将参数传递给子函数。其中也保存着局部变量、函数返回地址等。与栈帧结构密切相关</li>
+<li>堆溢出：由开发人员自行分配释放。堆向高地址扩展，是不连续的内存区域，由系统使用链表来管理空闲的内存块，链表的遍历由低地址向高地址进行</li>
+<li>格式化字符串溢出：<code>printf()</code>不定参数输入，而且不会检查参数个数</li>
+</ul>
+</li>
+<li><p>整数溢出漏洞</p>
+<ul>
+<li>存储溢出：不同的数据类型存储造成，不完全覆盖或是高位截断</li>
+<li>运算溢出：在对整型数变量进行运算过程中没有考虑边界问题</li>
+<li>符号问题：有符号整型和无符号整型</li>
+</ul>
+</li>
+<li><p>UAF漏洞：堆被释放后又被使用。利用方法=在堆被释放后赶紧申请内存，企图占据那块刚被释放的堆块，后面调用已被释放的位置指针指向的堆块就被控制了</p>
+</li>
+</ul>
+<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>shellcode是一段可独立执行的代码，用于实现对计算机端的控制。通常在缓冲区漏洞触发后，获取eip指针控制权，之后指向shellcode执行</p>
+<blockquote>
+<p>Poc证明样本可以导致程序崩溃；Exp主要是漏洞利用</p>
+</blockquote>
+<p>shellcode分为两个模块=基本模块+功能模块</p>
+<ul>
+<li>基本模块<ul>
+<li>获取kernel32基址：常见的有暴力搜索、异常处理链表搜素、TEB搜索</li>
+<li>获取API地址：找到dll之后按照PE结构搜索EAT。可以通过计算字符串的hash值来对比，既减小了空间又不容易被看穿</li>
+</ul>
+</li>
+<li>功能模块<ul>
+<li>下载执行：从指定url下载exe并执行。常见于浏览器类漏洞</li>
+<li>捆绑：将捆绑在自身身上的exe数据释放到指定目录中。常见于office等漏洞</li>
+<li>反弹shell：获取一个远程shell以执行命令。多见于主动型远程溢出漏洞</li>
+</ul>
+</li>
+</ul>
+<p>编写shellcode：强大的汇编、winAPI等</p>
+<p>提取shellcode：一般是利用十六进制编译器直接提取编译生成的exe对应区段。当然可以使用代码自动化，提取为bin、C数组、unescape等格式</p>
+<p>调试shellcode：内联汇编编写时方便调式。如果是bin格式则需要自己编写loader</p>
+<p>shellcode变形：格式变化、字符串化、加密</p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>shellcode可能出现位置</p>
+<ul>
+<li>jmp esp/call esp：保存在栈空间的shellcode一般都是用此来控制eip。jmp esp编码“0xFF 0xE4”</li>
+<li>jmp ebx/call ebx：当栈溢出发生后，如果覆盖的是无效地址，那么系统就会进入到异常处理过程</li>
+<li>堆喷射：常见于UAF的利用，因为一般只能控制eip，而shellcode无法写入指定内存，所以一般采用脚本循环申请的方式连续填充内存，从而实现布局</li>
+</ul>
+<p>DEP保护：即数据执行保护，需要硬件页表机制的支持。该机制会将非代码段的页表属性设置为“不可执行”，这样写入的shellcode就不会得到运行</p>
+<p>绕过DEP：ROP编程—主要借助代码复用技术，即需要其他可执行位置上，比如已有的动态链接库和可执行文件等，从中找到符合要求的指令片段，这些片段以ret结尾，将其逻辑上拼接为我们的程序</p>
+<blockquote>
+<p>ROP通常操作是调用<code>VirtualProtect()</code>将shellcode区域设置为可执行，或是通过<code>VirtualAlloc()</code>来申请一段可执行的空间</p>
+</blockquote>
+<p>ASLR：对堆、栈、共享库等映射区域进行随机化处理，针对缓冲区溢出和ROP的安全保护技术。常见绕过就是在未启用ASLR的模块中寻找跳板</p>
+<h4 id="样本分析"><a href="#样本分析" class="headerlink" title="样本分析"></a>样本分析</h4><ol>
+<li><p>样本获取、环境搭建</p>
+</li>
+<li><p>静态分析：样本信息、查杀测试、搜索引擎、二进制分析</p>
+</li>
+<li>动态调试：运行测试、<strong>动态调试</strong></li>
+<li>溯源：定位漏洞触发位置</li>
+</ol>
+<h2 id="脱壳篇"><a href="#脱壳篇" class="headerlink" title="脱壳篇"></a>脱壳篇</h2><h4 id="壳介绍"><a href="#壳介绍" class="headerlink" title="壳介绍"></a>壳介绍</h4><p>外壳通过附加在原始程序上，通过加载器载入内存后，先于原始程序被执行，用以获得控制权，在执行过程中对原始程序进行解密还原，还原之后把控制权还给原始程序执行原来的代码</p>
+<ul>
+<li><p>压缩壳：用于减小软件的体积。UPX、ASPack、PECompact</p>
+</li>
+<li><p>加密壳：一些壳只保护程序，另一些会有额外的功能。ASPPotect、Armadillo、EXECryptor、Themida</p>
+</li>
+<li>虚拟机保护软件：虚拟机引擎由编译器、解释器和虚拟CPU环境组成，还会搭配一个或多个指令系统。VMProtect—一个利用伪指令虚拟机的保护软件，安全性高，但效率会变低</li>
+</ul>
+<h4 id="壳的加载"><a href="#壳的加载" class="headerlink" title="壳的加载"></a>壳的加载</h4><ol>
+<li>加壳程序在初始化时保存各寄存器的值，外壳执行完后再恢复</li>
+<li>输入壳一般只有<code>GetProcAddress()</code>、<code>GetModuleHandle()</code>、<code>LoadLibrary()</code>三个API，或者平替功能的函数</li>
+<li>解密源程序各个区块的数据</li>
+<li>源程序的IAT初始化由壳进行填写</li>
+<li>重定位项预处理，exe会比dll少一个重定位表</li>
+<li>Hook-API，壳一般都会自己模仿win的工作流程，向输入表中填入自己的hook地址</li>
+<li>跳转到程序原入口点OEP，是源程序和壳的“分界线”</li>
+</ol>
+<blockquote>
+<p>OEP即原程序入口点，也就是壳执行完后将控制权还给解压后的程序，再跳入到原程序</p>
+</blockquote>
+<h4 id="EXE脱壳"><a href="#EXE脱壳" class="headerlink" title="EXE脱壳"></a>EXE脱壳</h4><ol>
+<li><p>寻找OEP</p>
+<ul>
+<li>根据跨段指令寻找OEP：加壳之后程序称为“RebPE”，外壳部分所在段会作为新的入口点，而非常见的代码段，之后动态调试，从壳开始处跟踪</li>
+<li>用内存访问断点寻找OEP：对代码段设置内存断点，当壳对断点指令进行读取时必定会发生中断</li>
+<li>根据栈平衡寻找OEP：壳在JMP OEP之前必定会<code>popad/popfd</code>来将初始化时保存的寄存器恢复</li>
+<li>根据编译语言特点寻找OEP：例如MSVC的入口点<code>mainCRTStartup</code>、<code>WinMainCRTStartup</code>等函数，据此来设置断点</li>
+</ul>
+</li>
+<li><p>抓取内存镜像</p>
+<ul>
+<li><p>也叫dump——转存，是指把内存指定地址的映像文件读出，用文件形式保存下来。当外壳来到OEP处进行dump才合适，否则程序运行时变量就会被初始化</p>
+<blockquote>
+<p>工具：LordPE、PETools。一般利用<code>Module32Next()</code>获取欲dump进程的信息<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/win32/api/tlhelp32/nf-tlhelp32-module32next">Module32Next 函数 (tlhelp32.h) - Win32 apps | Microsoft Learn</a></p>
+</blockquote>
+</li>
+<li><p>反dump：</p>
+</li>
+<li><p>纠正SizeOfImage：在dump文件时，一些关键参数是通过MODULEENTRY32结构的快照获得的，一些壳会修改其中的参数使dump软件无法正常读取数据</p>
+</li>
+<li><p>修改内存属性：当进程某个地址不可读时就无法进行dump，此时就需要动态调试时将PE头设置为完整权限</p>
+</li>
+</ul>
+</li>
+<li><p>重建输入表</p>
+<ul>
+<li>当外壳代码完成了加载工作，此时源程序中的IAT填写的就是外壳的hook-API地址了，所以每次程序与系统打交道时都会让外壳的代码获取一次控制权。</li>
+<li>程序中每一个API函数在IAT中都会有自己的位置，通过动态调试，跟踪函数调用，从而来到IAT所在位置，IAT是一块连续排列的数据，以0结尾，据此特征查找。</li>
+<li>重启跳转到OEP处，将内存数据dump出来为一个单独的exe，之后整理字符串、偏移等结构。完成后再由windows加载器实现IAT地址的填充</li>
+<li>外壳对输入表的操作：</li>
+<li>保留原输入表，外壳加载时没有加密IAT：外壳解压数据时，完整的输入表会在内存中，dump下来即可。这种外壳一般都是用显式装载的方式来获得函数地址的。ASPack、PECompact</li>
+<li>保留原输入表，外壳装载时加密IAT：需要在外壳没加密之前进行dump，会直接跳过IAT加密代码段。tElock</li>
+<li>破坏原输入表，外壳装载时没有加密IAT：外壳刚解压的文件中（内存数据）的是输入函数的字符串，之后外壳用显式装载的方式获得这些函数地址。UPX</li>
+<li>破坏原输入表，装载时对IAT加密处理：综上。ASProtect</li>
+</ul>
+</li>
+</ol>
+<h4 id="DLL文件脱壳"><a href="#DLL文件脱壳" class="headerlink" title="DLL文件脱壳"></a>DLL文件脱壳</h4><p>比exe脱壳多了一个基址重定位表需要考虑</p>
+<ol>
+<li><p>寻找OEP：dll在映射和卸载时都会调用到<code>DllMain()</code>。因此可以在载入时/退出时寻找OEP。借助<code>LoadLibrary()</code>与<code>FreeLibrary()</code>来映射卸载dll。</p>
+<blockquote>
+<p>应该也是可以使用rundll32.exe来跟踪执行</p>
+</blockquote>
+</li>
+<li><p>Dump：需要注意dll的重定位问题，如果是重定位后抓取需要将基址进行修正。</p>
+</li>
+<li><p>重建输入表：同上步骤/工具</p>
+</li>
+<li><p>构造重定位表：外壳重定位相关数据时，会根据外壳转储的重定位表确定要重定位的RVA，用RVA+基址来完成重定位工作。因此重点就是将外壳中这些要重定位的RVA提取出来，重新生成一份重定位表</p>
+</li>
+</ol>
+<h4 id="PE文件优化"><a href="#PE文件优化" class="headerlink" title="PE文件优化"></a>PE文件优化</h4><ul>
+<li>输入表用工具重建后，默认是放在新增的区块，而一般是在.rdata区块的，在其中选一块地址存放</li>
+<li>资源重建：工具脱壳后，图标等内容因为不能被压缩，而被存放在外壳的代码中。工具freeRes、DT_ResFix。</li>
+<li>装配文件：删除不必要的区块数据。工具：LordPE、CEF Explorer</li>
+<li>修正PE文件头<ul>
+<li>EntryPoint：脱壳时的OEP，工具能自动修正</li>
+<li>BaseOfCode/Data：代码段/数据段起始地址</li>
+<li>SizeOfImage：装入文件从基址到最后一个块的大小</li>
+</ul>
+</li>
+</ul>
+<h2 id="保护篇"><a href="#保护篇" class="headerlink" title="保护篇"></a>保护篇</h2><h3 id="软件保护技术"><a href="#软件保护技术" class="headerlink" title="软件保护技术"></a>软件保护技术</h3><h4 id="防范算法求逆"><a href="#防范算法求逆" class="headerlink" title="防范算法求逆"></a>防范算法求逆</h4><p>验证用户合法性环节如下：</p>
+<ol>
+<li>用户向软件作者提交用户码U，申请注册</li>
+<li>软件作者经注册机计算出注册码 R=f(U)，并返回R</li>
+<li>用户在注册界面输入用户码U和注册码R</li>
+<li>软件通过验证函数 F(U,R) 来判断上述值是否合法</li>
+</ol>
+<blockquote>
+<p>堡垒战术：MD5等hash进行身份验证+RSA等公钥加密算法</p>
+<p>游击战术：核心思想“化整为零”+“虚虚实实”+“战略转移”，将验证函数分解成不同的函数，并将其分别隐藏到程序中、加入干扰函数、软件给注册码反复换地方（写入注册表/文件、多份备份等）</p>
+</blockquote>
+<h4 id="抵御静态分析"><a href="#抵御静态分析" class="headerlink" title="抵御静态分析"></a>抵御静态分析</h4><p>目前主要的反汇编算法：线性扫描算法（OD、windbg）、递归行进算法（OD、IDA）</p>
+<ul>
+<li>线性扫描算法：将模块中的每条指令都反汇编，遇到的机器码都作为代码处理</li>
+<li>递归行进算法：按照代码可能执行的顺序进行返汇编，对每条可能的路径进行扫描</li>
+</ul>
+<p>分析手段根据返汇编算法有如下几种</p>
+<ul>
+<li><p>花指令：无用的字节干扰返汇编工具对指令位置的判断</p>
+</li>
+<li><p>SMC技术：代码自修改技术。某段代码在执行之前进行加密——》程序执行时动态解密。可以与反跟踪、反断点跟踪相结合；设计出多层嵌套；设计一个比较复杂的解密函数；</p>
+</li>
+<li><p>信息隐藏：对关键信息，比如常用于定位的界面显示的字符串，进行隐藏处理</p>
+<blockquote>
+<p>病毒资料：<a target="_blank" rel="noopener" href="https://1vx.ug/archive/VxHeaven/">Welcome to VX Heaven! (1vx.ug)</a></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="文件完整性检验"><a href="#文件完整性检验" class="headerlink" title="文件完整性检验"></a>文件完整性检验</h4><p>文件发布时用散列函数计算文件的散列值，并将其存放到某个位置，之后每次运行重新计算并比较</p>
+<ul>
+<li>磁盘文件校验：书中用的是CRC32检验码，可以将该校验码存放到文件中，或是单独文件</li>
+<li>校验和：PE可选映像头中有个“Checksum”字段，其中存储了文件的校验和。EXE的可以0，重要文件、系统dll、驱动不能为0。IMAGEHLP.dll下<code>MapFileAndCheckSumA()</code>可以来测试</li>
+<li>内存映像校验：可以对代码块计算，或选其中一小部分，因为此段在运行期间只读。需要注意断点设置，硬件断点不影响，而INT 3会改变原始代码</li>
+</ul>
+<h4 id="代码与数据结合"><a href="#代码与数据结合" class="headerlink" title="代码与数据结合"></a>代码与数据结合</h4><ol>
+<li>在软件中找一段密文C（可以是关键代码或是注册版下某个功能的关键数据）</li>
+<li>用户输入用户名和序列号之后，计算解密密钥K=F(用户名，序列号)</li>
+<li>对密文进行解密M=Decrypt(C, K)</li>
+<li>给解密的代码加上异常处理代码（K不对的话，得到的M就是不正常的）</li>
+<li>利用散列函数计算M的校验值，并检验</li>
+</ol>
+<h3 id="反跟踪技术"><a href="#反跟踪技术" class="headerlink" title="反跟踪技术"></a>反跟踪技术</h3><p>防调试器、防监控工具等</p>
+<ol>
+<li><p>BeingDebugged</p>
+<ul>
+<li>winapi<code>IsDebuggerPresent()</code>来判断自己是否处于调试状态</li>
+<li>段寄存器fs:[0]指向当前线程环境块TEB——》其中存储了进程环境块PEB的地址——》读取PEB的BeingDebugged标志</li>
+<li>系统在创建进程时设置“BeingDebugged=TRUE”——》“NtGlobalFlag=0x70”——》在为进程创建堆时，由于“NtGlobalFlag”的作用，堆的“Flags”被设计了标记——》“Flags”被填充到“ProcessHeap”的“Flags”和“ForceFlags”中——》堆内填充了许多“BA AD F0 0D”，检测出有调试器</li>
+</ul>
+</li>
+<li><p>Native用户态</p>
+<ul>
+<li><p><code>CheckRemoteDebuggerPresent()</code>也可以用于检测调试器，与<code>IsDebuggerPresent()</code>不同并不是检测“BeingDebugged”标志的</p>
+</li>
+<li><p>该函数调用——》<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess">NtQueryInformationProcess 函数 (winternl.h)</a>——》根据其中不同的“ProcessInformationClass”查询进程对象信息，调试状态下就是“ProcessDebugPort”，该值用来与调试器通信的端口句柄（如果将调试端口设置为0，系统就不会向用户态调试器发送调试事件通知，调试器就无法正常工作）</p>
+</li>
+<li><p>可以使用<code>ZwSetInformationThread()</code>来防调试</p>
+<blockquote>
+<p>逆向网站<a target="_blank" rel="noopener" href="https://www.openrce.org/about/">OpenRCE的 —- OpenRCE</a></p>
+<p>NativeAPI<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-112348.htm">[下载][分享]经我自己编辑过的《Windows NT 2000 Native API Reference.chm》-¥付费问答-看雪</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>windows调试机制</p>
+<ul>
+<li><p>调试器与被调试程序有两种途径建立关系：创建进程时设置DEBUG_PROCESS；调用DebugActiveProcess附加到某个已经运行的进程上</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-268988.htm">[原创]初探Windows调试原理和反附加手段-软件逆向-看雪</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>NativeAPI</p>
+<ul>
+<li><p>winNT对旧系统，其中有相应的支持子系统，各个子系统转入ntdll或内核中的ntoskrnl，最终在硬件抽象层HAL上实现。这样在设计子系统时对ntdll提供的接口封装即可或调用0x2e中断进入到ntoskrnl.exe内核态</p>
+</li>
+<li><p>SSDT-系统服务描述表/SDT-服务描述表，其中存放了SST-系统服务表</p>
+</li>
+<li><p>在ntdll.dll中Zw和Nt都是导向ntoskrnl.exe的Stub函数</p>
+</li>
+<li><p>在ntoskrnl.exe中，Zw函数也是Stub函数，指向ntoskrnl.exe的相应Nt函数</p>
+</li>
+<li><p>在ntoskrnl.exe中，Nt函数时所有Stub函数的目的地</p>
+<blockquote>
+<p>stub函数：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25147897/article/details/78855860">[浅谈白盒测试中桩函数的灵活应用_桩函数中if怎么实现-CSDN博客]</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>反调试技巧</p>
+<ul>
+<li>SoftICE内核级调试器：使用<code>CreateFileA()</code>或<code>_lopen()</code>来获得SoftICE驱动程序等的句柄；在winNT中，SoftICE是一个内核设备驱动类型的服务（叫NTICE）</li>
+<li>OD：检测OD的特征码；调试器一般使用微软的DBGHELP库来装载调试符号；查找窗口是否有od相关信息；枚举进程列表ollydbg.exe；</li>
+<li>调试器漏洞：利用调试器漏洞攻击</li>
+<li>防止调试器附加：Ring3调试器附加使用<code>DebugActiveProcess()</code>，在附加相关进程时会先执行ntdll.dll下的<code>ZwContinue()</code>，最后停留在ntdll.dll的DbgBreakPoint处，调试器在这里设置了一个INT 3断点，由调试器自己捕捉</li>
+<li>父进程检测：通过TEB或<code>GetCurrentProcessId()</code>获取当前进程PID——》通过<code>Process32First/Next</code>获取所有进程列表——》判断父进程PID是不是exploer.exe、cmd.exe、Services.exe，不是的话就可能正在被调试</li>
+<li>时间差：当程序运行被打断点的话，会经过CPU捕获异常发给调试器处理等步骤，耗时不合理就是被调试了。<code>RDTSC</code>指令用于获取CPU自开机运行起的时钟周期数（<code>kernel32!GetTickCount()</code>也可）</li>
+<li>通过TrapFlag检测：CPU符号位eflags中，有一位TF=1时，CPU执行eip中的指令后会触发一个单步异常</li>
+<li>双进程保护：win下Ring3调试器和被调试程序，一对一关系，可以自己写一个调试器附加上去</li>
+</ul>
+</li>
+</ol>
+<h3 id="外壳编写基础"><a href="#外壳编写基础" class="headerlink" title="外壳编写基础"></a>外壳编写基础</h3><p>加壳工具=主体程序（原文件读入内存并加工）+外壳部分（加壳后程序执行时的引导段，用于模拟PE装载器）</p>
+<h4 id="加壳主程序"><a href="#加壳主程序" class="headerlink" title="加壳主程序"></a>加壳主程序</h4><ol>
+<li>判断文件是否是PE格式：检测DOS+PE文件头的魔数——》校验FileHeader结构中的Characteristics字段来判断是exe还是dll</li>
+<li>文件基本数据读入：（也可直接按文件偏移方式读入）仿照装载器载入——》取得PE文件头SizeOfImage字段的值，并申请相应大小内存——》根据区块表中的VA和VirtualSize逐区读入</li>
+<li>附加数据的读取：需要在读取文件时单独读取并保留这些数据——》加密后追加到文件的最后</li>
+<li>输入表处理：加密进行时破坏源程序中的输入表，换一个形式存储——》在外壳对源程序初始化时，不把真正的函数入口写回输入表，而是写入外壳中的一段程序入口，从这些位置转到正确的函数入口</li>
+<li>重定位表处理：对于dll文件，外壳需要模拟PE装载器的重定位功能，将原始的重定位表换一个形式存储。对于exe一般就顶多减小体积而已</li>
+<li>文件的压缩：压缩引擎aPlib、LZMA、JCALG1。有些区块诸如资源块等需要特殊处理</li>
+<li>资源数据处理：找到资源目录和资源数据的分割点——》把不能压缩的资源类型从中提取，转移到一个不会被压缩的空间中——》修改资源目录中相应指针——》压缩资源区块中的资源数据</li>
+<li>区块的融合：各个区块长度必须是FileAlignment的倍数，不足部分00填充，将一些可以压缩的区块合并为一个区块——》根据区块名找到第一个不能被压缩的区块——》合并区块——》合并后的区块的RVA设置为融合的第一个区块的RVA——》VirtualSize设置为和——》没有融合的区块的区块表向前移动</li>
+</ol>
+<h4 id="汇编编写外壳部分"><a href="#汇编编写外壳部分" class="headerlink" title="汇编编写外壳部分"></a>汇编编写外壳部分</h4><ol>
+<li>外壳加载过程：保留程序入口参数——》dll加载时会多次进入DllMain()需要设计标志——》模拟PE装载器恢复输入表</li>
+<li>自建输入表：通过自建输入表和壳程序本身再将原输入表导入</li>
+<li>外壳引导段：通过call指令将下一句地址入栈，之后pop出地址放入edx，通过edx偏移取变量。该部分主要用于将真正的外壳代码在内存中解压，并初始化一些数据</li>
+<li>外壳第二部分：主要是还原和初始化源程序（主要就是解压和初始化输入表）</li>
+<li>外壳添加到源程序：可以给源程序增加一个独立的区块。需要注意区块的读写属性</li>
+</ol>
+<h3 id="虚拟机设计与VMProtect"><a href="#虚拟机设计与VMProtect" class="headerlink" title="虚拟机设计与VMProtect"></a>虚拟机设计与VMProtect</h3><p>虚拟机保护技术就是将基于x86汇编的代码转换为字节码指令系统的代码。当前主流虚拟机基于栈（字节码指令短，用到的指令少），或是基于寄存器。</p>
+<p>虚拟机启动框架和调用约定</p>
+<ul>
+<li>调度器：VStartVM将所有寄存器符号压栈，esi指向字节码起始地址、ebp指向真实栈、edi指向VMContext。之后生成一个VMDispatcher标签，当每个Handler执行完毕就跳回这里，形成循环</li>
+<li>VMContext：虚拟环境结构，一个结构体其中存放了需要使用的值</li>
+<li>Handler：在虚拟机里面指一小段程序或过程，由VM中的调度器来调用。包括辅助Handler和普通Handler，前者执行重要基本指令，后者用于执行普通x86指令</li>
+<li>标志位问题：应在Handler执行前保存标志位，在相关Handler执行完成后恢复标志位</li>
+<li>异常处理：需要对原有的系统异常处理进行劫持</li>
+</ul>
+<p>需要模拟的x86指令分类，按功能分为</p>
+<ul>
+<li>普通指令：算数、传输指令</li>
+<li>栈指令：push、pop</li>
+<li>流指令：jmp、call、retn等改变程序执行流程（修改esi寄存器）</li>
+<li>不可模拟指令：int 3、sysenter等（对于虚拟机一般只能先退出执行，之后再进入）</li>
+</ul>
+<p>VMProtect以基本块为单位，在原始引擎的代码中插入了无条件跳转和条件跳转，用于分割基本块和生成大量虚假副本</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>基本块名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VStartVM</td>
+<td>真实环境到虚拟环境的转换，开辟新的堆栈空间给虚拟机</td>
+</tr>
+<tr>
+<td>VMDispatcher</td>
+<td>虚拟指令调度分流</td>
+</tr>
+<tr>
+<td>VHandler</td>
+<td>不同功能的虚拟指令</td>
+</tr>
+<tr>
+<td>VCheckESP</td>
+<td>检查堆栈基本块</td>
+</tr>
+<tr>
+<td>VRet</td>
+<td>该指令将堆栈中压入的寄存器还原到物理寄存器中，之后退出虚拟机环境，切换回到真实的CPU环境</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>VStartVM执行完毕——》真实寄存器保存到VMP堆栈中——》转到VMDispatcher开始循环执行虚拟指令——》开始的几条虚拟指令将这些值弹出并放到VMContext中。真实CPU寄存器功能</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESI</td>
+<td>当前要执行的字节码位置，相当于VM.eip</td>
+</tr>
+<tr>
+<td>EDI</td>
+<td>指向VMContext结构</td>
+</tr>
+<tr>
+<td>EBX</td>
+<td>解码虚拟指令时，将执行虚拟基本块的第1条指令赋值给ebx</td>
+</tr>
+<tr>
+<td>EBP</td>
+<td>指向真实的esp</td>
+</tr>
+<tr>
+<td>ESP</td>
+<td>虚拟机使用的堆栈</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>VMP中指令五大类：元指令（与堆栈相关的指令）、算术运算指令、内存操作指令、系统指令、逻辑运算指令。vJmp—唯一的无条件跳转指令</p>
+<p>对于虚拟机无法处理的指令，VMP会生成推出虚拟机的指令并切换到真实的CPU环境中执行 or 拆分指令联合不同功能的基础指令进行</p>
+<p>虚拟机执行的死规矩</p>
+<ul>
+<li>只能从VMEntry开始执行</li>
+<li>特权指令被虚拟环境接管，模拟执行</li>
+<li>接管内存访问和写入，执行到与内存相关的指令时跳出模拟环境，判断空间是否允许访问</li>
+<li>堆栈操作指令和只能依赖通用寄存器的普通指令可以直接交给系统执行</li>
+</ul>
+<blockquote>
+<p>这里太难了（ToT），下面是VMP还原大致过程（就是目录）</p>
+<p>生成完整的字节码流程图——》给Handler命名并添加语义动作——》将字节码的低级描述转换为中级描述——》清楚无用的字节码——》用真值表花间逻辑指令——》从特征中建立部分寄存器映射信息——》其他无法确定的寄存器的图着色算法——》使用DAG匹配生成指令</p>
+</blockquote>
+<h2 id="软件重构篇"><a href="#软件重构篇" class="headerlink" title="软件重构篇"></a>软件重构篇</h2><h3 id="补丁技术"><a href="#补丁技术" class="headerlink" title="补丁技术"></a>补丁技术</h3><p>补丁分文件补丁和内存补丁两种，前者是修改文件本身的某个数据，后者则是在对正在运行的程序的数据进行修改</p>
+<p>文件补丁较为简单：<code>CreateProcess()</code>打开目标程序——》检查打开的文件是不是目标文件，并检查文件大小——》使用<code>SetFilePointer()</code>将文件指针移动到指定位置——》使用<code>WriteFile()</code>将数据写入到磁盘文件</p>
+<blockquote>
+<p>补丁文件如果有壳、压缩、完整性校验，则文件补丁没办法使用</p>
+</blockquote>
+<p><strong>内存补丁</strong></p>
+<ul>
+<li>跨进程内存存取机制：Loader载入待打补的程序，等待程序运行到需要打补丁的位置，通过<code>WriteProcessMemory()</code>将补丁代码写道目标进程的适当位置</li>
+<li>DebugAPI机制：进程A内部产生异常——》系统监控到异常，将异常信息包装到EXCEPTION_RECORD结构——》查找正在对A调试的进程，并将上一步包装的结构通过EXCEPTION_DEBUG_EVENT发送给找到的进程——》陷入循环的调试进程A收到调试信息，调试进程解析调试信号的信息并进行相应操作。下面是目标进程向调试进程发送调试信息的方法：<ul>
+<li>CreateProcess后目标进程设置为Single Step运行方式，使得每一条指令都要和调试程序通信一次。Intel-CPU中有一个Single Step标志位设置为1即可</li>
+<li>修改目标进程代码，将需要发送调试信息处的指令改为int 3指令</li>
+</ul>
+</li>
+<li>调试寄存器机制：DR0-DR7共8个调试寄存器，在0-3中的一个设置为目标补丁位置，在7中设定相应的控制位。当程序运行到相应位置后CPU就会向调试器发送异常信息，调试器捕获并处理</li>
+<li>dll注入+hook：替换系统dll后劫持输出函数，在自己的函数中进行打补丁操作。</li>
+</ul>
+<p><strong>SMC补丁</strong></p>
+<ul>
+<li><p>SMC即自修改代码，可以对加壳程序直接打补丁，相当于内存补丁</p>
+</li>
+<li><p>单层SMC补丁：当外壳代码完成解压后，让其先跳转到补丁代码处，之后再回到原指令处继续</p>
+<blockquote>
+<p>多层SMC补丁：用于多层嵌套的加密压缩中</p>
+</blockquote>
+</li>
+</ul>
+<p>补丁工具：CodeFusion、dUP等</p>
+<h3 id="代码二次开发"><a href="#代码二次开发" class="headerlink" title="代码二次开发"></a>代码二次开发</h3><p>二次开发就是在已有exe和dll基础上修改扩充PE结构，也叫PEDIY技术</p>
+<ul>
+<li>数据对齐</li>
+<li>增加空间：找空间存放代码<ul>
+<li>区块间隙</li>
+<li>手动构造区块（修正区块表、增加数据段、修正映像文件大小）</li>
+<li>工具辅助构造</li>
+</ul>
+</li>
+<li>获取函数调用信息<ul>
+<li>修改输入表结构增加相应的API函数</li>
+<li>显式链接调用dll相关函数</li>
+</ul>
+</li>
+<li>代码重定位<ul>
+<li>修改重定位表</li>
+<li>代码自定位：利用call指令将返回地址压栈，之后pop将该返回地址取出，实现自定位</li>
+</ul>
+</li>
+<li>增加输出函数：输出表中各输出函数名必须按照字母升序排列</li>
+<li>寻找消息循环<ul>
+<li>程序窗口创建之前必须用<code>RegisterClassA()</code>或<code>RegisterClassExA()</code>来注册窗口（WndProc）类</li>
+<li>用户单击菜单按钮时，系统调用<code>SendMessageA()</code>给应用程序发送WM_COMMAND消息</li>
+<li>用户点击菜单按钮时，会弹出对话框<code>MessageBox()</code>等，可以设置断点拦截</li>
+<li><code>GetWindowLongA()</code>可以获取本进程内窗口的过程</li>
+</ul>
+</li>
+<li>菜单扩展：需要在前面找到的消息循环WndProc中增加消息判断和事件代码，增加的菜单ID不得重复。工具：eXeScope、资源黑客</li>
+<li>DLL扩展：<ul>
+<li>扩展接口：自己写一个dll，在目标程序中输入表添加自己要加的函数，并在消息循环中添加相应的汇编调用代码</li>
+<li>扩展消息循环：在调用原WndProc前，先转到dll处理相关的事件，处理完之后再回去</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>.NET篇与取证篇略过</p>
+</blockquote>
+<h2 id="恶意代码篇？"><a href="#恶意代码篇？" class="headerlink" title="恶意代码篇？"></a>恶意代码篇？</h2><h3 id="恶意代码介绍"><a href="#恶意代码介绍" class="headerlink" title="恶意代码介绍"></a>恶意代码介绍</h3><p>恶意代码，为达到恶意目的而专门设计的代码程序，一切旨在破坏网络系统可靠性、可用性、安全性、数据完整性、消耗系统资源皆是</p>
+<ul>
+<li><p>分类</p>
+<ul>
+<li><p>计算机病毒：需要有宿主，自我复制、破坏宿主功能或毁坏数据</p>
+</li>
+<li><p>蠕虫：可独立运行，自我复制，感染其他计算机</p>
+</li>
+<li><p>木马：不能传播复制的计算机病毒</p>
+</li>
+<li><p>后门：可以使攻击者绕过系统认证机制而直接进入一个系统的方法或手段</p>
+</li>
+<li><p>Rootkit：持久可靠地，目标对象无法检测的，能够维持root权限的程序或代码</p>
+</li>
+<li><p>流氓软件：</p>
+<p>强制安装、浏览器劫持、广告弹出、恶意搜集用户数据、恶意卸载、恶意捆绑</p>
+</li>
+<li><p>僵尸：实现恶意控制的代码</p>
+<p>基于IRC协议、HTTP、P2P</p>
+</li>
+<li><p>Exploit：漏洞利用程序</p>
+<p>主机系统漏洞Exp、文档类漏洞Exp、网页挂马类Exp</p>
+</li>
+<li><p>逻辑炸弹（基于安全保护的措施）、黑客工具、玩笑程序</p>
+</li>
+</ul>
+</li>
+<li><p>危害分类：无危险型(不影响系统)、危险型(影响系统)、伴随型(产生伴随体)、蠕虫型(网络传播、占用内存)、寄生型</p>
+</li>
+<li><p>载体分类：网络病毒、文件病毒、引导性病毒</p>
+</li>
+<li><p>传染方式分类：驻留型病毒、非驻留型病毒</p>
+</li>
+</ul>
+<p><strong>计算机病毒</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传染性、非授权性、隐蔽性、不可预见性、潜伏性、可触发性、破坏性；</p>
+</li>
+<li><p>生命周期：开发期-&gt;传染期-&gt;潜伏期-&gt;发作期-&gt;发现期-&gt;消化期-&gt;消亡期；</p>
+</li>
+<li><p><strong>传播途径</strong>：网页挂马、电子邮件+FTP、可移动存储设备、局域网共享、对等网络应用软件、软件漏洞、盗版软件下载、即时通信软件</p>
+</li>
+<li><p><strong>病毒的逻辑结构</strong>：触发模块、传播模块、表现模块</p>
+<p>其他可能有：环境探测模块、自我保护模块、自我卸载模块、自我升级模块</p>
+</li>
+<li><p>触发条件：时间、键盘、感染触发(好几类)、启动、访问磁盘次数触发、CPU型号/主板号；</p>
+</li>
+<li><p>WindowsPE病毒、脚本病毒、宏病毒（Macro）、ELF类病毒；根据是在内存还是磁盘称其为动态和静态</p>
+</li>
+</ul>
+<p><strong>网络蠕虫-Worm</strong>：</p>
+<ul>
+<li><p><strong>特点</strong>：传播速度快、爆发强、无需干预</p>
+</li>
+<li><p><strong>感染阶段</strong>：慢启动期—快速传播期—慢结束期—衰亡期</p>
+</li>
+<li><p><strong>行为特征</strong>：主动攻击、行踪隐蔽、利用网络或系统应用服务漏洞</p>
+</li>
+<li><p><strong>危害</strong>：网络阻塞、降低系统性能、产生安全隐患、反复性、破坏性</p>
+</li>
+<li><p><strong>结构</strong>：信息搜集模块+扫描探测模块+攻击渗透模块+自我推进模块</p>
+<p>扩展：实体隐藏模块、宿主破坏模块、信息通信模块、远程控制模块、自动升级模块</p>
+</li>
+</ul>
+<p>影响其传播速度的因素：目标漏洞发现速度、可利用漏洞数、感染速度</p>
+<ul>
+<li><p><strong>扫描策略</strong>：选择性随机扫描、顺序扫描、基于目标列表的扫描、基于路由的扫描、基于DNS扫描、分治扫描（多个蠕虫协作）、被动式扫描（等鱼上钩）</p>
+</li>
+<li><p><strong>漏洞利用技术</strong>：目标主机的程序漏洞、主机之间的信任关系漏洞、弱口令漏洞</p>
+</li>
+<li><p><strong>检测与防治</strong>：</p>
+<ol>
+<li><p>主机角度：及时修补补丁、防火墙、安软</p>
+</li>
+<li><p>网络角度：</p>
+<p>检测：漏洞利用特征检测、网络流量分析、数据特征；</p>
+<p>措施：网关阻断、补丁推送、良性蠕虫（WAW模型）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>木马-Trojan</strong>：</p>
+<ul>
+<li><p>特性：欺骗性、隐蔽性、非授权性、交互性</p>
+</li>
+<li><p>按功能分：</p>
+<p>远程控制木马：上兴、灰鸽子</p>
+<p>信息获取木马：Torjan-Bank、Torjan-Spy、Torjan-PSW</p>
+<p>破坏性木马：Torjan-DDOS、Torjan-Ransom、Torjan-ArcBomb</p>
+</li>
+<li><p><strong>远控型木马结构</strong>：木马配置程序、控制端程序、被控端程序</p>
+</li>
+<li><p>客户端与受害者<strong>连接方式</strong>：</p>
+<p>正向连接（数据包溯源）、反向连接（木马样本查看服务端）、借助第三方的反向连接</p>
+</li>
+<li><p><strong>通信方式</strong>：TCP通信、UDP通信、ICMP通信（ping）、HTTP隧道</p>
+</li>
+<li><p><strong>主要功能</strong>：隐藏功能、自启动功能、通信功能、卸载功能</p>
+<p>可选：进程管理、文件管理、注册表操作、服务管理、屏幕截取、鼠标控制、视频监视、语音监听、键盘记录、远程shell、传播病毒、破坏系统、添加后门等</p>
+</li>
+</ul>
+<p><strong>Rootkit</strong>：</p>
+<p>关键在于隐藏、无法被检测；下面是一些常用的Rootkit技术（win）</p>
+<ul>
+<li><p>用户态HOOK-在操作系统的用户态实行的挂钩，主要钩挂用户态APi</p>
+<ol>
+<li>IAT（导入地址表）钩子：改变IAT表项的值，使其指向HOOK函数</li>
+<li>内联钩子inlineHoooook</li>
+</ol>
+</li>
+<li><p>内核态HOOK</p>
+<ol>
+<li><p>IDT（中断描述符表）钩子</p>
+</li>
+<li><p>SSDT（系统服务调度表）钩子</p>
+<blockquote>
+<p>SSDT在NT系统中相当于DOS中的中断向量表，有关键API入口指针</p>
+</blockquote>
+</li>
+<li><p>过滤驱动程序</p>
+</li>
+<li><p>驱动程序钩子</p>
+</li>
+</ol>
+</li>
+<li><p>直接内核对象操作（DKOM）</p>
+</li>
+<li><p>检测工具：IceSword、XueTr</p>
+</li>
+</ul>
+<p><strong>手机恶意软件</strong>：</p>
+<ul>
+<li><p>Android：以Linux为基础的半开源OS，从高到低分为四层：应用程序层-应用程序框架层-系统运行库层-linux内核层；SDK提供Java的API，NDK允许使用C/C++开发</p>
+</li>
+<li><p>恶意软件种类：木马Torjan、间谍软件Spyware、蠕虫Worm、感染型病毒Virus、破坏性程序HarmTool</p>
+</li>
+<li><p>隐私窃取：</p>
+<ol>
+<li>基于Content Provider：使用<code>ContentResolver</code>的<code>query()</code>方法、<code>Activity</code>对象的<code>manageQuery()</code>方法</li>
+<li>基于Manager API：<code>TelephonyManager</code>类提供用于访问与手机通讯相关状态和信息的方法；<code>LocationManager</code>类提供地理位置；<code>PackageManager</code>类管理应用程序包，获取应用信息</li>
+<li>基于广播接收器：广播机制能够自动进行事件通知和函数回调</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="病毒检测"><a href="#病毒检测" class="headerlink" title="病毒检测"></a>病毒检测</h3><ul>
+<li><strong>病毒特征值检测技术</strong>：</li>
+</ul>
+<p>特征值：一串二进制值，可以是病毒本身的感染标识（病毒识别此标识用于防止重复感染），也可以是其他独一无二的值</p>
+<p>关键组件：病毒检测引擎、病毒特征库</p>
+<p>实现步骤：</p>
+<ol>
+<li>采集病毒样本：即使同一病毒，不同宿主时仍要采集</li>
+<li>病毒样本提取特征值：病毒标识、感染信息、（理论上）任何地方开始连续的且不含空格的（ASCII的32）连续64字节，等均可作为特征值</li>
+<li>将特征值纳入特征数据库</li>
+</ol>
+<p>由于病毒变种，自我更新等技术，需要采用多模式匹配的检测引擎，较为通用的多模式匹配算法有AC算法、AC-BM算法、WM算法</p>
+<ul>
+<li><strong>校验和检测技术</strong>：</li>
+</ul>
+<p>先保存正常时的文件和系统扇区的校验和（MD5、CRC），并存入数据库，之后每次使用开启时就再次验算对比；</p>
+<p>使用方式：病毒检测工具中植入、各个应用程序自检、专门程序常驻内存</p>
+<p>常校验对象：</p>
+<ol>
+<li>系统对象：硬盘主引导扇区、OS引导扇区、中断向量表、API函数、设备驱动程序头部</li>
+<li>文件头部：病毒在宿主程序前面好说，在后面则必然会更改第一条指令来让其跳转到病毒代码</li>
+<li>文件基本属性：长度、时间、属性、首簇号、特定内容</li>
+<li>文件校验和：文件内容的全部字节</li>
+</ol>
+<ul>
+<li><strong>虚拟机检测技术</strong>：</li>
+</ul>
+<p>也叫做软件模拟法，为对抗病毒的多态和变形技术</p>
+<p>多态病毒对自身二进制文件进行加密运行时再自解密，每次感染都会改变其密钥和解密代码</p>
+<p>变形病毒每次感染都会对自身代码进行整体变形，特征值检测无效</p>
+<p>杀软先检测特征值，如果发现上述病毒就启动软件模拟来监视病毒运行，待解码后再次识别病毒</p>
+<p>虚拟机设计方案：</p>
+<ol>
+<li>自含代码虚拟机SCCE：like a full CPU</li>
+<li>缓冲代码虚拟机BCE：对特殊指令进行模拟，其他的则简单处理</li>
+<li>有限代码虚拟机LCE：跟踪改变内存或寄存器</li>
+</ol>
+<ul>
+<li><strong>启发式扫描技术</strong>：</li>
+</ul>
+<p>带入人的经验，先分析文件中的指令序列，然后依规律判断文件是否感染。</p>
+<p>如常规程序：绘制窗口—初始化界面—开启消息循环</p>
+<p>病毒：重定位—远距离跳转—搬移代码—写盘—解码—搜索可执行程序。</p>
+<p>注意需要进行加权，以降低误报</p>
+<ul>
+<li><strong>主动防御技术</strong>：</li>
+</ul>
+<p>又叫做行为实时监控技术</p>
+<p>常见病毒行为（不排除安全软件）：</p>
+<ol>
+<li>对可执行文件进行写操作</li>
+<li>对关键性的系统设置进行修改；如启动项，注册表<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</code>建立自启动项</li>
+<li>加载驱动：Rootkit</li>
+<li>创建远程线程：win的API<code>CreateRemoteThread</code>来创建远程线程</li>
+</ol>
+<p>主动防御：关键技术API-HOOK，跟踪程序的所有API调用来初步分析一个程序的行为，严重依赖于检测算法</p>
+<hr>
+<h3 id="病毒检测对抗与自我保护"><a href="#病毒检测对抗与自我保护" class="headerlink" title="病毒检测对抗与自我保护"></a>病毒检测对抗与自我保护</h3><ul>
+<li><p>特征值检测对抗：</p>
+<ol>
+<li>代码加密混淆：加密，增加花指令等</li>
+<li>加壳：压缩壳、保护壳</li>
+<li>特征值针对修改：代码入口修改、垃圾代码nop插入、指令等价交换、字串修改、多次跳转、函数引入和引出表、重定位调整、PE文件结构调整、SMC代码自修改</li>
+</ol>
+</li>
+<li><p>虚拟机检测对抗：</p>
+<p>使用特殊指令技术、结构化异常处理技术、人口点模糊（EPO）技术、多线程技术、使用API调用、长循环等</p>
+<p>虚拟机环境检测、仿真环境干扰技术、调式检测技术（检测进程环境块PEB中的<code>BeingDebugged</code>标志）<code>IsDebuggerPresent()</code>API会检查该标志以确定用户是否正在被用户模式的调试器调试</p>
+</li>
+<li><p>启发式扫描对抗：</p>
+<p>新的PE文件感染技术、多节病毒、加密宿主文件头、感染第一节的闲置区域、压缩感染首节、入口点隐藏、随即入口点、重新计算校验和、不使用API字符串、文件头中修改代码大小等</p>
+</li>
+<li><p>主动防御对抗：</p>
+<p>将SSDT表项恢复（需要0层权限）、不使用HOOK过的API</p>
+</li>
+<li><p>对抗云查杀：</p>
+<p>修改本地host文件，不让上传；病毒运行时临时性断网、增肥超限制大小不让上传</p>
+</li>
+<li><p>恶意程序的主动保护机制：</p>
+<ol>
+<li>消灭反病毒程序、防火墙等</li>
+<li>阻断并独占文件来防止检查</li>
+<li>修改hosts文件防止杀软升级</li>
+<li>检测安全软件询问消息、使安全软件过期（针对收费的）</li>
+</ol>
+</li>
+<li><p>人工分析对抗：</p>
+<ol>
+<li><p>静态分析对抗：花指令、自修改代码技术实现（SMC）、加密与多态变形、虚拟机保护技术（壳）</p>
+<blockquote>
+<p>反汇编算法主要有线性扫描算法、递归扫描算法；前者依次将每个模块中的指令反汇编，并没有对内容进行判断，无法正确地将代码和数据分开；后者模拟CPU执行过程，依据控制流对可能的路径扫描</p>
+</blockquote>
+</li>
+<li><p>动态分析对抗—检测是否处于调试状态</p>
+<ul>
+<li>调用特定函数<code>IsDebuggerPresent()</code>、<code>CheckRemoteDebuggerPresent()</code>、<code>NtQueryInformationProcess()</code></li>
+<li>检测<code>PEB.NtGlobalFlag</code>、<code>Heap。HeapFlags</code>、<code>Heap.FroceFlags</code>、<code>TRAPFLAG</code>等标记</li>
+<li>检测调试器对特定指令的特殊处理方式是否与常规状态下有差别</li>
+<li>检测执行时间差：汇编<code>RDTSC</code>、API函数<code>GetTickCount()</code></li>
+<li>调试器后门、调试器对系统部分功能地接管、父进程检测、<code>StartupInfo</code>结构检测</li>
+</ul>
+</li>
+<li><p>动态对抗—检测调试器软件是否存在</p>
+<ul>
+<li>查找进程或文件特征码、特定服务</li>
+<li>句柄检测、<code>DBGHELP</code>模块检测、<code>SeDebugPrivilege</code>方法</li>
+<li>查找调试器窗口：<code>FindWindows()</code>、<code>EnumWindow()</code>、<code>GetGroundWindow()</code>函数</li>
+</ul>
+</li>
+<li><p>动态对抗—发现调试器：改变后续代码逻辑或退出—<code>ExitProcess()</code>、关闭调试器、干扰调试器—<code>SetWindowLong()</code>改变窗口属性</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>壳技术</strong>：在一个程序外面套上另一段代码，保护里面的代码不被非法修改或者反编译的程序；一般先于程序运行，对原始程序进行解密还原，之后再将控制权交给源程序。可以是EXE、DLL，源程序照常使用，只是相当于用户运行了壳，壳其中运行目标程序。具体如下：</p>
+<ol>
+<li>保存入口参数</li>
+<li>获取壳自己需要的API地址</li>
+<li>解密原程序的各个区块</li>
+<li>重定位</li>
+<li>修复引入函数地址表</li>
+<li>跳转到程序入口点OEP</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>壳</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upx、Neolite</td>
+<td>高效压缩，内置压缩和解压缩</td>
+</tr>
+<tr>
+<td>ASpack、Petite、PECompact、Shrinker</td>
+<td>有保护性的压缩，不内置解压缩</td>
+</tr>
+<tr>
+<td>幻影、PC_Guard、Krypton、Armadillo</td>
+<td>有保护性的加密壳</td>
+</tr>
+<tr>
+<td>ASProtect、tElock</td>
+<td>有高效保护性的加密压缩壳</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>自动脱壳：主要脱压缩壳，工具<code>Quick Unpack</code>、<code>File Scanner</code>、<code>PEiD</code></p>
+<p>手动：基本原理，模拟虚拟机进行脱壳，之后从内存转存（Dump）。Dump软件LordPE、ProcDump、PETools。过程：寻找OEP—Dump—重建输入表</p>
+<hr>
+<h3 id="恶意代码分析"><a href="#恶意代码分析" class="headerlink" title="恶意代码分析"></a>恶意代码分析</h3><p>捕获：蜜罐、用户上报、云平台上传、诱饵邮箱、样本交流</p>
+<p>分析过程：</p>
+<ol>
+<li><p>虚拟机环境准备</p>
+</li>
+<li><p>系统监控：</p>
+<ul>
+<li><p>进程监控：进程名+PID+路径+子进程+相关句柄模块；</p>
+<p>工具-Process Explorer、PrcView等</p>
+</li>
+<li><p>文件监控：读写行为；工具FileMon</p>
+</li>
+<li><p>注册表监控：键的添加删除等；工具RegMon、PCLogger</p>
+</li>
+<li><p>网络连接分析：工具FPort、TcpView</p>
+</li>
+<li><p>系统自启动项分析：工具<code>msconfig</code>命令、AutoRun</p>
+</li>
+<li><p>内核监控：工具PC_Hunter、IceSword</p>
+</li>
+<li><p>完整性检测：工具Regsnap、RegShot、Sentinel、Fingerprint</p>
+</li>
+</ul>
+</li>
+<li><p>文件类型侦测：工具PEiD、FileInfo</p>
+</li>
+<li><p>PE文件格式分析：工具PEView、Study_PE</p>
+</li>
+<li><p>静态反汇编：工具IDA、Hoppe、C32ASM、Ghidra</p>
+</li>
+<li><p>动态反汇编：工具Ollydbg、SoftIce、WinDbg、x96dbg</p>
+</li>
+<li><p>文本16进制分析：工具winhex、UltraEdit、01Editor</p>
+</li>
+</ol>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a><a class="post-meta__tags" href="/tags/Windows/">Windows</a><a class="post-meta__tags" href="/tags/Re/">Re</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/14/Misc/" title="Misc"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Misc</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/27/%E5%8A%A0%E8%A7%A3%E5%AF%86/" title="《加密与解密》读书笔记1"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《加密与解密》读书笔记1</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">漏洞篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.0.1.</span> <span class="toc-text">二进制漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shellcode"><span class="toc-number">1.0.2.</span> <span class="toc-text">shellcode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">1.0.3.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-number">1.0.4.</span> <span class="toc-text">样本分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%B1%E5%A3%B3%E7%AF%87"><span class="toc-number">2.</span> <span class="toc-text">脱壳篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B3%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.0.1.</span> <span class="toc-text">壳介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B3%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.0.2.</span> <span class="toc-text">壳的加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXE%E8%84%B1%E5%A3%B3"><span class="toc-number">2.0.3.</span> <span class="toc-text">EXE脱壳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DLL%E6%96%87%E4%BB%B6%E8%84%B1%E5%A3%B3"><span class="toc-number">2.0.4.</span> <span class="toc-text">DLL文件脱壳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PE%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96"><span class="toc-number">2.0.5.</span> <span class="toc-text">PE文件优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E7%AF%87"><span class="toc-number">3.</span> <span class="toc-text">保护篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF"><span class="toc-number">3.1.</span> <span class="toc-text">软件保护技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E8%8C%83%E7%AE%97%E6%B3%95%E6%B1%82%E9%80%86"><span class="toc-number">3.1.1.</span> <span class="toc-text">防范算法求逆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%B5%E5%BE%A1%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-number">3.1.2.</span> <span class="toc-text">抵御静态分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="toc-number">3.1.3.</span> <span class="toc-text">文件完整性检验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E5%90%88"><span class="toc-number">3.1.4.</span> <span class="toc-text">代码与数据结合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E8%B7%9F%E8%B8%AA%E6%8A%80%E6%9C%AF"><span class="toc-number">3.2.</span> <span class="toc-text">反跟踪技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E5%A3%B3%E7%BC%96%E5%86%99%E5%9F%BA%E7%A1%80"><span class="toc-number">3.3.</span> <span class="toc-text">外壳编写基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E5%A3%B3%E4%B8%BB%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.3.1.</span> <span class="toc-text">加壳主程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E7%BC%96%E5%86%99%E5%A4%96%E5%A3%B3%E9%83%A8%E5%88%86"><span class="toc-number">3.3.2.</span> <span class="toc-text">汇编编写外壳部分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E8%AE%A1%E4%B8%8EVMProtect"><span class="toc-number">3.4.</span> <span class="toc-text">虚拟机设计与VMProtect</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E9%87%8D%E6%9E%84%E7%AF%87"><span class="toc-number">4.</span> <span class="toc-text">软件重构篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E4%B8%81%E6%8A%80%E6%9C%AF"><span class="toc-number">4.1.</span> <span class="toc-text">补丁技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91"><span class="toc-number">4.2.</span> <span class="toc-text">代码二次开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E7%AF%87%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">恶意代码篇？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.1.</span> <span class="toc-text">恶意代码介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B"><span class="toc-number">5.2.</span> <span class="toc-text">病毒检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%97%85%E6%AF%92%E6%A3%80%E6%B5%8B%E5%AF%B9%E6%8A%97%E4%B8%8E%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4"><span class="toc-number">5.3.</span> <span class="toc-text">病毒检测对抗与自我保护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">5.4.</span> <span class="toc-text">恶意代码分析</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
