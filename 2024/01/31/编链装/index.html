@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp">
 <meta property="article:published_time" content="2024-01-31T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-07T09:33:23.002Z">
+<meta property="article:modified_time" content="2024-08-08T08:09:06.325Z">
 <meta property="article:author" content="Zy0t1">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="OS">
@@ -58,7 +58,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-08-07 17:33:23'
+  postUpdate: '2024-08-08 16:09:06'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -176,8 +176,8 @@
     document.addEventListener('pjax:send', () => { preloader.initLoading() })
     document.addEventListener('pjax:complete', () => { preloader.endLoading() })
   }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《程序员自我修养——链接、装载与库》读书笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-31T14:00:00.000Z" title="发表于 2024-01-31 22:00:00">2024-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-07T09:33:23.002Z" title="更新于 2024-08-07 17:33:23">2024-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">11.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《程序员自我修养——链接、装载与库》读书笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
-<h3 id="0x01-计算机体系简介"><a href="#0x01-计算机体系简介" class="headerlink" title="0x01.计算机体系简介"></a>0x01.计算机体系简介</h3><p>从下向上：硬件—操作系统—运行时库—应用程序，其中间交互的作用的就是接口，仅下对上，可以理解为一个中间层，用于对下面那层的包装和扩展。</p>
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zy0t1's blog"><span class="site-name">Zy0t1's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《程序员自我修养——链接、装载与库》读书笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-31T14:00:00.000Z" title="发表于 2024-01-31 22:00:00">2024-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-08T08:09:06.325Z" title="更新于 2024-08-08 16:09:06">2024-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">11.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="《程序员自我修养——链接、装载与库》读书笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><span id="more"></span>
+<h3 id="计算机体系简介"><a href="#计算机体系简介" class="headerlink" title="计算机体系简介"></a>计算机体系简介</h3><p>从下向上：硬件—操作系统—运行时库—应用程序，其中间交互的作用的就是接口，仅下对上，可以理解为一个中间层，用于对下面那层的包装和扩展。</p>
 <ul>
 <li><p>运行时库提供给应用程序：应用程序编程接口API。什么样的运行时库提供什么样的API，Linux下Glibc库提供的符合POSIX标准的API，Windows运行库提供的Windows API</p>
 </li>
@@ -197,13 +197,13 @@
 <li><p>在Linux中，并不存在进程与线程的区别，都作为任务运行（一种单线程的进程），不同的任务之间可以选择共享内存空间，因此也在某种意义上构成了线程。</p>
 </li>
 </ul>
-<h3 id="0x02-如何从代码到程序"><a href="#0x02-如何从代码到程序" class="headerlink" title="0x02.如何从代码到程序"></a>0x02.如何从代码到程序</h3><p>从HelloWorld源代码到“hello world!”：首先编写hello.c源代码，之后经过预处理器对源代码文件进行简单替换得到hello.i，进入到编译器进行编译（最复杂的一部分）得到中间代码hello.s，之后再由汇编器进行简单的替换生成可以重定位的代码hello.o，最后借助链接器将需要的库与我们的文件绑定在一起生成hello.out，点击执行由装载器把程序所需内容放入内存，最后在屏幕上显示“hello world！”。</p>
-<h4 id="1-预处理"><a href="#1-预处理" class="headerlink" title="1. 预处理"></a>1. 预处理</h4><ul>
+<h3 id="如何从代码到程序"><a href="#如何从代码到程序" class="headerlink" title="如何从代码到程序"></a>如何从代码到程序</h3><p>从HelloWorld源代码到“hello world!”：首先编写hello.c源代码，之后经过预处理器对源代码文件进行简单替换得到hello.i，进入到编译器进行编译（最复杂的一部分）得到中间代码hello.s，之后再由汇编器进行简单的替换生成可以重定位的代码hello.o，最后借助链接器将需要的库与我们的文件绑定在一起生成hello.out，点击执行由装载器把程序所需内容放入内存，最后在屏幕上显示“hello world！”。</p>
+<h4 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h4><ul>
 <li>所有的<code>#define</code>删除并展开，处理条件预编译指令<code>#if</code>等，将<code>#include</code>包含的文件插入到预编译指令的位置</li>
 <li>删除注释，添加行号与文件名标识（便于编译器处理）</li>
 <li>保留所有的<code>#pragma</code>编译器指令，用来告诉编译器特定操作</li>
 </ul>
-<h4 id="2-编译"><a href="#2-编译" class="headerlink" title="2. 编译"></a>2. 编译</h4><p>主要包括</p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><p>主要包括</p>
 <p>编译器结构：词法分析器\得到符号流——语法分析器\语法树——语义分析器\语法树——中间代码生成器\中间表示——代码优化器\优化中间表示——代码生成器\目标机器语言，上述所有过程都可能要与符号表管理程序、错误检查和处理程序打交道。</p>
 <blockquote>
 <p>符号表：记录源程序的变量名字、属性信息包括存储分配、类型、作用域等、参数数量、返回类型</p>
@@ -233,20 +233,20 @@
 <blockquote>
 <p>自编译程序：最基本的用机器等编写，之后再以该底层函数基本库，编写其他更高级的东西；自展即在前者基础上滚雪球，用L0写L1，再用L1写L2等。</p>
 </blockquote>
-<h4 id="3-汇编"><a href="#3-汇编" class="headerlink" title="3. 汇编"></a>3. 汇编</h4><p>将会汇编代码转换为机器可以执行的指令，简单理解为就是查对照表替换。此时的.o（对应win下的.obj文件）文件从结构上来说和可执行文件一样，但是有些地址没有确定，因此也暂且叫做目标文件</p>
+<h4 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h4><p>将会汇编代码转换为机器可以执行的指令，简单理解为就是查对照表替换。此时的.o（对应win下的.obj文件）文件从结构上来说和可执行文件一样，但是有些地址没有确定，因此也暂且叫做目标文件</p>
 <ul>
 <li><code>as hello.s -o hello.o</code>或<code>gcc -c hello.s -o hello.o</code>或<code>gcc -c hello.c -o hello.o</code></li>
 </ul>
-<h4 id="4-链接"><a href="#4-链接" class="headerlink" title="4. 链接"></a>4. 链接</h4><p>将用到的.o文件全部都放在一起，确定前面所说的地址信息。因为即使是<code>printf()</code>，我们自己并没有实现，而操作系统中有相应的库根据系统API已经实现好了，这一步需要的就是让我们的程序拿到这个库中的函数实现</p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><p>将用到的.o文件全部都放在一起，确定前面所说的地址信息。因为即使是<code>printf()</code>，我们自己并没有实现，而操作系统中有相应的库根据系统API已经实现好了，这一步需要的就是让我们的程序拿到这个库中的函数实现</p>
 <p>在Windows/Linux下的可执行文件【.exe&amp;.out】、目标文件【.obj&amp;.o】、动态链接库【.dll&amp;.so】、静态链接库【.lib&amp;.a】都是按照可执行文格式存储，分别按照PE-COFF格式和ELF格式</p>
 <blockquote>
 <p>在Linux中.a和.o被归为可重定位文件。无论是PE还是ELF都是基于COFF格式发展过来的。</p>
 </blockquote>
-<h3 id="0x03-静态链接"><a href="#0x03-静态链接" class="headerlink" title="0x03.静态链接"></a>0x03.静态链接</h3><p>人机交互的API，在c语言中其<code>printf</code>函数在Linux上最终来到<code>write</code>系统调用，在win上来到<code>WriteConsole</code>系统API。静态链接库则用于程序和机器之间交互，这个库就是对上面所说的API的包装。所谓的库可以理解为一堆提前写好的API的.o文件的打包，在Linux下用<code>ar</code>来打包或者查看.a，对应win下的<code>lib.exe</code></p>
+<h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h3><p>人机交互的API，在c语言中其<code>printf</code>函数在Linux上最终来到<code>write</code>系统调用，在win上来到<code>WriteConsole</code>系统API。静态链接库则用于程序和机器之间交互，这个库就是对上面所说的API的包装。所谓的库可以理解为一堆提前写好的API的.o文件的打包，在Linux下用<code>ar</code>来打包或者查看.a，对应win下的<code>lib.exe</code></p>
 <blockquote>
 <p>通常来说库中的每个目标文件只有自己的一个函数实现，主要用于减少额外空间浪费</p>
 </blockquote>
-<h4 id="1-什么是符号"><a href="#1-什么是符号" class="headerlink" title="1. 什么是符号"></a>1. 什么是符号</h4><p>为了方便说明，我们需要改变一下对变量和函数名称的概念理解：</p>
+<h4 id="什么是符号"><a href="#什么是符号" class="headerlink" title="什么是符号"></a>什么是符号</h4><p>为了方便说明，我们需要改变一下对变量和函数名称的概念理解：</p>
 <ul>
 <li><p>符号：符号都是一个内容的别名，通过符号我们可以方便设计，而不用去关心具体变量或函数在哪个位置。变量和函数就是符号，函数名或变量名就是符号名。链接就是将存在于不同模块（文件）中的符号互相拼接起来的操作。</p>
 </li>
@@ -255,7 +255,7 @@
 <li><p>特殊符号：当使用ld时会自动产生，<code>executable_start</code>程序起始地址、<code>__etext</code>代码段结束地址、<code>_edata</code>数据段结束地址、<code>_end</code>程序结束地址。</p>
 </li>
 </ul>
-<h4 id="2-链接的过程"><a href="#2-链接的过程" class="headerlink" title="2. 链接的过程"></a>2. 链接的过程</h4><p>地址和空间分配、符号决议/符号绑定/名称绑定、重定位（修正之前代码中的目标地址，这个要修改的位置也叫做重定位入口）等。因此静态链接也就是常说的链接时重定位</p>
+<h4 id="链接的过程"><a href="#链接的过程" class="headerlink" title="链接的过程"></a>链接的过程</h4><p>地址和空间分配、符号决议/符号绑定/名称绑定、重定位（修正之前代码中的目标地址，这个要修改的位置也叫做重定位入口）等。因此静态链接也就是常说的链接时重定位</p>
 <blockquote>
 <p><code>ld a.o b.o -e main -o ab</code>(-e指定程序入口，默认<code>_start</code>，修改的就是ELF文件头的e_entry项)。</p>
 </blockquote>
@@ -284,18 +284,18 @@
 <li><p>链接过程中的外部引用问题：强引用如果没有找到该符号则报错，对于弱引用如果没有该定义则不报错<code>__attritube__((weakref))</code>。一般作用于库，使得程序可以使用自己定义的相关函数</p>
 </li>
 </ul>
-<h4 id="3-如何控制链接过程"><a href="#3-如何控制链接过程" class="headerlink" title="3. 如何控制链接过程"></a>3. 如何控制链接过程</h4><p>一般来说链接器会有默认的链接规则对目标文件进行链接，但是在开发OS、驱动等东西时，则需要我们自己亲自指定相关的规则，包括但不限于：使用哪些文件、输出文件的格式、段的有关信息等。一般有以下三种方法：</p>
+<h4 id="如何控制链接过程"><a href="#如何控制链接过程" class="headerlink" title="如何控制链接过程"></a>如何控制链接过程</h4><p>一般来说链接器会有默认的链接规则对目标文件进行链接，但是在开发OS、驱动等东西时，则需要我们自己亲自指定相关的规则，包括但不限于：使用哪些文件、输出文件的格式、段的有关信息等。一般有以下三种方法：</p>
 <ul>
 <li>命令行给定参数</li>
 <li>链接指令存放在目标文件里（编译器常用操作）</li>
 <li>链接控制脚本（<code>ld -verbose</code>查看默认链接脚本，<code>usr/lib/ldscripts/</code>下存储）</li>
 </ul>
 <p>因为修改编译器和链接器成本是巨大的，而目前在用的ELF变种较多（也包括大小端与位数），因此出现了BFD库。GCC与链接器还有<a target="_blank" rel="noopener" href="https://blog.csdn.net/A642960662/article/details/123078067">Binutils</a>工具集等通过BFD库来进一步分析不同变种的ELF格式，也就省去了修改编译器等的工作。</p>
-<h3 id="0x04-装载"><a href="#0x04-装载" class="headerlink" title="0x04.装载"></a>0x04.装载</h3><p>所谓装载就是程序变成进程的过程，也就将磁盘中不会动的程序，放到内存中让它变成执行ing的进程，为此在内存中也需要有空间留给OS和用户进程。以32位CPU为例子，寻址空间4GB，在Linux中按照1-3分，1GB留给操作系统，剩下的3GB留到进程空间中；windows则是默认2-2，可以在Boot.ini下修改。</p>
+<h3 id="装载"><a href="#装载" class="headerlink" title="装载"></a>装载</h3><p>所谓装载就是程序变成进程的过程，也就将磁盘中不会动的程序，放到内存中让它变成执行ing的进程，为此在内存中也需要有空间留给OS和用户进程。以32位CPU为例子，寻址空间4GB，在Linux中按照1-3分，1GB留给操作系统，剩下的3GB留到进程空间中；windows则是默认2-2，可以在Boot.ini下修改。</p>
 <blockquote>
 <p>硬件上来说，Intel后面修改了处理器的页映射方式，32位地址线扩展至36位，这种扩展方式也被叫做PAE。对于操作系统来说，一般都是需要用到时再交换进去，理解为交换区。对应windows下的AWE与Linux下的mmap机制</p>
 </blockquote>
-<h4 id="1-装载入内存的方法"><a href="#1-装载入内存的方法" class="headerlink" title="1. 装载入内存的方法"></a>1. 装载入内存的方法</h4><ul>
+<h4 id="装载入内存的方法"><a href="#装载入内存的方法" class="headerlink" title="装载入内存的方法"></a>装载入内存的方法</h4><ul>
 <li><p>静态装入：不多bb，直接梭哈全都放内存</p>
 </li>
 <li><p>动态装入：最常用的部分驻留在内存中，不太常用的放在磁盘里面。经典的有覆盖装入和页映射</p>
@@ -313,7 +313,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="2-装载过程"><a href="#2-装载过程" class="headerlink" title="2. 装载过程"></a>2. 装载过程</h4><ul>
+<h4 id="装载过程"><a href="#装载过程" class="headerlink" title="装载过程"></a>装载过程</h4><ul>
 <li><p>创建独立的虚拟地址空间：在32位Linux下分配一个页目录即可，实现的是物理内存与虚拟空间之间的映射</p>
 </li>
 <li><p>读取可执行文件头，并建立虚拟空间与可执行文件的映射关系：在系统创建进程/任务时，会有专门的内核空间中的结构体对该程序的虚拟空间做记录，记录程序中段的偏移与其应该加载到内存中的位置</p>
@@ -331,7 +331,7 @@
 <p>这里不对”Section”和”Segment”做区分，段和节换着用，内容理解即可。<code>readelf -S xxx.elf</code>读取文件的节区头表（程序时）。<code>readelf -l xxx.elf</code>读取文件的程序头表（运行时）</p>
 </blockquote>
 <p>在真正装载到内存之后，还有其他的VMA/虚拟段（由于不存在于文件中，需要加个”匿名的“前缀）被分配用来作为程序的堆栈，以及与操作系统的交流空间（Linux下的vdso区-内核空间）</p>
-<h4 id="3-Linux内核装载ELF文件"><a href="#3-Linux内核装载ELF文件" class="headerlink" title="3. Linux内核装载ELF文件"></a>3. Linux内核装载ELF文件</h4><ol>
+<h4 id="Linux内核装载ELF文件"><a href="#Linux内核装载ELF文件" class="headerlink" title="Linux内核装载ELF文件"></a>Linux内核装载ELF文件</h4><ol>
 <li><p>终端bash中输入命令，用户层面bash进程调用fork()创建一个新进程，新进程调用execve()系统调用执行指定的ELF文件，原先的父bash返回等待输入</p>
 </li>
 <li><p>exeve调用后进入到内核，其入口是<code>sys_execve()</code>用于检查参数。之后来到<code>do_execve()</code>，首先查找被执行文件并读取前128字节。</p>
@@ -352,7 +352,7 @@
 <li><p>第四步执行完后返回到<code>do_execve()</code>再返回到<code>sys_execve()</code>，从内核态变回用户态，EIP寄存器跳转到了ELF程序入口地址，新程序执行。</p>
 </li>
 </ol>
-<h4 id="4-Windows装载PE文件"><a href="#4-Windows装载PE文件" class="headerlink" title="4. Windows装载PE文件"></a>4. Windows装载PE文件</h4><p>由于PE文件中有RVA、VA等概念，所以PE文件可以装载到任意位置。此外相比于ELF来说PE文件的段较少，也就没有所谓的段和节的概念，而是在内存中尽可能的合并</p>
+<h4 id="Windows装载PE文件"><a href="#Windows装载PE文件" class="headerlink" title="Windows装载PE文件"></a>Windows装载PE文件</h4><p>由于PE文件中有RVA、VA等概念，所以PE文件可以装载到任意位置。此外相比于ELF来说PE文件的段较少，也就没有所谓的段和节的概念，而是在内存中尽可能的合并</p>
 <ol>
 <li>读取文件第一个页，其中包含了DOS头、NT头和段表</li>
 <li>检查进程地址空间中目标地址是否可用，不可用则另选一个装载地址。</li>
@@ -363,13 +363,13 @@
 <li>根据PE头指定的参数建立初始化堆栈</li>
 <li>建立主线程并启动进程</li>
 </ol>
-<h3 id="0x05-动态链接"><a href="#0x05-动态链接" class="headerlink" title="0x05.动态链接"></a>0x05.动态链接</h3><p>前面我们介绍了静态链接，他有如下几个缺点：内存中多个进程都要用到相同的代码，也就是静态链接了同一个文件到多个进程中；静态库更新成本巨大。于是有了动态链接，所谓的动态就是将链接过程放在了装载时进行。</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>前面我们介绍了静态链接，他有如下几个缺点：内存中多个进程都要用到相同的代码，也就是静态链接了同一个文件到多个进程中；静态库更新成本巨大。于是有了动态链接，所谓的动态就是将链接过程放在了装载时进行。</p>
 <blockquote>
 <p>通俗来讲就是装载主模块的时候再将目标文件装载到内存中并由动态链接器链接，供给一个或者多个进程使用。插件一般都是这么来的，也完美诠释了模块化的思想。</p>
 </blockquote>
 <p>Linux下ELF动态链接文件称为“动态共享对象”/“共享对象”一般以.so结尾。在windows中被叫做动态链接库.dll。Linux下glibc的动态链接形式在/lib下的<code>libc.so</code></p>
 <p>当然因为需要在装载时额外开费时间装载动态链接库，因此性能上会稍有下降。</p>
-<h4 id="1-Linux下动态链接"><a href="#1-Linux下动态链接" class="headerlink" title="1. Linux下动态链接"></a>1. Linux下动态链接</h4><p><code>gcc -shared</code>用于指定输出为共享对象。需要注意的是，虽然是在主程序装载时，才需要链接该共享对象，但是在编译生成主程序时依然需要指定共享对象，否则编译器无法知道其中的外部函数究竟怎么操作<code>gcc -o xx a.c ./b.so</code>，so库中含有完整的符号信息</p>
+<h4 id="Linux下动态链接"><a href="#Linux下动态链接" class="headerlink" title="Linux下动态链接"></a>Linux下动态链接</h4><p><code>gcc -shared</code>用于指定输出为共享对象。需要注意的是，虽然是在主程序装载时，才需要链接该共享对象，但是在编译生成主程序时依然需要指定共享对象，否则编译器无法知道其中的外部函数究竟怎么操作<code>gcc -o xx a.c ./b.so</code>，so库中含有完整的符号信息</p>
 <blockquote>
 <p>静态链接库中的函数则需要重定位；动态链接库中的函数则对相应符号做一个动态链接的标记，暂时不重定位，装载时再进行</p>
 </blockquote>
@@ -453,7 +453,7 @@
 <li><code>strip libooxx.so</code>去掉符号信息，ld的<code>-s</code>，<code>-S</code>参数，gcc的<code>-Wl，-s</code>和<code>-Wl,-S</code></li>
 <li><code>ldconfig -n shared_lib_dir</code>指定共享库位置</li>
 </ul>
-<h4 id="2-Windows下动态链接"><a href="#2-Windows下动态链接" class="headerlink" title="2.Windows下动态链接"></a>2.Windows下动态链接</h4><p>DLL即动态链接库，其扩展名不一定是.dll，.ocx或.cpl都是一种DLL文件，与EXE文件一样都是PE格式文件。在win下DLL常用于运行时加载，相关WINAPI：<code>LoadLibrary</code>、<code>GetProcAddress</code>、<code>FreeLibrary</code></p>
+<h4 id="Windows下动态链接"><a href="#Windows下动态链接" class="headerlink" title="Windows下动态链接"></a>Windows下动态链接</h4><p>DLL即动态链接库，其扩展名不一定是.dll，.ocx或.cpl都是一种DLL文件，与EXE文件一样都是PE格式文件。在win下DLL常用于运行时加载，相关WINAPI：<code>LoadLibrary</code>、<code>GetProcAddress</code>、<code>FreeLibrary</code></p>
 <p><strong>有关概念</strong></p>
 <ul>
 <li>基地址：PE文件被装载时，其进程空间的起始地址，ImageBase，EXE默认0x400000；DLL默认0x10000000</li>
@@ -497,7 +497,7 @@
 <blockquote>
 <p>前提：DLL的导出函数地址不变，并且在装载时没有发生重定位。一般通过在PE的导入表中保存每个DLL的时间戳和校验和，在运行时由OS核对被装载的DLL和绑定时的DLL是否相同</p>
 </blockquote>
-<h3 id="0x06-内存"><a href="#0x06-内存" class="headerlink" title="0x06.内存"></a>0x06.内存</h3><p>在32位中，Linux默认高1GB给内核，Windows则是默认高2GB。剩下的空间都叫内存空间，默认有如下区域：（Linux）</p>
+<h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><p>在32位中，Linux默认高1GB给内核，Windows则是默认高2GB。剩下的空间都叫内存空间，默认有如下区域：（Linux）</p>
 <ul>
 <li>栈0xc0000000：维护函数调用上下文；位于用户空间最高处，向低地址方向生长</li>
 <li>动态链接库映射区0x40000000：装载共享库</li>
@@ -505,7 +505,7 @@
 <li>可执行文件映像：由装载器将可执行文件读取至该位置</li>
 <li>保留区：多个区域的统称，因为受到内存保护而不能访问</li>
 </ul>
-<h4 id="1-栈"><a href="#1-栈" class="headerlink" title="1. 栈"></a>1. 栈</h4><p>在i386上，栈顶由esp寄存器保存，栈底由ebp保存，因为是高地址向低生长的，故压栈使栈顶减小（sub esp）</p>
+<h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>在i386上，栈顶由esp寄存器保存，栈底由ebp保存，因为是高地址向低生长的，故压栈使栈顶减小（sub esp）</p>
 <p><strong>堆栈帧</strong>：也叫活动记录，用于保存一个函数调用所需要的维护信息，内容如下</p>
 <ul>
 <li>函数的返回地址和参数</li>
@@ -584,7 +584,7 @@
 <blockquote>
 <p>C语言默认cdecl，也可以gcc下<code>__attribute(())</code>设置</p>
 </blockquote>
-<h4 id="2-堆"><a href="#2-堆" class="headerlink" title="2. 堆"></a>2. 堆</h4><p>一般都是程序预先向操作系统申请一块大小适当的堆空间，之后由程序自己管理（运行库）这块空间，不够了再申请</p>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>一般都是程序预先向操作系统申请一块大小适当的堆空间，之后由程序自己管理（运行库）这块空间，不够了再申请</p>
 <p><strong>Windows堆结构</strong></p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-255546.htm">Windows内存堆内容整理总结</a>，下面这里讲的都是传统的NT堆。</p>
@@ -633,7 +633,7 @@
 <li>位图：堆划分为块，有头/主体/空闲三种状态，两位表示一个块的使用情况，头表示开始-主体表示已分配</li>
 <li>对象池：整个堆空间划分为大量不同大小的块，需要的时候请求对应大小</li>
 </ul>
-<h3 id="0x07-函数执行"><a href="#0x07-函数执行" class="headerlink" title="0x07.函数执行"></a>0x07.函数执行</h3><ol>
+<h3 id="函数执行"><a href="#函数执行" class="headerlink" title="函数执行"></a>函数执行</h3><ol>
 <li>操作系统创建进程后，控制权交给程序入口（PE/ELF文件中某一项），该入口一般是运行库中某个函数</li>
 <li>入口函数完成运行库和程序运行环境初始化（堆、IO、线程等）</li>
 <li>入口函数初始化后调用main</li>
@@ -650,7 +650,7 @@
 <li>调用main并记录返回值<code>mainret = main(__argc,__argv,_environ)</code></li>
 <li>检查错误并将main的返回值返回</li>
 </ol>
-<h3 id="0x08-复杂的CPP"><a href="#0x08-复杂的CPP" class="headerlink" title="0x08.复杂的CPP"></a>0x08.复杂的CPP</h3><p><strong>标准库</strong></p>
+<h3 id="复杂的CPP"><a href="#复杂的CPP" class="headerlink" title="复杂的CPP"></a>复杂的CPP</h3><p><strong>标准库</strong></p>
 <p>ANSI对c的标准叫做标准库，glibc和MSVC CRT都是依赖于不同OS上的扩展后运行库</p>
 <p><strong>cpp符号名修饰</strong></p>
 <p>在CPP的命名空间中有函数签名机制，不同的编译器使用不同的名称修饰方法，使得每个函数签名对应一个修饰后的名称，也就是最终的符号名。为了向后兼容C，<code>extern &quot;C&quot;&#123;&#125;</code>中可以直接当做C代码处理，也就是不会用上面所说的修饰方法，而是根据编译器来判定是否有下划线</p>
@@ -683,7 +683,7 @@
 <li>不在DLL中申请内存并且在DLL外释放</li>
 </ul>
 <p><strong>cpp的调用惯例</strong>：对于传统的c的调用惯例有所改变，也有独特的thiscall，会随着编译器的不同而改变</p>
-</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/OS/">OS</a><a class="post-meta__tags" href="/tags/Re/">Re</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="OS of 王道"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS of 王道</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" title="密码学及相关应用"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">密码学及相关应用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">0x01.计算机体系简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E5%A6%82%E4%BD%95%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">0x02.如何从代码到程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">1. 预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%BC%96%E8%AF%91"><span class="toc-number">2.2.</span> <span class="toc-text">2. 编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B1%87%E7%BC%96"><span class="toc-number">2.3.</span> <span class="toc-text">3. 汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%93%BE%E6%8E%A5"><span class="toc-number">2.4.</span> <span class="toc-text">4. 链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">0x03.静态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">1. 什么是符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%93%BE%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">2. 链接的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text">3. 如何控制链接过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-%E8%A3%85%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">0x04.装载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%A3%85%E8%BD%BD%E5%85%A5%E5%86%85%E5%AD%98%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">1. 装载入内存的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A3%85%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">2. 装载过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Linux%E5%86%85%E6%A0%B8%E8%A3%85%E8%BD%BDELF%E6%96%87%E4%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">3. Linux内核装载ELF文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Windows%E8%A3%85%E8%BD%BDPE%E6%96%87%E4%BB%B6"><span class="toc-number">4.4.</span> <span class="toc-text">4. Windows装载PE文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">0x05.动态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Linux%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.1.</span> <span class="toc-text">1. Linux下动态链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Windows%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.2.</span> <span class="toc-text">2.Windows下动态链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-%E5%86%85%E5%AD%98"><span class="toc-number">6.</span> <span class="toc-text">0x06.内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A0%88"><span class="toc-number">6.1.</span> <span class="toc-text">1. 栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A0%86"><span class="toc-number">6.2.</span> <span class="toc-text">2. 堆</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x07-%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C"><span class="toc-number">7.</span> <span class="toc-text">0x07.函数执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x08-%E5%A4%8D%E6%9D%82%E7%9A%84CPP"><span class="toc-number">8.</span> <span class="toc-text">0x08.复杂的CPP</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zy0t1.github.io">Zy0t1</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zy0t1.github.io/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/">http://zy0t1.github.io/2024/01/31/%E7%BC%96%E9%93%BE%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://zy0t1.github.io" target="_blank">Zy0t1's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/OS/">OS</a><a class="post-meta__tags" href="/tags/Re/">Re</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="OS of 王道"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS of 王道</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/07/%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A6%82%E8%BF%B0/" title="密码学及相关应用"><img class="cover" src="https://s2.loli.net/2024/08/08/lJhAQOvR6n5GtjE.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">密码学及相关应用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Zy0t1</div><div class="author-info__description">中二次元晚期</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zy0t1"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zy0t1" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:wy1078041755@163.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_62036500" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">计算机体系简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%88%B0%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">如何从代码到程序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">2.2.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%87%E7%BC%96"><span class="toc-number">2.3.</span> <span class="toc-text">汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-number">2.4.</span> <span class="toc-text">链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">静态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">什么是符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">链接的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E9%93%BE%E6%8E%A5%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text">如何控制链接过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">装载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A3%85%E8%BD%BD%E5%85%A5%E5%86%85%E5%AD%98%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.1.</span> <span class="toc-text">装载入内存的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A3%85%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">装载过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E5%86%85%E6%A0%B8%E8%A3%85%E8%BD%BDELF%E6%96%87%E4%BB%B6"><span class="toc-number">4.3.</span> <span class="toc-text">Linux内核装载ELF文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows%E8%A3%85%E8%BD%BDPE%E6%96%87%E4%BB%B6"><span class="toc-number">4.4.</span> <span class="toc-text">Windows装载PE文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">动态链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.1.</span> <span class="toc-text">Linux下动态链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows%E4%B8%8B%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">5.2.</span> <span class="toc-text">Windows下动态链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-number">6.</span> <span class="toc-text">内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">6.1.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A0%86"><span class="toc-number">6.2.</span> <span class="toc-text">堆</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C"><span class="toc-number">7.</span> <span class="toc-text">函数执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E7%9A%84CPP"><span class="toc-number">8.</span> <span class="toc-text">复杂的CPP</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Zy0t1</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
   window.MathJax = {
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']],
